@@ -1,0 +1,289 @@
+/* Custom Keyframes */
+@keyframes slideUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideRight {
+    0% {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes zoomIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.95) translateY(10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* Base class for animated elements to prevent "flashing" */
+.reveal {
+    opacity: 0;
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    animation-duration: 0.7s;
+}
+
+/* Animation Variants */
+.animate-up {
+    animation-name: slideUp;
+}
+
+.animate-right {
+    animation-name: slideRight;
+}
+
+.animate-zoom {
+    animation-name: zoomIn;
+}
+
+/* Custom Delays */
+.delay-100 {
+    animation-delay: 100ms;
+}
+
+.delay-200 {
+    animation-delay: 200ms;
+}
+
+.delay-300 {
+    animation-delay: 300ms;
+}
+
+.delay-400 {
+    animation-delay: 400ms;
+}
+
+.delay-500 {
+    animation-delay: 500ms;
+}
+
+@layer components {
+    .glass-card {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+
+
+        background: rgba(255, 255, 255, 0.02);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow:
+            0 4px 24px -1px rgba(0, 0, 0, 0.2),
+            inset 0 1px 1px rgba(255, 255, 255, 0.05);
+    }
+
+    /* Make the active step actually glow */
+    /* .step-active {
+        background-color: white;
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+        border: none;
+    } */
+}
+
+/* Smooth height transition for the card */
+.form-container {
+    transition: height 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+
+/* shining texts */
+
+@keyframes shine {
+    0% {
+        background-position: -100% center;
+    }
+
+    100% {
+        background-position: 100% center;
+    }
+}
+
+.shining-text {
+    /* Create a gradient: gray -> white -> gray */
+    background: linear-gradient(to right,
+            rgba(255, 255, 255, 0.4) 20%,
+            rgba(255, 255, 255, 1) 50%,
+            rgba(255, 255, 255, 0.4) 80%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    /* Animation settings */
+    animation: shine 3s linear infinite;
+    display: inline-block;
+}
+
+/* "rise up" slightly when the user hovers over the card */
+/* Smoothly lift icon on Hover (via Tailwind group-hover) or when Selected */
+.option-card:hover .submerged-icon,
+.option-card.selected .submerged-icon {
+    transform: translateY(-5px);
+    /* Slightly more than the Tailwind -translate-y-2 */
+    opacity: 0.5;
+    /* Makes it pop a bit more when active */
+}
+
+/* Ensure the return journey is just as smooth */
+.submerged-icon {
+    transition: transform 0.6s ease, opacity 0.4s ease;
+}
+
+
+@keyframes indicatorPop {
+    0% {
+        opacity: 0;
+        transform: translateY(8px) scale(0.8);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.animate-indicator {
+    animation: indicatorPop 0.4s ease-out forwards;
+}
+
+/* Ensure smooth transitions for the glow and size */
+.dot,
+.step-line {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 
+ */
+
+/* Rolling Dots Animation */
+.loading-container {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-left: 8px;
+}
+
+.dot-bounce {
+    width: 6px;
+    height: 6px;
+    background-color: white;
+    border-radius: 50%;
+    display: inline-block;
+    animation: dot-jump 1.4s infinite ease-in-out both;
+}
+
+.dot-bounce:nth-child(1) {
+    animation-delay: -0.32s;
+}
+
+.dot-bounce:nth-child(2) {
+    animation-delay: -0.16s;
+}
+
+@keyframes dot-jump {
+
+    0%,
+    80%,
+    100% {
+        transform: translateY(0);
+        opacity: 0.3;
+    }
+
+    40% {
+        transform: translateY(-6px);
+        opacity: 1;
+    }
+}
+
+/* sign up steps animation */
+/* Smoothly hide elements that shouldn't show until the end */
+.redirectNow,
+.info-footer {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.7s ease-in-out;
+    pointer-events: none;
+}
+
+.show-final {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    pointer-events: auto !important;
+}
+
+/* Text Transition Physics */
+.step-exit {
+    opacity: 0 !important;
+    transform: translateY(20px) !important;
+    transition: all 0.5s ease-in !important;
+}
+
+.step-enter {
+    opacity: 0 !important;
+    transform: translateY(-20px) !important;
+}
+
+.step-active {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+/*  */
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-4px);
+    }
+
+    75% {
+        transform: translateX(4px);
+    }
+}
+
+.animate-shake {
+    animation: shake 0.2s ease-in-out 0s 2;
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50%) scale(0.8);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(-50%) scale(1);
+    }
+}

@@ -1,0 +1,57 @@
+ /*! tailwindcss v4.1.17 | MIT License | https://tailwindcss.com */
+ @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+ @layer properties;
+ @layer theme, base, components, utilities;
+
+ :root,
+ :host {
+   --font-sans: 'Poppins', sans-serif;
+ }
+
+ * {
+   font-family: var(--font-sans);
+   scrollbar-width: none;
+ }
+
+ .blured {
+   filter: blur(2px);
+ }
+
+ .searchBar {
+   padding: 8px 12px !important;
+   font-size: small !important;
+ }
+
+ .circbtn {
+   height: 25px;
+   width: 25px;
+   font-size: small !important;
+   background: white !important;
+   color: black !important;
+ }
+
+ .modalPosition {
+   display: flex;
+   padding: 40px;
+   justify-content: center;
+ }
+
+ .hide-scrollbar::-webkit-scrollbar {
+   display: none;
+ }
+
+ .hide-scrollbar {
+   -ms-overflow-style: none;
+   scrollbar-width: none;
+ }
+
+ @keyframes loading {
+   from {
+     width: 0%;
+   }
+
+   to {
+     width: 100%;
+   }
+ }
+

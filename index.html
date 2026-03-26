@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation Portal</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .nav-container {
+            text-align: center;
+            background: white;
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 500px;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 2rem;
+        }
+
+        .button-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .nav-button {
+            padding: 15px 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+            text-decoration: none;
+        }
+
+        .nav-button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        .nav-button:active {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="nav-container">
+        <h2>Select a local View</h2>
+        <div class="button-grid">
+            <a href="file:///C:/Users/1/Desktop/matager%20platform/Client/Dashboard/shopifytestui.html"
+                class="nav-button">Client Dashboard View</a>
+            <a href="file:///C:/Users/1/Desktop/matager%20platform/Client/website/index.html"
+                class="nav-button">Customer Website View</a>
+            <a href="file:///C:/Users/1/Desktop/matager%20platform/Management/index.html" class="nav-button">Admin
+                Portal View</a>
+            <a href="file:///C:/Users/1/Desktop/matager%20platform/landing/index.html" class="nav-button">Landing Suite
+                View</a>
+        </div>
+    </div>
+    <div class="nav-container">
+        <h2>Select a public View</h2>
+        <div class="button-grid">
+            <a href="https://mataager.github.io/App/Client/Dashboard/index.html" class="nav-button">Client Dashboard
+                View</a>
+            <a href="https://mataager.github.io/App/Client/website/index.html" class="nav-button">Customer Website
+                View</a>
+            <a href="https://mataager.github.io/App/Management/index.html" class="nav-button">Admin Portal View</a>
+            <a href="https://mataager.github.io/App/landing/index.html" class="nav-button">Landing Suite View</a>
+        </div>
+    </div>
+
+</body>
+
+</html>
