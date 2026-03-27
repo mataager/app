@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Matager | Customer Storefront</title>
+    <link rel="icon" type="image/png" href="./favicon/favico.png" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
@@ -98,13 +99,13 @@
     <nav class="fixed top-3 z-50 glass left-1/2 -translate-x-1/2 w-[90%] max-w-[30rem] rounded-full px-6 py-4">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <div class="flex items-center gap-2 font-bold text-[14px] tracking-tighter">
-                Brand logo
+                Store Name ...
             </div>
 
 
             <div class="flex items-center gap-4">
                 <button onclick="toggleTheme()"
-                    class="w-10 h-10 rounded-full glass flex items-center justify-center hover:scale-110 transition">
+                    class="w-10 h-10 rounded-full glass flex items-center justify-center transition">
                     <i id="theme-icon" class="bi bi-moon-stars"></i>
                 </button>
             </div>
@@ -141,85 +142,195 @@
                 <button class="text-sm font-bold text-blue-500">View All <i class="bi bi-arrow-right"></i></button>
             </div>
 
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="glass p-4 rounded-[2rem] group cursor-pointer">
-                    <div
-                        class="aspect-square rounded-[1.5rem] bg-gradient-to-br from-white/5 to-transparent mb-4 overflow-hidden relative">
-                        <div
-                            class="absolute inset-0 flex items-center justify-center opacity-40 group-hover:scale-110 transition-transform duration-500">
-                            <i class="bi bi-headset text-6xl"></i>
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-4 lg:gap-6">
+                <div class="glass rounded-[2rem] group cursor-pointer overflow-hidden transition-all duration-300">
+
+                    <div class="aspect-square rounded-t-[2rem] mb-4 overflow-hidden relative">
+
+                        <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-110"
+                            style="background-image: url('https://assets.adidas.com/images/w_1880,f_auto,q_auto/a4ff4a779ee34deca8cc9a6f1f411440_9366/KC6611_HM1.jpg');">
                         </div>
-                        <div class="absolute top-3 right-3 glass w-8 h-8 rounded-full flex items-center justify-center">
-                            <i class="bi bi-heart text-xs"></i>
+
+                        <div
+                            class="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors duration-300">
+                        </div>
+
+                        <div
+                            class="absolute top-3 right-3 glass w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 active:scale-90 group/heart cursor-pointer">
+                            <i
+                                class="bi bi-heart text-xs absolute transition-all duration-300 group-hover/heart:opacity-0 group-hover/heart:scale-50"></i>
+
+                            <i
+                                class="bi bi-heart-fill text-xs text-red-500 absolute scale-0 opacity-0 transition-all duration-300 group-hover/heart:scale-100 group-hover/heart:opacity-100"></i>
                         </div>
                     </div>
-                    <h4 class="font-bold mb-1">Sonic Pro Headphones</h4>
-                    <p class="text-xs mb-3" style="color: var(--text-muted);">Electronics & Sound</p>
-                    <div class="flex justify-between items-center">
-                        <span class="font-bold text-blue-500">$299.00</span>
-                        <button
-                            class="bg-white text-black w-8 h-8 rounded-full flex items-center justify-center hover:bg-blue-500 hover:text-white transition">
-                            <i class="bi bi-plus-lg"></i>
-                        </button>
+
+                    <div class="px-4 pb-4">
+                        <h4 class="font-bold mb-1">Adidas classic t-shirt</h4>
+                        <p class="text-xs mb-3 opacity-70">ADIDAS</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-blue-500">$299.00</span>
+                            <button
+                                class="glass w-8 h-8 rounded-full flex items-center justify-center hover:bg-blue-500 hover:text-white transition-all transform active:scale-90">
+                                <i class="bi bi-plus-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass rounded-[2rem] group cursor-pointer overflow-hidden transition-all duration-300">
+
+                    <div class="aspect-square rounded-t-[2rem] mb-4 overflow-hidden relative">
+
+                        <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-110"
+                            style="background-image: url('https://assets.adidas.com/images/w_1880,f_auto,q_auto/a4ff4a779ee34deca8cc9a6f1f411440_9366/KC6611_HM1.jpg');">
+                        </div>
+
+                        <div
+                            class="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors duration-300">
+                        </div>
+
+                        <div
+                            class="absolute top-3 right-3 glass w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 active:scale-90 group/heart cursor-pointer">
+                            <i
+                                class="bi bi-heart text-xs absolute transition-all duration-300 group-hover/heart:opacity-0 group-hover/heart:scale-50"></i>
+
+                            <i
+                                class="bi bi-heart-fill text-xs text-red-500 absolute scale-0 opacity-0 transition-all duration-300 group-hover/heart:scale-100 group-hover/heart:opacity-100"></i>
+                        </div>
+                    </div>
+
+                    <div class="px-4 pb-4">
+                        <h4 class="font-bold mb-1">Adidas classic t-shirt</h4>
+                        <p class="text-xs mb-3 opacity-70">ADIDAS</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-blue-500">$299.00</span>
+                            <button
+                                class="glass w-8 h-8 rounded-full flex items-center justify-center hover:bg-blue-500 hover:text-white transition-all transform active:scale-90">
+                                <i class="bi bi-plus-lg"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
 
-                <div class="glass p-4 rounded-[2rem] group cursor-pointer">
-                    <div
-                        class="aspect-square rounded-[1.5rem] bg-gradient-to-br from-white/5 to-transparent mb-4 overflow-hidden relative">
+
+                <div
+                    class="product-card glass rounded-[2rem] group cursor-pointer overflow-hidden transition-all duration-500 relative">
+
+                    <div class="aspect-square rounded-t-[2rem] overflow-hidden relative">
+                        <div class="absolute inset-0 bg-cover bg-center transition-transform duration-1000 ease-out group-hover:scale-110"
+                            style="background-image: url('https://assets.adidas.com/images/w_1880,f_auto,q_auto/a4ff4a779ee34deca8cc9a6f1f411440_9366/KC6611_HM1.jpg');">
+                        </div>
+
                         <div
-                            class="absolute inset-0 flex items-center justify-center opacity-40 group-hover:scale-110 transition-transform duration-500">
-                            <i class="bi bi-watch text-6xl"></i>
+                            class="absolute top-3 right-3 glass w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 active:scale-90 group/heart cursor-pointer">
+                            <i
+                                class="bi bi-heart text-xs absolute transition-all duration-300 group-hover/heart:opacity-0 group-hover/heart:scale-50"></i>
+
+                            <i
+                                class="bi bi-heart-fill text-xs text-red-500 absolute scale-0 opacity-0 transition-all duration-300 group-hover/heart:scale-100 group-hover/heart:opacity-100"></i>
+                        </div>
+
+                        <div
+                            class="quick-shop-overlay absolute inset-0 bg-black/70 backdrop-blur-lg translate-y-full opacity-0 transition-all duration-500 ease-in-out z-30 flex flex-col justify-end p-4 pb-8 sm:p-6 sm:justify-center items-center space-y-3">
+
+                            <button
+                                class="w-full h-14 sm:h-auto py-3.5 bg-blue-600 text-white rounded-2xl font-bold hover:bg-blue-700 transition active:scale-[0.97] translate-y-8 opacity-0 transition-all duration-500 delay-[100ms] overlay-content flex items-center justify-center gap-3 shadow-lg shadow-blue-500/20">
+                                <i class="bi bi-cart-plus text-lg"></i>
+                                <span class="text-base">Add to Cart</span>
+                            </button>
+
+                            <button
+                                class="w-full h-14 sm:h-auto py-3.5 bg-white text-black rounded-2xl font-bold hover:bg-gray-100 transition active:scale-[0.97] translate-y-8 opacity-0 transition-all duration-500 delay-[150ms] overlay-content text-base shadow-lg">
+                                Quick Buy
+                            </button>
+
+                            <div
+                                class="flex w-full translate-y-8 opacity-0 transition-all duration-500 delay-[200ms] overlay-content">
+                                <button
+                                    class="w-full h-12 py-2.5 bg-white/15 backdrop-blur-md border border-white/20 text-white rounded-2xl font-medium hover:bg-white/25 transition flex items-center justify-center gap-2 text-sm active:bg-white/30">
+                                    <i class="bi bi-eye"></i> Quick Look
+                                </button>
+                            </div>
                         </div>
                     </div>
-                    <h4 class="font-bold mb-1">Astra Smart Watch</h4>
-                    <p class="text-xs mb-3" style="color: var(--text-muted);">Wearables</p>
-                    <div class="flex justify-between items-center">
-                        <span class="font-bold text-blue-500">$149.00</span>
-                        <button
-                            class="bg-white text-black w-8 h-8 rounded-full flex items-center justify-center hover:bg-blue-500 hover:text-white transition">
-                            <i class="bi bi-plus-lg"></i>
-                        </button>
+
+                    <div class="p-5 relative z-40">
+                        <h4 class="font-bold text-lg mb-1">Adidas classic t-shirt</h4>
+                        <p class="text-xs mb-4 opacity-60 tracking-widest uppercase">ADIDAS</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-xl text-blue-500 tracking-tight">$299.00</span>
+
+                            <button onclick="toggleOverlay(this, event)"
+                                class="plus-btn glass w-10 h-10 rounded-full flex items-center justify-center hover:bg-blue-500 hover:text-white transition-all duration-500 transform active:scale-90">
+                                <i
+                                    class="bi bi-plus-lg transition-transform duration-500 ease-in-out icon-to-rotate text-xl"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
 
-                <div class="glass p-4 rounded-[2rem] group cursor-pointer">
-                    <div
-                        class="aspect-square rounded-[1.5rem] bg-gradient-to-br from-white/5 to-transparent mb-4 overflow-hidden relative">
-                        <div
-                            class="absolute inset-0 flex items-center justify-center opacity-40 group-hover:scale-110 transition-transform duration-500">
-                            <i class="bi bi-lamp text-6xl"></i>
-                        </div>
-                    </div>
-                    <h4 class="font-bold mb-1">Lumina Minimal Desk Lamp</h4>
-                    <p class="text-xs mb-3" style="color: var(--text-muted);">Home Decor</p>
-                    <div class="flex justify-between items-center">
-                        <span class="font-bold text-blue-500">$85.00</span>
-                        <button
-                            class="bg-white text-black w-8 h-8 rounded-full flex items-center justify-center hover:bg-blue-500 hover:text-white transition">
-                            <i class="bi bi-plus-lg"></i>
-                        </button>
-                    </div>
-                </div>
+                <style>
+                    /* 1. The Slide-Up logic */
+                    .quick-active .quick-shop-overlay {
+                        transform: translateY(0);
+                        opacity: 1;
+                    }
 
-                <div class="glass p-4 rounded-[2rem] group cursor-pointer">
-                    <div
-                        class="aspect-square rounded-[1.5rem] bg-gradient-to-br from-white/5 to-transparent mb-4 overflow-hidden relative">
-                        <div
-                            class="absolute inset-0 flex items-center justify-center opacity-40 group-hover:scale-110 transition-transform duration-500">
-                            <i class="bi bi-backpack text-6xl"></i>
-                        </div>
-                    </div>
-                    <h4 class="font-bold mb-1">Urban Explorer Pack</h4>
-                    <p class="text-xs mb-3" style="color: var(--text-muted);">Accessories</p>
-                    <div class="flex justify-between items-center">
-                        <span class="font-bold text-blue-500">$120.00</span>
-                        <button
-                            class="bg-white text-black w-8 h-8 rounded-full flex items-center justify-center hover:bg-blue-500 hover:text-white transition">
-                            <i class="bi bi-plus-lg"></i>
-                        </button>
-                    </div>
-                </div>
+                    /* 2. The Content Stagger logic (Slide up + Fade in) */
+                    .quick-active .overlay-content {
+                        transform: translateY(0);
+                        opacity: 1;
+                    }
+
+                    /* 3. The Icon Rotation logic */
+                    .quick-active .icon-to-rotate {
+                        transform: rotate(135deg);
+                        /* 135deg makes a clean 'X' from a '+' */
+                        color: #ef4444;
+                        /* Optional: turn the X red when active */
+                    }
+
+                    /* Ensure the button stays white/glass when active */
+                    .quick-active .plus-btn {
+                        background: white;
+                        color: black;
+                    }
+                </style>
+
+                <script>
+                    function toggleOverlay(btn) {
+                        // Stop propagation so the document listener doesn't immediately close it
+                        event.stopPropagation();
+
+                        const card = btn.closest('.product-card');
+                        const isActive = card.classList.contains('quick-active');
+
+                        // Professional touch: Close all other open cards first
+                        document.querySelectorAll('.product-card').forEach(c => {
+                            c.classList.remove('quick-active');
+                        });
+
+                        // Toggle the current card only if it wasn't already active
+                        if (!isActive) {
+                            card.classList.add('quick-active');
+                        }
+                    }
+
+                    // Close overlay when clicking anywhere outside the product card
+                    document.addEventListener('click', (event) => {
+                        const isClickInsideCard = event.target.closest('.product-card');
+
+                        if (!isClickInsideCard) {
+                            document.querySelectorAll('.product-card').forEach(card => {
+                                card.classList.remove('quick-active');
+                            });
+                        }
+                    });
+                </script>
+
+
+
+
             </div>
         </section>
     </main>
@@ -274,9 +385,9 @@
             <button onclick="toggleMenu()" id="main-trigger" class="nav-bubble-main group">
                 <div class="relative w-6 h-6 flex items-center justify-center">
                     <i id="home-icon"
-                        class="bi bi-house-door-fill text-blue-500 text-xl absolute transition-all duration-500"></i>
+                        class="bi bi-house-door-fill text-blue-500 absolute transition-all duration-500"></i>
                     <i id="close-icon"
-                        class="bi bi-x-lg text-white text-xl absolute opacity-0 scale-50 rotate-90 transition-all duration-500"></i>
+                        class="bi bi-x text-white absolute opacity-0 scale-50 rotate-90 transition-all duration-500"></i>
                 </div>
                 <span id="trigger-text" class="bubble-label !text-blue-500">Home</span>
                 <div
@@ -291,8 +402,8 @@
         .nav-bubble,
         .nav-bubble-main {
             position: absolute;
-            width: 56px;
-            height: 56px;
+            width: 48px;
+            height: 48px;
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
