@@ -96,7 +96,7 @@
             style="opacity: var(--blur-opacity);"></div>
     </div>
 
-    <nav class="fixed top-3 z-50 glass left-1/2 -translate-x-1/2 w-[90%] max-w-[30rem] rounded-full px-6 py-4">
+    <!-- <nav class="fixed top-3 z-50 glass left-1/2 -translate-x-1/2 w-[90%] max-w-[30rem] rounded-full px-6 py-4">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <div class="flex items-center gap-2 font-bold text-[14px] tracking-tighter">
                 Store Name ...
@@ -108,6 +108,61 @@
                     class="w-10 h-10 rounded-full glass flex items-center justify-center transition">
                     <i id="theme-icon" class="bi bi-moon-stars"></i>
                 </button>
+            </div>
+        </div>
+    </nav> -->
+
+    <nav id="main-nav"
+        class="fixed top-3 z-50 glass left-1/2 -translate-x-1/2 w-[90%] max-w-[30rem] rounded-[2rem] px-6 py-4 transition-all duration-500 overflow-hidden">
+        <div class="max-w-7xl mx-auto flex justify-between items-center transition-all duration-500" id="nav-header">
+            <div class="flex items-center gap-2 font-bold text-[14px] tracking-tighter text-slate-900 dark:text-white">
+                Store Name ...
+            </div>
+
+            <div class="flex items-center gap-4">
+                <button onclick="toggleTheme()"
+                    class="w-10 h-10 rounded-full glass flex items-center justify-center transition border border-black/5 dark:border-white/10">
+                    <i id="theme-icon" class="bi bi-moon-stars"></i>
+                </button>
+                <button onclick="closeQuickLook()" id="close-quicklook"
+                    class="hidden w-10 h-10 rounded-full bg-red-500/10 text-red-500 flex items-center justify-center transition">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="product-details" class="opacity-0 max-h-0 transition-all duration-500 translate-y-4">
+            <hr class="my-4 border-black/10 dark:border-white/10">
+
+            <div class="grid grid-cols-2 gap-4 pb-4">
+                <div class="aspect-square rounded-2xl bg-cover bg-center border border-black/5 dark:border-white/10"
+                    id="ql-image" style="background-image: url('')"></div>
+
+                <div class="flex flex-col justify-between py-1">
+                    <div>
+                        <h3 id="ql-title" class="font-bold text-sm dark:text-white">Product Title</h3>
+                        <p id="ql-price" class="text-blue-600 dark:text-blue-400 font-bold text-xs mt-1">EGP 0.00</p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <p class="text-[10px] uppercase opacity-50 dark:text-white font-bold tracking-widest">Select
+                            Size
+                        </p>
+                        <div class="flex gap-2">
+                            <button
+                                class="w-7 h-7 rounded-lg border border-black/10 dark:border-white/20 text-[10px] dark:text-white flex items-center justify-center hover:bg-blue-600 hover:text-white transition">S</button>
+                            <button
+                                class="w-7 h-7 rounded-lg border border-black/10 dark:border-white/20 text-[10px] dark:text-white flex items-center justify-center hover:bg-blue-600 hover:text-white transition">M</button>
+                            <button
+                                class="w-7 h-7 rounded-lg border border-black/10 dark:border-white/20 text-[10px] dark:text-white flex items-center justify-center hover:bg-blue-600 hover:text-white transition">L</button>
+                        </div>
+                    </div>
+
+                    <button
+                        class="w-full py-2 bg-slate-900 dark:bg-white text-white dark:text-black rounded-xl font-bold text-[11px] mt-2 active:scale-95 transition">
+                        Add to Bag
+                    </button>
+                </div>
             </div>
         </div>
     </nav>
@@ -143,79 +198,10 @@
             </div>
 
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-4 lg:gap-6">
-                <div class="glass rounded-[2rem] group cursor-pointer overflow-hidden transition-all duration-300">
-
-                    <div class="aspect-square rounded-t-[2rem] mb-4 overflow-hidden relative">
-
-                        <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-110"
-                            style="background-image: url('https://assets.adidas.com/images/w_1880,f_auto,q_auto/a4ff4a779ee34deca8cc9a6f1f411440_9366/KC6611_HM1.jpg');">
-                        </div>
-
-                        <div
-                            class="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors duration-300">
-                        </div>
-
-                        <div
-                            class="absolute top-3 right-3 glass w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 active:scale-90 group/heart cursor-pointer">
-                            <i
-                                class="bi bi-heart text-xs absolute transition-all duration-300 group-hover/heart:opacity-0 group-hover/heart:scale-50"></i>
-
-                            <i
-                                class="bi bi-heart-fill text-xs text-red-500 absolute scale-0 opacity-0 transition-all duration-300 group-hover/heart:scale-100 group-hover/heart:opacity-100"></i>
-                        </div>
-                    </div>
-
-                    <div class="px-4 pb-4">
-                        <h4 class="font-bold mb-1">Adidas classic t-shirt</h4>
-                        <p class="text-xs mb-3 opacity-70">ADIDAS</p>
-                        <div class="flex justify-between items-center">
-                            <span class="font-bold text-blue-500">$299.00</span>
-                            <button
-                                class="glass w-8 h-8 rounded-full flex items-center justify-center hover:bg-blue-500 hover:text-white transition-all transform active:scale-90">
-                                <i class="bi bi-plus-lg"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="glass rounded-[2rem] group cursor-pointer overflow-hidden transition-all duration-300">
-
-                    <div class="aspect-square rounded-t-[2rem] mb-4 overflow-hidden relative">
-
-                        <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-110"
-                            style="background-image: url('https://assets.adidas.com/images/w_1880,f_auto,q_auto/a4ff4a779ee34deca8cc9a6f1f411440_9366/KC6611_HM1.jpg');">
-                        </div>
-
-                        <div
-                            class="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors duration-300">
-                        </div>
-
-                        <div
-                            class="absolute top-3 right-3 glass w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 active:scale-90 group/heart cursor-pointer">
-                            <i
-                                class="bi bi-heart text-xs absolute transition-all duration-300 group-hover/heart:opacity-0 group-hover/heart:scale-50"></i>
-
-                            <i
-                                class="bi bi-heart-fill text-xs text-red-500 absolute scale-0 opacity-0 transition-all duration-300 group-hover/heart:scale-100 group-hover/heart:opacity-100"></i>
-                        </div>
-                    </div>
-
-                    <div class="px-4 pb-4">
-                        <h4 class="font-bold mb-1">Adidas classic t-shirt</h4>
-                        <p class="text-xs mb-3 opacity-70">ADIDAS</p>
-                        <div class="flex justify-between items-center">
-                            <span class="font-bold text-blue-500">$299.00</span>
-                            <button
-                                class="glass w-8 h-8 rounded-full flex items-center justify-center hover:bg-blue-500 hover:text-white transition-all transform active:scale-90">
-                                <i class="bi bi-plus-lg"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
 
 
-                <div
-                    class="product-card glass rounded-[2rem] group cursor-pointer overflow-hidden transition-all duration-500 relative">
-
+                <div class="product-card glass rounded-[2rem] group cursor-pointer overflow-hidden transition-all duration-500 relative w-full"
+                    onclick="toggleOverlay(this, event)">
                     <div class="aspect-square rounded-t-[2rem] overflow-hidden relative">
                         <div class="absolute inset-0 bg-cover bg-center transition-transform duration-1000 ease-out group-hover:scale-110"
                             style="background-image: url('https://assets.adidas.com/images/w_1880,f_auto,q_auto/a4ff4a779ee34deca8cc9a6f1f411440_9366/KC6611_HM1.jpg');">
@@ -225,49 +211,65 @@
                             class="absolute top-3 right-3 glass w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 active:scale-90 group/heart cursor-pointer">
                             <i
                                 class="bi bi-heart text-xs absolute transition-all duration-300 group-hover/heart:opacity-0 group-hover/heart:scale-50"></i>
-
                             <i
                                 class="bi bi-heart-fill text-xs text-red-500 absolute scale-0 opacity-0 transition-all duration-300 group-hover/heart:scale-100 group-hover/heart:opacity-100"></i>
                         </div>
 
                         <div
-                            class="quick-shop-overlay absolute inset-0 bg-black/70 backdrop-blur-lg translate-y-full opacity-0 transition-all duration-500 ease-in-out z-30 flex flex-col justify-end p-4 pb-8 sm:p-6 sm:justify-center items-center space-y-3">
-
+                            class="quick-shop-overlay absolute inset-0 bg-black/60 backdrop-blur-xl translate-y-full opacity-0 transition-all duration-500 ease-in-out z-30 flex flex-col justify-center items-center p-4 space-y-2">
                             <button
-                                class="w-full h-14 sm:h-auto py-3.5 bg-blue-600 text-white rounded-2xl font-bold hover:bg-blue-700 transition active:scale-[0.97] translate-y-8 opacity-0 transition-all duration-500 delay-[100ms] overlay-content flex items-center justify-center gap-3 shadow-lg shadow-blue-500/20">
-                                <i class="bi bi-cart-plus text-lg"></i>
-                                <span class="text-base">Add to Cart</span>
+                                class="w-full py-2 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 transition active:scale-95 translate-y-4 opacity-0 transition-all duration-500 delay-[100ms] overlay-content flex items-center justify-center gap-2 text-[12px]">
+                                <i class="bi bi-bag-plus"></i> Add to Bag
                             </button>
-
                             <button
-                                class="w-full h-14 sm:h-auto py-3.5 bg-white text-black rounded-2xl font-bold hover:bg-gray-100 transition active:scale-[0.97] translate-y-8 opacity-0 transition-all duration-500 delay-[150ms] overlay-content text-base shadow-lg">
+                                class="w-full py-2 bg-white text-black rounded-xl font-semibold hover:bg-gray-100 transition active:scale-95 translate-y-4 opacity-0 transition-all duration-500 delay-[150ms] overlay-content text-[12px]">
                                 Quick Buy
                             </button>
-
-                            <div
-                                class="flex w-full translate-y-8 opacity-0 transition-all duration-500 delay-[200ms] overlay-content">
-                                <button
-                                    class="w-full h-12 py-2.5 bg-white/15 backdrop-blur-md border border-white/20 text-white rounded-2xl font-medium hover:bg-white/25 transition flex items-center justify-center gap-2 text-sm active:bg-white/30">
-                                    <i class="bi bi-eye"></i> Quick Look
-                                </button>
-                            </div>
+                            <button onclick="openQuickLook('PROD_001')"
+                                class="w-full py-2 bg-white/10 backdrop-blur-md border border-white/10 text-white/90 rounded-xl font-medium hover:bg-white/20 transition flex items-center justify-center gap-2 text-[12px] active:bg-white/30">
+                                <i class="bi bi-eye text-[12px]"></i> Quick Look
+                            </button>
                         </div>
                     </div>
 
-                    <div class="p-5 relative z-40">
-                        <h4 class="font-bold text-lg mb-1">Adidas classic t-shirt</h4>
-                        <p class="text-xs mb-4 opacity-60 tracking-widest uppercase">ADIDAS</p>
-                        <div class="flex justify-between items-center">
-                            <span class="font-bold text-xl text-blue-500 tracking-tight">$299.00</span>
+                    <div class="p-4 sm:p-5 relative z-40">
+                        <h4 class="font-bold mb-1 text-sm truncate">Adidas classic t-shirt</h4>
+                        <p class="text-[10px] mb-3 opacity-50 tracking-widest uppercase">ADIDAS</p>
+
+                        <div class="flex justify-between items-end gap-2">
+
+                            <div class="flex flex-col gap-1.5 min-w-0">
+                                <div
+                                    class="flex items-center rounded-lg overflow-hidden glass border border-white/10 w-fit shrink-0">
+                                    <span
+                                        class="bg-red-600 text-white text-[9px] font-black px-2 py-1.5 uppercase flex items-center h-full">
+                                        -50%
+                                    </span>
+                                    <span class="text-[10px] font-bold px-2 py-1 tracking-widest whitespace-nowrap">
+                                        EGP 1,290
+                                    </span>
+                                </div>
+
+                                <div class="flex flex-wrap items-center gap-x-2 gap-y-1 ml-0.5">
+                                    <span class="text-[9px] line-through opacity-50 whitespace-nowrap">EGP
+                                        2,590</span>
+                                    <span class="hidden xs:block h-1 w-1 rounded-full bg-white/20"></span>
+                                    <span
+                                        class="text-[9px] text-emerald-500 font-semibold flex items-center gap-1 whitespace-nowrap">
+                                        <i class="bi bi-truck text-[11px]"></i> Free Shipping
+                                    </span>
+                                </div>
+                            </div>
 
                             <button onclick="toggleOverlay(this, event)"
-                                class="plus-btn glass w-10 h-10 rounded-full flex items-center justify-center hover:bg-blue-500 hover:text-white transition-all duration-500 transform active:scale-90">
+                                class="plus-btn glass w-9 h-9 shrink-0 rounded-full flex items-center justify-center hover:bg-white hover:text-black transition-all duration-500 transform active:scale-90 shadow-xl border border-white/10">
                                 <i
-                                    class="bi bi-plus-lg transition-transform duration-500 ease-in-out icon-to-rotate text-xl"></i>
+                                    class="bi bi-plus-lg transition-transform duration-500 ease-in-out icon-to-rotate text-xs"></i>
                             </button>
                         </div>
                     </div>
                 </div>
+
 
                 <style>
                     /* 1. The Slide-Up logic */
@@ -508,6 +510,53 @@
             }
         }
     </script>
+
+    <script>
+        function openQuickLook(productId) {
+            const nav = document.getElementById('main-nav');
+            const details = document.getElementById('product-details');
+            const header = document.getElementById('nav-header');
+            const closeBtn = document.getElementById('close-quicklook');
+            const themeBtn = document.querySelector('button[onclick="toggleTheme()"]');
+
+            // 1. Shrink X-Padding and Expand Nav
+            nav.classList.remove('px-6', 'py-4');
+            nav.classList.add('px-4', 'py-4', 'max-w-[32rem]'); // Slightly wider for details
+
+            // 2. Show Product Details
+            details.classList.remove('opacity-0', 'max-h-0', 'translate-y-4');
+            details.classList.add('opacity-100', 'max-h-[500px]', 'translate-y-0');
+
+            // 3. Toggle Buttons
+            closeBtn.classList.remove('hidden');
+            themeBtn.classList.add('hidden');
+
+            // 4. Future: Fetch product data by ID
+            // For now, let's just simulate filling data
+            document.getElementById('ql-title').innerText = "Adidas classic t-shirt";
+            document.getElementById('ql-price').innerText = "EGP 1,290";
+            document.getElementById('ql-image').style.backgroundImage =
+                "url('https://assets.adidas.com/images/w_1880,f_auto,q_auto/a4ff4a779ee34deca8cc9a6f1f411440_9366/KC6611_HM1.jpg')";
+        }
+
+        function closeQuickLook() {
+            const nav = document.getElementById('main-nav');
+            const details = document.getElementById('product-details');
+            const closeBtn = document.getElementById('close-quicklook');
+            const themeBtn = document.querySelector('button[onclick="toggleTheme()"]');
+
+            // Reverse the classes
+            nav.classList.add('px-6', 'py-4');
+            nav.classList.remove('px-4', 'max-w-[32rem]');
+
+            details.classList.add('opacity-0', 'max-h-0', 'translate-y-4');
+            details.classList.remove('opacity-100', 'max-h-[500px]', 'translate-y-0');
+
+            closeBtn.classList.add('hidden');
+            themeBtn.classList.remove('hidden');
+        }
+    </script>
+
 </body>
 
 </html>
