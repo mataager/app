@@ -84,6 +84,20 @@
         .bottom-nav {
             box-shadow: 0 -10px 25px -5px rgba(0, 0, 0, 0.1);
         }
+
+        #product-details {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            max-height: 0;
+            overflow: hidden;
+            /* Critical for height animation */
+        }
+
+        #product-details.is-open {
+            max-height: 1000px;
+            /* Large enough to fit content */
+            opacity: 1;
+            transform: scale(1);
+        }
     </style>
 </head>
 
@@ -96,26 +110,11 @@
             style="opacity: var(--blur-opacity);"></div>
     </div>
 
-    <!-- <nav class="fixed top-3 z-50 glass left-1/2 -translate-x-1/2 w-[90%] max-w-[30rem] rounded-full px-6 py-4">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <div class="flex items-center gap-2 font-bold text-[14px] tracking-tighter">
-                Store Name ...
-            </div>
-
-
-            <div class="flex items-center gap-4">
-                <button onclick="toggleTheme()"
-                    class="w-10 h-10 rounded-full glass flex items-center justify-center transition">
-                    <i id="theme-icon" class="bi bi-moon-stars"></i>
-                </button>
-            </div>
-        </div>
-    </nav> -->
 
     <nav id="main-nav"
         class="fixed top-3 z-50 glass left-1/2 -translate-x-1/2 w-[90%] max-w-[30rem] rounded-[2rem] px-6 py-4 transition-all duration-500 overflow-hidden">
         <div class="max-w-7xl mx-auto flex justify-between items-center transition-all duration-500" id="nav-header">
-            <div class="flex items-center gap-2 font-bold text-[14px] tracking-tighter text-slate-900 dark:text-white">
+            <div class="flex items-center gap-2 font-bold text-[14px] tracking-tighter ">
                 Store Name ...
             </div>
 
@@ -131,37 +130,124 @@
             </div>
         </div>
 
-        <div id="product-details" class="opacity-0 max-h-0 transition-all duration-500 translate-y-4">
-            <hr class="my-4 border-black/10 dark:border-white/10">
+        <!-- <div id="product-details" class="hidden opacity-0 scale-95 transition-all duration-500 ease-out">
+            <hr class="my-4 border-black/5 dark:border-white/5">
 
             <div class="grid grid-cols-2 gap-4 pb-4">
-                <div class="aspect-square rounded-2xl bg-cover bg-center border border-black/5 dark:border-white/10"
-                    id="ql-image" style="background-image: url('')"></div>
+                <div class="relative group">
+                    <div id="ql-image-container"
+                        class="flex overflow-x-auto snap-x snap-mandatory rounded-2xl border border-black/5 dark:border-white/10 scrollbar-thin-blue overflow-y-hidden">
+                    </div>
+                </div>
 
                 <div class="flex flex-col justify-between py-1">
                     <div>
-                        <h3 id="ql-title" class="font-bold text-sm dark:text-white">Product Title</h3>
-                        <p id="ql-price" class="text-blue-600 dark:text-blue-400 font-bold text-xs mt-1">EGP 0.00</p>
-                    </div>
-
-                    <div class="space-y-2">
-                        <p class="text-[10px] uppercase opacity-50 dark:text-white font-bold tracking-widest">Select
-                            Size
-                        </p>
-                        <div class="flex gap-2">
-                            <button
-                                class="w-7 h-7 rounded-lg border border-black/10 dark:border-white/20 text-[10px] dark:text-white flex items-center justify-center hover:bg-blue-600 hover:text-white transition">S</button>
-                            <button
-                                class="w-7 h-7 rounded-lg border border-black/10 dark:border-white/20 text-[10px] dark:text-white flex items-center justify-center hover:bg-blue-600 hover:text-white transition">M</button>
-                            <button
-                                class="w-7 h-7 rounded-lg border border-black/10 dark:border-white/20 text-[10px] dark:text-white flex items-center justify-center hover:bg-blue-600 hover:text-white transition">L</button>
+                        <h3 id="ql-title" class="font-bold text-sm dark:text-white leading-tight">Product Title</h3>
+                        <div class="flex items-center gap-2 mt-1">
+                            <p id="ql-price" class="text-blue-600 dark:text-blue-400 font-bold text-sm">EGP 0.00</p>
+                            <p id="ql-old-price" class="text-[10px] line-through opacity-40 dark:text-white">EGP 0.00
+                            </p>
+                            <span id="ql-discount"
+                                class="bg-red-500/10 text-red-500 text-[9px] px-1.5 py-0.5 rounded-md font-bold">-0%</span>
                         </div>
                     </div>
 
-                    <button
-                        class="w-full py-2 bg-slate-900 dark:bg-white text-white dark:text-black rounded-xl font-bold text-[11px] mt-2 active:scale-95 transition">
-                        Add to Bag
-                    </button>
+                    <div class="space-y-3">
+                        <div>
+                            <p class="text-[9px] uppercase opacity-40 dark:text-white font-bold tracking-widest mb-1.5">
+                                Select
+                                Size</p>
+                            <div class="flex gap-1.5" id="size-options">
+                                <button
+                                    class="w-8 h-8 rounded-lg border border-black/10 dark:border-white/10 text-[10px] dark:text-white flex items-center justify-center hover:bg-blue-600 hover:border-blue-600 hover:text-white transition-all active:scale-90">S</button>
+                                <button
+                                    class="w-8 h-8 rounded-lg border border-black/10 dark:border-white/10 text-[10px] dark:text-white flex items-center justify-center hover:bg-blue-600 hover:border-blue-600 hover:text-white transition-all active:scale-90">M</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2 mt-2">
+                        <button
+                            class="w-full py-2.5 bg-slate-900 dark:bg-white text-white dark:text-black rounded-xl font-bold text-[11px] active:scale-95 transition-all shadow-lg shadow-black/5">
+                            Quick Buy
+                        </button>
+                        <button
+                            class="w-full py-2.5 border border-black/10 dark:border-white/10 dark:text-white rounded-xl font-bold text-[11px] active:scale-95 transition-all">
+                            Add to Bag
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
+        <div id="product-details" class="hidden opacity-0 scale-95 transition-all duration-500 ease-out">
+            <hr class="my-4 border-black/5 dark:border-white/5">
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pb-4">
+
+                <div class="relative group">
+                    <div id="ql-image-container"
+                        class="flex overflow-x-auto snap-x snap-mandatory rounded-2xl border border-black/5 dark:border-white/10 scrollbar-thin-blue overflow-y-hidden aspect-square">
+                    </div>
+                    <div
+                        class="absolute top-3 left-3 bg-white/90 dark:bg-black/80 backdrop-blur px-2 py-1 rounded-lg flex items-center gap-1 shadow-sm">
+                        <span class="text-[10px] font-bold dark:text-white">4.8</span>
+                        <svg class="w-2.5 h-2.5 text-yellow-500 fill-current" viewBox="0 0 20 20">
+                            <path
+                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="flex flex-col justify-between py-1">
+                    <div class="space-y-1">
+                        <h3 id="ql-title" class="font-bold text-base md:text-sm dark:text-white leading-tight">Product
+                            Title
+                        </h3>
+                        <div class="flex items-center gap-2">
+                            <p id="ql-price" class="text-blue-600 dark:text-blue-400 font-bold text-sm">EGP 0.00</p>
+                            <p id="ql-old-price" class="text-[10px] line-through opacity-40 dark:text-white">EGP 0.00
+                            </p>
+                            <span id="ql-discount"
+                                class="bg-red-500/10 text-red-500 text-[9px] px-1.5 py-0.5 rounded-md font-bold">-0%</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4 my-4 md:my-0">
+                        <div>
+                            <p class="text-[9px] uppercase opacity-40 dark:text-white font-bold tracking-widest mb-2">
+                                Color</p>
+                            <div class="flex gap-2">
+                                <button
+                                    class="w-5 h-5 rounded-full ring-1 ring-offset-2 ring-blue-600 bg-white border border-black/10"></button>
+                                <button class="w-5 h-5 rounded-full bg-slate-900 border border-white/10"></button>
+                                <button class="w-5 h-5 rounded-full bg-blue-500 border border-white/10"></button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <p class="text-[9px] uppercase opacity-40 dark:text-white font-bold tracking-widest mb-2">
+                                Select
+                                Size</p>
+                            <div class="flex gap-1.5" id="size-options">
+                                <button
+                                    class="w-9 h-9 md:w-8 md:h-8 rounded-lg border border-black/10 dark:border-white/10 text-[10px] dark:text-white flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all active:scale-90">S</button>
+                                <button
+                                    class="w-9 h-9 md:w-8 md:h-8 rounded-lg border border-black/10 dark:border-white/10 text-[10px] dark:text-white flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all active:scale-90">M</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2 mt-2">
+                        <button
+                            class="w-full py-3 md:py-2.5 bg-slate-900 dark:bg-white text-white dark:text-black rounded-xl font-bold text-[11px] active:scale-95 transition-all shadow-lg shadow-black/5">
+                            Quick Buy
+                        </button>
+                        <button
+                            class="w-full py-3 md:py-2.5 border border-black/10 dark:border-white/10 dark:text-white rounded-xl font-bold text-[11px] active:scale-95 transition-all">
+                            Add to Bag
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -260,12 +346,6 @@
                                     </span>
                                 </div>
                             </div>
-
-                            <button onclick="toggleOverlay(this, event)"
-                                class="plus-btn glass w-9 h-9 shrink-0 rounded-full flex items-center justify-center hover:bg-white hover:text-black transition-all duration-500 transform active:scale-90 shadow-xl border border-white/10">
-                                <i
-                                    class="bi bi-plus-lg transition-transform duration-500 ease-in-out icon-to-rotate text-xs"></i>
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -515,48 +595,90 @@
         function openQuickLook(productId) {
             const nav = document.getElementById('main-nav');
             const details = document.getElementById('product-details');
-            const header = document.getElementById('nav-header');
+            const overlay = document.getElementById('nav-overlay');
+            const radial = document.getElementById('radial-wrapper');
             const closeBtn = document.getElementById('close-quicklook');
             const themeBtn = document.querySelector('button[onclick="toggleTheme()"]');
 
-            // 1. Shrink X-Padding and Expand Nav
-            nav.classList.remove('px-6', 'py-4');
-            nav.classList.add('px-4', 'py-4', 'max-w-[32rem]'); // Slightly wider for details
+            // 1. Handle Overlay and Radial Menu State
+            overlay.classList.add('active', 'opacity-100', 'pointer-events-auto');
 
-            // 2. Show Product Details
-            details.classList.remove('opacity-0', 'max-h-0', 'translate-y-4');
-            details.classList.add('opacity-100', 'max-h-[500px]', 'translate-y-0');
+            radial.style.transition = "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)";
+            radial.classList.add('opacity-0', 'pointer-events-none', 'scale-90', '-translate-y-4');
+            radial.style.zIndex = "0";
 
-            // 3. Toggle Buttons
-            closeBtn.classList.remove('hidden');
-            themeBtn.classList.add('hidden');
+            // 2. Expand Navigation Container
+            details.classList.remove('hidden');
 
-            // 4. Future: Fetch product data by ID
-            // For now, let's just simulate filling data
+            // Smooth responsive width adjustment
+            const isMobile = window.innerWidth < 768;
+
+            setTimeout(() => {
+                nav.classList.remove('px-6', 'py-4');
+                nav.classList.add('px-4', 'py-4');
+
+                // PC gets the limit, Mobile fills the screen
+                nav.style.maxWidth = isMobile ? "calc(100vw - 2rem)" : "65rem";
+
+                // details.classList.remove('opacity-0', 'scale-95');
+                // details.classList.add('opacity-100', 'scale-100');
+
+                details.classList.add('is-open');
+                details.classList.remove('opacity-0', 'scale-95');
+
+                closeBtn.classList.remove('hidden');
+                themeBtn.classList.add('hidden');
+            }, 10);
+
+            // 3. Inject Content
+            const images = [
+                'https://assets.adidas.com/images/w_1880,f_auto,q_auto/a4ff4a779ee34deca8cc9a6f1f411440_9366/KC6611_HM1.jpg',
+                'https://assets.adidas.com/images/w_1880,f_auto,q_auto/1f0135cfef624e779735b6390f38c98b_9366/KC6611_HM5.jpg'
+            ];
+            document.getElementById('ql-image-container').innerHTML = images.map(src => `<img src="${src}" class="ql-slide snap-center">`).join('');
             document.getElementById('ql-title').innerText = "Adidas classic t-shirt";
             document.getElementById('ql-price').innerText = "EGP 1,290";
-            document.getElementById('ql-image').style.backgroundImage =
-                "url('https://assets.adidas.com/images/w_1880,f_auto,q_auto/a4ff4a779ee34deca8cc9a6f1f411440_9366/KC6611_HM1.jpg')";
         }
 
         function closeQuickLook() {
             const nav = document.getElementById('main-nav');
             const details = document.getElementById('product-details');
+            const overlay = document.getElementById('nav-overlay');
+            const radial = document.getElementById('radial-wrapper');
             const closeBtn = document.getElementById('close-quicklook');
             const themeBtn = document.querySelector('button[onclick="toggleTheme()"]');
 
-            // Reverse the classes
+            // 1. Start the Shrink: Trigger CSS transitions (height, opacity, scale)
+            details.classList.remove('is-open');
+            details.classList.add('opacity-0', 'scale-95');
+
+            // 2. Smoothly reset the Nav Container width and padding
+            // This happens simultaneously with the height collapse
             nav.classList.add('px-6', 'py-4');
-            nav.classList.remove('px-4', 'max-w-[32rem]');
+            nav.classList.remove('px-4');
+            nav.style.maxWidth = ""; // Transitions back to the default CSS pill width
 
-            details.classList.add('opacity-0', 'max-h-0', 'translate-y-4');
-            details.classList.remove('opacity-100', 'max-h-[500px]', 'translate-y-0');
+            // 3. Restore the Radial Menu
+            // We remove the transform and opacity filters to bring it back to life
+            radial.classList.remove('opacity-0', 'pointer-events-none', 'scale-90', '-translate-y-4');
+            radial.style.zIndex = "50";
 
+            // 4. Deactivate the Overlay
+            overlay.classList.remove('active', 'opacity-100', 'pointer-events-auto');
+
+            // 5. Clean Up: Wait for the 500ms CSS transition to finish before setting 'hidden'
+            // This prevents the element from disappearing instantly and breaking the animation
+            setTimeout(() => {
+                if (!details.classList.contains('is-open')) {
+                    details.classList.add('hidden');
+                }
+            }, 500);
+
+            // Toggle UI buttons immediately for responsiveness
             closeBtn.classList.add('hidden');
             themeBtn.classList.remove('hidden');
         }
     </script>
-
 </body>
 
 </html>
