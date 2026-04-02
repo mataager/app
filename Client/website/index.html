@@ -85,16 +85,22 @@
             box-shadow: 0 -10px 25px -5px rgba(0, 0, 0, 0.1);
         }
 
+
+
+        #search-view,
+        #cart-view,
         #product-details {
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 500ms cubic-bezier(0.4, 0, 0.2, 1);
             max-height: 0;
             overflow: hidden;
-            /* Critical for height animation */
+            opacity: 0;
         }
 
+        #search-view.is-open,
+        #cart-view.is-open,
         #product-details.is-open {
-            max-height: 1000px;
-            /* Large enough to fit content */
+            max-height: 800px;
+            /* Adjust based on content */
             opacity: 1;
             transform: scale(1);
         }
@@ -123,62 +129,13 @@
                     class="w-10 h-10 rounded-full glass flex items-center justify-center transition border border-black/5 dark:border-white/10">
                     <i id="theme-icon" class="bi bi-moon-stars"></i>
                 </button>
-                <button onclick="closeQuickLook()" id="close-quicklook"
+                <button onclick="closeAllViews()()" id="close-quicklook"
                     class="hidden w-10 h-10 rounded-full bg-red-500/10 text-red-500 flex items-center justify-center transition">
                     <i class="bi bi-x-lg"></i>
                 </button>
             </div>
         </div>
 
-        <!-- <div id="product-details" class="hidden opacity-0 scale-95 transition-all duration-500 ease-out">
-            <hr class="my-4 border-black/5 dark:border-white/5">
-
-            <div class="grid grid-cols-2 gap-4 pb-4">
-                <div class="relative group">
-                    <div id="ql-image-container"
-                        class="flex overflow-x-auto snap-x snap-mandatory rounded-2xl border border-black/5 dark:border-white/10 scrollbar-thin-blue overflow-y-hidden">
-                    </div>
-                </div>
-
-                <div class="flex flex-col justify-between py-1">
-                    <div>
-                        <h3 id="ql-title" class="font-bold text-sm dark:text-white leading-tight">Product Title</h3>
-                        <div class="flex items-center gap-2 mt-1">
-                            <p id="ql-price" class="text-blue-600 dark:text-blue-400 font-bold text-sm">EGP 0.00</p>
-                            <p id="ql-old-price" class="text-[10px] line-through opacity-40 dark:text-white">EGP 0.00
-                            </p>
-                            <span id="ql-discount"
-                                class="bg-red-500/10 text-red-500 text-[9px] px-1.5 py-0.5 rounded-md font-bold">-0%</span>
-                        </div>
-                    </div>
-
-                    <div class="space-y-3">
-                        <div>
-                            <p class="text-[9px] uppercase opacity-40 dark:text-white font-bold tracking-widest mb-1.5">
-                                Select
-                                Size</p>
-                            <div class="flex gap-1.5" id="size-options">
-                                <button
-                                    class="w-8 h-8 rounded-lg border border-black/10 dark:border-white/10 text-[10px] dark:text-white flex items-center justify-center hover:bg-blue-600 hover:border-blue-600 hover:text-white transition-all active:scale-90">S</button>
-                                <button
-                                    class="w-8 h-8 rounded-lg border border-black/10 dark:border-white/10 text-[10px] dark:text-white flex items-center justify-center hover:bg-blue-600 hover:border-blue-600 hover:text-white transition-all active:scale-90">M</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="space-y-2 mt-2">
-                        <button
-                            class="w-full py-2.5 bg-slate-900 dark:bg-white text-white dark:text-black rounded-xl font-bold text-[11px] active:scale-95 transition-all shadow-lg shadow-black/5">
-                            Quick Buy
-                        </button>
-                        <button
-                            class="w-full py-2.5 border border-black/10 dark:border-white/10 dark:text-white rounded-xl font-bold text-[11px] active:scale-95 transition-all">
-                            Add to Bag
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div> -->
 
         <div id="product-details" class="hidden opacity-0 scale-95 transition-all duration-500 ease-out">
             <hr class="my-4 border-black/5 dark:border-white/5">
@@ -199,7 +156,7 @@
                     </div>
                 </div>
 
-                <div class="flex flex-col justify-between py-1">
+                <div class="flex flex-col gap-5 py-1">
                     <div class="space-y-1">
                         <h3 id="ql-title" class="font-bold text-base md:text-sm dark:text-white leading-tight">Product
                             Title
@@ -251,6 +208,68 @@
                 </div>
             </div>
         </div>
+
+        <div id="search-view" class="hidden opacity-0 scale-95 transition-all duration-500 ease-out overflow-hidden">
+            <hr class="my-4 border-black/5 dark:border-white/5">
+            <div class="px-2 pb-4">
+                <div class="relative group">
+                    <input type="text" placeholder="Search products..."
+                        class="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl py-3 px-4 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all dark:text-white">
+                </div>
+                <div class="mt-4 space-y-2 max-h-[300px] overflow-y-auto">
+                    <p class="text-[10px] uppercase opacity-40 dark:text-white font-bold tracking-widest px-1">Recent
+                        Searches
+                    </p>
+                    <div
+                        class="flex items-center gap-3 p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg cursor-pointer transition-all">
+                        <div class="w-10 h-10 rounded-md bg-gray-200 dark:bg-zinc-800 bg-cover bg-center"
+                            style="background-image: url('https://assets.adidas.com/images/w_1880,f_auto,q_auto/a4ff4a779ee34deca8cc9a6f1f411440_9366/KC6611_HM1.jpg')">
+                        </div>
+                        <span class="text-sm dark:text-white font-medium">Adidas classic t-shirt</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="cart-view" class="hidden opacity-0 scale-95 transition-all duration-500 ease-out overflow-hidden">
+            <hr class="my-4 border-black/5 dark:border-white/5">
+            <div class="px-2 pb-4 space-y-4">
+                <div id="cart-items" class="max-h-[300px] overflow-y-auto space-y-4">
+                    <div class="flex justify-between items-center p-2 rounded-lg bg-white/5">
+                        <div class="flex gap-3">
+                            <div
+                                class="w-12 h-12 rounded-xl border border-black/5 dark:border-white/10 overflow-hidden bg-gray-100">
+                                <img src="https://assets.adidas.com/images/w_1880,f_auto,q_auto/a4ff4a779ee34deca8cc9a6f1f411440_9366/KC6611_HM1.jpg"
+                                    class="object-cover h-full w-full">
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold dark:text-white leading-tight">Adidas classic t-shirt</p>
+                                <div class="flex items-center gap-2 mt-1">
+                                    <p class="text-[9px] uppercase font-bold text-black/40 dark:text-white/40">M</p>
+                                    <div
+                                        class="w-2 h-2 rounded-full bg-blue-500 border border-black/10 dark:border-white/20">
+                                    </div>
+                                    <p class="text-[9px] font-bold text-black/40 dark:text-white/40">Blue</p>
+                                </div>
+                                <p class="text-[10px] text-blue-500 font-bold mt-0.5">EGP 1,290</p>
+                            </div>
+                        </div>
+                        <button class="text-red-500 opacity-50 hover:opacity-100 transition-all text-xs">Remove</button>
+                    </div>
+                </div>
+                <div class="pt-4 border-t border-black/5 dark:border-white/5">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-xs font-bold dark:text-white opacity-50 uppercase">Total</span>
+                        <span class="text-sm font-bold dark:text-white">EGP 1,290</span>
+                    </div>
+                    <button
+                        class="w-full py-3 bg-blue-600 text-white rounded-xl font-bold text-xs active:scale-95 transition-all">
+                        Checkout Now
+                    </button>
+                </div>
+            </div>
+        </div>
+
     </nav>
 
     <main class="flex flex-col items-center px-4 pt-32 gap-20">
@@ -439,7 +458,8 @@
     <div id="radial-wrapper" class="fixed bottom-10 left-1/2 -translate-x-1/2 z-50">
         <div class="relative flex items-center justify-center">
 
-            <a href="#" class="nav-bubble" style="--angle: 190deg; --dist: 110px; --delay: 0.1s;">
+            <a href="#" class="nav-bubble" onclick="openSearch()"
+                style="--angle: 190deg; --dist: 110px; --delay: 0.1s;">
                 <i class="bi bi-search"></i>
                 <span class="bubble-label">Search</span>
             </a>
@@ -449,7 +469,7 @@
                 <span class="bubble-label">Items</span>
             </a>
 
-            <a href="#" class="nav-bubble" style="--angle: 270deg; --dist: 135px; --delay: 0.2s;">
+            <a href="#" class="nav-bubble" onclick="openCart()" style="--angle: 270deg; --dist: 135px; --delay: 0.2s;">
                 <i class="bi bi-bag"></i>
                 <span class="bubble-label">Cart</span>
             </a>
@@ -592,6 +612,93 @@
     </script>
 
     <script>
+        // Generic function to open any sub-view in the nav
+        function openNavView(viewId, targetWidth = "34rem") {
+            const nav = document.getElementById('main-nav');
+            const targetView = document.getElementById(viewId);
+            const overlay = document.getElementById('nav-overlay');
+            const radial = document.getElementById('radial-wrapper');
+            const closeBtn = document.getElementById('close-quicklook');
+            const themeBtn = document.querySelector('button[onclick="toggleTheme()"]');
+
+            // Hide any other views that might be open
+            ['product-details', 'search-view', 'cart-view'].forEach(id => {
+                const view = document.getElementById(id);
+                if (id !== viewId) {
+                    view.classList.add('hidden', 'opacity-0', 'scale-95');
+                    view.classList.remove('is-open');
+                }
+            });
+
+            // 1. Deactivate Radial & Show Overlay
+            overlay.classList.add('active', 'opacity-100', 'pointer-events-auto');
+            radial.style.transition = "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)";
+            radial.classList.add('opacity-0', 'pointer-events-none', 'scale-90', '-translate-y-4');
+            radial.style.zIndex = "0";
+
+            // 2. Prepare Target View
+            targetView.classList.remove('hidden');
+
+            setTimeout(() => {
+                nav.classList.remove('px-6', 'py-4');
+                nav.classList.add('px-4', 'py-4');
+
+                const isMobile = window.innerWidth < 768;
+                nav.style.maxWidth = isMobile ? "calc(100vw - 2rem)" : targetWidth;
+
+                targetView.classList.add('is-open');
+                targetView.classList.remove('opacity-0', 'scale-95');
+
+                closeBtn.classList.remove('hidden');
+                themeBtn.classList.add('hidden');
+            }, 10);
+        }
+
+        // Helper functions for specific triggers
+        function openSearch() {
+            openNavView('search-view', '30rem');
+        }
+
+        function openCart() {
+            openNavView('cart-view', '28rem');
+        }
+
+        // Updated close function to handle any active view
+        function closeAllViews() {
+            const nav = document.getElementById('main-nav');
+            const views = ['product-details', 'search-view', 'cart-view'];
+            const overlay = document.getElementById('nav-overlay');
+            const radial = document.getElementById('radial-wrapper');
+            const closeBtn = document.getElementById('close-quicklook');
+            const themeBtn = document.querySelector('button[onclick="toggleTheme()"]');
+
+            views.forEach(id => {
+                const view = document.getElementById(id);
+                view.classList.remove('is-open');
+                view.classList.add('opacity-0', 'scale-95');
+            });
+
+            nav.classList.add('px-6', 'py-4');
+            nav.classList.remove('px-4');
+            nav.style.maxWidth = "";
+
+            radial.classList.remove('opacity-0', 'pointer-events-none', 'scale-90', '-translate-y-4');
+            radial.style.zIndex = "50";
+            overlay.classList.remove('active', 'opacity-100', 'pointer-events-auto');
+
+            setTimeout(() => {
+                views.forEach(id => {
+                    const view = document.getElementById(id);
+                    if (!view.classList.contains('is-open')) {
+                        view.classList.add('hidden');
+                    }
+                });
+            }, 500);
+
+            closeBtn.classList.add('hidden');
+            themeBtn.classList.remove('hidden');
+        }
+
         function openQuickLook(productId) {
             const nav = document.getElementById('main-nav');
             const details = document.getElementById('product-details');
@@ -640,44 +747,6 @@
             document.getElementById('ql-price').innerText = "EGP 1,290";
         }
 
-        function closeQuickLook() {
-            const nav = document.getElementById('main-nav');
-            const details = document.getElementById('product-details');
-            const overlay = document.getElementById('nav-overlay');
-            const radial = document.getElementById('radial-wrapper');
-            const closeBtn = document.getElementById('close-quicklook');
-            const themeBtn = document.querySelector('button[onclick="toggleTheme()"]');
-
-            // 1. Start the Shrink: Trigger CSS transitions (height, opacity, scale)
-            details.classList.remove('is-open');
-            details.classList.add('opacity-0', 'scale-95');
-
-            // 2. Smoothly reset the Nav Container width and padding
-            // This happens simultaneously with the height collapse
-            nav.classList.add('px-6', 'py-4');
-            nav.classList.remove('px-4');
-            nav.style.maxWidth = ""; // Transitions back to the default CSS pill width
-
-            // 3. Restore the Radial Menu
-            // We remove the transform and opacity filters to bring it back to life
-            radial.classList.remove('opacity-0', 'pointer-events-none', 'scale-90', '-translate-y-4');
-            radial.style.zIndex = "50";
-
-            // 4. Deactivate the Overlay
-            overlay.classList.remove('active', 'opacity-100', 'pointer-events-auto');
-
-            // 5. Clean Up: Wait for the 500ms CSS transition to finish before setting 'hidden'
-            // This prevents the element from disappearing instantly and breaking the animation
-            setTimeout(() => {
-                if (!details.classList.contains('is-open')) {
-                    details.classList.add('hidden');
-                }
-            }, 500);
-
-            // Toggle UI buttons immediately for responsiveness
-            closeBtn.classList.add('hidden');
-            themeBtn.classList.remove('hidden');
-        }
     </script>
 </body>
 
