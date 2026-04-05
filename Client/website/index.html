@@ -7,6 +7,8 @@
     <title>Matager | Customer Storefront</title>
     <link rel="icon" type="image/png" href="./favicon/favico.png" />
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet" href="./assets/style.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
     <style>
@@ -103,6 +105,10 @@
             /* Adjust based on content */
             opacity: 1;
             transform: scale(1);
+        }
+
+        #nav-progress {
+            filter: drop-shadow(0 0 3px rgba(59, 130, 246, 0.5));
         }
     </style>
 </head>
@@ -235,7 +241,7 @@
             <hr class="my-4 border-black/5 dark:border-white/5">
             <div class="px-2 pb-4 space-y-4">
                 <div id="cart-items" class="max-h-[300px] overflow-y-auto space-y-4">
-                    <div class="flex justify-between items-center p-2 rounded-lg bg-white/5">
+                    <div class="flex justify-between items-center ">
                         <div class="flex gap-3">
                             <div
                                 class="w-12 h-12 rounded-xl border border-black/5 dark:border-white/10 overflow-hidden bg-gray-100">
@@ -272,9 +278,9 @@
 
     </nav>
 
-    <main class="flex flex-col items-center px-4 pt-32 gap-20">
+    <main class="flex flex-col items-center gap-20">
 
-        <section class="flex flex-col items-center text-center max-w-4xl">
+        <!-- <section class="flex flex-col items-center text-center max-w-4xl">
             <div class="animate-up flex items-center gap-3 mb-6">
                 <p class="text-xs uppercase tracking-widest shining-text">Premium Merchant Store</p>
             </div>
@@ -291,9 +297,58 @@
                     class="bg-blue-600 text-white px-8 py-3 rounded-full font-bold hover:bg-blue-700 transition active:scale-95">Shop
                     Collection</a>
             </div>
-        </section>
+        </section> -->
+        <section class="relative h-screen w-full flex items-center justify-center overflow-hidden bg-[#050505]">
 
-        <section id="products" class="max-w-7xl w-full py-10">
+            <div class="absolute inset-0 z-0">
+                <div class="bg-gradient-spot absolute top-[-10%] left-[-10%] w-[120%] h-[120%] opacity-40"></div>
+                <div
+                    class="absolute inset-0 bg-[url('https://media.cnn.com/api/v1/images/stellar/prod/gettyimages-2221597444.jpg?c=original')] opacity-20 mix-blend-overlay">
+                </div>
+            </div>
+
+            <div class="relative z-10 w-full px-8 md:px-20 lg:px-32">
+                <div class="flex flex-col items-start max-w-[1400px] mx-auto">
+
+                    <div class="reveal-container mb-6">
+                        <span
+                            class="premium-badge inline-block text-blue-400 text-xs font-bold tracking-[0.4em] uppercase">
+                            Established MMXXVI
+                        </span>
+                    </div>
+
+                    <h1
+                        class="hero-title text-[clamp(2.5rem,8vw,6.5rem)] font-bold text-white leading-[0.9] tracking-tighter mb-8">
+                        Elevate your <br>
+                        <span class="text-reveal-mask">lifestyle</span> with <br>
+                        curated <span class="outline-text">essentials.</span>
+                    </h1>
+
+                    <div class="flex flex-col md:flex-row md:items-end justify-between w-full gap-8">
+                        <p class="hero-desc text-white/50 text-lg md:text-xl max-w-xl font-light leading-relaxed">
+                            Simplicity is everything. We strip away the noise to bring you
+                            products that actually matter to your daily routine.
+                        </p>
+
+                        <div class="flex flex-col md:flex-row items-center gap-3 md:gap-6 transition-all duration-500">
+
+                            <span class="scroll-text text-[10px] uppercase tracking-[0.3em] text-white/30 font-medium">
+                                Scroll
+                            </span>
+
+                            <div class="relative w-[1px] h-12 bg-white/10 overflow-hidden">
+                                <div
+                                    class="scroll-indicator-line w-full h-full bg-gradient-to-b from-transparent via-blue-500 to-transparent">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+        <section id="products" class="max-w-7xl w-full py-10 px-4">
             <div class="flex justify-between items-end mb-10">
                 <div>
                     <h2 class="text-3xl font-bold mb-2">Featured Products</h2>
@@ -436,7 +491,7 @@
         </section>
     </main>
 
-    <footer class="w-full py-20 px-6 border-t border-white/5 mt-20 bg-[#080808]/50">
+    <footer class="w-full py-20 px-6 border-t border-white/5">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
             <div class="flex flex-col items-center md:items-start gap-4">
                 <div class="font-bold text-[14px] opacity-60">MATAGER</div>
@@ -458,58 +513,71 @@
     <div id="radial-wrapper" class="fixed bottom-10 left-1/2 -translate-x-1/2 z-50">
         <div class="relative flex items-center justify-center">
 
-            <a href="#" class="nav-bubble" onclick="openSearch()"
-                style="--angle: 190deg; --dist: 110px; --delay: 0.1s;">
+            <a href="#" class="nav-bubble" onclick="openSearch()" onmouseenter="showHint('Search')"
+                onmouseleave="hideHint()" style="--angle: 190deg; --dist: 110px; --delay: 0.1s;">
                 <i class="bi bi-search"></i>
-                <span class="bubble-label">Search</span>
             </a>
 
-            <a href="#" class="nav-bubble" style="--angle: 230deg; --dist: 125px; --delay: 0.15s;">
+            <a href="#" class="nav-bubble" onmouseenter="showHint('Items')" onmouseleave="hideHint()"
+                style="--angle: 230deg; --dist: 125px; --delay: 0.15s;">
                 <i class="bi bi-grid-1x2"></i>
-                <span class="bubble-label">Items</span>
             </a>
 
-            <a href="#" class="nav-bubble" onclick="openCart()" style="--angle: 270deg; --dist: 135px; --delay: 0.2s;">
+            <a href="#" class="nav-bubble" onclick="openCart()" onmouseenter="showHint('Cart')"
+                onmouseleave="hideHint()" style="--angle: 270deg; --dist: 135px; --delay: 0.2s;">
                 <i class="bi bi-bag"></i>
-                <span class="bubble-label">Cart</span>
             </a>
 
-            <a href="#" class="nav-bubble" style="--angle: 310deg; --dist: 125px; --delay: 0.25s;">
+            <a href="#" class="nav-bubble" onmouseenter="showHint('Profile')" onmouseleave="hideHint()"
+                style="--angle: 310deg; --dist: 125px; --delay: 0.25s;">
                 <i class="bi bi-universal-access"></i>
-                <span class="bubble-label">Me</span>
             </a>
 
-            <a href="#" class="nav-bubble" style="--angle: 350deg; --dist: 110px; --delay: 0.3s;">
+            <a href="#" class="nav-bubble" onmouseenter="showHint('Account')" onmouseleave="hideHint()"
+                style="--angle: 350deg; --dist: 110px; --delay: 0.3s;">
                 <i class="bi bi-person-circle"></i>
-                <span class="bubble-label">Account</span>
             </a>
 
-            <button onclick="toggleMenu()" id="main-trigger" class="nav-bubble-main group">
-                <div class="relative w-6 h-6 flex items-center justify-center">
-                    <i id="home-icon"
-                        class="bi bi-house-door-fill text-blue-500 absolute transition-all duration-500"></i>
-                    <i id="close-icon"
-                        class="bi bi-x text-white absolute opacity-0 scale-50 rotate-90 transition-all duration-500"></i>
-                </div>
-                <span id="trigger-text" class="bubble-label !text-blue-500">Home</span>
-                <div
-                    class="absolute inset-0 rounded-full bg-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity">
+            <button onclick="toggleMenu()" id="main-trigger" class="nav-bubble-main group relative w-12 h-12">
+                <svg class="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 48 48">
+                    <circle cx="24" cy="24" r="23" fill="none" stroke="currentColor" stroke-width="1"
+                        class="text-white/10" />
+                    <circle id="nav-progress" cx="24" cy="24" r="23" fill="none" stroke="#3b82f6" stroke-width="1.5"
+                        stroke-dasharray="144.5" stroke-dashoffset="144.5" />
+                </svg>
+
+                <div class="relative w-full h-full flex items-center justify-center overflow-hidden">
+                    <div id="icon-container" class="flex items-center justify-center transition-all duration-300">
+                        <i id="home-icon" class="text-blue-500 absolute"><svg width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="1.5">
+                                <rect x="3" y="3" width="7" height="7" rx="1" />
+                                <rect x="14" y="3" width="7" height="7" rx="1" />
+                                <rect x="14" y="14" width="7" height="7" rx="1" />
+                                <rect x="3" y="14" width="7" height="7" rx="1" />
+                            </svg></i>
+                        <i id="close-icon"
+                            class="bi bi-x text-white text-2xl absolute opacity-0 scale-50 rotate-90"></i>
+                    </div>
+
+                    <span id="bubble-hint"
+                        class="absolute text-[8px] font-bold uppercase tracking-widest text-blue-400 translate-y-4 opacity-0 transition-all duration-300">
+                        Menu
+                    </span>
                 </div>
             </button>
         </div>
     </div>
-
     <style>
         /* Standard Bubble Styling */
         .nav-bubble,
         .nav-bubble-main {
             position: absolute;
-            width: 48px;
-            height: 48px;
+            width: 52px;
+            height: 52px;
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            /* border: 1px solid rgba(255, 255, 255, 0.12); */
             border-radius: 50%;
             display: flex;
             flex-direction: column;
@@ -566,7 +634,7 @@
             transform: scale(1) rotate(0);
         }
 
-        #radial-wrapper.active #trigger-text {
+        #radial-wrapper.active {
             color: rgba(255, 255, 255, 0.5) !important;
         }
 
@@ -581,19 +649,69 @@
             border-color: rgba(59, 130, 246, 0.5);
             color: #3b82f6;
         }
+
+
+        /* Remove the old bubble-label from CSS as we don't need it */
+        .bubble-label {
+            display: none;
+        }
+
+        .nav-bubble-main {
+            overflow: hidden;
+            /* Keeps the text movement inside the circle */
+        }
+
+        /* Make icons transition smoothly when swapped */
+        #icon-container,
+        #bubble-hint {
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            pointer-events: none;
+            /* Let clicks pass to the button */
+        }
+
+        #bubble-hint {
+            white-space: nowrap;
+            text-align: center;
+            width: 100%;
+        }
     </style>
     <script>
         function toggleMenu() {
             const wrapper = document.getElementById('radial-wrapper');
             const overlay = document.getElementById('nav-overlay');
-            const text = document.getElementById('trigger-text');
 
             const isOpen = wrapper.classList.toggle('active');
             overlay.classList.toggle('active');
 
-            // Dynamic text change
-            text.innerText = isOpen ? "Close" : "Home";
         }
+        function showHint(text) {
+            const hint = document.getElementById('bubble-hint');
+            const icons = document.getElementById('icon-container');
+
+            // 1. Set text
+            hint.innerText = text;
+
+            // 2. Animate hint UP and IN
+            hint.classList.remove('translate-y-4', 'opacity-0');
+            hint.classList.add('translate-y-0', 'opacity-100');
+
+            // 3. Animate icons DOWN and OUT
+            icons.classList.add('-translate-y-4', 'opacity-0');
+        }
+
+        function hideHint() {
+            const hint = document.getElementById('bubble-hint');
+            const icons = document.getElementById('icon-container');
+
+            // 1. Reset hint position
+            hint.classList.add('translate-y-4', 'opacity-0');
+            hint.classList.remove('translate-y-0', 'opacity-100');
+
+            // 2. Bring icons back
+            icons.classList.remove('-translate-y-4', 'opacity-0');
+        }
+
+        // Your existing toggleMenu remains the same
     </script>
 
     <script>
@@ -746,7 +864,41 @@
             document.getElementById('ql-title').innerText = "Adidas classic t-shirt";
             document.getElementById('ql-price').innerText = "EGP 1,290";
         }
+    </script>
+    <script>
+        // smooth scroll hinter
 
+        // 1. Setup variables for interpolation
+        let currentProgress = 0;  // Where the border is now
+        let targetProgress = 0;   // Where the scroll actually is     // The "smoothness" factor (Lower = slower/smoother, e.g., 0.05)
+        const pathLength = 144.5;
+        const progressPath = document.querySelector('#nav-progress');
+
+        // 2. The Animation Loop (Runs 60fps for buttery smoothness)
+        function smoothUpdate() {
+            // Linear Interpolation formula: Current + (Target - Current) * Ease
+            currentProgress += (targetProgress - currentProgress) * 0.08;
+
+            // Apply the calculation to the stroke
+            const drawLength = pathLength * currentProgress;
+            progressPath.style.strokeDashoffset = pathLength - drawLength;
+
+            // Keep the loop going
+            requestAnimationFrame(smoothUpdate);
+        }
+
+        // 3. Simple Scroll Listener (Only updates the target)
+        window.addEventListener('scroll', () => {
+            const pixelsScrolled = window.scrollY;
+            const viewportHeight = window.innerHeight;
+            const totalHeight = document.body.scrollHeight;
+
+            // Update the goal for the border to reach
+            targetProgress = pixelsScrolled / (totalHeight - viewportHeight);
+        });
+
+        // 4. Start the animation loop
+        smoothUpdate();
     </script>
 </body>
 
