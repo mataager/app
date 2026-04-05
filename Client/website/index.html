@@ -30,6 +30,7 @@
             --glass-bg: rgba(15, 23, 42, 0.03);
             --glass-border: rgba(15, 23, 42, 0.08);
             --blur-opacity: 0.1;
+            --bluredimage: 0.7;
         }
 
         body {
@@ -85,6 +86,11 @@
         /* Bottom Nav shadow */
         .bottom-nav {
             box-shadow: 0 -10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .bluredimage {
+            opacity: var(--bluredimage, 0.3);
+            transition: opacity 0.5s ease-in-out;
         }
 
 
@@ -280,30 +286,12 @@
 
     <main class="flex flex-col items-center gap-20">
 
-        <!-- <section class="flex flex-col items-center text-center max-w-4xl">
-            <div class="animate-up flex items-center gap-3 mb-6">
-                <p class="text-xs uppercase tracking-widest shining-text">Premium Merchant Store</p>
-            </div>
-            <h1 class="text-5xl md:text-7xl font-bold mb-6 tracking-tight leading-[1.1]">
-                Elevate your <span class="text-blue-500">lifestyle</span> with curated essentials.
-            </h1>
-            <p class="text-lg text-white/40 max-w-2xl mb-10 leading-relaxed font-light animate-up"
-                style="color: var(--text-muted);">
-                Simplicity is everything. We strip away the noise to bring you products that actually matter to your
-                daily routine.
-            </p>
-            <div class="flex gap-4">
-                <a href="#products"
-                    class="bg-blue-600 text-white px-8 py-3 rounded-full font-bold hover:bg-blue-700 transition active:scale-95">Shop
-                    Collection</a>
-            </div>
-        </section> -->
         <section class="relative h-screen w-full flex items-center justify-center overflow-hidden bg-[#050505]">
 
             <div class="absolute inset-0 z-0">
                 <div class="bg-gradient-spot absolute top-[-10%] left-[-10%] w-[120%] h-[120%] opacity-40"></div>
                 <div
-                    class="absolute inset-0 bg-[url('https://media.cnn.com/api/v1/images/stellar/prod/gettyimages-2221597444.jpg?c=original')] opacity-20 mix-blend-overlay">
+                    class="absolute inset-0 bg-[url('https://media.cnn.com/api/v1/images/stellar/prod/gettyimages-2221597444.jpg?c=original')] bluredimage mix-blend-overlay">
                 </div>
             </div>
 
@@ -312,16 +300,26 @@
 
                     <div class="reveal-container mb-6">
                         <span
-                            class="premium-badge inline-block text-blue-400 text-xs font-bold tracking-[0.4em] uppercase">
-                            Established MMXXVI
+                            class="premium-badge inline-block text-blue-400 text-xs font-bold tracking-[0.4em] uppercase flex items-center gap-2">
+                            Last Drop: <span id="last-drop-date">April 05, 2026</span>
                         </span>
                     </div>
 
                     <h1
                         class="hero-title text-[clamp(2.5rem,8vw,6.5rem)] font-bold text-white leading-[0.9] tracking-tighter mb-8">
                         Elevate your <br>
-                        <span class="text-reveal-mask">lifestyle</span> with <br>
-                        curated <span class="outline-text">essentials.</span>
+                        <span class="text-reveal-mask">Appearance</span> with <br>
+                        curated
+                        <div class="relative inline-block">
+                            <span class="text-transparent" style="-webkit-text-stroke: 1px white;">
+                                essentials.
+                            </span>
+
+                            <span class="absolute top-0 left-0 text-white fill-animation"
+                                style="clip-path: inset(0 100% 0 0);">
+                                essentials.
+                            </span>
+                        </div>
                     </h1>
 
                     <div class="flex flex-col md:flex-row md:items-end justify-between w-full gap-8">
@@ -348,7 +346,45 @@
             </div>
 
         </section>
+
+        <section
+            class="w-full pt-10 grid grid-cols-1 md:grid-cols-3 gap-6 card-reveal px-4 gap-20 w-full max-w-7xl mx-auto">
+            <div class=" glass h-[200px] rounded-[2rem] overflow-hidden relative group cursor-pointer">
+                <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+                    style="background-image: url('https://images.unsplash.com/photo-1490578474895-699cd4e2cf59?auto=format&fit=crop&q=80&w=600');">
+                </div>
+                <div class="absolute inset-0 bg-black/20 flex items-end p-8">
+                    <h3 class="text-2xl font-bold text-white uppercase tracking-tighter">Men</h3>
+                </div>
+            </div>
+            <div class="glass h-[200px] rounded-[2rem] overflow-hidden relative group cursor-pointer">
+                <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+                    style="background-image: url('https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&q=80&w=600');">
+                </div>
+                <div class="absolute inset-0 bg-black/20 flex items-end p-8">
+                    <h3 class="text-2xl font-bold text-white uppercase tracking-tighter">Women</h3>
+                </div>
+            </div>
+            <div class="glass h-[200px] rounded-[2rem] overflow-hidden relative group cursor-pointer">
+                <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+                    style="background-image: url('https://images.unsplash.com/photo-1519704943920-1844583e7c30?auto=format&fit=crop&q=80&w=600');">
+                </div>
+                <div class="absolute inset-0 bg-black/20 flex items-end p-8">
+                    <h3 class="text-2xl font-bold text-white uppercase tracking-tighter">Kids</h3>
+                </div>
+            </div>
+        </section>
+
         <section id="products" class="max-w-7xl w-full py-10 px-4">
+            <div class="flex flex-wrap gap-4 mb-10">
+                <button class="px-6 py-2 rounded-full bg-white text-black font-bold text-sm">Featured</button>
+                <button
+                    class="px-6 py-2 rounded-full glass border border-white/10 text-white/60 font-bold text-sm hover:text-white transition">Best
+                    Seller</button>
+                <button
+                    class="px-6 py-2 rounded-full glass border border-white/10 text-white/60 font-bold text-sm hover:text-white transition">Sale
+                    Items</button>
+            </div>
             <div class="flex justify-between items-end mb-10">
                 <div>
                     <h2 class="text-3xl font-bold mb-2">Featured Products</h2>
@@ -383,7 +419,11 @@
                             </button>
                             <button
                                 class="w-full py-2 bg-white text-black rounded-xl font-semibold hover:bg-gray-100 transition active:scale-95 translate-y-4 opacity-0 transition-all duration-500 delay-[150ms] overlay-content text-[12px]">
-                                Quick Buy
+                                <i class="bi bi-heart"></i> Add to Favourite
+                            </button>
+                            <button
+                                class="w-full py-2 bg-white text-black rounded-xl font-semibold hover:bg-gray-100 transition active:scale-95 translate-y-4 opacity-0 transition-all duration-500 delay-[150ms] overlay-content text-[12px]">
+                                <i class="bi bi-lightning-charge"></i> Quick Buy
                             </button>
                             <button onclick="openQuickLook('PROD_001')"
                                 class="w-full py-2 bg-white/10 backdrop-blur-md border border-white/10 text-white/90 rounded-xl font-medium hover:bg-white/20 transition flex items-center justify-center gap-2 text-[12px] active:bg-white/30">
@@ -489,6 +529,79 @@
 
             </div>
         </section>
+
+
+
+        <section class="max-w-7xl mx-auto py-20 px-4 w-full card-reveal">
+
+            <main class="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-12 gap-12">
+
+                <div class="md:col-span-1 h-[600px] overflow-y-auto scrollbar-hide flex flex-col gap-4">
+                    <button
+                        class="w-full aspect-[3/4] rounded-2xl overflow-hidden border-2 border-white/20 hover:border-white transition-all">
+                        <img src="https://static.pullandbear.net/assets/..." class="w-full h-full object-cover"
+                            alt="Thumb 1">
+                    </button>
+                    <button
+                        class="w-full aspect-[3/4] rounded-2xl overflow-hidden border border-transparent hover:border-white transition-all">
+                        <img src="https://static.pullandbear.net/assets/..." class="w-full h-full object-cover"
+                            alt="Thumb 2">
+                    </button>
+                </div>
+
+                <div class="md:col-span-6 h-[600px] sticky top-20">
+                    <div class="w-full h-full glass rounded-[3rem] overflow-hidden relative">
+                        <img src="https://static.pullandbear.net/assets/..." class="w-full h-full object-cover"
+                            alt="Main Product View">
+                    </div>
+                </div>
+
+                <div class="md:col-span-5 flex flex-col gap-6">
+                    <h1 class="text-4xl font-bold tracking-tight">Technical Striped Trousers</h1>
+                    <p class="text-2xl font-bold text-blue-400">EGP 1,290</p>
+
+                    <div class="glass p-6 rounded-3xl">
+                        <h3 class="font-bold mb-2">Description</h3>
+                        <p class="text-white/60">High-rise trousers with elastic waistband. Featuring a side pocket
+                            detail and
+                            contrast stitching.</p>
+                    </div>
+
+                    <button
+                        class="w-full bg-white text-black py-4 rounded-full font-bold hover:bg-gray-200 transition active:scale-95">
+                        Add to Cart
+                    </button>
+                </div>
+
+            </main>
+
+            <style>
+                /* Hide scrollbar for the thumbnail strip */
+                .scrollbar-hide::-webkit-scrollbar {
+                    display: none;
+                }
+
+                .scrollbar-hide {
+                    -ms-overflow-style: none;
+                    scrollbar-width: none;
+                }
+            </style>
+
+        </section>
+
+        <section class="w-full card-reveal pb-20 px-4 gap-20 w-full max-w-7xl mx-auto">
+            <h2 class="text-2xl font-bold mb-8">You may also like these stores</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div
+                    class="glass p-8 rounded-[2rem] flex flex-col items-center justify-center gap-4 hover:border-blue-500/30 transition cursor-pointer">
+                    <div class="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center">
+                        <i class="bi bi-shop text-2xl"></i>
+                    </div>
+                    <span class="font-bold text-sm">Lumina Decor</span>
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <footer class="w-full py-20 px-6 border-t border-white/5">
@@ -528,14 +641,14 @@
                 <i class="bi bi-bag"></i>
             </a>
 
-            <a href="#" class="nav-bubble" onmouseenter="showHint('Profile')" onmouseleave="hideHint()"
+            <a href="#" class="nav-bubble" onmouseenter="showHint('Me')" onmouseleave="hideHint()"
                 style="--angle: 310deg; --dist: 125px; --delay: 0.25s;">
                 <i class="bi bi-universal-access"></i>
             </a>
 
-            <a href="#" class="nav-bubble" onmouseenter="showHint('Account')" onmouseleave="hideHint()"
+            <a href="#" class="nav-bubble" onmouseenter="showHint('Help')" onmouseleave="hideHint()"
                 style="--angle: 350deg; --dist: 110px; --delay: 0.3s;">
-                <i class="bi bi-person-circle"></i>
+                <i class="bi bi-person-raised-hand"></i>
             </a>
 
             <button onclick="toggleMenu()" id="main-trigger" class="nav-bubble-main group relative w-12 h-12">
@@ -772,51 +885,7 @@
             }, 10);
         }
 
-        // Helper functions for specific triggers
-        function openSearch() {
-            openNavView('search-view', '30rem');
-        }
-
-        function openCart() {
-            openNavView('cart-view', '28rem');
-        }
-
-        // Updated close function to handle any active view
-        function closeAllViews() {
-            const nav = document.getElementById('main-nav');
-            const views = ['product-details', 'search-view', 'cart-view'];
-            const overlay = document.getElementById('nav-overlay');
-            const radial = document.getElementById('radial-wrapper');
-            const closeBtn = document.getElementById('close-quicklook');
-            const themeBtn = document.querySelector('button[onclick="toggleTheme()"]');
-
-            views.forEach(id => {
-                const view = document.getElementById(id);
-                view.classList.remove('is-open');
-                view.classList.add('opacity-0', 'scale-95');
-            });
-
-            nav.classList.add('px-6', 'py-4');
-            nav.classList.remove('px-4');
-            nav.style.maxWidth = "";
-
-            radial.classList.remove('opacity-0', 'pointer-events-none', 'scale-90', '-translate-y-4');
-            radial.style.zIndex = "50";
-            overlay.classList.remove('active', 'opacity-100', 'pointer-events-auto');
-
-            setTimeout(() => {
-                views.forEach(id => {
-                    const view = document.getElementById(id);
-                    if (!view.classList.contains('is-open')) {
-                        view.classList.add('hidden');
-                    }
-                });
-            }, 500);
-
-            closeBtn.classList.add('hidden');
-            themeBtn.classList.remove('hidden');
-        }
-
+        //open the product details
         function openQuickLook(productId) {
             const nav = document.getElementById('main-nav');
             const details = document.getElementById('product-details');
@@ -864,41 +933,90 @@
             document.getElementById('ql-title').innerText = "Adidas classic t-shirt";
             document.getElementById('ql-price').innerText = "EGP 1,290";
         }
-    </script>
-    <script>
-        // smooth scroll hinter
 
-        // 1. Setup variables for interpolation
-        let currentProgress = 0;  // Where the border is now
-        let targetProgress = 0;   // Where the scroll actually is     // The "smoothness" factor (Lower = slower/smoother, e.g., 0.05)
-        const pathLength = 144.5;
-        const progressPath = document.querySelector('#nav-progress');
-
-        // 2. The Animation Loop (Runs 60fps for buttery smoothness)
-        function smoothUpdate() {
-            // Linear Interpolation formula: Current + (Target - Current) * Ease
-            currentProgress += (targetProgress - currentProgress) * 0.08;
-
-            // Apply the calculation to the stroke
-            const drawLength = pathLength * currentProgress;
-            progressPath.style.strokeDashoffset = pathLength - drawLength;
-
-            // Keep the loop going
-            requestAnimationFrame(smoothUpdate);
+        // Helper functions for specific triggers
+        function openSearch() {
+            openNavView('search-view', '30rem');
         }
 
-        // 3. Simple Scroll Listener (Only updates the target)
-        window.addEventListener('scroll', () => {
-            const pixelsScrolled = window.scrollY;
+        function openCart() {
+            openNavView('cart-view', '28rem');
+        }
+
+        // Updated close function to handle any active view
+        function closeAllViews() {
+            const nav = document.getElementById('main-nav');
+            const views = ['product-details', 'search-view', 'cart-view'];
+            const overlay = document.getElementById('nav-overlay');
+            const radial = document.getElementById('radial-wrapper');
+            const closeBtn = document.getElementById('close-quicklook');
+            const themeBtn = document.querySelector('button[onclick="toggleTheme()"]');
+
+            views.forEach(id => {
+                const view = document.getElementById(id);
+                view.classList.remove('is-open');
+                view.classList.add('opacity-0', 'scale-95');
+            });
+
+            nav.classList.add('px-6', 'py-4');
+            nav.classList.remove('px-4');
+            nav.style.maxWidth = "";
+
+            radial.classList.remove('opacity-0', 'pointer-events-none', 'scale-90', '-translate-y-4');
+            radial.style.zIndex = "50";
+            overlay.classList.remove('active', 'opacity-100', 'pointer-events-auto');
+
+            setTimeout(() => {
+                views.forEach(id => {
+                    const view = document.getElementById(id);
+                    if (!view.classList.contains('is-open')) {
+                        view.classList.add('hidden');
+                    }
+                });
+            }, 500);
+
+            closeBtn.classList.add('hidden');
+            themeBtn.classList.remove('hidden');
+        }
+
+
+    </script>
+    <!-- // on load functions -->
+    <script>
+        const progressPath = document.querySelector('#nav-progress');
+        const pathLength = 144.5;
+
+        // 1. Initial setup for the path
+        progressPath.style.transition = 'stroke-dashoffset 0.15s ease-out'; // The "smoothness" factor
+        progressPath.style.strokeDasharray = pathLength;
+        progressPath.style.strokeDashoffset = pathLength;
+
+        // 2. Optimized Scroll Listener
+        function updateScrollProgress() {
+            const pixelsScrolled = window.pageYOffset || document.documentElement.scrollTop;
             const viewportHeight = window.innerHeight;
-            const totalHeight = document.body.scrollHeight;
+            const totalHeight = document.documentElement.scrollHeight;
 
-            // Update the goal for the border to reach
-            targetProgress = pixelsScrolled / (totalHeight - viewportHeight);
+            // Calculate percentage (0 to 1)
+            const scrollPercentage = pixelsScrolled / (totalHeight - viewportHeight);
+
+            // Ensure it stays within bounds
+            const cappedPercentage = Math.max(0, Math.min(1, scrollPercentage));
+
+            // 3. Apply the calculation
+            const drawLength = pathLength * cappedPercentage;
+            progressPath.style.strokeDashoffset = pathLength - drawLength;
+        }
+
+        // Use 'passive: true' to improve mobile scroll performance
+        window.addEventListener('scroll', updateScrollProgress, { passive: true });
+
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const el = document.querySelector('.fill-animation');
+                if (el) el.classList.add('is-loaded');
+            }, 300);
         });
-
-        // 4. Start the animation loop
-        smoothUpdate();
     </script>
 </body>
 
