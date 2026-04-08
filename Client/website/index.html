@@ -116,17 +116,36 @@
         #nav-progress {
             filter: drop-shadow(0 0 3px rgba(59, 130, 246, 0.5));
         }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .animate-marquee {
+            display: flex;
+            width: max-content;
+            flex-wrap: nowrap;
+            /* Use will-change for better performance/no lag */
+            will-change: transform;
+            animation: marquee 40s linear infinite;
+        }
+
+        /* Optional: slowing it down on hover makes it feel more "premium" */
+        .animate-marquee:hover {
+            animation-play-state: paused;
+        }
     </style>
 </head>
 
 <body class="antialiased">
 
-    <div class="fixed inset-0 overflow-hidden -z-20 pointer-events-none">
-        <!-- <div class="absolute rounded-full -top-20 -left-20 w-[600px] h-[600px] bg-[#0ea5e9] blur-[140px]"
-            style="opacity: var(--blur-opacity);"></div>
-        <div class="absolute rounded-full -bottom-20 -right-20 w-[500px] h-[500px] bg-[#4f46e5] blur-[140px]"
-            style="opacity: var(--blur-opacity);"></div> -->
-    </div>
+
 
 
     <nav id="main-nav"
@@ -228,6 +247,28 @@
                     <input type="text" placeholder="Search products..."
                         class="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl py-3 px-4 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all dark:text-white">
                 </div>
+                <div class="mt-4">
+                    <p class="text-[10px] uppercase opacity-40 dark:text-white font-bold tracking-widest px-1 mb-4">
+                        Popular Brands
+                    </p>
+                    <div
+                        class="flex items-center gap-4 overflow-x-auto pb-4 scrollbar-hide snap-x cursor-grab active:cursor-grabbing">
+
+                        <div class="flex-shrink-0 flex flex-col items-center gap-2 p-1 snap-center group">
+                            <div class="w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-white dark:bg-zinc-800 
+                                        shadow-sm border border-black/5 dark:border-white/10 
+                                        group-hover:scale-105 group-hover:shadow-lg group-hover:border-blue-500/50
+                                        transition-all duration-300 ease-out cursor-pointer overflow-hidden">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmEw8TrscvmCGKcZO9Z9g0sfzQv2gHyWvz2g&s"
+                                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                    alt="Puma">
+                            </div>
+                            <span
+                                class="text-[10px] dark:text-white/50 group-hover:dark:text-white font-semibold transition-colors uppercase tracking-tight">Puma</span>
+                        </div>
+
+                    </div>
+                </div>
                 <div class="mt-4 space-y-2 max-h-[300px] overflow-y-auto">
                     <p class="text-[10px] uppercase opacity-40 dark:text-white font-bold tracking-widest px-1">Recent
                         Searches
@@ -284,7 +325,7 @@
 
     </nav>
 
-    <main class="flex flex-col items-center gap-20">
+    <main class="flex flex-col items-center">
 
         <section class="relative h-screen w-full flex items-center justify-center overflow-hidden bg-[#050505]">
 
@@ -346,7 +387,83 @@
             </div>
 
         </section>
+        <div class="w-full py-12 border-y border-white/10 overflow-hidden relative">
 
+            <div class="absolute inset-0 z-10 pointer-events-none opacity-100">
+            </div>
+
+            <div class="flex overflow-hidden group">
+                <div class="animate-marquee flex items-center">
+
+                    <div class="flex items-center gap-16 px-8">
+                        <div class="flex items-center gap-4 cursor-pointer">
+                            <span
+                                class="opacity-60 font-bold uppercase tracking-[0.25em] text-sm md:text-base hover:opacity-100 transition-colors duration-500">Nike</span>
+                            <div class="w-1 h-1 rounded-full bg-blue-500/50"></div>
+                        </div>
+                        <div class="flex items-center gap-4 cursor-pointer">
+                            <span
+                                class="opacity-60 font-bold uppercase tracking-[0.25em] text-sm md:text-base hover:opacity-100 transition-colors duration-500">Adidas</span>
+                            <div class="w-1 h-1 rounded-full bg-blue-500/50"></div>
+                        </div>
+                        <div class="flex items-center gap-4 cursor-pointer">
+                            <span
+                                class="opacity-60 font-bold uppercase tracking-[0.25em] text-sm md:text-base hover:opacity-100 transition-colors duration-500">Zara</span>
+                            <div class="w-1 h-1 rounded-full bg-blue-500/50"></div>
+                        </div>
+                        <div class="flex items-center gap-4 cursor-pointer">
+                            <span
+                                class="opacity-60 font-bold uppercase tracking-[0.25em] text-sm md:text-base hover:opacity-100 transition-colors duration-500">Puma</span>
+                            <div class="w-1 h-1 rounded-full bg-blue-500/50"></div>
+                        </div>
+                        <div class="flex items-center gap-4 cursor-pointer">
+                            <span
+                                class="opacity-60 font-bold uppercase tracking-[0.25em] text-sm md:text-base hover:opacity-100 transition-colors duration-500">Gucci</span>
+                            <div class="w-1 h-1 rounded-full bg-blue-500/50"></div>
+                        </div>
+                        <div class="flex items-center gap-4 cursor-pointer">
+                            <span
+                                class="opacity-60 font-bold uppercase tracking-[0.25em] text-sm md:text-base hover:opacity-100 transition-colors duration-500">Prada</span>
+                            <div class="w-1 h-1 rounded-full bg-blue-500/50"></div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-16 px-8">
+                        <div class="flex items-center gap-4 cursor-pointer">
+                            <span
+                                class="opacity-60 font-bold uppercase tracking-[0.25em] text-sm md:text-base hover:opacity-100 transition-colors duration-500">Nike</span>
+                            <div class="w-1 h-1 rounded-full bg-blue-500/50"></div>
+                        </div>
+                        <div class="flex items-center gap-4 cursor-pointer">
+                            <span
+                                class="opacity-60 font-bold uppercase tracking-[0.25em] text-sm md:text-base hover:opacity-100 transition-colors duration-500">Adidas</span>
+                            <div class="w-1 h-1 rounded-full bg-blue-500/50"></div>
+                        </div>
+                        <div class="flex items-center gap-4 cursor-pointer">
+                            <span
+                                class="opacity-60 font-bold uppercase tracking-[0.25em] text-sm md:text-base hover:opacity-100 transition-colors duration-500">Zara</span>
+                            <div class="w-1 h-1 rounded-full bg-blue-500/50"></div>
+                        </div>
+                        <div class="flex items-center gap-4 cursor-pointer">
+                            <span
+                                class="opacity-60 font-bold uppercase tracking-[0.25em] text-sm md:text-base hover:opacity-100 transition-colors duration-500">Puma</span>
+                            <div class="w-1 h-1 rounded-full bg-blue-500/50"></div>
+                        </div>
+                        <div class="flex items-center gap-4 cursor-pointer">
+                            <span
+                                class="opacity-60 font-bold uppercase tracking-[0.25em] text-sm md:text-base hover:opacity-100 transition-colors duration-500">Gucci</span>
+                            <div class="w-1 h-1 rounded-full bg-blue-500/50"></div>
+                        </div>
+                        <div class="flex items-center gap-4 cursor-pointer">
+                            <span
+                                class="opacity-60 font-bold uppercase tracking-[0.25em] text-sm md:text-base hover:opacity-100 transition-colors duration-500">Prada</span>
+                            <div class="w-1 h-1 rounded-full bg-blue-500/50"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
         <section class="w-full grid grid-cols-1 md:grid-cols-3 card-reveal mx-auto">
 
             <div
@@ -506,13 +623,13 @@
             <div class="flex flex-wrap gap-4 mb-10">
                 <button class="px-6 py-2 rounded-full bg-white text-black font-bold text-sm">Featured</button>
                 <button
-                    class="px-6 py-2 rounded-full glass border border-white/10 text-white/60 font-bold text-sm hover:text-white transition">Best
+                    class="px-6 py-2 rounded-full glass border border-white/10 opacity-60 font-bold text-sm hover:text-white transition">Best
                     Seller</button>
                 <button
-                    class="px-6 py-2 rounded-full glass border border-white/10 text-white/60 font-bold text-sm hover:text-white transition">Sale
+                    class="px-6 py-2 rounded-full glass border border-white/10 opacity-60 font-bold text-sm hover:text-white transition">Sale
                     Items</button>
                 <button
-                    class="px-6 py-2 rounded-full glass border border-white/10 text-white/60 font-bold text-sm hover:text-white transition">Collections</button>
+                    class="px-6 py-2 rounded-full glass border border-white/10 opacity-60 font-bold text-sm hover:text-white transition">Collections</button>
             </div>
             <div class="flex justify-between items-end mb-10">
                 <div>
@@ -659,65 +776,6 @@
             </div>
         </section>
 
-
-
-        <section class="max-w-7xl mx-auto py-20 px-4 w-full card-reveal">
-
-            <main class="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-12 gap-12">
-
-                <div class="md:col-span-1 h-[600px] overflow-y-auto scrollbar-hide flex flex-col gap-4">
-                    <button
-                        class="w-full aspect-[3/4] rounded-2xl overflow-hidden border-2 border-white/20 hover:border-white transition-all">
-                        <img src="https://static.pullandbear.net/assets/..." class="w-full h-full object-cover"
-                            alt="Thumb 1">
-                    </button>
-                    <button
-                        class="w-full aspect-[3/4] rounded-2xl overflow-hidden border border-transparent hover:border-white transition-all">
-                        <img src="https://static.pullandbear.net/assets/..." class="w-full h-full object-cover"
-                            alt="Thumb 2">
-                    </button>
-                </div>
-
-                <div class="md:col-span-6 h-[600px] sticky top-20">
-                    <div class="w-full h-full glass rounded-[3rem] overflow-hidden relative">
-                        <img src="https://static.pullandbear.net/assets/..." class="w-full h-full object-cover"
-                            alt="Main Product View">
-                    </div>
-                </div>
-
-                <div class="md:col-span-5 flex flex-col gap-6">
-                    <h1 class="text-4xl font-bold tracking-tight">Technical Striped Trousers</h1>
-                    <p class="text-2xl font-bold text-blue-400">EGP 1,290</p>
-
-                    <div class="glass p-6 rounded-3xl">
-                        <h3 class="font-bold mb-2">Description</h3>
-                        <p class="text-white/60">High-rise trousers with elastic waistband. Featuring a side pocket
-                            detail and
-                            contrast stitching.</p>
-                    </div>
-
-                    <button
-                        class="w-full bg-white text-black py-4 rounded-full font-bold hover:bg-gray-200 transition active:scale-95">
-                        Add to Cart
-                    </button>
-                </div>
-
-            </main>
-
-            <style>
-                /* Hide scrollbar for the thumbnail strip */
-                .scrollbar-hide::-webkit-scrollbar {
-                    display: none;
-                }
-
-                .scrollbar-hide {
-                    -ms-overflow-style: none;
-                    scrollbar-width: none;
-                }
-            </style>
-
-        </section>
-
         <section class="w-full card-reveal pb-20 px-4 max-w-7xl mx-auto">
             <h2 class="text-2xl font-bold mb-8 text-white/90">You may also like these stores</h2>
 
@@ -768,18 +826,18 @@
 
     </main>
 
-    <footer class="w-full py-20 px-6 border-t border-white/5">
+    <footer class="w-full py-20 px-6 border-t glass border-white/5">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
             <div class="flex flex-col items-center md:items-start gap-4">
-                <div class="font-bold text-[14px] opacity-60">MATAGER</div>
-                <p class="text-xs text-white/20">Empowering the next generation of commerce.</p>
+                <div class="font-bold text-[14px] ">MATAGER</div>
+                <p class="text-xs opacity-70">Empowering the next generation of commerce.</p>
             </div>
-            <div class="flex flex-wrap justify-center gap-10 text-sm font-medium text-white/40">
+            <div class="flex flex-wrap justify-center gap-10 text-sm font-medium opacity-70">
                 <a href="#" class="hover:text-blue-400 transition">Shop</a>
                 <a href="#" class="hover:text-blue-400 transition">Privacy</a>
                 <a href="#" class="hover:text-blue-400 transition">Terms</a>
             </div>
-            <p class="text-xs text-white/20">© 2026 Matager Inc.</p>
+            <p class="text-xs opacity-50">© 2026 Matager Inc.</p>
         </div>
     </footer>
 
@@ -990,7 +1048,6 @@
 
         // Your existing toggleMenu remains the same
     </script>
-
     <script>
         function toggleTheme() {
             const body = document.body;
@@ -1005,7 +1062,6 @@
             }
         }
     </script>
-
     <script>
         // Generic function to open any sub-view in the nav
         function openNavView(viewId, targetWidth = "34rem") {
@@ -1145,7 +1201,6 @@
 
 
     </script>
-    <!-- // on load functions -->
     <script>
         const progressPath = document.querySelector('#nav-progress');
         const pathLength = 144.5;
