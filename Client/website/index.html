@@ -95,20 +95,30 @@
 
 
 
+        /* Add the new view IDs to the transition base */
         #search-view,
         #cart-view,
-        #product-details {
+        #product-details,
+        #profile-view,
+        #help-view,
+        #catalog-view {
             transition: all 500ms cubic-bezier(0.4, 0, 0.2, 1);
             max-height: 0;
             overflow: hidden;
             opacity: 0;
+            /* Added scale(0.95) so the 'is-open' scale(1) looks smooth */
+            transform: scale(0.95);
         }
 
+        /* Add the new view IDs to the open state */
         #search-view.is-open,
         #cart-view.is-open,
-        #product-details.is-open {
-            max-height: 800px;
-            /* Adjust based on content */
+        #product-details.is-open,
+        #profile-view.is-open,
+        #help-view.is-open,
+        #catalog-view.is-open {
+            max-height: 1000px;
+            /* Increased slightly to ensure Catalog/Help aren't cut off */
             opacity: 1;
             transform: scale(1);
         }
@@ -284,42 +294,395 @@
             </div>
         </div>
 
+
         <div id="cart-view" class="hidden opacity-0 scale-95 transition-all duration-500 ease-out overflow-hidden">
             <hr class="my-4 border-black/5 dark:border-white/5">
-            <div class="px-2 pb-4 space-y-4">
-                <div id="cart-items" class="max-h-[300px] overflow-y-auto space-y-4">
-                    <div class="flex justify-between items-center ">
-                        <div class="flex gap-3">
-                            <div
-                                class="w-12 h-12 rounded-xl border border-black/5 dark:border-white/10 overflow-hidden bg-gray-100">
-                                <img src="https://assets.adidas.com/images/w_1880,f_auto,q_auto/a4ff4a779ee34deca8cc9a6f1f411440_9366/KC6611_HM1.jpg"
-                                    class="object-cover h-full w-full">
-                            </div>
-                            <div>
-                                <p class="text-xs font-bold dark:text-white leading-tight">Adidas classic t-shirt</p>
-                                <div class="flex items-center gap-2 mt-1">
-                                    <p class="text-[9px] uppercase font-bold text-black/40 dark:text-white/40">M</p>
-                                    <div
-                                        class="w-2 h-2 rounded-full bg-blue-500 border border-black/10 dark:border-white/20">
-                                    </div>
-                                    <p class="text-[9px] font-bold text-black/40 dark:text-white/40">Blue</p>
+
+            <div class="px-2 pb-4">
+                <div id="cart-step-1" class="space-y-4">
+                    <div id="cart-items" class="max-h-[250px] overflow-y-auto space-y-4 pr-1 scrollbar-hide">
+                        <div class="flex justify-between items-center">
+                            <div class="flex gap-3">
+                                <div
+                                    class="w-12 h-12 rounded-xl border border-black/5 dark:border-white/10 overflow-hidden bg-gray-100">
+                                    <img src="https://assets.adidas.com/images/w_1880,f_auto,q_auto/a4ff4a779ee34deca8cc9a6f1f411440_9366/KC6611_HM1.jpg"
+                                        class="object-cover h-full w-full">
                                 </div>
-                                <p class="text-[10px] text-blue-500 font-bold mt-0.5">EGP 1,290</p>
+                                <div>
+                                    <p class="text-xs font-bold dark:text-white leading-tight">Adidas classic t-shirt
+                                    </p>
+                                    <div class="flex items-center gap-2 mt-1">
+                                        <p class="text-[9px] uppercase font-bold text-black/40 dark:text-white/40">M</p>
+                                        <div
+                                            class="w-2 h-2 rounded-full bg-blue-500 border border-black/10 dark:border-white/20">
+                                        </div>
+                                        <p class="text-[9px] font-bold text-black/40 dark:text-white/40">Blue</p>
+                                    </div>
+                                    <p class="text-[10px] text-blue-500 font-bold mt-0.5">EGP 1,290</p>
+                                </div>
                             </div>
+                            <button
+                                class="text-red-500 opacity-50 hover:opacity-100 transition-all text-[10px] font-bold">Remove</button>
                         </div>
-                        <button class="text-red-500 opacity-50 hover:opacity-100 transition-all text-xs">Remove</button>
+                    </div>
+                    <div class="space-y-2">
+                        <p class="text-[10px] font-bold dark:text-white/40 uppercase px-1">Delivery Method</p>
+                        <div class="grid grid-cols-2 gap-2">
+                            <label
+                                class="relative p-3 rounded-xl border-2 border-blue-500 bg-blue-500/5 cursor-pointer">
+                                <input type="radio" name="delivery" class="hidden" checked>
+                                <p class="text-[11px] font-bold dark:text-white">Home Delivery</p>
+                                <p class="text-[9px] opacity-60 dark:text-white">2-3 Days</p>
+                            </label>
+                            <label
+                                class="relative p-3 rounded-xl border border-black/10 dark:border-white/10 cursor-pointer">
+                                <input type="radio" name="delivery" class="hidden">
+                                <p class="text-[11px] font-bold dark:text-white">Store Pickup</p>
+                                <p class="text-[9px] opacity-60 dark:text-white">Main Branch</p>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="p-3 rounded-2xl bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/10">
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="text-[10px] font-bold dark:text-white/60 uppercase">Shipping to</span>
+                            <span class="text-[10px] text-blue-500 font-bold">Standard • EGP 50</span>
+                        </div>
+
+                        <div class="flex justify-between items-end">
+                            <p class="text-[11px] font-bold dark:text-white">10th of Ramadan City, Al-Sharqia</p>
+
+                            <button onclick=""
+                                class="text-[10px] font-bold text-blue-500 hover:underline transition-all">
+                                Change
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 border-t border-black/5 dark:border-white/5">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-xs font-bold dark:text-white opacity-50 uppercase">Total</span>
+                            <span class="text-sm font-bold dark:text-white">EGP 1,340</span>
+                        </div>
+                        <button onclick="showCheckoutStep(2)"
+                            class="w-full py-3 bg-blue-600 text-white rounded-xl font-bold text-xs active:scale-95 transition-all">
+                            Checkout Now
+                        </button>
                     </div>
                 </div>
-                <div class="pt-4 border-t border-black/5 dark:border-white/5">
-                    <div class="flex justify-between items-center mb-4">
-                        <span class="text-xs font-bold dark:text-white opacity-50 uppercase">Total</span>
-                        <span class="text-sm font-bold dark:text-white">EGP 1,290</span>
+
+                <div id="cart-step-2" class="hidden space-y-4">
+                    <button onclick="showCheckoutStep(1)"
+                        class="text-[10px] font-bold text-blue-500 flex items-center gap-1 mb-2">
+                        ← Back to Cart
+                    </button>
+
+                    <div class="space-y-2">
+                        <p class="text-[10px] font-bold dark:text-white/40 uppercase px-1">Order Note</p>
+                        <textarea placeholder="Any special instructions?"
+                            class="w-full p-3 bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/10 rounded-xl text-[11px] focus:outline-none focus:ring-1 focus:ring-blue-500 dark:text-white min-h-[60px]"></textarea>
                     </div>
-                    <button
-                        class="w-full py-3 bg-blue-600 text-white rounded-xl font-bold text-xs active:scale-95 transition-all">
-                        Checkout Now
+
+                    <div class="space-y-2">
+                        <p class="text-[10px] font-bold dark:text-white/40 uppercase px-1">Payment Method</p>
+                        <div class="grid grid-cols-1 gap-2">
+
+                            <label
+                                class="payment-option relative flex items-center justify-between p-3 rounded-xl border border-black/5 dark:border-white/10 bg-black/5 dark:bg-white/5 cursor-pointer transition-all hover:bg-black/10 dark:hover:bg-white/10 has-[:checked]:border-blue-500 has-[:checked]:bg-blue-500/5">
+                                <input type="radio" name="payment-method" value="cash" class="hidden peer" checked>
+                                <div class="flex items-center gap-3">
+                                    <div
+                                        class="w-8 h-8 rounded-lg bg-white dark:bg-white/10 flex items-center justify-center text-lg">
+                                        💵
+                                    </div>
+                                    <div>
+                                        <p class="text-[11px] font-bold dark:text-white">Cash on Delivery</p>
+                                        <p class="text-[9px] opacity-50 dark:text-white">Pay when you receive</p>
+                                    </div>
+                                </div>
+                                <div
+                                    class="w-4 h-4 rounded-full border-2 border-black/10 dark:border-white/20 peer-checked:border-blue-500 peer-checked:bg-blue-500 flex items-center justify-center transition-all">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-white opacity-0 peer-checked:opacity-100">
+                                    </div>
+                                </div>
+                            </label>
+
+                            <label
+                                class="payment-option relative flex items-center justify-between p-3 rounded-xl border border-black/5 dark:border-white/10 bg-black/5 dark:bg-white/5 cursor-pointer transition-all hover:bg-black/10 dark:hover:bg-white/10 has-[:checked]:border-blue-500 has-[:checked]:bg-blue-500/5">
+                                <input type="radio" name="payment-method" value="card" class="hidden peer">
+                                <div class="flex items-center gap-3">
+                                    <div
+                                        class="w-8 h-8 rounded-lg bg-white dark:bg-white/10 flex items-center justify-center text-lg">
+                                        💳
+                                    </div>
+                                    <div>
+                                        <p class="text-[11px] font-bold dark:text-white">Credit / Debit Card</p>
+                                        <p class="text-[9px] opacity-50 dark:text-white">Visa, Mastercard, etc.</p>
+                                    </div>
+                                </div>
+                                <div
+                                    class="w-4 h-4 rounded-full border-2 border-black/10 dark:border-white/20 peer-checked:border-blue-500 peer-checked:bg-blue-500 flex items-center justify-center transition-all">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-white opacity-0 peer-checked:opacity-100">
+                                    </div>
+                                </div>
+                            </label>
+
+                            <label
+                                class="payment-option relative flex items-center justify-between p-3 rounded-xl border border-black/5 dark:border-white/10 bg-black/5 dark:bg-white/5 cursor-pointer transition-all hover:bg-black/10 dark:hover:bg-white/10 has-[:checked]:border-blue-500 has-[:checked]:bg-blue-500/5">
+                                <input type="radio" name="payment-method" value="wallet" class="hidden peer">
+                                <div class="flex items-center gap-3">
+                                    <div
+                                        class="w-8 h-8 rounded-lg bg-white dark:bg-white/10 flex items-center justify-center text-lg">
+                                        📱
+                                    </div>
+                                    <div>
+                                        <p class="text-[11px] font-bold dark:text-white">InstaPay / Wallet</p>
+                                        <p class="text-[9px] opacity-50 dark:text-white">Instant transfer</p>
+                                    </div>
+                                </div>
+                                <div
+                                    class="w-4 h-4 rounded-full border-2 border-black/10 dark:border-white/20 peer-checked:border-blue-500 peer-checked:bg-blue-500 flex items-center justify-center transition-all">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-white opacity-0 peer-checked:opacity-100">
+                                    </div>
+                                </div>
+                            </label>
+
+                        </div>
+                    </div>
+
+                    <button onclick="submitOrder()"
+                        class="w-full py-4 bg-green-600 text-white rounded-xl font-bold text-xs active:scale-95 transition-all shadow-lg shadow-green-600/20">
+                        Confirm Order • EGP 1,340
                     </button>
                 </div>
+            </div>
+            <script>
+                /**
+     * Switch between Cart Items and Checkout Details
+     */
+                function showCheckoutStep(step) {
+                    const step1 = document.getElementById('cart-step-1');
+                    const step2 = document.getElementById('cart-step-2');
+
+                    if (step === 2) {
+                        // Hide items, show checkout
+                        step1.classList.add('hidden');
+                        step2.classList.remove('hidden');
+                        // Optional: Animate the transition
+                        step2.classList.add('animate-in', 'fade-in', 'slide-in-from-right-4', 'duration-300');
+                    } else {
+                        // Back to items
+                        step2.classList.add('hidden');
+                        step1.classList.remove('hidden');
+                    }
+                }
+
+                /**
+                 * Handle Final Order Submission
+                 */
+                function submitOrder() {
+                    const btn = event.target;
+                    btn.innerHTML = `<span class="inline-block animate-spin mr-2">◌</span> Processing...`;
+                    btn.disabled = true;
+
+                    // Simulate API call
+                    setTimeout(() => {
+                        alert("Order Successfully Placed! Thank you for shopping.");
+                        closeAllViews(); // Close the nav
+
+                        // Reset cart for next time
+                        setTimeout(() => {
+                            showCheckoutStep(1);
+                            btn.innerHTML = `Confirm Order • EGP 1,340`;
+                            btn.disabled = false;
+                        }, 500);
+                    }, 2000);
+                }
+            </script>
+        </div>
+
+        <div id="profile-view" class="transition-all duration-500 ease-out overflow-hidden">
+            <hr class="my-4 border-black/5 dark:border-white/5">
+
+            <div
+                class="flex gap-4 px-2 mb-6 border-b border-black/5 dark:border-white/5 overflow-x-auto scrollbar-hide">
+                <button onclick="switchTab('orders')" id="tab-orders"
+                    class="profile-tab-btn pb-2 text-xs font-bold border-b-2 border-blue-500 text-blue-500 whitespace-nowrap">
+                    My Orders
+                </button>
+                <button onclick="switchTab('fit')" id="tab-fit"
+                    class="profile-tab-btn pb-2 text-xs font-bold opacity-40 hover:opacity-100 dark:text-white whitespace-nowrap">
+                    Your Fit AI
+                </button>
+                <button onclick="switchTab('account')" id="tab-account"
+                    class="profile-tab-btn pb-2 text-xs font-bold opacity-40 hover:opacity-100 dark:text-white whitespace-nowrap">
+                    Account
+                </button>
+            </div>
+
+            <div class="px-2 pb-4 space-y-4 max-h-[400px] overflow-y-auto pr-1">
+
+                <div id="content-orders" class="profile-content space-y-4">
+                    <div
+                        class="p-3 rounded-2xl bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/10 transition-all hover:bg-black/10">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="text-[10px] font-bold text-blue-500 uppercase">Delivered</span>
+                            <span class="text-[10px] opacity-40 dark:text-white">#ORD-8821</span>
+                        </div>
+                        <p class="text-xs font-bold dark:text-white">Adidas classic t-shirt + 2 items</p>
+                        <p class="text-[10px] opacity-50 dark:text-white mt-1">April 09, 2026 • EGP 3,450</p>
+                    </div>
+                </div>
+
+                <div id="content-fit" class="profile-content space-y-4 hidden">
+                    <div class="p-4 rounded-2xl bg-blue-500/10 border border-blue-500/20">
+                        <p class="text-[11px] font-bold text-blue-500 mb-1">✨ Personal Fit Active</p>
+                        <p class="text-[10px] dark:text-white/70">Based on your last purchase (Size M), we recommend
+                            staying
+                            with Medium for "Top" items.</p>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="p-3 rounded-xl bg-black/5 dark:bg-white/5 text-center border border-black/5">
+                            <p class="text-[9px] uppercase opacity-50 dark:text-white">Height</p>
+                            <p class="text-xs font-bold dark:text-white">180 cm</p>
+                        </div>
+                        <div class="p-3 rounded-xl bg-black/5 dark:bg-white/5 text-center border border-black/5">
+                            <p class="text-[9px] uppercase opacity-50 dark:text-white">Weight</p>
+                            <p class="text-xs font-bold dark:text-white">75 kg</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="content-account" class="profile-content space-y-5 hidden">
+                    <div class="flex items-center justify-between p-1">
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-blue-600 to-blue-400 flex items-center justify-center text-white font-bold shadow-lg shadow-blue-500/20">
+                                JD
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold dark:text-white">John Doe</p>
+                                <p class="text-[10px] opacity-50 dark:text-white">john.doe@example.com</p>
+                            </div>
+                        </div>
+                        <button
+                            class="text-[10px] font-bold text-blue-500 px-3 py-1.5 rounded-lg bg-blue-500/10">Edit</button>
+                    </div>
+
+                    <div class="space-y-2">
+                        <p class="text-[10px] font-bold dark:text-white/40 uppercase tracking-wider px-1">Security</p>
+                        <div
+                            class="bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/10 rounded-2xl p-3 space-y-3">
+                            <button onclick="alert('Change Password Flow')"
+                                class="w-full py-2.5 bg-white dark:bg-white/10 border border-black/5 dark:border-white/10 rounded-xl text-[11px] font-bold dark:text-white shadow-sm active:scale-95 transition-all">
+                                Change Password
+                            </button>
+                            <div class="text-center">
+                                <button onclick="alert('Reset link sent to email')"
+                                    class="text-[10px] font-bold text-blue-500/70 hover:text-blue-500 transition-colors">
+                                    Forget Password? <span class="underline">Reset via Email</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2 pt-2">
+                        <button
+                            class="w-full p-3 text-left text-xs font-bold rounded-xl bg-black/5 dark:bg-white/5 dark:text-white hover:bg-black/10 flex justify-between items-center transition-all">
+                            <span>Manage Addresses</span>
+                            <span class="opacity-30">→</span>
+                        </button>
+                        <button
+                            class="w-full p-3 text-center text-xs font-bold rounded-xl bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white transition-all">
+                            Sign Out Account
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <script>
+                function switchTab(tabName) {
+                    // 1. Hide all content sections
+                    document.querySelectorAll('.profile-content').forEach(el => el.classList.add('hidden'));
+
+                    // 2. Reset all tab button styles
+                    document.querySelectorAll('.profile-tab-btn').forEach(btn => {
+                        btn.classList.remove('border-b-2', 'border-blue-500', 'text-blue-500');
+                        btn.classList.add('opacity-40', 'dark:text-white');
+                    });
+
+                    // 3. Show active content
+                    const activeContent = document.getElementById(`content-${tabName}`);
+                    if (activeContent) activeContent.classList.remove('hidden');
+
+                    // 4. Highlight active tab
+                    const activeBtn = document.getElementById(`tab-${tabName}`);
+                    if (activeBtn) {
+                        activeBtn.classList.add('border-b-2', 'border-blue-500', 'text-blue-500');
+                        activeBtn.classList.remove('opacity-40');
+                    }
+                }
+            </script>
+        </div>
+        <div id="catalog-view" class="hidden opacity-0 scale-95 transition-all duration-500 ease-out overflow-hidden">
+            <hr class="my-4 border-black/5 dark:border-white/5">
+            <div class="px-2 pb-6 grid grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-[10px] font-black uppercase tracking-widest opacity-30 dark:text-white mb-4">Genders
+                    </h3>
+                    <ul class="space-y-3">
+                        <li class="text-sm font-bold dark:text-white hover:text-blue-500 cursor-pointer">Men</li>
+                        <li class="text-sm font-bold dark:text-white hover:text-blue-500 cursor-pointer">Women</li>
+                        <li class="text-sm font-bold dark:text-white hover:text-blue-500 cursor-pointer">Kids</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-[10px] font-black uppercase tracking-widest opacity-30 dark:text-white mb-4">
+                        Category</h3>
+                    <ul class="space-y-3">
+                        <li class="text-sm font-bold dark:text-white hover:text-blue-500 cursor-pointer">Tops</li>
+                        <li class="text-sm font-bold dark:text-white hover:text-blue-500 cursor-pointer">Bottoms</li>
+                        <li class="text-sm font-bold dark:text-white hover:text-blue-500 cursor-pointer text-blue-500">
+                            Footwear
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-[10px] font-black uppercase tracking-widest opacity-30 dark:text-white mb-4">Refine
+                    </h3>
+                    <ul class="space-y-3">
+                        <li class="text-xs font-medium dark:text-white/60 hover:text-white cursor-pointer">T-Shirts</li>
+                        <li class="text-xs font-medium dark:text-white/60 hover:text-white cursor-pointer">Sneakers</li>
+                        <li class="text-xs font-medium dark:text-white/60 hover:text-white cursor-pointer">Hoodies</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="help-view" class="hidden opacity-0 scale-95 transition-all duration-500 ease-out overflow-hidden">
+            <hr class="my-4 border-black/5 dark:border-white/5">
+            <div class="px-2 pb-4 space-y-3">
+                <p class="text-[10px] font-bold uppercase opacity-40 dark:text-white tracking-widest">How can we help?
+                </p>
+
+                <button
+                    class="w-full p-4 rounded-xl border border-black/5 dark:border-white/10 flex items-center gap-4 hover:bg-black/5 dark:hover:bg-white/5 transition-all">
+                    <i class="bi bi-chat-dots text-blue-500"></i>
+                    <div class="text-left">
+                        <p class="text-xs font-bold dark:text-white">Live Chat</p>
+                        <p class="text-[9px] opacity-50 dark:text-white">Average response: 2 mins</p>
+                    </div>
+                </button>
+
+                <button
+                    class="w-full p-4 rounded-xl border border-black/5 dark:border-white/10 flex items-center gap-4 hover:bg-black/5 dark:hover:bg-white/5 transition-all">
+                    <i class="bi bi-exclamation-triangle text-red-500"></i>
+                    <div class="text-left">
+                        <p class="text-xs font-bold dark:text-white">Report an Issue</p>
+                        <p class="text-[9px] opacity-50 dark:text-white">Technical bugs or delivery problems</p>
+                    </div>
+                </button>
             </div>
         </div>
 
@@ -642,9 +1005,9 @@
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-4 lg:gap-6">
 
 
-                <div class="product-card glass rounded-[2rem] group cursor-pointer overflow-hidden transition-all duration-500 relative w-full"
+                <div class="product-card glass rounded-[1rem] group cursor-pointer overflow-hidden transition-all duration-500 relative w-full"
                     onclick="toggleOverlay(this, event)">
-                    <div class="aspect-square rounded-t-[2rem] overflow-hidden relative">
+                    <div class="aspect-square rounded-t-[1rem] overflow-hidden relative">
                         <div class="absolute inset-0 bg-cover bg-center transition-transform duration-1000 ease-out group-hover:scale-110"
                             style="background-image: url('https://assets.adidas.com/images/w_1880,f_auto,q_auto/a4ff4a779ee34deca8cc9a6f1f411440_9366/KC6611_HM1.jpg');">
                         </div>
@@ -699,6 +1062,70 @@
                                 <div class="flex flex-wrap items-center gap-x-2 gap-y-1 ml-0.5">
                                     <span class="text-[9px] line-through opacity-50 whitespace-nowrap">EGP
                                         2,590</span>
+                                    <span class="hidden xs:block h-1 w-1 rounded-full bg-white/20"></span>
+                                    <span
+                                        class="text-[9px] text-emerald-500 font-semibold flex items-center gap-1 whitespace-nowrap">
+                                        <i class="bi bi-truck text-[11px]"></i> Free Shipping
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card glass rounded-[1rem] group cursor-pointer overflow-hidden transition-all duration-500 relative w-full"
+                    onclick="toggleOverlay(this, event)">
+                    <div class="aspect-square rounded-t-[1rem] overflow-hidden relative">
+                        <div class="absolute inset-0 bg-cover bg-center transition-transform duration-1000 ease-out group-hover:scale-110"
+                            style="background-image: url('https://eg.puma.com/cdn/shop/files/40021401-3_422x.progressive.jpg?v=1765801865');">
+                        </div>
+
+                        <div
+                            class="absolute top-3 right-3 glass w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 active:scale-90 group/heart cursor-pointer">
+                            <i
+                                class="bi bi-heart text-xs absolute transition-all duration-300 group-hover/heart:opacity-0 group-hover/heart:scale-50"></i>
+                            <i
+                                class="bi bi-heart-fill text-xs text-red-500 absolute scale-0 opacity-0 transition-all duration-300 group-hover/heart:scale-100 group-hover/heart:opacity-100"></i>
+                        </div>
+
+                        <div
+                            class="quick-shop-overlay absolute inset-0 bg-black/60 backdrop-blur-xl translate-y-full opacity-0 transition-all duration-500 ease-in-out z-30 flex flex-col justify-center items-center p-4 space-y-2">
+                            <button
+                                class="w-full py-2 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 transition active:scale-95 translate-y-4 opacity-0 transition-all duration-500 delay-[100ms] overlay-content flex items-center justify-center gap-2 text-[12px]">
+                                <i class="bi bi-bag-plus"></i> Add to Bag
+                            </button>
+                            <button
+                                class="w-full py-2 bg-white text-black rounded-xl font-semibold hover:bg-gray-100 transition active:scale-95 translate-y-4 opacity-0 transition-all duration-500 delay-[150ms] overlay-content text-[12px]">
+                                <i class="bi bi-heart"></i> Add to Favourite
+                            </button>
+                            <button
+                                class="w-full py-2 bg-white text-black rounded-xl font-semibold hover:bg-gray-100 transition active:scale-95 translate-y-4 opacity-0 transition-all duration-500 delay-[150ms] overlay-content text-[12px]">
+                                <i class="bi bi-lightning-charge"></i> Quick Buy
+                            </button>
+                            <button onclick="openQuickLook('PROD_001')"
+                                class="w-full py-2 bg-white/10 backdrop-blur-md border border-white/10 text-white/90 rounded-xl font-medium hover:bg-white/20 transition flex items-center justify-center gap-2 text-[12px] active:bg-white/30">
+                                <i class="bi bi-eye text-[12px]"></i> Quick Look
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="p-4 sm:p-5 relative z-40">
+                        <h4 class="font-bold mb-1 text-sm truncate">Rebound Retro Sneakers Unisex</h4>
+                        <p class="text-[10px] mb-3 opacity-50 tracking-widest uppercase">PUMA</p>
+
+                        <div class="flex justify-between items-end gap-2">
+
+                            <div class="flex flex-col gap-1.5 min-w-0">
+                                <div
+                                    class="flex items-center rounded-lg overflow-hidden glass border border-white/10 w-fit shrink-0">
+
+                                    <span class="text-[10px] font-bold px-2 py-1 tracking-widest whitespace-nowrap">
+                                        EGP 2,500
+                                    </span>
+                                </div>
+
+                                <div class="flex flex-wrap items-center gap-x-2 gap-y-1 ml-0.5">
+
                                     <span class="hidden xs:block h-1 w-1 rounded-full bg-white/20"></span>
                                     <span
                                         class="text-[9px] text-emerald-500 font-semibold flex items-center gap-1 whitespace-nowrap">
@@ -853,8 +1280,8 @@
                 <i class="bi bi-search"></i>
             </a>
 
-            <a href="#" class="nav-bubble" onmouseenter="showHint('Items')" onmouseleave="hideHint()"
-                style="--angle: 230deg; --dist: 125px; --delay: 0.15s;">
+            <a href="#" class="nav-bubble" onclick="openCatalog()" onmouseenter="showHint('Items')"
+                onmouseleave="hideHint()" style="--angle: 230deg; --dist: 125px; --delay: 0.15s;">
                 <i class="bi bi-grid-1x2"></i>
             </a>
 
@@ -863,13 +1290,13 @@
                 <i class="bi bi-bag"></i>
             </a>
 
-            <a href="#" class="nav-bubble" onmouseenter="showHint('Me')" onmouseleave="hideHint()"
-                style="--angle: 310deg; --dist: 125px; --delay: 0.25s;">
+            <a href="#" class="nav-bubble" onclick="openProfile()" onmouseenter="showHint('Me')"
+                onmouseleave="hideHint()" style="--angle: 310deg; --dist: 125px; --delay: 0.25s;">
                 <i class="bi bi-universal-access"></i>
             </a>
 
-            <a href="#" class="nav-bubble" onmouseenter="showHint('Help')" onmouseleave="hideHint()"
-                style="--angle: 350deg; --dist: 110px; --delay: 0.3s;">
+            <a href="#" class="nav-bubble" onclick="openHelp()" onmouseenter="showHint('Help')"
+                onmouseleave="hideHint()" style="--angle: 350deg; --dist: 110px; --delay: 0.3s;">
                 <i class="bi bi-person-raised-hand"></i>
             </a>
 
@@ -1073,7 +1500,7 @@
             const themeBtn = document.querySelector('button[onclick="toggleTheme()"]');
 
             // Hide any other views that might be open
-            ['product-details', 'search-view', 'cart-view'].forEach(id => {
+            ['product-details', 'search-view', 'cart-view', 'profile-view', 'help-view', 'catalog-view'].forEach(id => {
                 const view = document.getElementById(id);
                 if (id !== viewId) {
                     view.classList.add('hidden', 'opacity-0', 'scale-95');
@@ -1163,10 +1590,22 @@
             openNavView('cart-view', '28rem');
         }
 
+        function openProfile() {
+            openNavView('profile-view', '32rem');
+        }
+
+        function openHelp() {
+            openNavView('help-view', '28rem');
+        }
+
+        function openCatalog() {
+            openNavView('catalog-view', '40rem');
+        }
+
         // Updated close function to handle any active view
         function closeAllViews() {
             const nav = document.getElementById('main-nav');
-            const views = ['product-details', 'search-view', 'cart-view'];
+            const views = ['product-details', 'search-view', 'cart-view', 'profile-view', 'help-view', 'catalog-view'];
             const overlay = document.getElementById('nav-overlay');
             const radial = document.getElementById('radial-wrapper');
             const closeBtn = document.getElementById('close-quicklook');
