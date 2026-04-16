@@ -145,6 +145,27 @@
         .sys-pane {
             animation: fadeIn 0.4s ease-out;
         }
+
+        /* Hide main content initially */
+        main,
+        nav {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        /* Class to trigger the smooth entrance */
+        .content-loaded main,
+        .content-loaded nav {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Smooth fade for the loader itself */
+        #loader.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
     </style>
 </head>
 
@@ -616,7 +637,36 @@
                 pane.classList.toggle('hidden', pane.id !== subTabId);
             });
         }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const loader = document.getElementById('loader');
+            const body = document.body;
+
+            // Wait exactly 3 seconds
+            setTimeout(() => {
+                // Start fading the loader
+                loader.classList.add('fade-out');
+
+                // Trigger the content entrance animation
+                body.classList.add('content-loaded');
+
+                // Remove loader from DOM after fade completes to save resources
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 700);
+            }, 3000);
+        });
     </script>
+
 </body>
+<div id="loader"
+    class="fixed inset-0 z-[1000] flex flex-col items-center justify-center bg-[#030303] transition-opacity duration-700">
+    <div class="relative">
+        <div class="w-20 h-20 border-2 border-white/5 border-t-blue-500 rounded-full animate-spin"></div>
+        <img src="./assets/favico.png" class="absolute inset-0 m-auto w-8 h-8 rounded-lg" alt="Loading...">
+    </div>
+    <p class="mt-6 text-[10px] uppercase font-black tracking-[0.4em] animate-pulse opacity-50 text-white">Initializing
+        Matager</p>
+</div>
 
 </html>

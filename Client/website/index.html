@@ -150,8 +150,35 @@
         .animate-marquee:hover {
             animation-play-state: paused;
         }
+
+        /* Hide main content initially */
+        main,
+        nav {
+            opacity: 0;
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        /* Class to trigger the smooth entrance */
+        .content-loaded main,
+        .content-loaded nav {
+            opacity: 1;
+
+        }
+
+        /* Smooth fade for the loader itself */
+        #loader.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
     </style>
 </head>
+<div id="loader"
+    class="fixed inset-0 z-[1000] flex flex-col items-center justify-center bg-[#030303] transition-opacity duration-700">
+    <div class="relative">
+        <div class="w-20 h-20 border-2 border-white/5 border-t-blue-500 rounded-full animate-spin"></div>
+        <img src="./assets/favico.png" class="absolute inset-0 m-auto w-8 h-8 rounded-lg" alt="Loading...">
+    </div>
+</div>
 
 <body class="antialiased">
 
@@ -1676,6 +1703,27 @@
             }, 300);
         });
     </script>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const loader = document.getElementById('loader');
+            const body = document.body;
+
+            // Wait exactly 3 seconds
+            setTimeout(() => {
+                // Start fading the loader
+                loader.classList.add('fade-out');
+
+                // Trigger the content entrance animation
+                body.classList.add('content-loaded');
+
+                // Remove loader from DOM after fade completes to save resources
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 700);
+            }, 3000);
+        });
+    </script>
 </body>
+
 
 </html>
