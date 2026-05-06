@@ -8,6 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="icon" type="image/png" href="./assets/shieldfavicon.png" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap');
@@ -205,88 +206,248 @@
 
     <main class="max-w-7xl mx-auto p-6 lg:p-12">
         <div
-            class="glass-card rounded-[2.5rem] mb-5 overflow-hidden flex flex-col md:flex-row divide-y md:divide-y-0 md:divide-x divide-white/5">
-            <div class="p-8 flex flex-col items-center text-center gap-4 bg-white/[0.01] md:w-2/5">
-                <div class="relative w-24 h-24">
-                    <img src="https://th.bing.com/th/id/R.90bb9597bff6b281ea8e079c339e97d8?rik=T1yOj6l%2bhakOrw&pid=ImgRaw&r=0"
-                        alt="Mohamed Ahmed" class="w-24 h-24 rounded-full border-4 border-white/5 object-cover">
-                    <span
-                        class="absolute bottom-0 right-0 px-3 py-1 bg-green-500 rounded-full text-[9px] font-black uppercase tracking-widest text-black border-2 border-[#030303]">Live</span>
+            class="glass-card rounded-[2.5rem] mb-5 overflow-hidden flex flex-col md:flex-row divide-y md:divide-y-0 md:divide-x divide-white/5 bg-[#080808] border border-white/5 shadow-2xl">
+
+            <!-- Left Profile Section: Focused on Depth -->
+            <div
+                class="p-8 flex flex-col items-center text-center gap-5 bg-gradient-to-b from-white/[0.02] to-transparent md:w-2/5">
+                <div class="relative group">
+                    <div class="relative w-24 h-24">
+                        <img src="https://th.bing.com/th/id/R.90bb9597bff6b281ea8e079c339e97d8?rik=T1yOj6l%2bhakOrw&amp;pid=ImgRaw&amp;r=0"
+                            alt="Mohamed Ahmed" class="w-24 h-24 rounded-full border-4 border-white/5 object-cover">
+                        <span
+                            class="absolute bottom-0 right-0 px-3 py-1 bg-green-500 rounded-full text-[9px] font-black uppercase tracking-widest text-black border-2 border-[#030303]">Live</span>
+                    </div>
+
                 </div>
-                <div>
-                    <h3 class="text-2xl font-bold">Mohamed Ahmed</h3>
-                    <p class="text-sm opacity-50">Store Manager</p>
+
+                <div class="space-y-1">
+                    <h3
+                        class="text-2xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-b from-white to-white/60">
+                        Mohamed Ahmed</h3>
+                    <p class="text-[11px] opacity-40 tracking-tight break-all">mohamedahmed4434@martager.com</p>
+                    <p class="text-xs font-medium text-blue-400/80 uppercase tracking-widest">Store Manager</p>
+
                 </div>
+
                 <div
-                    class="flex items-center gap-2 px-4 py-2 bg-white/5 rounded-full border border-white/10 text-xs font-bold">
+                    class="flex items-center gap-2 px-4 py-2 bg-white/5 rounded-2xl border border-white/10 text-xs font-bold backdrop-blur-md">
                     <i class="fa-solid fa-star text-yellow-500"></i>
-                    <span>4.6 <span class="opacity-50">(92% Positive)</span></span>
+                    <span>4.6 <span class="opacity-40 font-medium">/ 5.0</span></span>
                 </div>
-                <p class="text-[11px] opacity-40  tracking-tight break-all">mohamedahmed4434@martager.com
-                </p>
-                <button
-                    class="w-full mt-2 py-3 bg-white/5 border border-white/10 rounded-xl text-xs font-bold flex items-center justify-center gap-2 hover:bg-white/10 transition-all">
-                    <i class="fa-solid fa-user-gear text-blue-500"></i> Manage Account
-                </button>
 
-                <button onclick="toggleteamModal(true)"
-                    class="w-full mt-2 py-3 bg-white/5 border border-white/10 rounded-xl text-xs font-bold flex items-center justify-center gap-2 hover:bg-white/10 transition-all">
-                    <i class="fa-solid fa-users text-blue-500"></i> Add Team member
-                </button>
-
+                <div class="w-full space-y-2.5 mt-4">
+                    <button
+                        class="w-full py-3.5 bg-white/[0.03] border border-white/10 rounded-2xl text-[11px] font-bold uppercase tracking-wider flex items-center justify-center gap-3 hover:bg-white/10 hover:border-white/20 transition-all active:scale-[0.98]">
+                        <i class="fa-solid fa-user-gear text-blue-500"></i> Manage Account
+                    </button>
+                    <button onclick="toggleteamModal(true)"
+                        class="w-full py-3.5 bg-white/[0.03] border border-white/10 rounded-2xl text-[11px] font-bold uppercase tracking-wider flex items-center justify-center gap-3 hover:bg-white/10 hover:border-white/20 transition-all active:scale-[0.98]">
+                        <i class="fa-solid fa-users text-blue-500"></i> Add Team Member
+                    </button>
+                </div>
             </div>
 
-            <div class="p-8 flex flex-col gap-6 md:w-3/5">
-                <div class="glass-card p-6 rounded-3xl border-white/5">
-                    <div class="flex justify-between items-center mb-4">
-                        <p class="opacity-50 text-[10px] uppercase font-black tracking-[0.2em]">Store Status</p>
+            <!-- Center Section: Operations Hub -->
+            <div class="p-8 bg-white/[0.01] md:w-2/5">
+                <div class="flex justify-between items-center mb-8">
+                    <div class="space-y-1">
+                        <p class="text-blue-500/60 text-[10px] uppercase font-black tracking-[0.25em]">Operations</p>
+                        <h4 class="text-xl font-bold">Quick Hub</h4>
+                    </div>
+                    <button
+                        class="relative flex items-center gap-2 px-5 py-2.5 bg-blue-600 text-white text-[10px] font-black uppercase tracking-widest rounded-2xl hover:bg-blue-500 transition-all active:scale-95 group">
+                        <i class="fa-solid fa-cash-register group-hover:rotate-12 transition-transform"></i>
+                        Switch To POS View
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-3 gap-3 mb-4">
+                    <!-- Refined Action Cards -->
+                    <button
+                        class="flex flex-col items-center gap-3 p-4 bg-white/[0.03] rounded-2xl border border-white/5 hover:border-white/20 hover:bg-white/[0.08] transition-all group">
                         <div
-                            class="flex items-center gap-2 text-green-500 text-[10px] font-black uppercase tracking-widest">
-                            <div class="w-1.5 h-1.5 bg-green-500 rounded-full"></div> Live
+                            class="w-11 h-11 rounded-2xl bg-green-500/10 flex items-center justify-center text-green-500 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-plus text-sm"></i>
                         </div>
-                    </div>
-                    <div class="flex items-center gap-3 p-4 bg-black/20 rounded-xl border border-white/5">
-                        <p class="flex-grow text-sm  opacity-70 truncate">matager.shop/-3hf3hf...</p>
-                        <button class="text-white/30 hover:text-white transition-colors"><i
-                                class="fa-solid fa-copy"></i></button>
-                    </div>
+                        <p class="text-[9px] font-black uppercase tracking-tighter opacity-70 group-hover:opacity-100">
+                            Add</p>
+                    </button>
                     <button
-                        class="w-full mt-4 py-3 bg-blue-600/10 text-blue-500 border border-blue-500/20 rounded-xl text-xs font-bold flex items-center justify-center gap-2 hover:bg-blue-600/20 transition-all">
-                        <i class="fa-solid fa-globe"></i> Open Store
+                        class="flex flex-col items-center gap-3 p-4 bg-white/[0.03] rounded-2xl border border-white/5 hover:border-white/20 hover:bg-white/[0.08] transition-all group">
+                        <div
+                            class="w-11 h-11 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-500 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-check-to-slot text-sm"></i>
+                        </div>
+                        <p class="text-[9px] font-black uppercase tracking-tighter opacity-70 group-hover:opacity-100">
+                            Orders
+                        </p>
+                    </button>
+                    <button
+                        class="flex flex-col items-center gap-3 p-4 bg-white/[0.03] rounded-2xl border border-white/5 hover:border-white/20 hover:bg-white/[0.08] transition-all group">
+                        <div
+                            class="w-11 h-11 rounded-2xl bg-purple-500/10 flex items-center justify-center text-purple-500 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-ticket text-sm"></i>
+                        </div>
+                        <p class="text-[9px] font-black uppercase tracking-tighter opacity-70 group-hover:opacity-100">
+                            Promo</p>
                     </button>
                 </div>
 
-                <div class="glass-card p-6 rounded-3xl border-white/5 bg-red-950/10 border-red-900/20">
-                    <div class="flex justify-between items-center mb-4">
-                        <p class="opacity-50 text-[10px] uppercase font-black tracking-[0.2em]">Subscription</p>
-                        <span class="text-blue-500 text-[10px] font-black uppercase tracking-widest">Active</span>
+                <div class="grid grid-cols-2 gap-4 mb-4">
+                    <div
+                        class="p-5 bg-gradient-to-br from-white/[0.04] to-transparent rounded-3xl border border-white/5">
+                        <p class="text-[9px] text-blue-400/60 uppercase font-black mb-1">Visitors</p>
+                        <p class="text-2xl font-bold tracking-tight">1,284</p>
                     </div>
-                    <div class="flex items-center gap-4 p-4 bg-black/20 rounded-xl border border-white/5">
-                        <div class="relative w-12 h-12">
-                            <svg class="w-12 h-12 -rotate-90" viewBox="0 0 36 36">
-                                <path class="text-white/5"
-                                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                                    fill="none" stroke="currentColor" stroke-width="3" />
-                                <path class="text-blue-500" stroke-dasharray="75, 100"
-                                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                                    fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
+                    <div
+                        class="p-5 bg-gradient-to-br from-white/[0.04] to-transparent rounded-3xl border border-white/5">
+                        <p class="text-[9px] text-purple-400/60 uppercase font-black mb-1">Storage</p>
+                        <p class="text-2xl font-bold tracking-tight">4.2<span
+                                class="text-xs opacity-30 font-medium">/10G</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-3 p-4 mb-4 bg-black/20 rounded-xl border border-white/5 group">
+                    <p class="flex-grow text-sm opacity-70 truncate">matager.shop/market-hub-cairo</p>
+                    <button class="text-white/30 hover:text-white transition-colors"><i
+                            class="fa-solid fa-copy"></i></button>
+                </div><button
+                    class="w-full py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-2xl text-[11px] font-black uppercase tracking-widest flex items-center justify-center gap-3 hover:shadow-[0_0_30px_rgba(37,99,235,0.2)] transition-all active:scale-[0.99]">
+                    <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i> Open Storefront
+                </button>
+            </div>
+
+            <!-- Right Section: Billing & Network -->
+            <div class="p-8 flex flex-col gap-6 md:w-2/5 bg-gradient-to-t from-white/[0.01] to-transparent">
+                <div
+                    class="p-6 rounded-[2rem] border border-white/10 bg-white/[0.02] shadow-inner relative overflow-hidden group">
+                    <!-- Subscriptions Glow -->
+                    <div class="absolute -top-24 -right-24 w-48 h-48 bg-blue-500/10 blur-[80px]"></div>
+
+                    <div class="flex justify-between items-start mb-8 relative z-10">
+                        <div class="space-y-1">
+                            <p class="opacity-40 text-[9px] uppercase font-black tracking-[0.2em]">Current Plan</p>
+                            <h4 class="text-lg font-bold">Matager-100</h4>
+                        </div>
+                        <span
+                            class="px-3 py-1 bg-blue-500/10 text-blue-400 text-[9px] font-black uppercase tracking-widest rounded-full border border-blue-500/20 backdrop-blur-md">Active</span>
+                    </div>
+
+                    <div class="flex items-center gap-5 mb-8 relative z-10">
+                        <div class="relative w-14 h-14">
+                            <svg class="w-14 h-14 -rotate-90" viewBox="0 0 36 36">
+                                <circle cx="18" cy="18" r="16" fill="none" class="text-white/5" stroke="currentColor"
+                                    stroke-width="3"></circle>
+                                <circle cx="18" cy="18" r="16" fill="none" class="text-blue-500" stroke="currentColor"
+                                    stroke-width="3" stroke-dasharray="75, 100" stroke-linecap="round"></circle>
                             </svg>
-                            <span class="absolute inset-0 flex items-center justify-center text-xs font-bold">14d</span>
+                            <span
+                                class="absolute inset-0 flex items-center justify-center text-[10px] font-black">75%</span>
                         </div>
-                        <div>
-                            <p class="text-xs opacity-50">Expiring in</p>
-                            <p class="text-lg font-bold">13d : 23h : 54m</p>
+                        <div class="flex-grow">
+                            <p class="text-[9px] opacity-40 uppercase font-black mb-1">Expiring in</p>
+                            <p class="text-lg font-bold tracking-tighter text-white/90">13d : 23h : 54m</p>
+                            <p class="text-[10px] opacity-40 pb-1">Next Billing: May 18, 2026</p>
                         </div>
                     </div>
-                    <button
-                        class="w-full mt-4 py-3 bg-red-600/10 text-red-500 border border-red-500/20 rounded-xl text-xs font-bold flex items-center justify-center gap-2 hover:bg-red-600/20 transition-all">
-                        <i class="fa-solid fa-arrows-rotate"></i> Renew Plan
+
+                    <div class="grid grid-cols-2 gap-3 relative z-10">
+                        <button
+                            class="py-3 bg-white/5 border border-white/10 rounded-xl text-[10px] font-black uppercase hover:bg-white/10 transition-all">Invoices</button>
+                        <button
+                            class="py-3 bg-red-500/10 text-red-500 border border-red-500/20 rounded-xl text-[10px] font-black uppercase hover:bg-red-500/20 transition-all">Renew</button>
+                    </div>
+                </div>
+
+                <!-- Enhanced Switcher -->
+                <div
+                    class="p-5 rounded-[1.8rem] bg-blue-500/5 border border-blue-500/20 flex items-center justify-between group hover:bg-blue-500/10 transition-all relative overflow-hidden">
+                    <div class="flex items-center gap-4 relative z-10">
+                        <div>
+                            <p class="text-[9px] uppercase font-black tracking-widest text-blue-400/60">Matager Mall
+                            </p>
+                            <!-- ID ADDED HERE TO MATCH SCRIPT -->
+                            <h4 id="connectionStatusText"
+                                class="text-sm font-bold text-white/60 tracking-tight transition-colors">
+                                Disconnected</h4>
+                        </div>
+                    </div>
+
+                    <!-- Connection Toggle Button -->
+                    <button id="mallConnectBtn" data-state="unplugged"
+                        class="relative group flex items-center justify-center outline-none active:scale-95 transition-all">
+                        <!-- State-Dependent Glow -->
+                        <div id="glowEffect"
+                            class="absolute inset-0 rounded-full blur-xl opacity-0 transition-all duration-500 bg-slate-500">
+                        </div>
+
+                        <!-- Button Body -->
+                        <div id="btnBody"
+                            class="relative z-10 w-11 h-11 rounded-2xl flex items-center justify-center text-white border border-white/10 transition-all duration-500 bg-white/5">
+                            <!-- Updated Icon ID and Classes -->
+                            <i id="connectIcon"
+                                class="fa-solid fa-plug-circle-xmark text-sm opacity-40 transition-all duration-500"></i>
+                        </div>
                     </button>
                 </div>
 
-                <p class="text-xs opacity-40 text-center mt-2"><i class="fa-solid fa-circle-info mr-1"></i> Last
-                    account
-                    activity was 2 hours ago from Cairo, Egypt.</p>
+                <script>
+                    (function () {
+                        const btn = document.getElementById('mallConnectBtn');
+                        const glow = document.getElementById('glowEffect');
+                        const body = document.getElementById('btnBody');
+                        const icon = document.getElementById('connectIcon');
+                        const statusText = document.getElementById('connectionStatusText');
+
+                        btn.addEventListener('click', () => {
+                            const isUnplugged = btn.getAttribute('data-state') === 'unplugged';
+
+                            if (isUnplugged) {
+                                // --- SWITCH TO: CONNECTED ---
+                                btn.setAttribute('data-state', 'plugged');
+
+                                // Visual Styles
+                                body.style.backgroundColor = '#3b82f6';
+                                body.style.borderColor = 'rgba(255, 255, 255, 0.4)';
+
+                                glow.classList.replace('bg-slate-500', 'bg-blue-400');
+                                glow.classList.replace('opacity-0', 'opacity-30');
+
+                                // Icon & Text Changes
+                                icon.classList.replace('fa-plug-circle-xmark', 'fa-plug-circle-check');
+                                icon.classList.replace('opacity-40', 'opacity-100');
+                                icon.style.transform = 'rotate(360deg) scale(1.1)';
+
+                                statusText.innerText = 'Connected';
+                                statusText.classList.replace('text-white/60', 'text-blue-400');
+                            } else {
+                                // --- SWITCH TO: DISCONNECTED ---
+                                btn.setAttribute('data-state', 'unplugged');
+
+                                // Reset Visual Styles
+                                body.style.backgroundColor = 'rgba(255, 255, 255, 0.05)';
+                                body.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+
+                                glow.classList.replace('bg-blue-400', 'bg-slate-500');
+                                glow.classList.replace('opacity-30', 'opacity-0');
+
+                                // Reset Icon & Text
+                                icon.classList.replace('fa-plug-circle-check', 'fa-plug-circle-xmark');
+                                icon.classList.replace('opacity-100', 'opacity-40');
+                                icon.style.transform = 'rotate(0deg) scale(1)';
+
+                                statusText.innerText = 'Disconnected';
+                                statusText.classList.replace('text-blue-400', 'text-white/60');
+                            }
+                        });
+                    })();
+                </script>
+
+                <p class="text-[9px] opacity-20 text-center font-medium tracking-tight">
+                    Last active: 2h ago • Cairo, EG • 197.xx.xxx.xx
+                </p>
             </div>
         </div>
         <div
@@ -882,7 +1043,7 @@
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-white/5">
-                        <tr class="hover:bg-white/[0.02] transition-all">
+                        <tr class="hover:bg-white/[0.02] transition-all m-8">
                             <td class="px-10 py-8" data-label="Month">
                                 <span class="font-bold">March 2026</span>
                             </td>
@@ -900,7 +1061,7 @@
                                     class="px-3 py-1 bg-blue-500/10 text-blue-500 rounded-full text-[9px] font-black uppercase tracking-widest border border-blue-500/20">Finalized</span>
                             </td>
                         </tr>
-                        <tr class="hover:bg-white/[0.02] transition-all">
+                        <tr class="hover:bg-white/[0.02] transition-all m-8">
                             <td class="px-10 py-8" data-label="Month">
                                 <span class="font-bold">February 2026</span>
                             </td>
@@ -918,7 +1079,7 @@
                                     class="px-3 py-1 bg-blue-500/10 text-blue-500 rounded-full text-[9px] font-black uppercase tracking-widest border border-blue-500/20">Finalized</span>
                             </td>
                         </tr>
-                        <tr class="hover:bg-white/[0.02] transition-all">
+                        <tr class="hover:bg-white/[0.02] transition-all m-8">
                             <td class="px-10 py-8" data-label="Month">
                                 <span class="font-bold">January 2026</span>
                             </td>
@@ -1494,6 +1655,9 @@
                 <button
                     class="pb-4 text-[10px] uppercase font-black tracking-widest opacity-40 hover:opacity-100 transition-all">Gift
                     Cards</button>
+                <button
+                    class="pb-4 text-[10px] uppercase font-black tracking-widest opacity-40 hover:opacity-100 transition-all">Same-Price
+                    Sale</button>
             </div>
 
             <!-- Promo Grid -->
@@ -1954,7 +2118,7 @@
                         <tr class="group hover:bg-white/[0.02] transition-all">
                             <td class="px-8 py-5">
                                 <div class="flex items-center gap-3">
-                                    <div class="w-8 h-8 rounded-lg bg-white/5 border border-white/10 overflow-hidden">
+                                    <div class="w-12 h-12 rounded-lg bg-white/5 border border-white/10 overflow-hidden">
                                         <img src="https://static.nike.com/a/images/t_web_pw_592_v2/f_auto/pysqd15onjaeugu8mh4l/AIR+MAX+270.png"
                                             class="w-full h-full object-cover">
                                     </div>
@@ -2009,33 +2173,20 @@
 
         <div
             class="glass-card rounded-[2.5rem] border border-white/10 bg-white/[0.02] backdrop-blur-3xl overflow-hidden shadow-2xl">
-
-            <div class="px-8 pt-8 pb-4 border-b border-white/5">
-                <div class="flex items-center gap-1 bg-black/20 p-1.5 rounded-2xl w-fit mx-auto">
-                    <button onclick="SystemSubTab('sys-account')"
-                        class="sys-tab-btn px-6 py-2.5 rounded-xl text-[11px] uppercase font-bold tracking-widest transition-all hover:text-white active">
-                        Account
-                    </button>
-                    <button onclick="SystemSubTab('sys-messages')"
-                        class="sys-tab-btn px-6 py-2.5 rounded-xl text-[11px] uppercase font-bold tracking-widest transition-all hover:opacity-100">
-                        Messages
-                    </button>
-                    <button onclick="SystemSubTab('sys-reports')"
-                        class="sys-tab-btn px-6 py-2.5 rounded-xl text-[11px] uppercase font-bold tracking-widest transition-all hover:opacity-100">
-                        Reports
-                    </button>
-                </div>
-            </div>
-
             <div class="p-8 lg:p-12">
                 <div id="sys-account" class="sys-pane">
                     <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
                         <div class="lg:col-span-7 space-y-8">
                             <div>
-                                <h3 class="text-[10px] uppercase font-black tracking-[0.3em] opacity-40 mb-6">Main Admin
-                                    Details
-                                </h3>
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="px-8 flex gap-6 border-b border-white/5">
+                                    <button
+                                        class="pb-4 text-[10px] uppercase font-black tracking-widest text-blue-400 border-b-2 border-blue-400">platform
+                                        info</button>
+                                    <button
+                                        class="pb-4 text-[10px] uppercase font-black tracking-widest opacity-40 hover:opacity-100 transition-all">Personal
+                                        info</button>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-8">
                                     <div
                                         class="glass-card p-5 rounded-2xl border-white/5 bg-white/[0.03] group hover:border-blue-500/30 transition-colors">
                                         <label
@@ -2096,6 +2247,13 @@
                                             <i class="fa-solid fa-key text-blue-400"></i>
                                         </span>
                                         Reset Password
+                                    </button>
+                                    <button
+                                        class="w-full py-4 px-6 glass-card rounded-2xl font-bold text-xs hover:bg-orange-500/10 border-white/5 hover:border-orange-500/50 transition-all flex items-center gap-4 group">
+                                        <span class="p-2 bg-orange-500/20 rounded-lg transition-transform">
+                                            <i class="bi bi-bug-fill text-orange-400"></i>
+                                        </span>
+                                        Report a Bug
                                     </button>
                                     <button
                                         class="w-full py-4 px-6 glass-card rounded-2xl font-bold text-xs hover:bg-red-500/10 border-white/5 hover:border-red-500/50 transition-all flex items-center gap-4 group text-red-200/60 hover:text-red-400">
@@ -2992,10 +3150,11 @@
                                 <div class="flex flex-col gap-2 w-full">
                                     <span class="text-xs opacity-70 leading-relaxed">10th of Ramadan City, Egypt -
                                         Building 4, Flat 12</span>
-                                    <a href="#" target="_blank"
-                                        class="text-[10px] text-blue-400 hover:text-blue-300 flex items-center gap-1 font-bold uppercase tracking-wider">
+                                    <!-- Updated Trigger -->
+                                    <button onclick="toggleMapModal(true)"
+                                        class="text-[10px] text-blue-400 hover:text-blue-300 flex items-center gap-1 font-bold uppercase tracking-wider outline-none">
                                         <i class="fa-solid fa-map"></i> View on Map
-                                    </a>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -3162,18 +3321,35 @@
                         <p class="opacity-50 text-[9px] uppercase font-black tracking-[0.2em] flex items-center gap-1">
                             Visual Assets
                         </p>
-                        <button
-                            class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-blue-500/10 border border-blue-500/20 hover:bg-blue-500/20 transition-all group">
-                            <i class="fa-solid fa-wand-magic-sparkles text-blue-400 text-[10px]"></i>
-                            <span class="text-[8px] font-black uppercase text-blue-300">AI Enhance</span>
-                        </button>
                     </div>
                     <div
-                        class="h-32 sm:h-40 rounded-[1.5rem] border-2 border-dashed border-white/10 bg-white/[0.02] flex flex-col items-center justify-center gap-2 hover:border-blue-500/40 transition-all cursor-pointer group">
+                        class="h-32 sm:h-40 rounded-[1rem] relative border-2 border-dashed border-white/10 bg-white/[0.02] flex flex-col items-center justify-center gap-2 hover:border-blue-500/40 transition-all cursor-pointer overflow-hidden">
+                        <!-- Icon & Labels -->
+                        <!-- AI Enhance Button -->
+                        <button type="button" onclick="event.stopPropagation(); toggleAIModal(true);"
+                            class="absolute top-3 right-3 w-8 h-8 rounded-full bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 hover:bg-blue-500 hover:text-white transition-all z-10 group/ai"
+                            title="Enhance with AI">
+                            <i
+                                class="fa-solid fa-wand-magic-sparkles text-[12px] group-hover/ai:rotate-12 transition-transform"></i>
+                        </button>
+
                         <i
                             class="fa-solid fa-cloud-arrow-up text-white/20 group-hover:text-blue-400 transition-colors text-xl"></i>
-                        <p class="text-[10px] font-bold opacity-40">Primary Media Drop</p>
-                        <p class="text-[7px] opacity-20">PNG, JPG, WEBP up to 10MB</p>
+                        <div class="text-center">
+                            <p class="text-[10px] font-bold opacity-40 uppercase tracking-widest">Primary Media Drop</p>
+                            <p class="text-[7px] opacity-20 mt-1">PNG, JPG, WEBP up to 10MB</p>
+                        </div>
+
+                        <!-- Action Button (Add by Link) -->
+                        <button type="button" onclick="event.stopPropagation(); prompt('Enter Image URL:');"
+                            class="mt-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 hover:bg-blue-500/10 hover:border-blue-500/30 transition-all flex items-center gap-2 outline-none">
+                            <i class="fa-solid fa-link text-[8px] text-blue-400"></i>
+                            <span
+                                class="text-[9px] font-black uppercase tracking-tighter text-white/60 group-hover:text-white">Add
+                                by
+                                link</span>
+                        </button>
+
                     </div>
                 </section>
 
@@ -3191,7 +3367,7 @@
 
                     <!-- DYNAMIC VARIANTS LIST (enhanced empty state) -->
                     <div id="variantsList"
-                        class="flex-grow overflow-y-auto pr-2 custom-scrollbar space-y-3 overscroll-contain max-h-[250px] scroll-smooth transform-gpu will-change-scroll">
+                        class="flex-grow overflow-y-auto pr-2 custom-scrollbar space-y-3 overscroll-contain max-h-[320px] scroll-smooth transform-gpu will-change-scroll">
                         <!-- variants will be injected here -->
                         <div class="opacity-40 text-center py-6 text-[9px] uppercase tracking-wider"
                             id="emptyVariantsMsg">No variants — add your first size/color package</div>
@@ -3203,14 +3379,18 @@
 
                     <div class="absolute inset-0 bg-black/60 backdrop-blur-md" onclick="hideVariantCreator()"></div>
 
+                    <!-- Parent Container: Added 'flex flex-col' and 'max-h-[90%]' -->
                     <div
-                        class="relative w-full max-w-lg bg-[#0c0c0c] border border-white/10 rounded-[2.5rem] shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-300">
+                        class="relative w-full max-w-lg bg-[#0c0c0c] border border-white/10 rounded-[2.5rem] shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-300 flex flex-col h-[90%]">
 
-                        <div class="p-6 border-b border-white/5 flex justify-between items-center bg-white/[0.02]">
+                        <!-- Header: Stays at top -->
+                        <div
+                            class="p-6 border-b border-white/5 flex justify-between items-center bg-white/[0.02] shrink-0">
                             <div>
                                 <h3 class="text-white text-xs font-black uppercase tracking-widest">Configure Variant
                                 </h3>
-                                <p class="text-[9px] text-blue-400 font-bold uppercase mt-1">Size & Color Package</p>
+                                <p class="text-[9px] text-blue-400 font-bold uppercase mt-1">Size &amp; Color Package
+                                </p>
                             </div>
                             <button onclick="hideVariantCreator()"
                                 class="text-white/20 hover:text-white transition-colors">
@@ -3218,19 +3398,20 @@
                             </button>
                         </div>
 
-                        <div class="p-8 space-y-8 max-h-[70vh] overflow-y-auto custom-scrollbar">
+                        <!-- Body: Added 'flex-1' and 'overflow-y-auto' to make it the only scrollable part -->
+                        <div class="p-8 space-y-8 overflow-y-auto custom-scrollbar flex-1">
 
+                            <!-- Size Section -->
                             <div class="space-y-4">
                                 <div class="flex justify-between items-center">
                                     <p class="text-[9px] font-black opacity-40 uppercase tracking-[0.2em]">Size
                                         Configuration</p>
                                     <button onclick="toggleSizeMethod()" id="methodToggle"
                                         class="text-[8px] font-black uppercase px-3 py-1.5 bg-blue-500/10 text-blue-400 rounded-full border border-blue-500/20 hover:bg-blue-600 hover:text-white transition-all">
-                                        to Single
-                                    </button>
+                                        to Single Size</button>
                                 </div>
 
-                                <div id="rangeInputs" class="flex flex-row items-center gap-3">
+                                <div id="rangeInputs" class="flex flex-wrap items-center gap-3">
                                     <input type="text" id="sizeFrom" placeholder="From"
                                         class="flex-1 bg-black/60 border border-white/10 rounded-2xl p-4 text-[11px] outline-none focus:border-blue-500/50 transition-all shadow-inner text-white">
                                     <span class="opacity-20 font-bold text-white">—</span>
@@ -3255,6 +3436,7 @@
                                 </div>
                             </div>
 
+                            <!-- Color Section -->
                             <div class="space-y-4">
                                 <p class="text-[9px] font-black opacity-40 uppercase tracking-[0.2em]">Visual Identity
                                 </p>
@@ -3264,8 +3446,8 @@
                                         <input type="color" id="colorPicker" value="#3b82f6"
                                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
                                         <div id="colorPreview"
-                                            class="w-full h-full transition-transform group-hover:scale-110"
-                                            style="background-color: #3b82f6;"></div>
+                                            class="w-full h-full transition-transform group-hover:scale-110 bg-[#3b82f6]">
+                                        </div>
                                     </div>
                                     <div class="flex-1">
                                         <input type="text" id="variantColorName"
@@ -3274,18 +3456,15 @@
                                     </div>
                                 </div>
                             </div>
+
                             <!-- Saved Packages Section -->
-                            <div class="space-y-4 mt-6">
-                                <p class="text-[9px] font-black opacity-40 uppercase tracking-[0.2em]">
-                                    Saved Packages
+                            <div class="space-y-4">
+                                <p class="text-[9px] font-black opacity-40 uppercase tracking-[0.2em]">Saved Packages
                                 </p>
-
                                 <div class="flex items-center gap-3">
-                                    <!-- Scrollable Area -->
                                     <div
-                                        class="flex-1 flex items-center gap-2 overflow-x-auto custom-scrollbar-h flex-nowrap scroll-smooth overscroll-contain">
-
-                                        <!-- Example Badge 1 -->
+                                        class="flex-1 flex items-center gap-2 overflow-x-auto custom-scrollbar-h flex-nowrap scroll-smooth overscroll-contain pb-2">
+                                        <!-- Badge Example -->
                                         <button
                                             class="shrink-0 px-4 py-2 bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 transition-all group">
                                             <div class="flex items-center gap-2">
@@ -3296,36 +3475,30 @@
                                                     Essentials</span>
                                             </div>
                                         </button>
-
-                                        <!-- Example Badge 2 -->
                                         <button
                                             class="shrink-0 px-4 py-2 bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 transition-all group">
                                             <div class="flex items-center gap-2">
                                                 <span
-                                                    class="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]"></span>
+                                                    class="w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.5)]"></span>
                                                 <span
-                                                    class="text-[10px] text-white/70 font-medium whitespace-nowrap">Neon
-                                                    Summer</span>
+                                                    class="text-[10px] text-white/70 font-medium whitespace-nowrap">Matte
+                                                    Essentials</span>
                                             </div>
                                         </button>
-
-                                        <!-- Example Badge 3 -->
                                         <button
                                             class="shrink-0 px-4 py-2 bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 transition-all group">
                                             <div class="flex items-center gap-2">
                                                 <span
-                                                    class="w-2 h-2 rounded-full bg-purple-500 shadow-[0_0_8px_rgba(168,85,247,0.5)]"></span>
+                                                    class="w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.5)]"></span>
                                                 <span
-                                                    class="text-[10px] text-white/70 font-medium whitespace-nowrap">Midnight
-                                                    Pro</span>
+                                                    class="text-[10px] text-white/70 font-medium whitespace-nowrap">Matte
+                                                    Essentials</span>
                                             </div>
                                         </button>
-
+                                        <!-- Add more badges here -->
                                     </div>
-
-                                    <!-- Static Action Badge -->
                                     <button onclick="saveCurrentAsPackage()"
-                                        class="shrink-0 h-[38px] px-4 flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 rounded-xl hover:bg-blue-500 hover:text-white text-blue-400 transition-all duration-300 group">
+                                        class="shrink-0 h-[38px] px-4 flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 rounded-xl hover:bg-blue-500 hover:text-white text-blue-400 transition-all duration-300">
                                         <i class="fa-regular fa-bookmark text-[10px]"></i>
                                         <span class="text-[9px] font-black uppercase tracking-wider">Save</span>
                                     </button>
@@ -3333,7 +3506,8 @@
                             </div>
                         </div>
 
-                        <div class="p-6 bg-white/[0.02] border-t border-white/5 flex gap-3">
+                        <!-- Footer: Stays at bottom due to 'shrink-0' and parent 'flex flex-col' -->
+                        <div class="p-6 bg-white/[0.04] border-t border-white/5 flex gap-3 shrink-0 backdrop-blur-sm">
                             <button onclick="hideVariantCreator()"
                                 class="flex-1 px-5 py-4 bg-white/5 text-[10px] font-black uppercase rounded-2xl hover:bg-red-500/20 transition-all text-white">
                                 Cancel
@@ -4006,6 +4180,335 @@
     });
 </script>
 
+
+<div id="openmabmodal"
+    class="fixed inset-0 z-[10000] flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300 ease-out hidden">
+
+    <!-- Backdrop Overlay -->
+    <div class="fixed inset-0 bg-black/85 backdrop-blur-xl" onclick="toggleMapModal(false)"></div>
+
+    <div class="relative w-full max-w-2xl my-auto flex flex-col transform transition-all scale-95 max-h-[95vh]">
+
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-3 flex-shrink-0 px-4">
+            <h2 class="text-white/90 font-black uppercase tracking-[0.3em] text-[10px] sm:text-sm">
+                Location Preview
+            </h2>
+            <button onclick="toggleMapModal(false)" class="group flex flex-col items-end gap-1 outline-none">
+                <span
+                    class="text-[9px] font-black uppercase tracking-[0.5em] text-white/30 group-hover:text-white transition-all duration-500">
+                    Close Map
+                </span>
+                <div class="h-[1px] w-6 bg-white/10 group-hover:w-20 group-hover:bg-blue-500 transition-all"></div>
+            </button>
+        </div>
+
+        <!-- Main Glass Panel -->
+        <div
+            class="w-full overflow-hidden rounded-[2.5rem] shadow-2xl bg-[#080808] text-white border border-white/5 p-4">
+            <!-- Map Container -->
+            <div class="w-full aspect-video rounded-[2rem] overflow-hidden border border-white/5 bg-white/5">
+                <iframe class="w-full h-full grayscale invert opacity-80"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d110183.13426176374!2d31.66699268700201!3d30.34464197346853!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14591f16592233c1%3A0xc34b3e83c3e8080!2s10th%20of%20Ramadan%20City%2C%20Ash%20Sharqia%20Governorate!5e0!3m2!1sen!2seg!4v1714850000000!5m2!1sen!2seg"
+                    style="border:0;" allowfullscreen="" loading="lazy">
+                </iframe>
+            </div>
+
+            <div class="mt-6 px-4 pb-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+                <div class="flex flex-col">
+                    <p class="text-[10px] font-black uppercase tracking-widest text-blue-400">Current Headquarters</p>
+                    <p class="text-xs opacity-50">10th of Ramadan City, Egypt</p>
+                </div>
+                <a href="https://maps.google.com" target="_blank"
+                    class="px-8 py-3 bg-white/5 border border-white/10 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-white/10 transition-all">
+                    Open in Google Maps
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    /**
+     * Toggles the visibility of the Map modal (openmabmodal)
+     * Provides a smooth scale and opacity transition.
+     */
+    function toggleMapModal(show) {
+        const modal = document.getElementById('openmabmodal');
+        if (!modal) return; // Safety check if element doesn't exist
+
+        const content = modal.querySelector('.relative');
+
+        if (show) {
+            // 1. Prepare the modal for the transition
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+
+            // 2. Use requestAnimationFrame to ensure the browser has painted 'hidden' 
+            // removal before starting the opacity/scale animation
+            requestAnimationFrame(() => {
+                modal.classList.replace('opacity-0', 'opacity-100');
+                modal.classList.remove('pointer-events-none');
+                if (content) {
+                    content.classList.replace('scale-95', 'scale-100');
+                }
+            });
+        } else {
+            // 1. Start the fade-out and scale-down
+            modal.classList.replace('opacity-100', 'opacity-0');
+            modal.classList.add('pointer-events-none');
+            if (content) {
+                content.classList.replace('scale-100', 'scale-95');
+            }
+
+            // 2. Wait for the transition duration (300ms) before hiding from DOM
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }, 300);
+        }
+    }
+
+    // Optional: Close modal when pressing the 'Escape' key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            const mapModal = document.getElementById('openmabmodal');
+            if (mapModal && !mapModal.classList.contains('hidden')) {
+                toggleMapModal(false);
+            }
+        }
+    });
+</script>
+
+
+
+<div id="aiEnhanceModal"
+    class="fixed inset-0 z-[20000] hidden items-center justify-center p-4 opacity-0 transition-all duration-300">
+
+    <div class="absolute inset-0 bg-black/90 backdrop-blur-md" onclick="toggleAIModal(false)"></div>
+
+    <div
+        class="relative w-full max-w-2xl bg-[#0a0a0a] border border-white/10 rounded-[2.5rem] overflow-hidden flex flex-col shadow-2xl scale-95 transition-all duration-300">
+
+        <!-- Header -->
+        <div class="p-6 border-b border-white/5 flex justify-between items-center bg-white/[0.02]">
+            <div>
+                <h3 class="text-xl font-bold text-white tracking-tight">AI Media Studio</h3>
+                <p class="text-[10px] text-blue-400 uppercase font-black tracking-[0.2em]">Enhance & Reimagine</p>
+            </div>
+            <button onclick="toggleAIModal(false)" class="text-white/20 hover:text-white transition-colors">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <!-- Mode Toggle (The "Never Together" Logic) -->
+        <div class="px-8 pt-6">
+            <div class="flex p-1 bg-white/5 rounded-xl border border-white/5">
+                <button onclick="setAIMode('style')" id="btn-mode-style"
+                    class="flex-1 py-2 text-[10px] font-black uppercase tracking-widest rounded-lg transition-all bg-blue-600 text-white">
+                    Preset Styles
+                </button>
+                <button onclick="setAIMode('custom')" id="btn-mode-custom"
+                    class="flex-1 py-2 text-[10px] font-black uppercase tracking-widest rounded-lg transition-all text-white/40 hover:text-white">
+                    Custom Prompt
+                </button>
+            </div>
+        </div>
+
+        <div class="p-8">
+            <!-- 1. Style Selector (Sliding Flex) -->
+            <section id="ai-style-section" class="block">
+                <p class="text-[10px] uppercase font-black text-white/30 tracking-widest mb-4">Choose Atmosphere</p>
+                <div class="flex gap-4 overflow-x-auto pb-4 custom-scrollbar snap-x">
+                    <!-- Style Cards -->
+                    <div onclick="selectAIStyle(this)" class="flex-none w-32 group cursor-pointer snap-start">
+                        <div
+                            class="aspect-square rounded-2xl border border-blue-500 bg-white/5 overflow-hidden transition-all relative">
+                            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=200"
+                                class="w-full h-full object-cover opacity-60">
+                            <div class="absolute inset-0 bg-blue-600/20 flex items-center justify-center">
+                                <i class="fa-solid fa-check text-white text-xs"></i>
+                            </div>
+                        </div>
+                        <p class="text-[9px] text-center mt-2 font-bold text-white uppercase">Cyberpunk</p>
+                    </div>
+
+                    <div onclick="selectAIStyle(this)" class="flex-none w-32 group cursor-pointer snap-start">
+                        <div
+                            class="aspect-square rounded-2xl border border-white/5 bg-white/5 overflow-hidden transition-all group-hover:border-white/20 relative">
+                            <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?w=200"
+                                class="w-full h-full object-cover opacity-40 group-hover:opacity-60 transition-all">
+                        </div>
+                        <p class="text-[9px] text-center mt-2 font-bold text-white/40 uppercase">Minimalist</p>
+                    </div>
+
+                    <div onclick="selectAIStyle(this)" class="flex-none w-32 group cursor-pointer snap-start">
+                        <div
+                            class="aspect-square rounded-2xl border border-white/5 bg-white/5 overflow-hidden transition-all group-hover:border-white/20 relative">
+                            <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=200"
+                                class="w-full h-full object-cover opacity-40 group-hover:opacity-60 transition-all">
+                        </div>
+                        <p class="text-[9px] text-center mt-2 font-bold text-white/40 uppercase">Vibrant</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. Custom Prompt (Initially Hidden) -->
+            <section id="ai-custom-section" class="hidden animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <div class="flex justify-between mb-4">
+                    <p class="text-[10px] uppercase font-black text-white/30 tracking-widest">Your Imagination</p>
+                </div>
+                <textarea
+                    placeholder="Describe your masterpiece... (e.g. 'Turn this product into a futuristic 3D render with neon lighting')"
+                    class="w-full bg-white/5 border border-white/10 rounded-3xl p-6 text-sm text-white focus:outline-none focus:border-blue-500/50 transition-all min-h-[160px] resize-none shadow-inner"></textarea>
+            </section>
+        </div>
+
+        <!-- Footer -->
+        <div class="p-6 bg-white/[0.02] border-t border-white/5">
+            <button
+                class="w-full py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-2xl text-[11px] font-black uppercase tracking-widest transition-all shadow-xl shadow-blue-600/20 active:scale-95">
+                Generate Magic
+            </button>
+        </div>
+    </div>
+</div>
+<script>
+    /**
+     * Toggles the AI Enhancement Modal visibility with a smooth scale and fade transition.
+     * @param {boolean} show - Whether to open or close the modal.
+     */
+    function toggleAIModal(show) {
+        const modal = document.getElementById('aiEnhanceModal');
+        if (!modal) return;
+
+        const content = modal.querySelector('.relative');
+
+        if (show) {
+            // Reset modal state before showing
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+
+            // Allow DOM to register 'flex' before animating opacity/scale
+            requestAnimationFrame(() => {
+                modal.classList.replace('opacity-0', 'opacity-100');
+                if (content) {
+                    content.classList.replace('scale-95', 'scale-100');
+                }
+            });
+
+            // Prevent background scrolling while modal is open
+            document.body.style.overflow = 'hidden';
+        } else {
+            // Start closing animations
+            modal.classList.replace('opacity-100', 'opacity-0');
+            if (content) {
+                content.classList.replace('scale-100', 'scale-95');
+            }
+
+            // Wait for transition duration (300ms) then hide completely
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                document.body.style.overflow = '';
+            }, 300);
+        }
+    }
+
+    /**
+     * Handles the visual selection of AI styles and updates the UI state.
+     * @param {HTMLElement} element - The style card clicked by the user.
+     */
+    function selectAIStyle(element) {
+        // 1. Find the container to scope the selection
+        const grid = element.parentElement;
+
+        // 2. Remove 'selected' state and reset borders for all other styles
+        grid.querySelectorAll('.group').forEach(item => {
+            item.classList.remove('selected');
+            const innerDiv = item.querySelector('.aspect-square');
+            if (innerDiv) {
+                innerDiv.classList.remove('border-blue-500');
+                innerDiv.classList.add('border-white/5');
+            }
+        });
+
+        // 3. Apply 'selected' state to the clicked item
+        element.classList.add('selected');
+        const selectedDiv = element.querySelector('.aspect-square');
+        if (selectedDiv) {
+            selectedDiv.classList.replace('border-white/5', 'border-blue-500');
+        }
+    }
+
+    // Close AI Modal on Escape key press
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            const aiModal = document.getElementById('aiEnhanceModal');
+            if (aiModal && !aiModal.classList.contains('hidden')) {
+                toggleAIModal(false);
+            }
+        }
+    });
+</script>
+<script>
+    function setAIMode(mode) {
+        const styleSection = document.getElementById('ai-style-section');
+        const customSection = document.getElementById('ai-custom-section');
+        const styleBtn = document.getElementById('btn-mode-style');
+        const customBtn = document.getElementById('btn-mode-custom');
+
+        if (mode === 'style') {
+            // Show Style, Hide Custom
+            styleSection.classList.remove('hidden');
+            customSection.classList.add('hidden');
+
+            // Update Buttons
+            styleBtn.classList.add('bg-blue-600', 'text-white');
+            styleBtn.classList.remove('text-white/40');
+            customBtn.classList.remove('bg-blue-600', 'text-white');
+            customBtn.classList.add('text-white/40');
+        } else {
+            // Show Custom, Hide Style
+            styleSection.classList.add('hidden');
+            customSection.classList.remove('hidden');
+
+            // Update Buttons
+            customBtn.classList.add('bg-blue-600', 'text-white');
+            customBtn.classList.remove('text-white/40');
+            styleBtn.classList.remove('bg-blue-600', 'text-white');
+            styleBtn.classList.add('text-white/40');
+        }
+    }
+
+    function selectAIStyle(element) {
+        // Find all cards in the flex container
+        const cards = element.parentElement.querySelectorAll('.flex-none');
+
+        cards.forEach(card => {
+            const wrapper = card.querySelector('.aspect-square');
+            const text = card.querySelector('p');
+            const check = card.querySelector('.absolute');
+
+            // Reset all
+            wrapper.classList.remove('border-blue-500');
+            wrapper.classList.add('border-white/5');
+            text.classList.replace('text-white', 'text-white/40');
+            if (check) check.classList.add('hidden');
+        });
+
+        // Activate selected
+        const selectedWrapper = element.querySelector('.aspect-square');
+        selectedWrapper.classList.replace('border-white/5', 'border-blue-500');
+        element.querySelector('p').classList.replace('text-white/40', 'text-white');
+
+        // Ensure checkmark logic if not already in HTML
+        if (!element.querySelector('.absolute')) {
+            selectedWrapper.insertAdjacentHTML('beforeend', `<div class="absolute inset-0 bg-blue-600/20 flex items-center justify-center"><i class="fa-solid fa-check text-white text-xs"></i></div>`);
+        } else {
+            element.querySelector('.absolute').classList.remove('hidden');
+        }
+    }
+</script>
 
 
 <!-- loader -->
