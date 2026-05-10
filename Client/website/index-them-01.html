@@ -223,6 +223,57 @@
                         </svg>
                     </div>
                 </div>
+
+                <!-- <div class="flex flex-col gap-5 py-1">
+                    <div class="space-y-1">
+                        <h3 id="ql-title" class="font-bold text-base md:text-sm dark:text-white leading-tight">Product
+                            Title
+                        </h3>
+                        <div class="flex items-center gap-2">
+                            <p id="ql-price" class="text-blue-600 dark:text-blue-400 font-bold text-sm">EGP 0.00</p>
+                            <p id="ql-old-price" class="text-[10px] line-through opacity-40 dark:text-white">EGP 0.00
+                            </p>
+                            <span id="ql-discount"
+                                class="bg-red-500/10 text-red-500 text-[9px] px-1.5 py-0.5 rounded-md font-bold">-0%</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4 my-4 md:my-0">
+                        <div>
+                            <p class="text-[9px] uppercase opacity-40 dark:text-white font-bold tracking-widest mb-2">
+                                Color</p>
+                            <div class="flex gap-2">
+                                <button
+                                    class="w-5 h-5 rounded-full ring-1 ring-offset-2 ring-blue-600 bg-white border border-black/10"></button>
+                                <button class="w-5 h-5 rounded-full bg-slate-900 border border-white/10"></button>
+                                <button class="w-5 h-5 rounded-full bg-blue-500 border border-white/10"></button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <p class="text-[9px] uppercase opacity-40 dark:text-white font-bold tracking-widest mb-2">
+                                Select
+                                Size</p>
+                            <div class="flex gap-1.5" id="size-options">
+                                <button
+                                    class="w-9 h-9 md:w-8 md:h-8 rounded-lg border border-black/10 dark:border-white/10 text-[10px] dark:text-white flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all active:scale-90">S</button>
+                                <button
+                                    class="w-9 h-9 md:w-8 md:h-8 rounded-lg border border-black/10 dark:border-white/10 text-[10px] dark:text-white flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all active:scale-90">M</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2 mt-2">
+                        <button
+                            class="w-full py-3 md:py-2.5 bg-slate-900 dark:bg-white text-white dark:text-black rounded-xl font-bold text-[11px] active:scale-95 transition-all shadow-lg shadow-black/5">
+                            Quick Buy
+                        </button>
+                        <button
+                            class="w-full py-3 md:py-2.5 border border-black/10 dark:border-white/10 dark:text-white rounded-xl font-bold text-[11px] active:scale-95 transition-all">
+                            Add to Bag
+                        </button>
+                    </div>
+                </div> -->
                 <div
                     class="flex flex-col gap-5 py-1 h-full max-h-[500px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-slate-200 dark:scrollbar-thumb-white/10">
                     <!-- Header: Title & Price -->
@@ -408,240 +459,111 @@
             </div>
         </div>
 
-
-        <!-- Main Container (Mimicking your app's view) -->
         <div id="search-view" class="hidden opacity-0 scale-95 transition-all duration-500 ease-out overflow-hidden">
-
             <hr class="my-4 border-black/5 dark:border-white/5">
-            <!-- Search Bar -->
-            <div class="relative group mb-2">
-                <input type="text" id="search-input" oninput="handleSearch(this.value)" placeholder="Search products..."
-                    class="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white text-sm focus:outline-none focus:border-blue-500/50 transition-colors text-base">
-            </div>
-
-            <!-- Wrapped Suggestions (Slide Down to Hide) -->
-            <div id="search-suggestions" class="search-transition-wrapper">
-                <div class="search-transition-content">
-
-                    <!-- Popular Brands -->
-                    <div class="mt-6">
-                        <p
-                            class="text-[10px] uppercase opacity-40 dark:text-white font-black tracking-widest px-1 mb-4">
-                            Popular Brands
-                        </p>
-                        <div class="flex items-center gap-3">
-                            <div class="flex-1 flex items-center gap-4 overflow-x-auto scrollbar-hide snap-x">
-                                <!-- Adidas -->
-                                <div class="flex-shrink-0 flex flex-col items-center gap-2 snap-center group/item">
-                                    <div
-                                        class="w-12 h-12 rounded-2xl bg-white dark:bg-zinc-800 border border-black/5 dark:border-white/10 group-hover/item:border-blue-500/50 transition-all cursor-pointer overflow-hidden">
-                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6-6eF2_lMhYvQx780Z3G9T3X56A69mK8L7A&s"
-                                            class="w-full h-full object-contain p-2" alt="Adidas">
-                                    </div>
-                                    <span class="text-[10px] dark:text-white/50 font-semibold uppercase">Adidas</span>
-                                </div>
-                                <!-- Nike -->
-                                <div class="flex-shrink-0 flex flex-col items-center gap-2 snap-center group/item">
-                                    <div
-                                        class="w-12 h-12 rounded-2xl bg-white dark:bg-zinc-800 border border-black/5 dark:border-white/10 group-hover/item:border-blue-500/50 transition-all cursor-pointer overflow-hidden">
-                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVG_H35pXNAnHh-Y9rK-z4fR0fF78Cg_iLnw&s"
-                                            class="w-full h-full object-contain p-2" alt="Nike">
-                                    </div>
-                                    <span class="text-[10px] dark:text-white/50 font-semibold uppercase">Nike</span>
-                                </div>
-                            </div>
-                            <button
-                                class="group flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-full bg-black dark:bg-white text-white dark:text-black text-[11px] font-black uppercase transition-all active:scale-95 shadow-lg shadow-black/10">
-                                Explore <i
-                                    class="bi bi-chevron-right transition-transform group-hover:translate-x-1"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Popular Categories -->
-                    <div class="mt-6">
-                        <p
-                            class="text-[10px] uppercase opacity-40 dark:text-white font-black tracking-widest px-1 mb-3">
-                            Popular Categories
-                        </p>
-                        <div class="flex items-center gap-2">
-                            <div class="flex-1 flex items-center gap-2 overflow-x-auto scrollbar-hide">
-                                <span
-                                    class="flex-shrink-0 px-4 py-2 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 text-[11px] font-bold border border-blue-500/20 cursor-pointer">Sneakers</span>
-                                <span
-                                    class="flex-shrink-0 px-4 py-2 rounded-full bg-black/5 dark:bg-white/5 text-black/60 dark:text-white/60 text-[11px] font-bold border border-black/5 dark:border-white/10 cursor-pointer">Streetwear</span>
-                            </div>
-                            <button
-                                class="group flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-full bg-black dark:bg-white text-white dark:text-black text-[11px] font-black uppercase transition-all active:scale-95">
-                                Explore <i
-                                    class="bi bi-chevron-right transition-transform group-hover:translate-x-1"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Recent Searches -->
-                    <div class="mt-8 pb-4">
-                        <p class="text-[10px] uppercase opacity-40 dark:text-white font-bold tracking-widest px-1 mb-3">
-                            Recent Searches
-                        </p>
-                        <div
-                            class="flex items-center gap-3 p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-2xl cursor-pointer transition-all group">
-                            <div class="w-10 h-10 rounded-xl bg-zinc-200 dark:bg-zinc-800 bg-cover bg-center"
-                                style="background-image: url('https://assets.adidas.com/images/w_1880,f_auto,q_auto/a4ff4a779ee34deca8cc9a6f1f411440_9366/KC6611_HM1.jpg')">
-                            </div>
-                            <span class="text-sm dark:text-white font-medium group-hover:text-blue-500">Adidas classic
-                                tee</span>
-                        </div>
-                    </div>
-
+            <div class="px-2 pb-4">
+                <!-- Search Bar -->
+                <div class="relative group">
+                    <input type="text" placeholder="Search products..."
+                        class="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl py-3 px-4 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all dark:text-white">
                 </div>
-            </div>
 
-            <!-- Search Results (Floats Up) -->
-            <div id="search-results" class="hidden opacity-0 -translate-y-6 mt-4">
-                <div class="flex justify-between items-center mb-4 px-1">
-                    <p class="text-[10px] uppercase opacity-40 dark:text-white font-black tracking-widest">
-                        Search Results
+                <!-- Popular Brands Section -->
+                <div class="mt-4">
+                    <p class="text-[10px] uppercase opacity-40 dark:text-white font-bold tracking-widest px-1 mb-4">
+                        Popular Brands
                     </p>
-                    <span id="result-count" class="text-[9px] font-bold text-blue-500">2 ITEMS FOUND</span>
-                </div>
-                <div id="results-grid" class="grid grid-cols-2 gap-4 mb-4">
-                    <!-- Dynamic Content -->
+                    <div class="flex items-center gap-4 overflow-x-auto pb-4 scrollbar-hide snap-x">
+                        <!-- Puma -->
+                        <div class="flex-shrink-0 flex flex-col items-center gap-2 p-1 snap-center group">
+                            <div
+                                class="w-12 h-12 rounded-2xl bg-white dark:bg-zinc-800 shadow-sm border border-black/5 dark:border-white/10 group-hover:scale-105 group-hover:shadow-lg group-hover:border-blue-500/50 transition-all duration-300 ease-out cursor-pointer overflow-hidden">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmEw8TrscvmCGKcZO9Z9g0sfzQv2gHyWvz2g&amp;s"
+                                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                    alt="Puma">
+                            </div>
+                            <span
+                                class="text-[10px] dark:text-white/50 group-hover:dark:text-white font-semibold transition-colors uppercase tracking-tight">Puma</span>
+                        </div>
+                        <!-- Adidas -->
+                        <div class="flex-shrink-0 flex flex-col items-center gap-2 p-1 snap-center group">
+                            <div
+                                class="w-12 h-12 rounded-2xl bg-white dark:bg-zinc-800 shadow-sm border border-black/5 dark:border-white/10 group-hover:scale-105 group-hover:shadow-lg group-hover:border-blue-500/50 transition-all duration-300 ease-out cursor-pointer overflow-hidden">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6-6eF2_lMhYvQx780Z3G9T3X56A69mK8L7A&amp;s"
+                                    class="w-full h-full object-contain p-2 transition-transform duration-500 group-hover:scale-110"
+                                    alt="Adidas">
+                            </div>
+                            <span
+                                class="text-[10px] dark:text-white/50 group-hover:dark:text-white font-semibold transition-colors uppercase tracking-tight">Adidas</span>
+                        </div>
+                        <!-- Nike -->
+                        <div class="flex-shrink-0 flex flex-col items-center gap-2 p-1 snap-center group">
+                            <div
+                                class="w-12 h-12 rounded-2xl bg-white dark:bg-zinc-800 shadow-sm border border-black/5 dark:border-white/10 group-hover:scale-105 group-hover:shadow-lg group-hover:border-blue-500/50 transition-all duration-300 ease-out cursor-pointer overflow-hidden">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVG_H35pXNAnHh-Y9rK-z4fR0fF78Cg_iLnw&amp;s"
+                                    class="w-full h-full object-contain p-2 transition-transform duration-500 group-hover:scale-110"
+                                    alt="Nike">
+                            </div>
+                            <span
+                                class="text-[10px] dark:text-white/50 group-hover:dark:text-white font-semibold transition-colors uppercase tracking-tight">Nike</span>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="px-1">
-                    <p class="text-[10px] uppercase opacity-40 dark:text-white font-black tracking-widest mb-4">
-                        Related search
+                <!-- NEW: Popular Categories Badges -->
+                <div class="mt-2">
+                    <p class="text-[10px] uppercase opacity-40 dark:text-white font-bold tracking-widest px-1 mb-3">
+                        Popular Categories
                     </p>
-                    <div class="flex gap-2 overflow-x-auto pb-4 scrollbar-hide no-scrollbar">
+                    <div class="flex flex-wrap gap-2 px-1">
                         <span
-                            class="flex-shrink-0 px-4 py-2 rounded-full bg-black/5 dark:bg-white/5 text-black/60 dark:text-white/60 text-[11px] font-bold border border-black/5 dark:border-white/10 cursor-pointer">Streetwear</span>
+                            class="px-3 py-1.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 text-[11px] font-bold border border-blue-500/20 cursor-pointer hover:bg-blue-500 hover:text-white transition-all">Sneakers</span>
                         <span
-                            class="flex-shrink-0 px-4 py-2 rounded-full bg-black/5 dark:bg-white/5 text-black/60 dark:text-white/60 text-[11px] font-bold border border-black/5 dark:border-white/10 cursor-pointer">socks</span>
+                            class="px-3 py-1.5 rounded-full bg-black/5 dark:bg-white/5 text-black/60 dark:text-white/60 text-[11px] font-bold border border-black/5 dark:border-white/10 cursor-pointer hover:border-black/20 dark:hover:border-white/30 transition-all">Streetwear</span>
+                        <span
+                            class="px-3 py-1.5 rounded-full bg-black/5 dark:bg-white/5 text-black/60 dark:text-white/60 text-[11px] font-bold border border-black/5 dark:border-white/10 cursor-pointer hover:border-black/20 dark:hover:border-white/30 transition-all">Accessories</span>
+                        <span
+                            class="px-3 py-1.5 rounded-full bg-black/5 dark:bg-white/5 text-black/60 dark:text-white/60 text-[11px] font-bold border border-black/5 dark:border-white/10 cursor-pointer hover:border-black/20 dark:hover:border-white/30 transition-all">Limited
+                            Edition</span>
                     </div>
                 </div>
 
-
+                <!-- Recent Searches -->
+                <div class="mt-6 space-y-2 max-h-[300px] overflow-y-auto">
+                    <p class="text-[10px] uppercase opacity-40 dark:text-white font-bold tracking-widest px-1">
+                        Recent Searches
+                    </p>
+                    <div
+                        class="flex items-center gap-3 p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg cursor-pointer transition-all group">
+                        <div class="w-10 h-10 rounded-md bg-gray-200 dark:bg-zinc-800 bg-cover bg-center"
+                            style="background-image: url('https://assets.adidas.com/images/w_1880,f_auto,q_auto/a4ff4a779ee34deca8cc9a6f1f411440_9366/KC6611_HM1.jpg')">
+                        </div>
+                        <span
+                            class="text-sm dark:text-white font-medium group-hover:text-blue-500 transition-colors">Adidas
+                            classic
+                            t-shirt</span>
+                    </div>
+                    <div
+                        class="flex items-center gap-3 p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg cursor-pointer transition-all group">
+                        <div class="w-10 h-10 rounded-md bg-gray-200 dark:bg-zinc-800 bg-cover bg-center"
+                            style="background-image: url('https://assets.adidas.com/images/w_1880,f_auto,q_auto/a4ff4a779ee34deca8cc9a6f1f411440_9366/KC6611_HM1.jpg')">
+                        </div>
+                        <span
+                            class="text-sm dark:text-white font-medium group-hover:text-blue-500 transition-colors">Adidas
+                            classic
+                            t-shirt</span>
+                    </div>
+                </div>
             </div>
-
-
-
-
-            <script>
-                function handleSearch(query) {
-                    const suggestions = document.getElementById('search-suggestions');
-                    const results = document.getElementById('search-results');
-                    const resultsGrid = document.getElementById('results-grid');
-                    const input = query.trim();
-
-                    if (input.length > 0) {
-                        // 1. Hide Suggestions: Slide Down & Fade Out
-                        suggestions.classList.add('is-hidden');
-
-                        // 2. Prepare Results: Show & Float Up
-                        results.classList.remove('hidden');
-                        requestAnimationFrame(() => {
-                            results.classList.add('opacity-100', 'translate-y-0');
-                            results.classList.remove('opacity-0', '-translate-y-6');
-                        });
-
-                        // 3. Fake Data Injection
-                        resultsGrid.innerHTML = `
-                    <div class="bg-black/5 dark:bg-white/5 rounded-[2rem] p-3 border border-black/5 dark:border-white/5 animate-pulse">
-                        <div class="aspect-square bg-black/10 dark:bg-white/10 rounded-2xl mb-3"></div>
-                        <div class="h-2.5 w-2/3 bg-black/10 dark:bg-white/10 rounded-full mb-2"></div>
-                        <div class="h-2 w-1/3 bg-blue-500/20 rounded-full"></div>
-                    </div>
-                    <div class="bg-black/5 dark:bg-white/5 rounded-[2rem] p-3 border border-black/5 dark:border-white/5 animate-pulse">
-                        <div class="aspect-square bg-black/10 dark:bg-white/10 rounded-2xl mb-3"></div>
-                        <div class="h-2.5 w-2/3 bg-black/10 dark:bg-white/10 rounded-full mb-2"></div>
-                        <div class="h-2 w-1/3 bg-blue-500/20 rounded-full"></div>
-                    </div>
-                `;
-                    } else {
-                        // 1. Show Suggestions: Slide Up & Fade In
-                        suggestions.classList.remove('is-hidden');
-
-                        // 2. Hide Results: Slide Up & Fade Out
-                        results.classList.add('opacity-0', '-translate-y-6');
-                        results.classList.remove('opacity-100', 'translate-y-0');
-
-                        // 3. Display cleanup
-                        setTimeout(() => {
-                            if (document.getElementById('search-input').value.length === 0) {
-                                results.classList.add('hidden');
-                            }
-                        }, 500);
-                    }
-                }
-            </script>
-            <style>
-                /* Custom Scrollbar Hide */
-                .scrollbar-hide::-webkit-scrollbar {
-                    display: none;
-                }
-
-                .scrollbar-hide {
-                    -ms-overflow-style: none;
-                    scrollbar-width: none;
-                }
-
-                /* The smooth height & opacity collapse logic */
-                .search-transition-wrapper {
-                    display: grid;
-                    grid-template-rows: 1fr;
-                    transition: grid-template-rows 450ms cubic-bezier(0.4, 0, 0.2, 1),
-                        opacity 300ms ease,
-                        transform 450ms ease;
-                    transform-origin: top;
-                }
-
-                /* State: Suggestions slide down and fade out */
-                .search-transition-wrapper.is-hidden {
-                    grid-template-rows: 0fr;
-                    opacity: 0;
-                    transform: translateY(20px);
-                    pointer-events: none;
-                }
-
-                .search-transition-content {
-                    overflow: hidden;
-                }
-
-                /* Result Entrance Animation */
-                #search-results {
-                    transition: all 500ms cubic-bezier(0.22, 1, 0.36, 1);
-                }
-            </style>
         </div>
-
-
-
-
 
 
         <div id="cart-view" class="hidden opacity-0 scale-95 transition-all duration-500 ease-out overflow-hidden">
             <hr class="my-4 border-black/5 dark:border-white/5">
 
             <div class="px-2 pb-4">
-
-
-
                 <div id="cart-step-1" class="space-y-4">
-                    <div class="flex items-center justify-between px-1 mb-4">
-                        <div class="flex items-center gap-2">
-                            <span class="text-[10px] font-bold dark:text-white/40 uppercase tracking-widest">Your Cart
-                                Items</span>
-
-
-                        </div>
-
-                        <div class="flex items-center gap-3">
-                            <span class="text-[10px] font-bold text-blue-500 px-3 py-1.5 rounded-lg bg-blue-500/10">+3
-                                Items</span>
-                        </div>
-                    </div>
-                    <div id="cart-items" class="max-h-[120px] overflow-y-auto space-y-4 pr-1 scrollbar-hide">
+                    <div id="cart-items" class="max-h-[250px] overflow-y-auto space-y-4 pr-1 scrollbar-hide">
                         <div class="flex justify-between items-center">
                             <div class="flex gap-3">
                                 <div
@@ -666,6 +588,39 @@
                                 class="text-red-500 opacity-50 hover:opacity-100 transition-all text-[10px] font-bold">Remove</button>
                         </div>
                     </div>
+                    <!-- <div class="space-y-2">
+                        <p class="text-[10px] font-bold dark:text-white/40 uppercase px-1">Delivery Method</p>
+                        <div class="grid grid-cols-2 gap-2">
+                            <label
+                                class="relative p-3 rounded-xl border-2 border-blue-500 bg-blue-500/5 cursor-pointer">
+                                <input type="radio" name="delivery" class="hidden" checked>
+                                <p class="text-[11px] font-bold dark:text-white">Home Delivery</p>
+                                <p class="text-[9px] opacity-60 dark:text-white">2-3 Days</p>
+                            </label>
+                            <label
+                                class="relative p-3 rounded-xl border border-black/10 dark:border-white/10 cursor-pointer">
+                                <input type="radio" name="delivery" class="hidden">
+                                <p class="text-[11px] font-bold dark:text-white">Store Pickup</p>
+                                <p class="text-[9px] opacity-60 dark:text-white">Main Branch</p>
+                            </label>
+                        </div>
+                    </div> -->
+
+                    <!-- <div class="p-3 rounded-2xl bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/10">
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="text-[10px] font-bold dark:text-white/60 uppercase">Shipping to</span>
+                            <span class="text-[10px] text-blue-500 font-bold">Standard • EGP 50</span>
+                        </div>
+
+                        <div class="flex justify-between items-end">
+                            <p class="text-[11px] font-bold dark:text-white">10th of Ramadan City, Al-Sharqia</p>
+
+                            <button onclick=""
+                                class="text-[10px] font-bold text-blue-500 hover:underline transition-all">
+                                Change
+                            </button>
+                        </div>
+                    </div> -->
 
                     <div class="space-y-2">
                         <p class="text-[10px] font-bold dark:text-white/40 uppercase px-1">Delivery Method</p>
@@ -893,7 +848,7 @@
                 </button>
                 <button onclick="switchTab('fit')" id="tab-fit"
                     class="profile-tab-btn pb-2 text-xs font-bold opacity-40 hover:opacity-100 dark:text-white whitespace-nowrap">
-                    Your Fit
+                    Your Fit AI
                 </button>
                 <button onclick="switchTab('related')" id="tab-related"
                     class="profile-tab-btn pb-2 text-xs font-bold opacity-40 hover:opacity-100 dark:text-white whitespace-nowrap">
@@ -912,8 +867,15 @@
                     <div class="space-y-3 mb-6">
                         <!-- Search Bar -->
                         <div class="relative">
+                            <span class="absolute inset-y-0 left-3 flex items-center opacity-30">
+                                <svg class="w-3 h-3 dark:text-white" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                </svg>
+                            </span>
                             <input type="text" placeholder="Search orders by ID or item..."
-                                class="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white text-sm focus:outline-none focus:border-blue-500/50 transition-colors text-base">
+                                class="w-full bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/10 rounded-xl py-2 pl-9 pr-4 text-[10px] focus:outline-none focus:ring-1 focus:ring-blue-500/50 dark:text-white">
                         </div>
 
                         <!-- Status Filter Dropdown -->
@@ -986,47 +948,26 @@
                     </div>
 
                     <!-- Part 2: User Stats Grid -->
-                    <div class="flex gap-2 overflow-x-auto pb-2 scrollbar-hide no-scrollbar">
+                    <div class="grid grid-cols-4 gap-2">
                         <div
-                            class="flex-shrink-0 p-2 min-w-[70px] rounded-xl bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/10 flex flex-col items-center">
+                            class="p-2 rounded-xl bg-black/5 dark:bg-white/5 border border-black/5 flex flex-col items-center">
                             <p class="text-[8px] uppercase opacity-50 dark:text-white">Height</p>
                             <p class="text-[10px] font-bold dark:text-white">180cm</p>
                         </div>
-
                         <div
-                            class="flex-shrink-0 p-2 min-w-[70px] rounded-xl bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/10 flex flex-col items-center">
+                            class="p-2 rounded-xl bg-black/5 dark:bg-white/5 border border-black/5 flex flex-col items-center">
                             <p class="text-[8px] uppercase opacity-50 dark:text-white">Weight</p>
                             <p class="text-[10px] font-bold dark:text-white">75kg</p>
                         </div>
-
                         <div
-                            class="flex-shrink-0 p-2 min-w-[70px] rounded-xl bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/10 flex flex-col items-center">
+                            class="p-2 rounded-xl bg-black/5 dark:bg-white/5 border border-black/5 flex flex-col items-center">
                             <p class="text-[8px] uppercase opacity-50 dark:text-white">Top</p>
                             <p class="text-[10px] font-bold dark:text-white">M</p>
                         </div>
-
                         <div
-                            class="flex-shrink-0 p-2 min-w-[70px] rounded-xl bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/10 flex flex-col items-center">
-                            <p class="text-[8px] uppercase opacity-50 dark:text-white">Bottom</p>
-                            <p class="text-[10px] font-bold dark:text-white">32</p>
-                        </div>
-
-                        <div
-                            class="flex-shrink-0 p-2 min-w-[70px] rounded-xl bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/10 flex flex-col items-center">
+                            class="p-2 rounded-xl bg-black/5 dark:bg-white/5 border border-black/5 flex flex-col items-center">
                             <p class="text-[8px] uppercase opacity-50 dark:text-white">Shoe</p>
                             <p class="text-[10px] font-bold dark:text-white">42</p>
-                        </div>
-
-                        <div
-                            class="flex-shrink-0 p-2 min-w-[70px] rounded-xl bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/10 flex flex-col items-center">
-                            <p class="text-[8px] uppercase opacity-50 dark:text-white">Style</p>
-                            <p class="text-[10px] font-bold dark:text-white">Modern</p>
-                        </div>
-
-                        <div
-                            class="flex-shrink-0 p-2 min-w-[70px] rounded-xl bg-blue-500/10 border border-blue-500/20 flex flex-col items-center">
-                            <p class="text-[8px] uppercase text-blue-500 font-bold">Fit</p>
-                            <p class="text-[10px] font-bold text-blue-500">Loose</p>
                         </div>
                     </div>
 
@@ -1034,8 +975,15 @@
                     <div class="space-y-3">
                         <!-- Search Bar -->
                         <div class="relative">
+                            <span class="absolute inset-y-0 left-3 flex items-center opacity-30">
+                                <svg class="w-3 h-3 dark:text-white" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                </svg>
+                            </span>
                             <input type="text" placeholder="Search your fit..."
-                                class="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white text-sm focus:outline-none focus:border-blue-500/50 transition-colors text-base">
+                                class="w-full bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/10 rounded-xl py-2 pl-9 pr-4 text-[10px] focus:outline-none focus:ring-1 focus:ring-blue-500/50 dark:text-white">
                         </div>
 
                         <!-- Category Dropdown/Select -->
@@ -1458,7 +1406,7 @@
             </div>
 
             <div id="explore-grid"
-                class="grid grid-cols-2 lg:grid-cols-3 gap-4 px-2 max-h-[450px] overflow-y-auto pr-1  transition-all duration-500">
+                class="grid grid-cols-2 lg:grid-cols-3 gap-4 px-2 max-h-[450px] overflow-y-auto pr-1 scrollbar-hide transition-all duration-500">
 
                 <div
                     class="group relative bg-black rounded-3xl overflow-hidden transition-all duration-500 cursor-pointer border border-white/5">
@@ -1655,304 +1603,417 @@
 
     <main class="flex flex-col items-center">
 
-        <div id="hero-main-container" class="bg-[#050505] overflow-hidden">
-            <style>
-                /* CRITICAL: Force no extra gaps and full-screen view */
-                html,
-                body {
-                    margin: 0;
-                    padding: 0;
-                    width: 100%;
-                    height: 100%;
-                }
+        <section class="relative h-screen w-full flex items-center justify-center overflow-hidden bg-[#050505]">
 
-                #hero-pin-target {
-                    position: relative;
-                    /* Script will handle pinning */
-                    width: 100vw;
-                    height: 100vh;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    overflow: hidden;
-                }
+            <div class="absolute inset-0 z-0">
+                <div class="bg-gradient-spot absolute top-[-10%] left-[-10%] w-[120%] h-[120%] opacity-40"></div>
+                <div
+                    class="absolute inset-0 bg-[url('https://media.cnn.com/api/v1/images/stellar/prod/gettyimages-2221597444.jpg?c=original')] bluredimage mix-blend-overlay">
+                </div>
+            </div>
 
-                .hero-step {
-                    position: absolute;
-                    inset: 0;
-                    width: 100%;
-                    height: 100%;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    opacity: 0;
-                    pointer-events: none;
-                    z-index: 10;
-                }
+            <div class="relative z-10 w-full px-8 md:px-20 lg:px-32">
+                <div class="flex flex-col items-start max-w-[1400px] mx-auto">
 
-                /* Show first step by default */
-                .hero-step:first-child {
-                    opacity: 1;
-                    pointer-events: auto;
-                    z-index: 20;
-                }
+                    <div class="reveal-container mb-6">
+                        <span
+                            class="premium-badge inline-block text-blue-400 text-xs font-bold tracking-[0.4em] uppercase flex items-center gap-2">
+                            Last Drop: <span id="last-drop-date">April 05, 2026</span>
+                        </span>
+                    </div>
 
-                .hero-step-image {
-                    position: absolute;
-                    inset: 0;
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                    /* Keeps image full-wide and full-height without distortion */
-                    opacity: 0.6;
-                }
+                    <h1
+                        class="hero-title text-[clamp(2.5rem,8vw,6.5rem)] font-bold text-white leading-[0.9] tracking-tighter mb-8">
+                        Elevate your <br>
+                        <span class="text-reveal-mask">Appearance</span> with <br>
+                        curated
+                        <div class="relative inline-block">
+                            <span class="text-transparent" style="-webkit-text-stroke: 1px white;">
+                                essentials.
+                            </span>
 
-                .hero-step-content {
-                    position: relative;
-                    z-index: 30;
-                    width: 100%;
-                    max-width: 1600px;
-                    padding: 0 5%;
-                }
+                            <span class="absolute top-0 left-0 text-white fill-animation"
+                                style="clip-path: inset(0 100% 0 0);">
+                                essentials.
+                            </span>
+                        </div>
+                    </h1>
 
-                .text-clamp-title {
-                    font-size: clamp(2.5rem, 10vw, 8rem);
-                    font-weight: 800;
-                    line-height: 0.85;
-                    color: white;
-                    text-transform: uppercase;
-                    letter-spacing: -0.05em;
-                }
+                    <div class="flex flex-col md:flex-row md:items-end justify-between w-full gap-8">
+                        <p class="hero-desc text-white/50 text-lg md:text-xl max-w-xl font-light leading-relaxed">
+                            Simplicity is everything. We strip away the noise to bring you
+                            products that actually matter to your daily routine.
+                        </p>
 
-                /* Nav floating fix */
-                .header-nav {
-                    position: fixed;
-                    top: 20px;
-                    left: 50%;
-                    transform: translateX(-50%);
-                    z-index: 1000;
-                    background: rgba(255, 255, 255, 0.05);
-                    backdrop-filter: blur(15px);
-                    padding: 10px 24px;
-                    border-radius: 100px;
-                    color: white;
-                    border: 1px solid rgba(255, 255, 255, 0.1);
-                }
+                        <div class="flex flex-col md:flex-row items-center gap-3 md:gap-6 transition-all duration-500">
 
-                @keyframes slow-zoom {
-                    0% {
-                        transform: scale(1);
-                    }
+                            <span class="scroll-text text-[10px] uppercase tracking-[0.3em] text-white/30 font-medium">
+                                Scroll
+                            </span>
 
-                    100% {
-                        transform: scale(1.15);
-                    }
-                }
-
-                .animate-slow-zoom {
-                    animation: slow-zoom 20s infinite alternate ease-in-out;
-                }
-
-                /* Reveal Animation for 'essentials' */
-                .group:hover .fill-animation {
-                    clip-path: inset(0 0 0 0) !important;
-                }
-            </style>
-
-            <section id="hero-pin-target">
-                <div class="hero-step ">
-                    <img src="https://plus.unsplash.com/premium_photo-1707932499546-380de34921b8?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                        class="hero-step-image scale-110 animate-slow-zoom transition-transform duration-[10s] ease-out">
-                    <div class="hero-step-content">
-                        <div class="flex flex-col items-start max-w-[1400px] mx-auto">
-
-                            <div class="reveal-container mb-6">
-                                <span
-                                    class="premium-badge inline-flex items-center gap-3 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-xl text-reveal-mask bg-gradient-to-r from-[#ff1a09] to-[#ffbbd2] bg-clip-text text-transparenttext-[10px] font-bold tracking-[0.4em] uppercase shadow-2xl">
-                                    <span class="relative flex h-2 w-2">
-                                    </span>
-                                    Last Drop: <span id="last-drop-date">April 05, 2026</span>
-                                </span>
-                            </div>
-
-                            <h1
-                                class="hero-title text-[clamp(2.5rem,8vw,6.5rem)] font-bold text-white leading-[0.9] tracking-tighter mb-8">
-                                Elevate your <br>
-                                <span
-                                    class="text-reveal-mask bg-gradient-to-r from-[#ff1a09] to-[#ffbbd2] bg-clip-text text-transparent">
-                                    Appearance
-                                </span> with <br>
-                                curated
-                                <div class="relative inline-block">
-                                    <span
-                                        class="bg-gradient-to-r from-[#ff1a09] to-[#ffbbd2] bg-clip-text text-transparent relative"
-                                        style="-webkit-text-stroke: 1px white;">
-                                        essentials.
-                                    </span>
-
-                                    <span class="absolute top-0 left-0 text-white fill-animation is-loaded"
-                                        style="clip-path: inset(0 100% 0 0);">
-                                        essentials.
-                                    </span>
-                                </div>
-                            </h1>
-
-                            <div class="flex flex-col md:flex-row md:items-end justify-between w-full gap-8">
-                                <p
-                                    class="hero-desc text-white/50 text-lg md:text-xl max-w-xl font-light leading-relaxed">
-                                    Simplicity is everything. We strip away the noise to bring you
-                                    products that actually matter to your daily routine.
-                                </p>
-
+                            <div class="relative w-[1px] h-12 bg-white/10 overflow-hidden">
                                 <div
-                                    class="flex flex-col md:flex-row items-center gap-3 md:gap-6 transition-all duration-500">
-
-                                    <span
-                                        class="scroll-text text-[10px] uppercase tracking-[0.3em] text-white/30 font-medium">
-                                        Scroll
-                                    </span>
-
-                                    <div class="relative w-[1px] h-12 bg-white/10 overflow-hidden">
-                                        <div
-                                            class="scroll-indicator-line w-full h-full bg-gradient-to-b from-transparent via-blue-500 to-transparent">
-                                        </div>
-                                    </div>
-
+                                    class="scroll-indicator-line w-full h-full bg-gradient-to-b from-transparent via-blue-500 to-transparent">
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="hero-step">
+        </section>
+
+        <!-- Combined Premium Glassmorphism Hero Section -->
+        <section
+            class="relative h-screen w-full flex items-center justify-center overflow-hidden bg-[#050505] font-sans">
+
+            <!-- DYNAMIC BACKGROUND LAYER -->
+            <div class="absolute inset-0 z-0">
+                <!-- Animated Gradient Spot -->
+                <div
+                    class="absolute top-[-10%] left-[-10%] w-[120%] h-[120%] opacity-30 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-900/40 via-transparent to-transparent animate-pulse">
+                </div>
+
+                <!-- Background Image with Parallax/Slow Zoom -->
+                <div class="absolute inset-0 scale-110 animate-slow-zoom transition-transform duration-[10s] ease-out">
                     <img src="https://media.cnn.com/api/v1/images/stellar/prod/gettyimages-2221597444.jpg?c=original"
-                        class="hero-step-image scale-110 animate-slow-zoom transition-transform duration-[10s] ease-out">
-                    <div class="hero-step-content">
-                        <div class="flex flex-col items-start max-w-[1400px] mx-auto">
-                            <div class="reveal-container mb-6">
+                        class="w-full h-full object-cover opacity-50 grayscale hover:grayscale-0 transition-all duration-1000"
+                        alt="Background">
+                </div>
+
+                <!-- Overlay Grid/Noise for Texture -->
+                <div
+                    class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay">
+                </div>
+            </div>
+
+            <!-- MAIN CONTENT CONTAINER -->
+            <div class="relative z-10 w-full px-8 md:px-20 lg:px-32">
+                <div class="flex flex-col items-start max-w-[1400px] mx-auto">
+
+                    <!-- PREMIUM FLOATING BADGE -->
+                    <div class="reveal-container mb-6">
+                        <span
+                            class="premium-badge inline-flex items-center gap-3 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-xl text-blue-400 text-[10px] font-bold tracking-[0.4em] uppercase shadow-2xl">
+                            <span class="relative flex h-2 w-2">
                                 <span
-                                    class="premium-badge inline-block text-blue-400 text-xs font-bold tracking-[0.4em] uppercase flex items-center gap-2">
-                                    Collection 01: <span id="last-drop-date">Modern Men</span>
-                                </span>
+                                    class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+                            </span>
+                            Last Drop: <span id="last-drop-date">April 05, 2026</span>
+                        </span>
+                    </div>
+
+                    <!-- INSANE GLASS-MASKED TYPOGRAPHY -->
+                    <h1
+                        class="hero-title text-[clamp(2.5rem,8vw,7rem)] font-bold text-white leading-[0.85] tracking-tighter mb-10 drop-shadow-2xl">
+                        Elevate your <br>
+                        <span class="relative inline-block px-2">
+                            <span
+                                class="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-100 to-white/50">Appearance</span>
+                            <!-- Glass highlight behind the main word -->
+                            <div
+                                class="absolute inset-0 bg-white/5 backdrop-blur-2xl rounded-2xl -rotate-1 -z-10 border border-white/10">
                             </div>
-                            <h1
-                                class="hero-title text-[clamp(2.5rem,8vw,6.5rem)] font-bold text-white leading-[0.9] tracking-tighter mb-8">
-                                Elevate your <br> <span class="text-blue-500">Appearance</span> with <br> curated
-                                <div class="relative inline-block">
-                                    <span class="text-transparent"
-                                        style="-webkit-text-stroke: 1px white;">essentials.</span>
+                        </span>
+                        with <br>
+                        curated
+                        <div class="relative inline-block group">
+                            <!-- Outlined text from original -->
+                            <span class="text-transparent" style="-webkit-text-stroke: 1px rgba(255,255,255,0.4);">
+                                essentials.
+                            </span>
+                            <!-- Fill animation on hover/scroll -->
+                            <span class="absolute top-0 left-0 text-white fill-animation transition-all duration-700"
+                                style="clip-path: inset(0 100% 0 0);">
+                                essentials.
+                            </span>
+                        </div>
+                    </h1>
+
+                    <!-- FOOTER INFO LAYER -->
+                    <div
+                        class="flex flex-col md:flex-row md:items-end justify-between w-full gap-12 pt-8 border-t border-white/5">
+                        <div
+                            class="glass-card p-6 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 max-w-xl">
+                            <p class="hero-desc text-white/70 text-lg md:text-xl font-light leading-relaxed">
+                                Simplicity is everything. We strip away the noise to bring you
+                                <span
+                                    class="text-white font-normal underline decoration-blue-500/30 underline-offset-4">products
+                                    that actually matter</span> to your daily routine.
+                            </p>
+                        </div>
+
+                        <!-- SCROLL INDICATOR -->
+                        <div class="flex flex-row items-center gap-6 group cursor-pointer">
+                            <span
+                                class="scroll-text text-[10px] uppercase tracking-[0.3em] text-white/40 font-medium group-hover:text-blue-400 transition-colors">
+                                Scroll to explore
+                            </span>
+                            <div class="relative w-[1px] h-16 bg-white/10 overflow-hidden">
+                                <div
+                                    class="scroll-indicator-line w-full h-full bg-gradient-to-b from-transparent via-blue-500 to-transparent animate-bounce">
                                 </div>
-                            </h1>
-                            <p class="hero-desc text-white/50 text-lg md:text-xl max-w-xl font-light">Simplicity is
-                                everything. We strip
-                                away the noise for your daily routine.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <div class="hero-step">
-                    <img src="https://images.ctfassets.net/86of3mjdn78g/3s6pbixDYkgRwxNXxzqwUS/a93e87c5727f66a182a9827e10abefd6/1_hero.jpg?fm=webp"
-                        class="hero-step-image scale-110 animate-slow-zoom transition-transform duration-[10s] ease-out">
-                    <div class="hero-step-content">
-                        <div class="flex flex-col items-start max-w-[1400px] mx-auto">
+        <style>
+            @keyframes slow-zoom {
+                0% {
+                    transform: scale(1);
+                }
 
-                            <div class="reveal-container mb-6">
-                                <span
-                                    class="premium-badge inline-block text-[#D4AF37] brightness-110 text-xs font-bold tracking-[0.4em] uppercase">
-                                    Last Drop: April 05, 2026
-                                </span>
-                            </div>
+                100% {
+                    transform: scale(1.15);
+                }
+            }
 
-                            <h1
-                                class="hero-title text-[clamp(2.5rem,8vw,6.5rem)] font-bold text-white leading-[0.9] tracking-tighter mb-8">
-                                Uncompromising <br>
-                                <span class="text-[#D4AF37] brightness-110">Elegance</span> with <br>
-                                modern
-                                <div class="relative inline-block">
-                                    <span class="text-transparent"
-                                        style="-webkit-text-stroke: 1px rgba(255,255,255,0.8);">
-                                        silhouettes.
-                                    </span>
-                                </div>
-                            </h1>
+            .animate-slow-zoom {
+                animation: slow-zoom 20s infinite alternate ease-in-out;
+            }
 
-                            <div class="flex flex-col md:flex-row md:items-end justify-between w-full gap-8">
-                                <p
-                                    class="hero-desc text-white/50 text-lg md:text-xl max-w-xl font-light leading-relaxed">
-                                    Grace meets function. We strip away the noise to bring you pieces
-                                    that transition effortlessly through your daily routine.
-                                </p>
+            /* Reveal Animation for 'essentials' */
+            .group:hover .fill-animation {
+                clip-path: inset(0 0 0 0) !important;
+            }
+        </style>
 
-                                <div class="flex flex-col md:flex-row items-center gap-3 md:gap-6">
-                                    <span
-                                        class="scroll-text text-[10px] uppercase tracking-[0.3em] text-white/30 font-medium">Scroll</span>
-                                    <div class="relative w-[1px] h-12 bg-white/10 overflow-hidden">
-                                        <div
-                                            class="scroll-indicator-line w-full h-full bg-gradient-to-b from-transparent via-blue-500 to-transparent">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+        <div class="w-full py-12 border-y border-white/10 overflow-hidden relative">
+
+            <div class="absolute inset-0 z-10 pointer-events-none opacity-100">
+            </div>
+
+            <div class="flex overflow-hidden group">
+                <div class="animate-marquee flex items-center">
+
+                    <div class="flex items-center gap-16 px-8">
+                        <div class="flex items-center gap-4 cursor-pointer">
+                            <span
+                                class="opacity-60 font-bold uppercase tracking-[0.25em] text-sm md:text-base hover:opacity-100 transition-colors duration-500">Nike</span>
+                            <div class="w-1 h-1 rounded-full bg-blue-500/50"></div>
+                        </div>
+                        <div class="flex items-center gap-4 cursor-pointer">
+                            <span
+                                class="opacity-60 font-bold uppercase tracking-[0.25em] text-sm md:text-base hover:opacity-100 transition-colors duration-500">Adidas</span>
+                            <div class="w-1 h-1 rounded-full bg-blue-500/50"></div>
+                        </div>
+                        <div class="flex items-center gap-4 cursor-pointer">
+                            <span
+                                class="opacity-60 font-bold uppercase tracking-[0.25em] text-sm md:text-base hover:opacity-100 transition-colors duration-500">Zara</span>
+                            <div class="w-1 h-1 rounded-full bg-blue-500/50"></div>
+                        </div>
+                        <div class="flex items-center gap-4 cursor-pointer">
+                            <span
+                                class="opacity-60 font-bold uppercase tracking-[0.25em] text-sm md:text-base hover:opacity-100 transition-colors duration-500">Puma</span>
+                            <div class="w-1 h-1 rounded-full bg-blue-500/50"></div>
+                        </div>
+                        <div class="flex items-center gap-4 cursor-pointer">
+                            <span
+                                class="opacity-60 font-bold uppercase tracking-[0.25em] text-sm md:text-base hover:opacity-100 transition-colors duration-500">Gucci</span>
+                            <div class="w-1 h-1 rounded-full bg-blue-500/50"></div>
+                        </div>
+                        <div class="flex items-center gap-4 cursor-pointer">
+                            <span
+                                class="opacity-60 font-bold uppercase tracking-[0.25em] text-sm md:text-base hover:opacity-100 transition-colors duration-500">Prada</span>
+                            <div class="w-1 h-1 rounded-full bg-blue-500/50"></div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-16 px-8">
+                        <div class="flex items-center gap-4 cursor-pointer">
+                            <span
+                                class="opacity-60 font-bold uppercase tracking-[0.25em] text-sm md:text-base hover:opacity-100 transition-colors duration-500">Nike</span>
+                            <div class="w-1 h-1 rounded-full bg-blue-500/50"></div>
+                        </div>
+                        <div class="flex items-center gap-4 cursor-pointer">
+                            <span
+                                class="opacity-60 font-bold uppercase tracking-[0.25em] text-sm md:text-base hover:opacity-100 transition-colors duration-500">Adidas</span>
+                            <div class="w-1 h-1 rounded-full bg-blue-500/50"></div>
+                        </div>
+                        <div class="flex items-center gap-4 cursor-pointer">
+                            <span
+                                class="opacity-60 font-bold uppercase tracking-[0.25em] text-sm md:text-base hover:opacity-100 transition-colors duration-500">Zara</span>
+                            <div class="w-1 h-1 rounded-full bg-blue-500/50"></div>
+                        </div>
+                        <div class="flex items-center gap-4 cursor-pointer">
+                            <span
+                                class="opacity-60 font-bold uppercase tracking-[0.25em] text-sm md:text-base hover:opacity-100 transition-colors duration-500">Puma</span>
+                            <div class="w-1 h-1 rounded-full bg-blue-500/50"></div>
+                        </div>
+                        <div class="flex items-center gap-4 cursor-pointer">
+                            <span
+                                class="opacity-60 font-bold uppercase tracking-[0.25em] text-sm md:text-base hover:opacity-100 transition-colors duration-500">Gucci</span>
+                            <div class="w-1 h-1 rounded-full bg-blue-500/50"></div>
+                        </div>
+                        <div class="flex items-center gap-4 cursor-pointer">
+                            <span
+                                class="opacity-60 font-bold uppercase tracking-[0.25em] text-sm md:text-base hover:opacity-100 transition-colors duration-500">Prada</span>
+                            <div class="w-1 h-1 rounded-full bg-blue-500/50"></div>
                         </div>
                     </div>
 
                 </div>
-            </section>
+            </div>
         </div>
+        <section class="w-full grid grid-cols-1 md:grid-cols-3 card-reveal mx-auto">
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+            <div
+                class="matager-category-card glass h-[370px] md:h-[700px] lg:h-[700px] overflow-hidden relative group cursor-pointer border border-white/5 shadow-2xl">
+
+                <div class="absolute inset-0 bg-cover bg-center transition-transform duration-1000 ease-out group-hover:scale-110"
+                    style="background-image: url('https://static.pullandbear.net/assets/public/92d6/e63c/e9094fc79c9f/7df6eb2a6b4b/0355152080001-A7M/0355152080001-A7M.jpg?ts=1773398248680&amp;w=654&amp;f=auto');">
+                </div>
+
+                <div
+                    class="card-overlay absolute inset-0 bg-black/80 backdrop-blur-sm opacity-0 group-[.active]:opacity-100 transition-opacity duration-500 z-10">
+                </div>
+
+                <div
+                    class="absolute inset-x-0 bottom-0 flex items-end p-8 z-20 transition-opacity duration-300 group-[.active]:opacity-0">
+                    <h3 class="text-2xl font-bold text-white uppercase tracking-tighter">Men</h3>
+                </div>
+
+                <div
+                    class="absolute inset-x-0 bottom-0 p-8 z-30 space-y-4 translate-y-full opacity-0 group-[.active]:translate-y-0 group-[.active]:opacity-100 transition-all duration-700 ease-out">
+
+                    <h3 class="text-5xl font-extrabold text-white uppercase tracking-tighter">Men</h3>
+
+                    <p class="text-sm text-white/70 leading-relaxed max-w-sm">
+                        Premium heavyweight cotton sweatshirt. Features a detailed sterling
+                        silver
+                        pendant necklace. Classic comfort with a modern fit.
+                    </p>
+
+                    <div class="flex items-center gap-3 pt-4">
+                        <span
+                            class="border border-white/30 text-white/90 text-[10px] font-medium uppercase tracking-widest px-4 py-1.5 rounded-full backdrop-blur-sm bg-white/5 hover:border-blue-500/50 hover:bg-blue-500/10 transition-colors">
+                            Jacket
+                        </span>
+                        <span
+                            class="border border-white/30 text-white/90 text-[10px] font-medium uppercase tracking-widest px-4 py-1.5 rounded-full backdrop-blur-sm bg-white/5 hover:border-blue-500/50 hover:bg-blue-500/10 transition-colors">
+                            Shirts
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="matager-category-card glass h-[370px] md:h-[700px] lg:h-[700px] overflow-hidden relative group cursor-pointer border border-white/5 shadow-2xl">
+
+                <div class="absolute inset-0 bg-cover bg-center transition-transform duration-1000 ease-out group-hover:scale-110"
+                    style="background-image: url('https://static.pullandbear.net/assets/public/a9dc/e206/49bf42e2a562/8800dfd4c3ca/03230344105-A7M/03230344105-A7M.jpg?ts=1769675634589&amp;w=654&amp;f=auto');">
+                </div>
+
+                <div
+                    class="card-overlay absolute inset-0 bg-black/80 backdrop-blur-sm opacity-0 group-[.active]:opacity-100 transition-opacity duration-500 z-10">
+                </div>
+
+                <div
+                    class="absolute inset-x-0 bottom-0 flex items-end p-8 z-20 transition-opacity duration-300 group-[.active]:opacity-0">
+                    <h3 class="text-2xl font-bold text-white uppercase tracking-tighter">Women</h3>
+                </div>
+
+                <div
+                    class="absolute inset-x-0 bottom-0 p-8 z-30 space-y-4 translate-y-full opacity-0 group-[.active]:translate-y-0 group-[.active]:opacity-100 transition-all duration-700 ease-out">
+                    <h3 class="text-5xl font-extrabold text-white uppercase tracking-tighter">Women</h3>
+                    <p class="text-sm text-white/70 leading-relaxed max-w-sm">
+                        Elevated essentials for the modern wardrobe. Discover our curated collection of fluid
+                        silhouettes, premium
+                        knitwear, and timeless tailoring designed for versatility.
+                    </p>
+                    <div class="flex items-center gap-3 pt-4">
+                        <span
+                            class="border border-white/30 text-white/90 text-[10px] font-medium uppercase tracking-widest px-4 py-1.5 rounded-full backdrop-blur-sm bg-white/5 hover:border-pink-500/50 hover:bg-pink-500/10 transition-colors">
+                            Dresses
+                        </span>
+                        <span
+                            class="border border-white/30 text-white/90 text-[10px] font-medium uppercase tracking-widest px-4 py-1.5 rounded-full backdrop-blur-sm bg-white/5 hover:border-pink-500/50 hover:bg-pink-500/10 transition-colors">
+                            Blazers
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="matager-category-card glass h-[370px] md:h-[700px] lg:h-[700px] overflow-hidden relative group cursor-pointer  border border-white/5 shadow-2xl">
+
+                <div class="absolute inset-0 bg-cover bg-center transition-transform duration-1000 ease-out group-hover:scale-110"
+                    style="background-image: url('https://static.zara.net/assets/public/0444/a36d/d4704fdfb4c2/0c5ab2a9dd61/00874506600400-p/00874506600400-p.jpg?ts=1774963582477&amp;w=750');">
+                </div>
+
+                <div
+                    class="card-overlay absolute inset-0 bg-black/80 backdrop-blur-sm opacity-0 group-[.active]:opacity-100 transition-opacity duration-500 z-10">
+                </div>
+
+                <div
+                    class="absolute inset-x-0 bottom-0 flex items-end p-8 z-20 transition-opacity duration-300 group-[.active]:opacity-0">
+                    <h3 class="text-2xl font-bold text-white uppercase tracking-tighter">Kids</h3>
+                </div>
+
+                <div
+                    class="absolute inset-x-0 bottom-0 p-8 z-30 space-y-4 translate-y-full opacity-0 group-[.active]:translate-y-0 group-[.active]:opacity-100 transition-all duration-700 ease-out">
+                    <h3 class="text-5xl font-extrabold text-white uppercase tracking-tighter">Kids</h3>
+                    <p class="text-sm text-white/70 leading-relaxed max-w-sm">
+                        Comfort meets play. Durable, high-quality fabrics crafted for everyday adventures. Explore
+                        vibrant colors
+                        and functional designs that keep up with their imagination.
+                    </p>
+                    <div class="flex items-center gap-3 pt-4">
+                        <span
+                            class="border border-white/30 text-white/90 text-[10px] font-medium uppercase tracking-widest px-4 py-1.5 rounded-full backdrop-blur-sm bg-white/5 hover:border-yellow-500/50 hover:bg-yellow-500/10 transition-colors">
+                            Newborn
+                        </span>
+                        <span
+                            class="border border-white/30 text-white/90 text-[10px] font-medium uppercase tracking-widest px-4 py-1.5 rounded-full backdrop-blur-sm bg-white/5 hover:border-yellow-500/50 hover:bg-yellow-500/10 transition-colors">
+                            Playwear
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <script>
-            document.addEventListener("DOMContentLoaded", () => {
-                gsap.registerPlugin(ScrollTrigger);
+            document.addEventListener('DOMContentLoaded', () => {
+                const cards = document.querySelectorAll('.matager-category-card');
 
-                const steps = gsap.utils.toArray(".hero-step");
+                // Function to remove active state from ALL cards
+                const deactivateAllCards = () => {
+                    cards.forEach(card => card.classList.remove('active'));
+                };
 
-                // The total scroll duration is based on the number of steps
-                // 100% per step makes it feel natural.
-                const totalScrollHeight = steps.length * 100 + "%";
+                cards.forEach(card => {
+                    card.addEventListener('click', (event) => {
+                        // Prevent click on a badge from deactivating the card
+                        event.stopPropagation();
 
-                const tl = gsap.timeline({
-                    scrollTrigger: {
-                        trigger: "#hero-pin-target",
-                        start: "top top",
-                        // This 'end' replaces the need for a manual height div
-                        end: `+=${steps.length * 100}%`,
-                        scrub: 1, // Snappy 1:1 scroll speed
-                        pin: true,
-                        anticipatePin: 1
-                    }
+                        // If the card is already active, do nothing on click.
+                        // It only closes when clicking *outside* the card.
+                        if (card.classList.contains('active')) {
+                            return;
+                        }
+
+                        // If a new card is clicked: deactivate others, activate this one.
+                        deactivateAllCards();
+                        card.classList.add('active');
+                    });
                 });
 
-                // Loop through all steps dynamically
-                steps.forEach((step, i) => {
-                    if (i < steps.length - 1) {
-                        const nextStep = steps[i + 1];
-                        const label = `shuffle_${i}`;
+                // "Click Outside" Detection
+                document.addEventListener('click', (event) => {
+                    // Check if the click target is outside any of the cards
+                    const isClickInsideCard = event.target.closest('.matager-category-card');
 
-                        // Smooth Opacity Fade (Shuffle Mode)
-                        tl.to(step, {
-                            opacity: 0,
-                            y: -20,
-                            duration: 1,
-                            onComplete: () => { step.style.pointerEvents = "none"; }
-                        }, label);
-
-                        tl.to(nextStep, {
-                            opacity: 1,
-                            y: 0,
-                            duration: 1,
-                            onStart: () => { nextStep.style.pointerEvents = "auto"; }
-                        }, label);
-
-                        // Hold the view briefly so user can read before the next shuffle
-                        tl.to({}, { duration: 1.5 });
+                    if (!isClickInsideCard) {
+                        deactivateAllCards();
                     }
                 });
             });
         </script>
-
 
 
 
@@ -2222,7 +2283,35 @@
                     <!-- Insert similar cards here -->
                 </div>
             </div>
+            <div
+                class="flex flex-col sm:flex-row items-center justify-between mt-12 pt-8 border-t border-white/5 gap-6">
+                <span class="text-[10px] uppercase tracking-[0.2em] text-slate-500 font-medium">
+                    Showing <span>01</span> — 03
+                </span>
 
+                <div class="flex items-center gap-4">
+                    <button class="w-2 h-2 rounded-full bg-white transition-all duration-300 ring-4 ring-white/10"
+                        title="Page 1"></button>
+                    <button class="w-2 h-2 rounded-full bg-white/20 hover:bg-white/40 transition-all duration-300"
+                        title="Page 2"></button>
+                    <button onclick="toggleSearchModal()"
+                        class="group flex items-center justify-center transition-all duration-300"
+                        title="Search Products">
+                        <i class="bi bi-search text-xs text-slate-500 group-hover:text-blue-500 transition-colors"></i>
+                    </button>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <button
+                        class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-slate-500 hover:bg-white/5 hover:text-white transition-all">
+                        <i class="bi bi-chevron-left text-sm"></i>
+                    </button>
+                    <button
+                        class="w-10 h-10 rounded-full border border-slate-500 flex items-center justify-center hover:bg-slate-500/10 transition-all">
+                        <i class="bi bi-chevron-right text-sm"></i>
+                    </button>
+                </div>
+            </div>
         </section>
 
         <style>
@@ -2386,7 +2475,145 @@
             }
         </script>
 
+        <section class="w-full pb-24 px-4 max-w-7xl mx-auto text-white">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+                <div>
+                    <h2 class="text-5xl font-bold tracking-tighter mb-2">The Store Story</h2>
+                    <p class="text-slate-500 max-w-md">Crafting elegance since 2015. Explore our heritage and stay
+                        connected with
+                        our community.</p>
+                </div>
+                <div class="px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.2em] text-blue-400">
+                    Established 2015
+                </div>
+            </div>
 
+            <div class="grid grid-cols-1 md:grid-cols-6 gap-6 h-auto">
+
+                <div
+                    class="md:col-span-3 md:row-span-2 relative group overflow-hidden rounded-[2.5rem] border border-white/10 min-h-[400px] hover:border-blue-500/50 transition-all duration-500">
+                    <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=2070"
+                        class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                        alt="Store Interior">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-8 left-8">
+                        <span
+                            class="glass px-4 py-1 rounded-full text-[9px] font-black uppercase mb-3 inline-block tracking-widest">Flagship
+                            Store</span>
+                        <h3 class="text-3xl font-bold">10th of Ramadan City</h3>
+                    </div>
+                </div>
+
+                <div
+                    class="md:col-span-3 glass rounded-[2.5rem] p-10 border border-white/10 flex flex-col justify-center relative overflow-hidden hover:border-blue-500/50 transition-all duration-500">
+                    <div class="absolute top-0 right-0 p-8 opacity-5">
+                        <i class="bi bi-quote text-8xl"></i>
+                    </div>
+                    <h4 class="text-xl font-bold mb-4 text-blue-400 uppercase tracking-widest text-sm">Our Heritage</h4>
+                    <p class="text-slate-500 leading-relaxed text-lg font-light">
+                        We believe that style is a reflection of your story. Our store was founded on the principle of
+                        bringing
+                        global fashion trends to a local community.
+                    </p>
+                </div>
+
+                <div
+                    class="md:col-span-2 glass rounded-[2.5rem] p-8 border border-white/10 flex flex-col justify-between group hover:border-blue-500/50 transition-all duration-500">
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-5">
+                            <div
+                                class="w-12 h-12 rounded-2xl bg-blue-600/20 flex items-center justify-center border border-blue-500/30">
+                                <i class="bi bi-geo-alt-fill text-blue-400 text-xl"></i>
+                            </div>
+                            <div>
+                                <p
+                                    class="text-[10px] uppercase font-bold text-slate-500 max-w-md opacity-80 tracking-widest">
+                                    Visit Us</p>
+                                <p class="text-md font-semibold">Plot 45, Industrial Area</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-5">
+                            <div
+                                class="w-12 h-12 rounded-2xl bg-emerald-600/20 flex items-center justify-center border border-emerald-500/30">
+                                <i class="bi bi-telephone-fill text-emerald-400 text-xl"></i>
+                            </div>
+                            <div>
+                                <p
+                                    class="text-[10px] uppercase font-bold text-slate-500 max-w-md opacity-80 tracking-widest">
+                                    Call Us</p>
+                                <p class="text-md font-semibold">+20 123 456 789</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button
+                        class="w-full mt-8 py-4 bg-white text-black rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-blue-600 hover:text-white transition-all shadow-xl shadow-white/5">
+                        Open in Google Maps
+                    </button>
+                </div>
+
+                <div
+                    class="md:col-span-1 glass rounded-[2.5rem] p-6 border border-white/10 flex flex-col justify-between items-center py-8 hover:border-blue-500/50 transition-all duration-500">
+                    <p class="text-[10px] uppercase font-black opacity-40 tracking-widest mb-4">Connect</p>
+                    <div class="flex flex-col gap-5">
+                        <a href="#"
+                            class="w-12 h-12 rounded-full glass border border-white/10 flex items-center justify-center text-xl hover:bg-pink-600 hover:border-transparent transition-all"><i
+                                class="bi bi-instagram"></i></a>
+                        <a href="#"
+                            class="w-12 h-12 rounded-full glass border border-white/10 flex items-center justify-center text-xl hover:bg-blue-600 hover:border-transparent transition-all"><i
+                                class="bi bi-facebook"></i></a>
+                        <a href="#"
+                            class="w-12 h-12 rounded-full glass border border-white/10 flex items-center justify-center text-xl hover:bg-black hover:border-white/40 transition-all"><i
+                                class="bi bi-tiktok"></i></a>
+                    </div>
+                    <div class="mt-4 w-1 h-8 bg-gradient-to-b from-blue-500 to-transparent rounded-full opacity-50">
+                    </div>
+                </div>
+
+                <div class="md:col-span-6 grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <div
+                        class="h-48 rounded-[2rem] overflow-hidden border border-white/10 group relative hover:border-blue-500/50 transition-all duration-500">
+                        <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?q=80&w=2012"
+                            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                            alt="">
+                        <div
+                            class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="text-[10px] font-bold uppercase tracking-widest">Footwear</span>
+                        </div>
+                    </div>
+                    <div
+                        class="h-48 rounded-[2rem] overflow-hidden border border-white/10 group relative hover:border-blue-500/50 transition-all duration-500">
+                        <img src="https://blog.bizvibe.com/wp-content/uploads/2020/03/top-clothing-retailers.jpg"
+                            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                            alt="">
+                        <div
+                            class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="text-[10px] font-bold uppercase tracking-widest">Apparel</span>
+                        </div>
+                    </div>
+                    <div
+                        class="h-48 rounded-[2rem] overflow-hidden border border-white/10 group relative hover:border-blue-500/50 transition-all duration-500">
+                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1999"
+                            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                            alt="">
+                        <div
+                            class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="text-[10px] font-bold uppercase tracking-widest">Accessories</span>
+                        </div>
+                    </div>
+                    <div
+                        class="h-48 rounded-[2rem] overflow-hidden border border-white/10 group relative hover:border-blue-500/50 transition-all duration-500">
+                        <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?q=80&w=2080"
+                            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                            alt="">
+                        <div
+                            class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="text-[10px] font-bold uppercase tracking-widest">New Arrivals</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
 
 
         <style>
@@ -2788,10 +3015,10 @@
             });
         }
 
-        // // Updated close function to handle any active view
+        // Updated close function to handle any active view
         function closeAllViews() {
             const nav = document.getElementById('main-nav');
-            const views = ['product-details', 'search-view', 'cart-view', 'profile-view', 'help-view', 'catalog-view', 'explore-view'];
+            const views = ['product-details', 'search-view', 'cart-view', 'profile-view', 'help-view', 'catalog-view'];
             const overlay = document.getElementById('nav-overlay');
             const radial = document.getElementById('radial-wrapper');
             const closeBtn = document.getElementById('close-quicklook');
@@ -2823,7 +3050,6 @@
             closeBtn.classList.add('hidden');
             themeBtn.classList.remove('hidden');
         }
-
 
 
     </script>
