@@ -1176,7 +1176,8 @@
                             <span class="opacity-30">→</span>
                         </button>
                         <button
-                            class="w-full p-3 text-center text-xs font-bold rounded-xl bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white transition-all">
+                            class="w-full p-3 text-center text-xs font-bold rounded-xl bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white transition-all"
+                            onclick="showAlert('logout', 'You have been logged out. Redirecting to home...')">
                             Sign Out Account
                         </button>
                     </div>
@@ -1653,6 +1654,115 @@
         </script>
     </nav>
 
+    <div id="alert-wrapper"
+        class="fixed top-4 left-1/2 -translate-x-1/2 w-[80%] max-w-[26rem] z-40 pointer-events-none">
+        <div id="alert-box"
+            class="glass w-full rounded-b-[2rem] -translate-y-full transition-all duration-700 ease-in-out opacity-0 overflow-hidden">
+            <div class="px-6 py-4 flex items-center gap-4">
+                <div id="alert-icon-container" class="w-10 h-10 rounded-full flex items-center justify-center shrink-0">
+                    <i id="alert-icon" class="bi"></i>
+                </div>
+                <div class="flex-1 overflow-hidden">
+                    <p id="alert-heading" class="text-xs font-bold dark:text-white uppercase tracking-tighter"></p>
+                    <div class="relative overflow-hidden h-4">
+                        <p id="alert-message"
+                            class="text-[11px] opacity-70 dark:text-white whitespace-nowrap absolute left-0"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Initialize the lock variable
+        let isAlertActive = false;
+
+        const alerts = {
+            // Added the missing cart and auth types
+            cart: {
+                heading: "Added to Cart",
+                icon: "bi-bag-check-fill",
+                color: "bg-emerald-500/20 text-emerald-500"
+            },
+            auth: {
+                heading: "Security",
+                icon: "bi-shield-lock-fill",
+                color: "bg-blue-500/20 text-blue-500"
+            },
+            success: {
+                heading: "Success",
+                icon: "bi-check-circle-fill",
+                color: "bg-emerald-500/20 text-emerald-500"
+            },
+            logout: {
+                heading: "Session",
+                icon: "bi-door-open-fill",
+                color: "bg-orange-500/20 text-orange-500"
+            },
+            favorite: {
+                heading: "Wishlist",
+                icon: "bi-heart-fill",
+                color: "bg-pink-500/20 text-pink-500"
+            },
+            shipping: {
+                heading: "Delivery",
+                icon: "bi-truck",
+                color: "bg-indigo-500/20 text-indigo-500"
+            }
+        };
+
+        function handleAddToCart(productName) {
+            console.log(`${productName} added to cart`);
+            showAlert('cart', `${productName} has been successfully added to your shopping bag.`);
+        }
+
+        function showAlert(type, message) {
+            if (isAlertActive) return;
+            isAlertActive = true;
+
+            const wrapper = document.getElementById('alert-box');
+            const heading = document.getElementById('alert-heading');
+            const msgElem = document.getElementById('alert-message');
+            const iconContainer = document.getElementById('alert-icon-container');
+            const icon = document.getElementById('alert-icon');
+
+            const config = alerts[type] || alerts.auth;
+
+            // 1. Set Content
+            heading.innerText = config.heading;
+            msgElem.innerText = message;
+            icon.className = `bi ${config.icon}`;
+            iconContainer.className = `w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${config.color}`;
+
+            // 2. Show Alert (Slide down)
+            // Increased to 5.5rem to ensure it clears your nav bar height
+            wrapper.classList.remove('-translate-y-full', 'opacity-0');
+            wrapper.classList.add('translate-y-[5.5rem]', 'opacity-100');
+
+            // 3. Handle Scrolling logic
+            setTimeout(() => {
+                const overflow = msgElem.scrollWidth - msgElem.parentElement.clientWidth;
+                if (overflow > 0) {
+                    // Increased time to 3s for better readability during overflow
+                    msgElem.style.transition = `transform 3s linear`;
+                    msgElem.style.transform = `translateX(-${overflow + 20}px)`;
+                }
+            }, 500);
+
+            // 4. Hide Alert after 4 seconds
+            setTimeout(() => {
+                wrapper.classList.add('-translate-y-full', 'opacity-0');
+                wrapper.classList.remove('translate-y-[5.5rem]', 'opacity-100');
+
+                // Reset state and scroll for next time
+                setTimeout(() => {
+                    msgElem.style.transition = 'none';
+                    msgElem.style.transform = 'translateX(0)';
+                    isAlertActive = false; // RELEASE THE LOCK
+                }, 700);
+            }, 4000);
+        }
+    </script>
+
     <main class="flex flex-col items-center">
 
         <div id="hero-main-container" class="bg-[#050505] overflow-hidden">
@@ -1909,45 +2019,59 @@
 
                 const steps = gsap.utils.toArray(".hero-step");
 
-                // The total scroll duration is based on the number of steps
-                // 100% per step makes it feel natural.
-                const totalScrollHeight = steps.length * 100 + "%";
-
                 const tl = gsap.timeline({
                     scrollTrigger: {
                         trigger: "#hero-pin-target",
                         start: "top top",
-                        // This 'end' replaces the need for a manual height div
-                        end: `+=${steps.length * 100}%`,
-                        scrub: 1, // Snappy 1:1 scroll speed
+                        // Reduced total scroll height for faster transitions
+                        end: `+=${steps.length * 75}%`,
+                        scrub: 0.5, // Lowering this makes it respond faster to your wheel/swipe
                         pin: true,
                         anticipatePin: 1
                     }
                 });
 
-                // Loop through all steps dynamically
                 steps.forEach((step, i) => {
+                    // Initial state for text elements (except the first one)
+                    if (i !== 0) {
+                        gsap.set(step.querySelectorAll(".hero-title, .hero-desc, .reveal-container"), {
+                            y: 40,
+                            opacity: 0
+                        });
+                    }
+
                     if (i < steps.length - 1) {
                         const nextStep = steps[i + 1];
                         const label = `shuffle_${i}`;
 
-                        // Smooth Opacity Fade (Shuffle Mode)
+                        // 1. OUTGOING STEP
                         tl.to(step, {
                             opacity: 0,
-                            y: -20,
+                            scale: 0.95, // Adds a slight zoom-out feel
                             duration: 1,
                             onComplete: () => { step.style.pointerEvents = "none"; }
                         }, label);
 
+                        // 2. INCOMING STEP
                         tl.to(nextStep, {
                             opacity: 1,
-                            y: 0,
                             duration: 1,
                             onStart: () => { nextStep.style.pointerEvents = "auto"; }
                         }, label);
 
-                        // Hold the view briefly so user can read before the next shuffle
-                        tl.to({}, { duration: 1.5 });
+                        // 3. TEXT ANIMATION (Next Step)
+                        // This triggers slightly after the background starts fading in
+                        tl.to(nextStep.querySelectorAll(".hero-title, .hero-desc, .reveal-container"), {
+                            y: 0,
+                            opacity: 1,
+                            stagger: 0.1,
+                            duration: 0.8,
+                            ease: "power2.out"
+                        }, `${label}+=0.2`);
+
+                        // 4. BRIEF HOLD
+                        // Shortened from 1.5 to 0.5 so the next scroll starts sooner
+                        tl.to({}, { duration: 0.5 });
                     }
                 });
             });
@@ -2041,8 +2165,8 @@
                                 style="background-image: url('https://assets.adidas.com/images/w_1880,f_auto,q_auto/a4ff4a779ee34deca8cc9a6f1f411440_9366/KC6611_HM1.jpg');">
                             </div>
 
-                            <div
-                                class="absolute top-5 right-5 glass w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 active:scale-90 group/heart cursor-pointer z-50">
+                            <div class="absolute top-5 right-5 glass w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 active:scale-90 group/heart cursor-pointer z-50"
+                                onclick="showAlert('favorite', 'Item added to your favorites list.')">
                                 <i
                                     class="bi bi-heart text-sm absolute transition-all duration-300 group-hover/heart:opacity-0 text-white"></i>
                                 <i
@@ -2055,7 +2179,8 @@
                                 <div
                                     class="flex flex-col gap-2 mb-6 transform translate-y-4 transition-transform duration-700 delay-75 group-hover:translate-y-0">
                                     <button
-                                        class="w-full py-3 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition active:scale-95 flex items-center justify-center gap-2 text-xs uppercase tracking-wider">
+                                        class="w-full py-3 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition active:scale-95 flex items-center justify-center gap-2 text-xs uppercase tracking-wider"
+                                        onclick="handleAddToCart('Adidas Originals Italia')">
                                         <i class="bi bi-bag-plus-fill"></i> Add to Bag
                                     </button>
                                     <div class="grid grid-cols-2 gap-2">
