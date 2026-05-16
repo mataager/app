@@ -191,6 +191,7 @@
 
 
 
+    <!-- navbar  -->
     <nav id="main-nav"
         class="fixed top-3 z-50 glass left-1/2 -translate-x-1/2 w-[90%] max-w-[30rem] rounded-[2rem] px-6 py-4 transition-all duration-500 overflow-hidden">
         <div class="max-w-7xl mx-auto flex justify-between items-center transition-all duration-500" id="nav-header">
@@ -1676,6 +1677,214 @@
             }
         </script>
     </nav>
+    <!-- navbar -->
+
+    <!-- circle btn -->
+    <div id="radial-wrapper" class="fixed bottom-10 left-1/2 -translate-x-1/2 z-50 transition-all duration-500">
+        <div class="relative flex items-center justify-center">
+
+            <a href="#" class="nav-bubble" onclick="openSearch()" onmouseenter="showHint('Search')"
+                onmouseleave="hideHint()" style="--angle: 190deg; --dist: 110px; --delay: 0.1s;">
+                <i class="bi bi-search"></i>
+            </a>
+
+            <a href="#" class="nav-bubble" onclick="openCatalog()" onmouseenter="showHint('Items')"
+                onmouseleave="hideHint()" style="--angle: 230deg; --dist: 125px; --delay: 0.15s;">
+                <i class="bi bi-grid-1x2"></i>
+            </a>
+
+            <a href="#" class="nav-bubble" onclick="openCart()" onmouseenter="showHint('Cart')"
+                onmouseleave="hideHint()" style="--angle: 270deg; --dist: 135px; --delay: 0.2s;">
+                <i class="bi bi-bag"></i>
+            </a>
+
+            <a href="#" class="nav-bubble" onclick="openProfile()" onmouseenter="showHint('Me')"
+                onmouseleave="hideHint()" style="--angle: 310deg; --dist: 125px; --delay: 0.25s;">
+                <i class="bi bi-universal-access"></i>
+            </a>
+
+            <a href="#" class="nav-bubble" onclick="openHelp()" onmouseenter="showHint('Help')"
+                onmouseleave="hideHint()" style="--angle: 350deg; --dist: 110px; --delay: 0.3s;">
+                <i class="bi bi-person-raised-hand"></i>
+            </a>
+
+            <button onclick="toggleMenu()" id="main-trigger" class="nav-bubble-main group relative w-12 h-12">
+                <svg class="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 48 48">
+                    <circle cx="24" cy="24" r="23" fill="none" stroke="currentColor" stroke-width="1"
+                        class="text-white/10" />
+                    <circle id="nav-progress" cx="24" cy="24" r="23" fill="none" stroke="#3b82f6" stroke-width="1.5"
+                        stroke-dasharray="144.5" stroke-dashoffset="144.5" />
+                </svg>
+
+                <div class="relative w-full h-full flex items-center justify-center overflow-hidden">
+                    <div id="icon-container" class="flex items-center justify-center transition-all duration-300">
+                        <i id="home-icon" class="text-blue-500 absolute"><svg width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="1.5">
+                                <rect x="3" y="3" width="7" height="7" rx="1" />
+                                <rect x="14" y="3" width="7" height="7" rx="1" />
+                                <rect x="14" y="14" width="7" height="7" rx="1" />
+                                <rect x="3" y="14" width="7" height="7" rx="1" />
+                            </svg></i>
+                        <i id="close-icon"
+                            class="bi bi-x text-white text-2xl absolute opacity-0 scale-50 rotate-90"></i>
+                    </div>
+
+                    <span id="bubble-hint"
+                        class="absolute text-[8px] font-bold uppercase tracking-widest text-blue-400 translate-y-4 opacity-0 transition-all duration-300">
+                        Menu
+                    </span>
+                </div>
+            </button>
+        </div>
+        <style>
+            /* Standard Bubble Styling */
+            .nav-bubble,
+            .nav-bubble-main {
+                position: absolute;
+                width: 52px;
+                height: 52px;
+                background: rgba(255, 255, 255, 0.05);
+                backdrop-filter: blur(16px);
+                -webkit-backdrop-filter: blur(16px);
+                /* border: 1px solid rgba(255, 255, 255, 0.12); */
+                border-radius: 50%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                text-decoration: none;
+                box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+                transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                z-index: 45;
+            }
+
+            .nav-bubble-main {
+                position: relative;
+                z-index: 60;
+                cursor: pointer;
+            }
+
+            .bubble-label {
+                position: absolute;
+                bottom: -22px;
+                font-size: 8px;
+                /* Slightly smaller for 5 items */
+                font-weight: 800;
+                text-transform: uppercase;
+                letter-spacing: 0.8px;
+                color: rgba(255, 255, 255, 0.5);
+                white-space: nowrap;
+            }
+
+            .nav-bubble {
+                opacity: 0;
+                transform: translate(0, 0) scale(0.4);
+                pointer-events: none;
+            }
+
+            /* Radial Expansion Math */
+            #radial-wrapper.active .nav-bubble {
+                opacity: 1;
+                pointer-events: auto;
+                transform: translate(calc(cos(var(--angle)) * var(--dist)),
+                        calc(sin(var(--angle)) * var(--dist))) scale(1);
+                transition-delay: var(--delay);
+            }
+
+            /* Main Button Toggle Effects */
+            #radial-wrapper.active #home-icon {
+                opacity: 0;
+                transform: scale(0) rotate(-90deg);
+            }
+
+            #radial-wrapper.active #close-icon {
+                opacity: 1;
+                transform: scale(1) rotate(0);
+            }
+
+            #radial-wrapper.active {
+                color: rgba(255, 255, 255, 0.5) !important;
+            }
+
+            #nav-overlay.active {
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            /* Hover State */
+            .nav-bubble:hover {
+                background: rgba(255, 255, 255, 0.1);
+                border-color: rgba(59, 130, 246, 0.5);
+                color: #3b82f6;
+            }
+
+
+            /* Remove the old bubble-label from CSS as we don't need it */
+            .bubble-label {
+                display: none;
+            }
+
+            .nav-bubble-main {
+                overflow: hidden;
+                /* Keeps the text movement inside the circle */
+            }
+
+            /* Make icons transition smoothly when swapped */
+            #icon-container,
+            #bubble-hint {
+                transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+                pointer-events: none;
+                /* Let clicks pass to the button */
+            }
+
+            #bubble-hint {
+                white-space: nowrap;
+                text-align: center;
+                width: 100%;
+            }
+        </style>
+        <script>
+            function toggleMenu() {
+                const wrapper = document.getElementById('radial-wrapper');
+                const overlay = document.getElementById('nav-overlay');
+
+                const isOpen = wrapper.classList.toggle('active');
+                overlay.classList.toggle('active');
+
+            }
+            function showHint(text) {
+                const hint = document.getElementById('bubble-hint');
+                const icons = document.getElementById('icon-container');
+
+                // 1. Set text
+                hint.innerText = text;
+
+                // 2. Animate hint UP and IN
+                hint.classList.remove('translate-y-4', 'opacity-0');
+                hint.classList.add('translate-y-0', 'opacity-100');
+
+                // 3. Animate icons DOWN and OUT
+                icons.classList.add('-translate-y-4', 'opacity-0');
+            }
+
+            function hideHint() {
+                const hint = document.getElementById('bubble-hint');
+                const icons = document.getElementById('icon-container');
+
+                // 1. Reset hint position
+                hint.classList.add('translate-y-4', 'opacity-0');
+                hint.classList.remove('translate-y-0', 'opacity-100');
+
+                // 2. Bring icons back
+                icons.classList.remove('-translate-y-4', 'opacity-0');
+            }
+
+            // Your existing toggleMenu remains the same
+        </script>
+    </div>
+    <!--  -->
+
 
     <div id="alert-wrapper"
         class="fixed top-4 left-1/2 -translate-x-1/2 w-[80%] max-w-[26rem] z-40 pointer-events-none">
@@ -1790,218 +1999,20 @@
     <main class="flex flex-col items-center">
 
         <!-- scrolling heros -->
-        <!-- MAIN STATIC BLOCK: full hero pin section -->
-        <style>
-            /* reset & full black canvas */
-            html,
-            body {
-                margin: 0;
-                padding: 0;
-                width: 100%;
-                background: #050505;
-                font-family: 'Inter', sans-serif;
-                scroll-behavior: smooth;
-            }
-
-            /* custom clip-path fill animation for "essentials" text effect */
-            .fill-animation {
-                transition: clip-path 0.9s cubic-bezier(0.77, 0, 0.18, 1);
-                white-space: nowrap;
-            }
-
-            .group:hover .fill-animation {
-                clip-path: inset(0 0 0 0) !important;
-            }
-
-            /* step containers */
-            .hero-step {
-                position: absolute;
-                inset: 0;
-                width: 100%;
-                height: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                opacity: 0;
-                pointer-events: none;
-                z-index: 10;
-                overflow: hidden;
-            }
-
-            .hero-step:first-child {
-                opacity: 1;
-                pointer-events: auto;
-                z-index: 20;
-            }
-
-            .hero-step-image {
-                position: absolute;
-                inset: 0;
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                filter: brightness(0.4) saturate(1.1);
-                transform: scale(1.06);
-                transition: transform 0.2s ease-out;
-            }
-
-            .step-bg-overlay {
-                position: absolute;
-                inset: 0;
-                background: radial-gradient(circle at 30% 20%, rgba(0, 0, 0, 0.25) 0%, #000000cc 90%);
-                z-index: 5;
-            }
-
-            /* ultra sensitive scroll line animation */
-            .scroll-indicator-line {
-                animation: pulseLine 1.6s infinite cubic-bezier(0.4, 0, 0.2, 1);
-            }
-
-            @keyframes pulseLine {
-                0% {
-                    transform: translateY(-100%);
-                    opacity: 0;
-                }
-
-                40% {
-                    transform: translateY(0);
-                    opacity: 1;
-                }
-
-                100% {
-                    transform: translateY(100%);
-                    opacity: 0;
-                }
-            }
-
-            .premium-badge {
-                backdrop-filter: blur(14px);
-                letter-spacing: 0.22em;
-            }
-
-            /* custom scrollbar — sleek */
-            ::-webkit-scrollbar {
-                width: 4px;
-            }
-
-            ::-webkit-scrollbar-track {
-                background: #0a0a0a;
-            }
-
-            ::-webkit-scrollbar-thumb {
-                background: #ff2e1aaa;
-                border-radius: 20px;
-            }
-
-            /* top picks cards: glassmorphic */
-            .top-pick-card {
-                background: rgba(8, 8, 12, 0.6);
-                backdrop-filter: blur(14px);
-                border: 0.5px solid rgba(255, 255, 255, 0.12);
-                transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-                cursor: default;
-            }
-
-            .top-pick-card:hover {
-                border-color: rgba(255, 70, 40, 0.65);
-                background: rgba(18, 18, 22, 0.85);
-                transform: translateY(-5px);
-                box-shadow: 0 15px 30px -12px rgba(0, 0, 0, 0.5);
-            }
-
-            .text-outline {
-                -webkit-text-stroke: 1px rgba(255, 255, 245, 0.5);
-                color: transparent;
-            }
-
-            @media (max-width: 768px) {
-                .top-picks-row {
-                    flex-wrap: wrap;
-                    justify-content: center;
-                    gap: 0.75rem;
-                }
-
-                .hero-step-content {
-                    padding: 0 1.5rem !important;
-                }
-            }
-
-            /* slow zoom keyframes for parallax depth */
-            .animate-slow-zoom {
-                animation: slowZoomAnim 26s infinite alternate ease-in-out;
-            }
-
-            @keyframes slowZoomAnim {
-                0% {
-                    transform: scale(1.02);
-                }
-
-                100% {
-                    transform: scale(1.22);
-                }
-            }
-
-            .hero-step-image {
-                will-change: transform;
-            }
-
-            #hero-pin-target {
-                position: relative;
-                width: 100%;
-                height: 100vh;
-            }
-
-            /* floating nav - subtle circle bar */
-            .floating-nav {
-                position: fixed;
-                top: 24px;
-                left: 50%;
-                transform: translateX(-50%);
-                z-index: 2000;
-                background: rgba(0, 0, 0, 0.55);
-                backdrop-filter: blur(18px);
-                border-radius: 100px;
-                border: 1px solid rgba(255, 255, 255, 0.12);
-                padding: 8px 28px;
-                display: flex;
-                gap: 28px;
-                font-weight: 500;
-                letter-spacing: 0.02em;
-                font-size: 0.85rem;
-                transition: all 0.2s;
-            }
-
-            .floating-nav span {
-                color: rgba(255, 255, 255, 0.75);
-                transition: color 0.2s;
-                cursor: default;
-            }
-
-            .floating-nav span:hover {
-                color: white;
-            }
-
-            .floating-nav .dot {
-                width: 4px;
-                height: 4px;
-                background: rgba(255, 255, 255, 0.4);
-                border-radius: 50%;
-                align-self: center;
-            }
-        </style>
+        <!-- MAIN WRAPPER CONTAINER -->
         <div id="hero-main-container" class="bg-[#050505] relative w-full">
+            <!-- PINNING TARGET (GSAP takes control of only this viewport section) -->
             <section id="hero-pin-target" class="relative w-full h-screen overflow-hidden">
 
                 <!-- STEP 1 — Raw Heritage / Essentials -->
                 <div class="hero-step" data-step="0">
                     <div class="step-bg-overlay"></div>
                     <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=2070&auto=format"
-                        class="hero-step-image animate-slow-zoom" alt="curated heritage">
+                        class="hero-step-image" alt="curated heritage">
                     <div class="hero-step-content relative z-30 w-full max-w-[1400px] mx-auto px-6 md:px-12">
-                        <!-- DEDICATED STORE VIEW (brand-first, minimal, immersive) -->
                         <div class="store-brand-content w-full text-center">
-                            <div class="mb-10 animate-[fadeInUp_0.8s_ease-out]">
-                                <div class="kinetic-logo">STORENAME</div>
+                            <div class="mb-10">
+                                <div class="text-white font-black tracking-widest text-4xl md:text-6xl">STORENAME</div>
                                 <div class="h-[2px] w-20 bg-gradient-to-r from-red-500 to-transparent mx-auto my-5">
                                 </div>
                                 <div
@@ -2011,31 +2022,21 @@
                                     ARCHIVE
                                 </div>
                             </div>
-
-                            <p
-                                class="text-white/50 text-lg max-w-xl mx-auto font-light leading-relaxed mb-8 animate-[fadeInUp_0.8s_ease-out]">
+                            <p class="text-white/50 text-lg max-w-xl mx-auto font-light leading-relaxed mb-8">
                                 Simplicity is everything. We strip away the noise to bring you products that actually
-                                matter to your
-                                daily routine.
+                                matter to
+                                your daily routine.
                             </p>
-
-
-
-                            <!-- scroll hint in store view -->
                             <div class="mt-14 flex flex-col items-center gap-2">
                                 <div class="relative w-[1px] h-12 bg-white/20 overflow-hidden">
-                                    <div class="relative w-[1px] h-12 bg-white/20 overflow-hidden">
-                                        <div
-                                            class="scroll-indicator-line w-full h-full bg-gradient-to-b from-transparent via-amber-300 to-transparent">
-                                        </div>
+                                    <div
+                                        class="scroll-indicator-line w-full h-full bg-gradient-to-b from-transparent via-amber-300 to-transparent">
                                     </div>
                                 </div>
                                 <span
                                     class="scroll-text text-[9px] uppercase tracking-[0.35em] text-white/40 font-medium">scroll
-                                    to
-                                    explore</span>
+                                    to explore</span>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -2044,7 +2045,7 @@
                 <div class="hero-step" data-step="1">
                     <div class="step-bg-overlay"></div>
                     <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2070&auto=format"
-                        class="hero-step-image animate-slow-zoom" alt="modernist">
+                        class="hero-step-image" alt="modernist">
                     <div class="hero-step-content relative z-30 w-full max-w-[1400px] mx-auto px-6 md:px-12">
                         <div class="flex flex-col items-start max-w-[1400px]">
                             <div class="reveal-container mb-5">
@@ -2058,38 +2059,37 @@
                                 Elevate your <br>
                                 <span
                                     class="bg-gradient-to-r from-blue-300 to-cyan-400 bg-clip-text text-transparent">Appearance</span>
-                                with <br>
-                                curated
+                                <br>
+                                with curated
                                 <div class="relative inline-block"><span class="text-outline"
                                         style="-webkit-text-stroke: 1px white;">essentials.</span></div>
                             </h1>
                             <p class="hero-desc text-white/60 text-lg md:text-xl max-w-xl font-light">Simplicity is
                                 everything.
                                 We strip away the noise for your daily routine.</p>
-                            <!-- TOP PICKS step2 : modern essentials -->
                             <div class="top-picks-row mt-12 w-full flex flex-wrap gap-4 md:gap-6">
                                 <div class="top-pick-card rounded-2xl px-5 py-3 flex items-center gap-3">
                                     <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">🧥
                                     </div>
                                     <div>
-                                        <div class="text-xs uppercase">Overcoat</div>
-                                        <div class="font-semibold">Structural Wool</div>
+                                        <div class="text-xs uppercase text-white/40">Overcoat</div>
+                                        <div class="font-semibold text-white">Structural Wool</div>
                                     </div>
                                 </div>
                                 <div class="top-pick-card rounded-2xl px-5 py-3 flex items-center gap-3">
                                     <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">👞
                                     </div>
                                     <div>
-                                        <div class="text-xs uppercase">Derby</div>
-                                        <div class="font-semibold">Tanned Leather</div>
+                                        <div class="text-xs uppercase text-white/40">Derby</div>
+                                        <div class="font-semibold text-white">Tanned Leather</div>
                                     </div>
                                 </div>
                                 <div class="top-pick-card rounded-2xl px-5 py-3 flex items-center gap-3">
                                     <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">💼
                                     </div>
                                     <div>
-                                        <div class="text-xs uppercase">Briefcase</div>
-                                        <div class="font-semibold">Saffiano Edition</div>
+                                        <div class="text-xs uppercase text-white/40">Briefcase</div>
+                                        <div class="font-semibold text-white">Saffiano Edition</div>
                                     </div>
                                 </div>
                             </div>
@@ -2097,11 +2097,11 @@
                     </div>
                 </div>
 
-                <!-- STEP 3 — Uncompromising Elegance (gold silhouette) -->
+                <!-- STEP 3 — Uncompromising Elegance -->
                 <div class="hero-step" data-step="2">
                     <div class="step-bg-overlay"></div>
                     <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?q=80&w=2070&auto=format"
-                        class="hero-step-image animate-slow-zoom" alt="golden elegance">
+                        class="hero-step-image" alt="golden elegance">
                     <div class="hero-step-content relative z-30 w-full max-w-[1400px] mx-auto px-6 md:px-12">
                         <div class="flex flex-col items-start max-w-[1400px]">
                             <div class="reveal-container mb-5">
@@ -2119,23 +2119,19 @@
                                         style="-webkit-text-stroke: 1px rgba(255,215,120,0.7);">silhouettes.</span>
                                 </div>
                             </h1>
-                            <div class="flex flex-col md:flex-row md:items-end justify-between w-full gap-8">
-                                <p
-                                    class="hero-desc text-white/60 text-lg md:text-xl max-w-xl font-light leading-relaxed">
-                                    Grace meets function. We strip away the noise to bring you pieces that transition
-                                    effortlessly through your daily routine.
-                                </p>
-
-                            </div>
-                            <!-- top picks gold series -->
+                            <p class="hero-desc text-white/60 text-lg md:text-xl max-w-xl font-light leading-relaxed">
+                                Grace meets function. We strip away the noise to bring you pieces that transition
+                                effortlessly
+                                through your daily routine.
+                            </p>
                             <div class="top-picks-row mt-12 w-full flex flex-wrap gap-4 md:gap-6">
                                 <div class="top-pick-card rounded-2xl px-5 py-3 flex items-center gap-3">
                                     <div
                                         class="w-10 h-10 rounded-full bg-amber-900/30 flex items-center justify-center">
                                         ⌚</div>
                                     <div>
-                                        <div class="text-xs uppercase">GMT Master</div>
-                                        <div class="font-semibold">18K Edition</div>
+                                        <div class="text-xs uppercase text-white/40">GMT Master</div>
+                                        <div class="font-semibold text-white">18K Edition</div>
                                     </div>
                                 </div>
                                 <div class="top-pick-card rounded-2xl px-5 py-3 flex items-center gap-3">
@@ -2144,18 +2140,8 @@
                                         💎
                                     </div>
                                     <div>
-                                        <div class="text-xs uppercase">Cufflinks</div>
-                                        <div class="font-semibold">Onyx & Gold</div>
-                                    </div>
-                                </div>
-                                <div class="top-pick-card rounded-2xl px-5 py-3 flex items-center gap-3">
-                                    <div
-                                        class="w-10 h-10 rounded-full bg-amber-900/30 flex items-center justify-center">
-                                        👔
-                                    </div>
-                                    <div>
-                                        <div class="text-xs uppercase">Silk Tie</div>
-                                        <div class="font-semibold">Burgundy Luster</div>
+                                        <div class="text-xs uppercase text-white/40">Cufflinks</div>
+                                        <div class="font-semibold text-white">Onyx & Gold</div>
                                     </div>
                                 </div>
                             </div>
@@ -2163,11 +2149,11 @@
                     </div>
                 </div>
 
-                <!-- STEP 4 — Futuristic minimalism (bonus) -->
+                <!-- STEP 4 — Futuristic minimalism -->
                 <div class="hero-step" data-step="3">
                     <div class="step-bg-overlay"></div>
                     <img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?q=80&w=2070&auto=format"
-                        class="hero-step-image animate-slow-zoom" alt="future minimal">
+                        class="hero-step-image" alt="future minimal">
                     <div class="hero-step-content relative z-30 w-full max-w-[1400px] mx-auto px-6 md:px-12">
                         <div class="flex flex-col items-start max-w-[1400px]">
                             <div class="reveal-container mb-5">
@@ -2188,215 +2174,278 @@
                             <p class="hero-desc text-white/60 text-lg max-w-xl">Adaptive essentials —
                                 temperature-regulating,
                                 seamless fusion of form and function.</p>
-                            <!-- Top picks last step high tech -->
                             <div class="top-picks-row mt-12 w-full flex flex-wrap gap-4">
                                 <div class="top-pick-card rounded-2xl px-5 py-3">
                                     <div class="text-xs text-white/40">Smart Layer</div>
-                                    <div class="font-bold">Phase-change Baselayer</div>
+                                    <div class="font-bold text-white">Phase-change Baselayer</div>
                                 </div>
                                 <div class="top-pick-card rounded-2xl px-5 py-3">
                                     <div class="text-xs text-white/40">Modular</div>
-                                    <div class="font-bold">Convertible Vest</div>
-                                </div>
-                                <div class="top-pick-card rounded-2xl px-5 py-3">
-                                    <div class="text-xs text-white/40">Edition</div>
-                                    <div class="font-bold">Reactive Knit</div>
+                                    <div class="font-bold text-white">Convertible Vest</div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </section>
-        </div>
-        <script>
-            (function () {
-                // ENSURE GSAP & ScrollTrigger are fully loaded and registered
-                if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
-                    console.warn("GSAP not loaded, retrying after delay");
-                    return;
-                }
-                gsap.registerPlugin(ScrollTrigger);
+            <!-- GSAP Core and ScrollTrigger Engine Injection -->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
-                const steps = gsap.utils.toArray(".hero-step");
-                if (!steps.length) return;
+            <script>
+                (function () {
+                    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+                    gsap.registerPlugin(ScrollTrigger);
 
-                // Enhanced sensitivity: each step transition happens over minimal scroll distance
-                // For buttery & ultra responsive feeling: total scroll length = steps * 55% (super sensitive)
-                const totalSteps = steps.length;
-                const scrollDistance = totalSteps * 58;   // 58% per step → smallest scroll triggers next step instantly
+                    const steps = gsap.utils.toArray(".hero-step");
+                    if (!steps.length) return;
 
-                // Kill previous ScrollTriggers to avoid conflicts
-                ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+                    const totalSteps = steps.length;
+                    const scrollDistance = totalSteps * 60;
 
-                // main timeline with ultra low scrub for realtime feedback
-                const mainTimeline = gsap.timeline({
-                    scrollTrigger: {
+                    const mainNav = document.getElementById('main-nav');
+                    const radialWrapper = document.getElementById('radial-wrapper');
+
+                    // Dynamic sequence manager
+                    const mainTimeline = gsap.timeline({
+                        scrollTrigger: {
+                            trigger: "#hero-pin-target",
+                            start: "top top",
+                            end: `+=${scrollDistance}%`,
+                            scrub: 0.3,
+                            pin: true,
+                            pinSpacing: true,
+                            invalidateOnRefresh: true,
+                            onUpdate: (self) => {
+                                // Total normalized slider path calculation
+                                // self.progress spans 0.0 to 1.0 across the pinned block execution window.
+                                // Step 2 initializes perfectly at exactly 1 / (total slides - 1) progress weight.
+                                const stepActivationThreshold = 1 / (totalSteps - 1);
+
+
+                            }
+                        }
+                    });
+
+                    // Initialize staging states
+                    steps.forEach((step, idx) => {
+                        if (idx !== 0) {
+                            gsap.set(step, { opacity: 0, pointerEvents: "none" });
+                            gsap.set(step.querySelectorAll(".hero-title, .hero-desc, .reveal-container"), {
+                                y: 30, opacity: 0, filter: "blur(4px)"
+                            });
+                        } else {
+                            gsap.set(step, { opacity: 1, pointerEvents: "auto" });
+                            gsap.set(step.querySelectorAll(".hero-title, .hero-desc, .reveal-container"), {
+                                opacity: 1, y: 0, filter: "blur(0px)"
+                            });
+                        }
+                    });
+
+                    // Frame transitions loop setup
+                    for (let i = 0; i < steps.length - 1; i++) {
+                        const currentStep = steps[i];
+                        const nextStep = steps[i + 1];
+                        const label = `step_${i}`;
+
+                        mainTimeline.addLabel(label);
+
+                        mainTimeline.to(currentStep, {
+                            opacity: 0, duration: 0.6, ease: "power1.inOut",
+                            onComplete: () => { currentStep.style.pointerEvents = "none"; }
+                        }, label);
+
+                        mainTimeline.to(nextStep, {
+                            opacity: 1, duration: 0.6, ease: "power1.inOut",
+                            onStart: () => { nextStep.style.pointerEvents = "auto"; }
+                        }, label);
+
+                        mainTimeline.to(nextStep.querySelectorAll(".hero-title, .hero-desc, .reveal-container"), {
+                            y: 0, opacity: 1, filter: "blur(0px)",
+                            stagger: 0.08, duration: 0.7, ease: "power2.out"
+                        }, `${label}+=0.15`);
+
+                        mainTimeline.to({}, { duration: 0.4 });
+                    }
+
+                    // Live structural magnification updates
+                    const heroImages = document.querySelectorAll('.hero-step-image');
+                    ScrollTrigger.create({
                         trigger: "#hero-pin-target",
                         start: "top top",
                         end: `+=${scrollDistance}%`,
-                        scrub: 0.28,            // ultra responsive — almost 1:1 with scroll movement
-                        pin: true,
-                        anticipatePin: 1,
-                        invalidateOnRefresh: true,
+                        scrub: true,
                         onUpdate: (self) => {
-                            // micro dynamic for extra smoothness
-                            const progress = self.progress;
+                            heroImages.forEach((img) => {
+                                if (img) {
+                                    gsap.to(img, { scale: 1.02 + (self.progress * 0.12), duration: 0.1, overwrite: "auto" });
+                                }
+                            });
                         }
-                    }
-                });
+                    });
 
-                // pre-set all steps: first step visible, others hidden + content moved
-                steps.forEach((step, idx) => {
-                    if (idx !== 0) {
-                        gsap.set(step, { opacity: 0, pointerEvents: "none" });
-                        gsap.set(step.querySelectorAll(".hero-title, .hero-desc, .reveal-container, .top-picks-row"), {
-                            y: 48,
-                            opacity: 0,
-                            filter: "blur(5px)"
-                        });
-                    } else {
-                        // first step all content fully visible
-                        gsap.set(step.querySelectorAll(".hero-title, .hero-desc, .reveal-container, .top-picks-row"), {
-                            opacity: 1, y: 0, filter: "blur(0px)"
-                        });
-                    }
-                });
-
-                // Build seamless transitions with overlapping
-                for (let i = 0; i < steps.length - 1; i++) {
-                    const currentStep = steps[i];
-                    const nextStep = steps[i + 1];
-                    const label = `transition_${i}`;
-
-                    // fade out current step (quick, for smooth removal)
-                    mainTimeline.to(currentStep, {
-                        opacity: 0,
-                        duration: 0.7,
-                        ease: "power2.inOut",
-                        onComplete: () => { if (currentStep.style) currentStep.style.pointerEvents = "none"; }
-                    }, label);
-
-                    // fade in next step (image + container)
-                    mainTimeline.to(nextStep, {
-                        opacity: 1,
-                        duration: 0.85,
-                        ease: "power3.out",
-                        onStart: () => {
-                            nextStep.style.pointerEvents = "auto";
-                        }
-                    }, label);
-
-                    // animate text content for next step: entrance with stagger and blur removal
-                    mainTimeline.to(nextStep.querySelectorAll(".hero-title, .hero-desc, .reveal-container, .top-picks-row"), {
-                        y: 0,
-                        opacity: 1,
-                        filter: "blur(0px)",
-                        stagger: 0.07,
-                        duration: 0.85,
-                        ease: "back.out(0.35)",
-                        clearProps: "transform"
-                    }, `${label}+=0.12`);
-
-                    // micro hold to allow natural flow (very short for sensitivity)
-                    mainTimeline.to({}, { duration: 0.3 });
+                    window.addEventListener('resize', () => ScrollTrigger.refresh());
+                })();
+            </script>
+            <!-- MAIN STATIC BLOCK: full hero pin section -->
+            <style>
+                /* Reset & base page behavior */
+                html,
+                body {
+                    margin: 0;
+                    padding: 0;
+                    width: 100%;
+                    background: #050505;
+                    font-family: 'Inter', sans-serif;
                 }
 
-                // Hover fill effect for 'essentials' reveal animation (cross-step interaction)
-                const fillSpans = document.querySelectorAll('.fill-animation');
-                fillSpans.forEach(span => {
-                    span.addEventListener('mouseenter', () => {
-                        gsap.to(span, { clipPath: "inset(0 0% 0 0)", duration: 0.65, ease: "expo.out" });
-                    });
-                    span.addEventListener('mouseleave', () => {
-                        gsap.to(span, { clipPath: "inset(0 100% 0 0)", duration: 0.5, ease: "power2.in" });
-                    });
-                });
-
-                // initial intro animation for first step "essentials" word fill reveal
-                gsap.fromTo(".hero-step:first-child .hero-title .fill-animation",
-                    { clipPath: "inset(0 100% 0 0)" },
-                    { clipPath: "inset(0 0% 0 0)", duration: 1.1, delay: 0.5, ease: "power3.out" }
-                );
-
-                // sync all date badges (just for consistency)
-                const dateSpans = document.querySelectorAll('#last-drop-date');
-                dateSpans.forEach(span => { if (span) span.innerText = "APRIL 05, 2026"; });
-
-                // dynamic kinetic zoom based on scroll position (extra depth)
-                const heroImages = document.querySelectorAll('.hero-step-image');
-                const scrollTracker = () => {
-                    const scrollY = window.scrollY;
-                    const maxScroll = document.body.scrollHeight - window.innerHeight;
-                    const factor = Math.min(1, scrollY / (maxScroll || 1));
-                    heroImages.forEach((img, idx) => {
-                        if (img) {
-                            const baseScale = 1.02;
-                            const extra = factor * 0.18;
-                            img.style.transform = `scale(${baseScale + extra})`;
-                        }
-                    });
-                };
-                window.addEventListener('scroll', () => { requestAnimationFrame(scrollTracker); });
-
-                // ensure any resize doesn't break pinning
-                window.addEventListener('resize', () => {
-                    ScrollTrigger.refresh();
-                });
-
-                // Force last step pointer events (just in case)
-                setTimeout(() => {
-                    ScrollTrigger.refresh();
-                }, 100);
-
-                console.log("⚡ Hyper-sensorial scroll engine active — scroll lightly, transitions are immediate.");
-            })();
-        </script>
-
-        <!-- Additional inline style to guarantee hero content never exceeds navbar visually -->
-        <style>
-            .hero-step-content {
-                pointer-events: auto;
-                z-index: 40;
-            }
-
-            .top-picks-row {
-                transition: opacity 0.45s ease, transform 0.45s ease;
-            }
-
-            .group:hover .fill-animation {
-                clip-path: inset(0 0 0 0) !important;
-            }
-
-            #hero-pin-target {
-                position: relative;
-            }
-
-            .floating-nav {
-                pointer-events: none;
-            }
-
-            .floating-nav span {
-                pointer-events: auto;
-                cursor: default;
-            }
-
-            @media (max-width: 640px) {
-                .hero-title {
-                    letter-spacing: -0.02em;
+                /* Custom clip-path fill animation for "essentials" text effect */
+                .fill-animation {
+                    transition: clip-path 0.9s cubic-bezier(0.77, 0, 0.18, 1);
+                    white-space: nowrap;
                 }
 
+                .group:hover .fill-animation {
+                    clip-path: inset(0 0 0 0) !important;
+                }
+
+                /* Step containers isolated exclusively inside the pin target */
+                .hero-step {
+                    position: absolute;
+                    inset: 0;
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    opacity: 0;
+                    pointer-events: none;
+                    z-index: 10;
+                    overflow: hidden;
+                }
+
+                .hero-step:first-child {
+                    opacity: 1;
+                    pointer-events: auto;
+                    z-index: 20;
+                }
+
+                .hero-step-image {
+                    position: absolute;
+                    inset: 0;
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    filter: brightness(0.4) saturate(1.1);
+                    transform: scale(1.02);
+                    will-change: transform;
+                }
+
+                .step-bg-overlay {
+                    position: absolute;
+                    inset: 0;
+                    background: radial-gradient(circle at 30% 20%, rgba(0, 0, 0, 0.25) 0%, #000000cc 90%);
+                    z-index: 5;
+                }
+
+                /* Scroll indicator animation */
+                .scroll-indicator-line {
+                    animation: pulseLine 1.6s infinite cubic-bezier(0.4, 0, 0.2, 1);
+                }
+
+                @keyframes pulseLine {
+                    0% {
+                        transform: translateY(-100%);
+                        opacity: 0;
+                    }
+
+                    40% {
+                        transform: translateY(0);
+                        opacity: 1;
+                    }
+
+                    100% {
+                        transform: translateY(100%);
+                        opacity: 0;
+                    }
+                }
+
+                .premium-badge {
+                    backdrop-filter: blur(14px);
+                    letter-spacing: 0.22em;
+                }
+
+                /* Custom sleek scrollbar */
+                ::-webkit-scrollbar {
+                    width: 4px;
+                }
+
+                ::-webkit-scrollbar-track {
+                    background: #0a0a0a;
+                }
+
+                ::-webkit-scrollbar-thumb {
+                    background: #ff2e1aaa;
+                    border-radius: 20px;
+                }
+
+                /* Glassmorphic cards */
                 .top-pick-card {
-                    padding: 0.5rem 0.9rem;
+                    background: rgba(8, 8, 12, 0.6);
+                    backdrop-filter: blur(14px);
+                    border: 0.5px solid rgba(255, 255, 255, 0.12);
+                    transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+                    cursor: default;
                 }
-            }
 
-            /* smooth overlay ensures no gap */
-            body {
-                background: #050505;
-            }
-        </style>
-        <!-- scrolling heros -->
+                .top-pick-card:hover {
+                    border-color: rgba(255, 70, 40, 0.65);
+                    background: rgba(18, 18, 22, 0.85);
+                    transform: translateY(-5px);
+                    box-shadow: 0 15px 30px -12px rgba(0, 0, 0, 0.5);
+                }
+
+                .text-outline {
+                    -webkit-text-stroke: 1px rgba(255, 255, 245, 0.5);
+                    color: transparent;
+                }
+
+                .hero-step-content {
+                    pointer-events: auto;
+                    z-index: 40;
+                }
+
+                .top-picks-row {
+                    transition: opacity 0.45s ease, transform 0.45s ease;
+                }
+
+                @media (max-width: 768px) {
+                    .top-picks-row {
+                        flex-wrap: wrap;
+                        justify-content: center;
+                        gap: 0.75rem;
+                    }
+
+                    .hero-step-content {
+                        padding: 0 1.5rem !important;
+                    }
+                }
+
+                @media (max-width: 640px) {
+                    .hero-title {
+                        letter-spacing: -0.02em;
+                    }
+
+                    .top-pick-card {
+                        padding: 0.5rem 0.9rem;
+                    }
+                }
+            </style>
+        </div>
+
+
+
+
 
 
         <section id="products" class="max-w-7xl w-full py-20 px-6 mx-auto overflow-hidden">
@@ -2872,209 +2921,6 @@
         class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 opacity-0 pointer-events-none transition-all duration-500">
     </div>
 
-    <div id="radial-wrapper" class="fixed bottom-10 left-1/2 -translate-x-1/2 z-50">
-        <div class="relative flex items-center justify-center">
-
-            <a href="#" class="nav-bubble" onclick="openSearch()" onmouseenter="showHint('Search')"
-                onmouseleave="hideHint()" style="--angle: 190deg; --dist: 110px; --delay: 0.1s;">
-                <i class="bi bi-search"></i>
-            </a>
-
-            <a href="#" class="nav-bubble" onclick="openCatalog()" onmouseenter="showHint('Items')"
-                onmouseleave="hideHint()" style="--angle: 230deg; --dist: 125px; --delay: 0.15s;">
-                <i class="bi bi-grid-1x2"></i>
-            </a>
-
-            <a href="#" class="nav-bubble" onclick="openCart()" onmouseenter="showHint('Cart')"
-                onmouseleave="hideHint()" style="--angle: 270deg; --dist: 135px; --delay: 0.2s;">
-                <i class="bi bi-bag"></i>
-            </a>
-
-            <a href="#" class="nav-bubble" onclick="openProfile()" onmouseenter="showHint('Me')"
-                onmouseleave="hideHint()" style="--angle: 310deg; --dist: 125px; --delay: 0.25s;">
-                <i class="bi bi-universal-access"></i>
-            </a>
-
-            <a href="#" class="nav-bubble" onclick="openHelp()" onmouseenter="showHint('Help')"
-                onmouseleave="hideHint()" style="--angle: 350deg; --dist: 110px; --delay: 0.3s;">
-                <i class="bi bi-person-raised-hand"></i>
-            </a>
-
-            <button onclick="toggleMenu()" id="main-trigger" class="nav-bubble-main group relative w-12 h-12">
-                <svg class="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 48 48">
-                    <circle cx="24" cy="24" r="23" fill="none" stroke="currentColor" stroke-width="1"
-                        class="text-white/10" />
-                    <circle id="nav-progress" cx="24" cy="24" r="23" fill="none" stroke="#3b82f6" stroke-width="1.5"
-                        stroke-dasharray="144.5" stroke-dashoffset="144.5" />
-                </svg>
-
-                <div class="relative w-full h-full flex items-center justify-center overflow-hidden">
-                    <div id="icon-container" class="flex items-center justify-center transition-all duration-300">
-                        <i id="home-icon" class="text-blue-500 absolute"><svg width="20" height="20" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="1.5">
-                                <rect x="3" y="3" width="7" height="7" rx="1" />
-                                <rect x="14" y="3" width="7" height="7" rx="1" />
-                                <rect x="14" y="14" width="7" height="7" rx="1" />
-                                <rect x="3" y="14" width="7" height="7" rx="1" />
-                            </svg></i>
-                        <i id="close-icon"
-                            class="bi bi-x text-white text-2xl absolute opacity-0 scale-50 rotate-90"></i>
-                    </div>
-
-                    <span id="bubble-hint"
-                        class="absolute text-[8px] font-bold uppercase tracking-widest text-blue-400 translate-y-4 opacity-0 transition-all duration-300">
-                        Menu
-                    </span>
-                </div>
-            </button>
-        </div>
-    </div>
-    <style>
-        /* Standard Bubble Styling */
-        .nav-bubble,
-        .nav-bubble-main {
-            position: absolute;
-            width: 52px;
-            height: 52px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            /* border: 1px solid rgba(255, 255, 255, 0.12); */
-            border-radius: 50%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-decoration: none;
-            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            z-index: 45;
-        }
-
-        .nav-bubble-main {
-            position: relative;
-            z-index: 60;
-            cursor: pointer;
-        }
-
-        .bubble-label {
-            position: absolute;
-            bottom: -22px;
-            font-size: 8px;
-            /* Slightly smaller for 5 items */
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            color: rgba(255, 255, 255, 0.5);
-            white-space: nowrap;
-        }
-
-        .nav-bubble {
-            opacity: 0;
-            transform: translate(0, 0) scale(0.4);
-            pointer-events: none;
-        }
-
-        /* Radial Expansion Math */
-        #radial-wrapper.active .nav-bubble {
-            opacity: 1;
-            pointer-events: auto;
-            transform: translate(calc(cos(var(--angle)) * var(--dist)),
-                    calc(sin(var(--angle)) * var(--dist))) scale(1);
-            transition-delay: var(--delay);
-        }
-
-        /* Main Button Toggle Effects */
-        #radial-wrapper.active #home-icon {
-            opacity: 0;
-            transform: scale(0) rotate(-90deg);
-        }
-
-        #radial-wrapper.active #close-icon {
-            opacity: 1;
-            transform: scale(1) rotate(0);
-        }
-
-        #radial-wrapper.active {
-            color: rgba(255, 255, 255, 0.5) !important;
-        }
-
-        #nav-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        /* Hover State */
-        .nav-bubble:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(59, 130, 246, 0.5);
-            color: #3b82f6;
-        }
-
-
-        /* Remove the old bubble-label from CSS as we don't need it */
-        .bubble-label {
-            display: none;
-        }
-
-        .nav-bubble-main {
-            overflow: hidden;
-            /* Keeps the text movement inside the circle */
-        }
-
-        /* Make icons transition smoothly when swapped */
-        #icon-container,
-        #bubble-hint {
-            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-            pointer-events: none;
-            /* Let clicks pass to the button */
-        }
-
-        #bubble-hint {
-            white-space: nowrap;
-            text-align: center;
-            width: 100%;
-        }
-    </style>
-    <script>
-        function toggleMenu() {
-            const wrapper = document.getElementById('radial-wrapper');
-            const overlay = document.getElementById('nav-overlay');
-
-            const isOpen = wrapper.classList.toggle('active');
-            overlay.classList.toggle('active');
-
-        }
-        function showHint(text) {
-            const hint = document.getElementById('bubble-hint');
-            const icons = document.getElementById('icon-container');
-
-            // 1. Set text
-            hint.innerText = text;
-
-            // 2. Animate hint UP and IN
-            hint.classList.remove('translate-y-4', 'opacity-0');
-            hint.classList.add('translate-y-0', 'opacity-100');
-
-            // 3. Animate icons DOWN and OUT
-            icons.classList.add('-translate-y-4', 'opacity-0');
-        }
-
-        function hideHint() {
-            const hint = document.getElementById('bubble-hint');
-            const icons = document.getElementById('icon-container');
-
-            // 1. Reset hint position
-            hint.classList.add('translate-y-4', 'opacity-0');
-            hint.classList.remove('translate-y-0', 'opacity-100');
-
-            // 2. Bring icons back
-            icons.classList.remove('-translate-y-4', 'opacity-0');
-        }
-
-        // Your existing toggleMenu remains the same
-    </script>
     <script>
         function toggleTheme() {
             const body = document.body;
@@ -3090,6 +2936,15 @@
         }
     </script>
     <script>
+        // Helper to lock background scroll without breaking layout/GSAP positions
+        function lockBackgroundScroll() {
+            const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+            document.documentElement.style.setProperty('--removed-body-scrollbar-width', `${scrollbarWidth}px`);
+
+            document.documentElement.classList.add('nav-view-locked');
+            document.body.classList.add('nav-view-locked');
+        }
+
         // Generic function to open any sub-view in the nav
         function openNavView(viewId, targetWidth = "34rem") {
             const nav = document.getElementById('main-nav');
@@ -3099,15 +2954,9 @@
             const closeBtn = document.getElementById('close-quicklook');
             const themeBtn = document.querySelector('button[onclick="toggleTheme()"]');
 
-            // Hide any other views that might be open
-            // ['product-details', 'search-view', 'cart-view', 'profile-view', 'help-view', 'catalog-view'].forEach(id => {
-            //     const view = document.getElementById(id);
-            //     if (id !== viewId) {
-            //         view.classList.add('hidden', 'opacity-0', 'scale-95');
-            //         view.classList.remove('is-open');
-            //     }
-            // });
-            // Inside your existing openNavView function, update this array:
+            // Safe, non-jumping scroll lock applied here
+            lockBackgroundScroll();
+
             ['product-details', 'search-view', 'cart-view', 'profile-view', 'help-view', 'catalog-view', 'explore-view'].forEach(id => {
                 const view = document.getElementById(id);
                 if (id !== viewId && view) {
@@ -3129,18 +2978,23 @@
                 nav.classList.remove('px-6', 'py-4');
                 nav.classList.add('px-4', 'py-4');
 
+                // Make nav handle internally scrollable content fields smoothly
+                nav.style.maxHeight = "calc(100vh - 4rem)";
+                nav.style.overflowY = "auto";
+                nav.style.webkitOverflowScrolling = "touch";
+
                 const isMobile = window.innerWidth < 768;
                 nav.style.maxWidth = isMobile ? "calc(100vw - 2rem)" : targetWidth;
 
                 targetView.classList.add('is-open');
                 targetView.classList.remove('opacity-0', 'scale-95');
 
-                closeBtn.classList.remove('hidden');
-                themeBtn.classList.add('hidden');
+                if (closeBtn) closeBtn.classList.remove('hidden');
+                if (themeBtn) themeBtn.classList.add('hidden');
             }, 10);
         }
 
-        //open the product details
+        // Open the product details quick view panel
         function openQuickLook(productId) {
             const nav = document.getElementById('main-nav');
             const details = document.getElementById('product-details');
@@ -3148,6 +3002,9 @@
             const radial = document.getElementById('radial-wrapper');
             const closeBtn = document.getElementById('close-quicklook');
             const themeBtn = document.querySelector('button[onclick="toggleTheme()"]');
+
+            // Safe, non-jumping scroll lock applied identically here
+            lockBackgroundScroll();
 
             // 1. Handle Overlay and Radial Menu State
             overlay.classList.add('active', 'opacity-100', 'pointer-events-auto');
@@ -3159,24 +3016,24 @@
             // 2. Expand Navigation Container
             details.classList.remove('hidden');
 
-            // Smooth responsive width adjustment
             const isMobile = window.innerWidth < 768;
 
             setTimeout(() => {
                 nav.classList.remove('px-6', 'py-4');
                 nav.classList.add('px-4', 'py-4');
 
-                // PC gets the limit, Mobile fills the screen
-                nav.style.maxWidth = isMobile ? "calc(100vw - 2rem)" : "65rem";
+                // Setup vertical container restrictions so long product details scroll natively inside the nav
+                nav.style.maxHeight = "calc(100vh - 4rem)";
+                nav.style.overflowY = "auto";
+                nav.style.webkitOverflowScrolling = "touch";
 
-                // details.classList.remove('opacity-0', 'scale-95');
-                // details.classList.add('opacity-100', 'scale-100');
+                nav.style.maxWidth = isMobile ? "calc(100vw - 2rem)" : "65rem";
 
                 details.classList.add('is-open');
                 details.classList.remove('opacity-0', 'scale-95');
 
-                closeBtn.classList.remove('hidden');
-                themeBtn.classList.add('hidden');
+                if (closeBtn) closeBtn.classList.remove('hidden');
+                if (themeBtn) themeBtn.classList.add('hidden');
             }, 10);
 
             // 3. Inject Content
@@ -3188,7 +3045,6 @@
             document.getElementById('ql-title').innerText = "Adidas classic t-shirt";
             document.getElementById('ql-price').innerText = "EGP 1,290";
         }
-
         // Helper functions for specific triggers
         function openSearch() {
             openNavView('search-view', '30rem');
@@ -3241,6 +3097,17 @@
             const closeBtn = document.getElementById('close-quicklook');
             const themeBtn = document.querySelector('button[onclick="toggleTheme()"]');
 
+            const scrollY = document.body.style.top;
+            document.body.style.position = '';
+            document.body.style.top = '';
+            document.body.style.width = '';
+            document.body.style.overflow = '';
+
+            // Roll back the browser view straight to the saved pixel coordinate
+            if (scrollY) {
+                window.scrollTo(0, parseInt(scrollY || '0') * -1);
+            }
+
             views.forEach(id => {
                 const view = document.getElementById(id);
                 view.classList.remove('is-open');
@@ -3267,6 +3134,7 @@
             closeBtn.classList.add('hidden');
             themeBtn.classList.remove('hidden');
         }
+
 
 
 
