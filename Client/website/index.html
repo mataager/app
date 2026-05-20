@@ -2000,8 +2000,8 @@
     <main class="flex flex-col items-center">
 
         <div id="hero-main-container" class="bg-[#050505] relative w-full">
-            <!-- PINNING TARGET -->
-            <section id="hero-pin-target" class="relative w-full h-screen overflow-hidden select-none touch-pan-y">
+            <!-- PINNING TARGET (Set at 800px height) -->
+            <section id="hero-pin-target" class="relative w-full h-[800px] overflow-hidden select-none">
 
                 <!-- STEP 1 — Raw Heritage / Essentials -->
                 <div class="hero-step" data-step="0">
@@ -2124,15 +2124,13 @@
                                 <span
                                     class="bg-gradient-to-r from-blue-300 to-cyan-400 bg-clip-text text-transparent">Appearance</span>
                                 <br>
-                                with curated
-                                <div class="relative inline-block"><span class="text-outline"
+                                with curated <div class="relative inline-block"><span class="text-outline"
                                         style="-webkit-text-stroke: 1px white;">essentials.</span></div>
                             </h1>
                             <p class="hero-desc text-white/60 text-lg md:text-xl max-w-xl font-light">Simplicity is
                                 everything.
                                 We strip away the noise for your daily routine.</p>
                             <div class="top-picks-row mt-12 w-full flex flex-wrap gap-4 md:gap-6">
-                                <!-- Top picks items inside -->
                                 <div class="top-pick-card rounded-2xl px-5 py-3 flex items-center gap-3">
                                     <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">🧥
                                     </div>
@@ -2164,7 +2162,7 @@
                         <div class="flex flex-col items-start max-w-[1400px]">
                             <div class="reveal-container mb-5">
                                 <span
-                                    class="premium-badge inline-block bg-black/30 border border-amber-500/40 text-amber-400 text-xs font-bold tracking-[0.4em] uppercase px-4 py-1.5 rounded-full backdrop-blur-lg">
+                                    class="premium-badge inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-amber-500/40 bg-black/30 text-amber-400 text-xs font-bold tracking-[0.4em] uppercase backdrop-blur-lg">
                                     LAST DROP: APRIL 05, 2026
                                 </span>
                             </div>
@@ -2172,8 +2170,7 @@
                                 class="hero-title text-[clamp(2.8rem,9vw,7rem)] font-extrabold text-white leading-[0.85] tracking-tighter mb-6">
                                 Uncompromising <br>
                                 <span class="text-amber-300 brightness-125 drop-shadow-lg">Elegance</span> with <br>
-                                modern
-                                <div class="relative inline-block"><span class="text-transparent"
+                                modern <div class="relative inline-block"><span class="text-transparent"
                                         style="-webkit-text-stroke: 1px rgba(255,215,120,0.7);">silhouettes.</span>
                                 </div>
                             </h1>
@@ -2216,17 +2213,14 @@
                     </div>
                 </div>
             </section>
+
             <style>
-                /* Enforce normal touch flow so GSAP ScrollTrigger can register the movement */
                 #hero-pin-target {
                     touch-action: auto !important;
-                    /* Changed from pan-y to let native scroll register */
                     -webkit-overflow-scrolling: touch;
                     overscroll-behavior-y: auto !important;
-                    /* Changed from none to prevent trapping the viewport */
                 }
 
-                /* Base structural setups for frames */
                 .hero-step {
                     position: absolute;
                     inset: 0;
@@ -2266,7 +2260,6 @@
                     z-index: 5;
                 }
 
-                /* Global utility optimization to enforce smooth scaling operations */
                 .hero-title,
                 .hero-desc,
                 .reveal-container,
@@ -2319,47 +2312,47 @@
                     color: transparent;
                 }
             </style>
+
             <script>
                 (function () {
                     if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
                     gsap.registerPlugin(ScrollTrigger);
 
+                    const target = document.getElementById("hero-pin-target");
                     const steps = gsap.utils.toArray(".hero-step");
-                    if (!steps.length) return;
+                    if (!target || !steps.length) return;
 
                     const totalSteps = steps.length;
-                    // Set explicit spacing scale calculation targeting responsive view ratios smoothly
-                    const scrollDistance = totalSteps * 100;
-
                     const mainNav = document.getElementById('main-nav');
                     const radialWrapper = document.getElementById('radial-wrapper');
 
-                    // 1. TIMELINE ARCHITECTURE FOR THE TEXT REVEALS AND OVERLAYS
+                    // EXACT PIXEL SPACE ALLOCATION FOR STEP SCROLL TRACKS
+                    // Each slider step gets an explicit 800px tracking sequence window
+                    const pinDistance = target.offsetHeight * totalSteps;
+
+                    // 1. ISOLATED HERO TIMELINE
                     const mainTimeline = gsap.timeline({
                         scrollTrigger: {
-                            trigger: "#hero-pin-target",
+                            trigger: target,
                             start: "top top",
-                            end: `+=${scrollDistance}%`,
-                            scrub: 0.5, // Slightly increased scrub for buttery momentum handling
+                            end: () => `+=${pinDistance}`,
+                            scrub: 1, // Smooth scrub tracking values cleanly
                             pin: true,
                             pinSpacing: true,
                             invalidateOnRefresh: true,
                             onUpdate: (self) => {
-                                // Smooth hide/reveal logic based on slider timeline process window boundary
                                 if (self.progress >= 0.95) {
-                                    // Show Nav smoothly sliding from top, Circle Button smoothly sliding from bottom
-                                    gsap.to(mainNav, { y: 0, opacity: 1, duration: 0.4, ease: "power2.out", overwrite: "auto" });
-                                    gsap.to(radialWrapper, { y: 0, opacity: 1, duration: 0.4, ease: "power2.out", overwrite: "auto" });
+                                    if (mainNav) gsap.to(mainNav, { y: 0, opacity: 1, duration: 0.4, ease: "power2.out", overwrite: "auto" });
+                                    if (radialWrapper) gsap.to(radialWrapper, { y: 0, opacity: 1, duration: 0.4, ease: "power2.out", overwrite: "auto" });
                                 } else {
-                                    // Hide Nav up, Hide Circle down cleanly
-                                    gsap.to(mainNav, { y: -80, opacity: 0, duration: 0.3, ease: "power2.in", overwrite: "auto" });
-                                    gsap.to(radialWrapper, { y: 110, opacity: 0, duration: 0.3, ease: "power2.in", overwrite: "auto" });
+                                    if (mainNav) gsap.to(mainNav, { y: -80, opacity: 0, duration: 0.3, ease: "power2.in", overwrite: "auto" });
+                                    if (radialWrapper) gsap.to(radialWrapper, { y: 110, opacity: 0, duration: 0.3, ease: "power2.in", overwrite: "auto" });
                                 }
                             }
                         }
                     });
 
-                    // 2. INITIALIZE ELEMENT STAGING PROPERTIES PRE-RENDER
+                    // 2. INITIAL STAGING DECOUPLING
                     steps.forEach((step, idx) => {
                         if (idx !== 0) {
                             gsap.set(step, { opacity: 0, pointerEvents: "none" });
@@ -2374,7 +2367,7 @@
                         }
                     });
 
-                    // 3. SEAMLESS INTER-STEP TRANSITIONS LOOP
+                    // 3. STEP TRANSITIONS LOOP BOUNDED BY THE TIMELINE
                     for (let i = 0; i < steps.length - 1; i++) {
                         const currentStep = steps[i];
                         const nextStep = steps[i + 1];
@@ -2382,53 +2375,42 @@
 
                         mainTimeline.addLabel(label);
 
-                        // Outgoing slide animation
                         mainTimeline.to(currentStep, {
                             opacity: 0, duration: 0.8, ease: "power1.inOut",
                             onComplete: () => { currentStep.style.pointerEvents = "none"; }
                         }, label);
 
-                        // Incoming slide base animation
                         mainTimeline.to(nextStep, {
                             opacity: 1, duration: 0.8, ease: "power1.inOut",
                             onStart: () => { nextStep.style.pointerEvents = "auto"; }
                         }, label);
 
-                        // Buttery smooth staggered blurred text reveal for content items
                         mainTimeline.to(nextStep.querySelectorAll(".reveal-container, .hero-title, .hero-desc, .top-picks-row"), {
                             y: 0, opacity: 1, filter: "blur(0px)",
                             stagger: 0.1, duration: 0.9, ease: "power3.out"
                         }, `${label}+=0.2`);
 
-                        // Holds each step configuration frame in position momentarily before initiating next transition sequence
                         mainTimeline.to({}, { duration: 0.5 });
                     }
 
-                    // 4. MAGNIFICATION SCALE TRACKER ENGINE (Optimized fallback logic execution)
-                    const heroImages = document.querySelectorAll('.hero-step-image');
+                    // 4. IMAGE ZOOM TARGETING ELEMENT ALONE
+                    const heroImages = target.querySelectorAll('.hero-step-image');
                     ScrollTrigger.create({
-                        trigger: "#hero-pin-target",
+                        trigger: target,
                         start: "top top",
-                        end: `+=${scrollDistance}%`,
+                        end: () => `+=${pinDistance}`,
                         scrub: true,
                         onUpdate: (self) => {
                             heroImages.forEach((img) => {
                                 if (img) {
-                                    // Scales beautifully from 1.02 base linearly with user scroll positioning momentum
-                                    gsap.to(img, { scale: 1.02 + (self.progress * 0.08), duration: 0.2, overwrite: "auto" });
+                                    gsap.to(img, { scale: 1.02 + (self.progress * 0.08), duration: 0.1, overwrite: "auto" });
                                 }
                             });
                         }
                     });
-
-                    // Device performance check to recalculate layout values smoothly upon orientation shift
-                    window.addEventListener('resize', () => ScrollTrigger.refresh());
                 })();
             </script>
         </div>
-
-
-
 
         <section id="products" class="max-w-7xl w-full py-20 px-6 mx-auto overflow-hidden">
             <!-- Category Navigation (Unchanged) -->
@@ -2869,9 +2851,6 @@
                 targetGrid.classList.add('visible-grid');
             }
         </script>
-
-
-
 
         <style>
             /* Hides scrollbar for Chrome, Safari and Opera */
