@@ -193,7 +193,7 @@
 
     <!-- navbar  -->
     <nav id="main-nav"
-        class="fixed top-3 z-50 glass left-1/2 -translate-x-1/2 w-[90%] max-w-[30rem] rounded-[2rem] px-6 py-4 transition-all duration-500 overflow-hidden">
+        class="fixed top-3 z-50 glass left-1/2 -translate-x-1/2 w-[90%] max-w-[30rem] rounded-[2rem] px-6 py-4 transition-all duration-500 overflow-hidden -translate-y-20 opacity-0">
         <div class="max-w-7xl mx-auto flex justify-between items-center transition-all duration-500" id="nav-header">
             <div class="flex items-center gap-2 font-bold text-[14px] tracking-tighter ">
                 Store Name ...
@@ -1680,7 +1680,8 @@
     <!-- navbar -->
 
     <!-- circle btn -->
-    <div id="radial-wrapper" class="fixed bottom-10 left-1/2 -translate-x-1/2 z-50 transition-all duration-500">
+    <div id="radial-wrapper"
+        class="fixed bottom-10 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 translate-y-28 opacity-0">
         <div class="relative flex items-center justify-center">
 
             <a href="#" class="nav-bubble" onclick="openSearch()" onmouseenter="showHint('Search')"
@@ -1998,21 +1999,16 @@
 
     <main class="flex flex-col items-center">
 
-        <!-- scrolling heros -->
-        <!-- MAIN WRAPPER CONTAINER -->
         <div id="hero-main-container" class="bg-[#050505] relative w-full">
-            <!-- PINNING TARGET (GSAP takes control of only this viewport section) -->
-            <section id="hero-pin-target" class="relative w-full h-screen overflow-hidden">
-
-
+            <!-- PINNING TARGET -->
+            <section id="hero-pin-target" class="relative w-full h-screen overflow-hidden select-none touch-pan-y">
 
                 <!-- STEP 1 — Raw Heritage / Essentials -->
                 <div class="hero-step" data-step="0">
                     <div class="step-bg-overlay"></div>
                     <img src="https://img.magnific.com/premium-photo/clothing-store-generative-ai_1259709-41783.jpg"
-                        class="hero-step-image" alt="curated heritage" style="transform: scale(1.02);">
+                        class="hero-step-image" alt="curated heritage">
 
-                    <!-- SYSTEM TAG: Top Left Meta Details -->
                     <div
                         class="absolute top-6 left-6 md:top-10 md:left-12 z-40 hidden sm:flex flex-col gap-1 text-[9px] font-mono tracking-[0.2em] text-white/40 uppercase">
                         <div>SYS_REF // B_026</div>
@@ -2021,52 +2017,38 @@
                         </div>
                     </div>
 
-                    <!-- MAIN BRAND CORE -->
                     <div
                         class="hero-step-content relative z-30 w-full max-w-[1400px] mx-auto px-6 md:px-12 h-full flex flex-col justify-between py-12 md:py-16">
-
-                        <!-- Empty spacer to maintain vertical layout balance if navigation exists above -->
                         <div></div>
-
-                        <!-- Center Brand Architecture -->
-                        <div class="store-brand-content w-full text-center my-auto">
+                        <div class="store-brand-content w-full text-center my-auto standard-reveal">
                             <div class="mb-8">
-                                <!-- Opening Meta Tag -->
                                 <span
-                                    class="block text-[10px] font-mono tracking-[0.4em] uppercase text-amber-400/80 mb-4 transition-all duration-700">
-                                    // INITIALIZING ARCHIVE INTRO
-                                </span>
-                                <h1
-                                    class="text-white font-black tracking-[0.15em] text-5xl md:text-8xl select-none uppercase">
+                                    class="block text-[10px] font-mono tracking-[0.4em] uppercase text-amber-400/80 mb-4">//
+                                    INITIALIZING ARCHIVE INTRO</span>
+                                <h1 class="text-white font-black tracking-[0.15em] text-5xl md:text-8xl uppercase">
                                     STORENAME
                                 </h1>
                                 <div
                                     class="h-[1px] w-28 bg-gradient-to-r from-transparent via-red-500 to-transparent mx-auto my-6">
                                 </div>
-
                                 <div
                                     class="premium-badge inline-flex items-center gap-2 px-5 py-2 rounded-full border border-white/10 bg-black/40 backdrop-blur-md text-[10px] font-bold tracking-[0.25em] uppercase text-white/80 transition-colors duration-300 hover:border-red-500/40">
                                     <span class="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse"></span> EST. 2026 •
-                                    CURATED ARCHIVE
+                                    CURATED
+                                    ARCHIVE
                                 </div>
                             </div>
-
                             <p
                                 class="text-white/50 text-base md:text-lg max-w-xl mx-auto font-light leading-relaxed mb-0 px-4">
                                 Simplicity is everything. We strip away the noise to bring you products that actually
-                                matter to your
-                                daily routine.
+                                matter to
+                                your daily routine.
                             </p>
                         </div>
 
-                        <!-- BOTTOM CONTROLS & CROSS-REFERENCE GRID -->
-                        <div class="w-full flex flex-col gap-10 md:gap-8">
-
-                            <!-- Category Matrix & Gender Hints Box -->
+                        <div class="w-full flex flex-col gap-10 md:gap-8 standard-reveal">
                             <div
-                                class="w-full grid grid-cols-1 md:grid-cols-3 items-center border-t border-b border-white/10 backdrop-blur-sm bg-black/10 py-6 px-4 md:px-8 gap-6 md:gap-4 [will-change:transform]">
-
-                                <!-- Matrix Section 1: Gender Split Spec -->
+                                class="w-full grid grid-cols-1 md:grid-cols-3 items-center border-t border-b border-white/10 backdrop-blur-sm bg-black/10 py-6 px-4 md:px-8 gap-6 md:gap-4">
                                 <div class="flex flex-col items-center md:items-start gap-2">
                                     <span class="text-[9px] font-mono tracking-widest text-white/30 uppercase">// INDEX
                                         SPLIT</span>
@@ -2079,8 +2061,6 @@
                                             class="hover:text-white transition-colors duration-300 cursor-pointer">02_FEMALE</span>
                                     </div>
                                 </div>
-
-                                <!-- Matrix Section 2: Interactive Category Blueprint Nodes -->
                                 <div class="flex justify-center items-center gap-6 overflow-x-auto no-scrollbar py-1">
                                     <div class="flex items-center gap-2 group/node cursor-pointer">
                                         <span
@@ -2101,8 +2081,6 @@
                                             class="text-[10px] font-bold tracking-widest text-white/40 group-hover/node:text-white transition-colors duration-300 uppercase">SILHOUETTES</span>
                                     </div>
                                 </div>
-
-                                <!-- Matrix Section 3: Engine Architecture Signature Label -->
                                 <div class="flex flex-col items-center md:items-end gap-1 font-mono">
                                     <span class="text-[8px] tracking-[0.25em] text-white/30 uppercase">SYSTEM
                                         ARCHITECTURE</span>
@@ -2112,8 +2090,6 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- Centralized Animated Scroll Engine Anchor -->
                             <div class="flex flex-col items-center gap-3">
                                 <div class="relative w-[1px] h-10 bg-white/10 overflow-hidden">
                                     <div
@@ -2121,22 +2097,20 @@
                                     </div>
                                 </div>
                                 <span
-                                    class="scroll-text text-[9px] uppercase tracking-[0.4em] text-white/40 font-medium select-none animate-pulse">
-                                    scroll to explore
-                                </span>
+                                    class="scroll-text text-[9px] uppercase tracking-[0.4em] text-white/40 font-medium select-none animate-pulse">scroll
+                                    to explore</span>
                             </div>
-
                         </div>
-
                     </div>
                 </div>
 
-                <!-- STEP 2 — Modernist edge (Modern Men) -->
+                <!-- STEP 2 — Modernist Edge -->
                 <div class="hero-step" data-step="1">
                     <div class="step-bg-overlay"></div>
                     <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2070&auto=format"
                         class="hero-step-image" alt="modernist">
-                    <div class="hero-step-content relative z-30 w-full max-w-[1400px] mx-auto px-6 md:px-12">
+                    <div
+                        class="hero-step-content relative z-30 w-full max-w-[1400px] mx-auto px-6 md:px-12 h-full flex flex-col justify-center">
                         <div class="flex flex-col items-start max-w-[1400px]">
                             <div class="reveal-container mb-5">
                                 <span
@@ -2158,6 +2132,7 @@
                                 everything.
                                 We strip away the noise for your daily routine.</p>
                             <div class="top-picks-row mt-12 w-full flex flex-wrap gap-4 md:gap-6">
+                                <!-- Top picks items inside -->
                                 <div class="top-pick-card rounded-2xl px-5 py-3 flex items-center gap-3">
                                     <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">🧥
                                     </div>
@@ -2174,14 +2149,6 @@
                                         <div class="font-semibold text-white">Tanned Leather</div>
                                     </div>
                                 </div>
-                                <div class="top-pick-card rounded-2xl px-5 py-3 flex items-center gap-3">
-                                    <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">💼
-                                    </div>
-                                    <div>
-                                        <div class="text-xs uppercase text-white/40">Briefcase</div>
-                                        <div class="font-semibold text-white">Saffiano Edition</div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -2192,7 +2159,8 @@
                     <div class="step-bg-overlay"></div>
                     <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?q=80&w=2070&auto=format"
                         class="hero-step-image" alt="golden elegance">
-                    <div class="hero-step-content relative z-30 w-full max-w-[1400px] mx-auto px-6 md:px-12">
+                    <div
+                        class="hero-step-content relative z-30 w-full max-w-[1400px] mx-auto px-6 md:px-12 h-full flex flex-col justify-center">
                         <div class="flex flex-col items-start max-w-[1400px]">
                             <div class="reveal-container mb-5">
                                 <span
@@ -2214,37 +2182,17 @@
                                 effortlessly
                                 through your daily routine.
                             </p>
-                            <div class="top-picks-row mt-12 w-full flex flex-wrap gap-4 md:gap-6">
-                                <div class="top-pick-card rounded-2xl px-5 py-3 flex items-center gap-3">
-                                    <div
-                                        class="w-10 h-10 rounded-full bg-amber-900/30 flex items-center justify-center">
-                                        ⌚</div>
-                                    <div>
-                                        <div class="text-xs uppercase text-white/40">GMT Master</div>
-                                        <div class="font-semibold text-white">18K Edition</div>
-                                    </div>
-                                </div>
-                                <div class="top-pick-card rounded-2xl px-5 py-3 flex items-center gap-3">
-                                    <div
-                                        class="w-10 h-10 rounded-full bg-amber-900/30 flex items-center justify-center">
-                                        💎
-                                    </div>
-                                    <div>
-                                        <div class="text-xs uppercase text-white/40">Cufflinks</div>
-                                        <div class="font-semibold text-white">Onyx & Gold</div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- STEP 4 — Futuristic minimalism -->
+                <!-- STEP 4 — Futuristic Minimalism -->
                 <div class="hero-step" data-step="3">
                     <div class="step-bg-overlay"></div>
                     <img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?q=80&w=2070&auto=format"
                         class="hero-step-image" alt="future minimal">
-                    <div class="hero-step-content relative z-30 w-full max-w-[1400px] mx-auto px-6 md:px-12">
+                    <div
+                        class="hero-step-content relative z-30 w-full max-w-[1400px] mx-auto px-6 md:px-12 h-full flex flex-col justify-center">
                         <div class="flex flex-col items-start max-w-[1400px]">
                             <div class="reveal-container mb-5">
                                 <span
@@ -2264,131 +2212,21 @@
                             <p class="hero-desc text-white/60 text-lg max-w-xl">Adaptive essentials —
                                 temperature-regulating,
                                 seamless fusion of form and function.</p>
-                            <div class="top-picks-row mt-12 w-full flex flex-wrap gap-4">
-                                <div class="top-pick-card rounded-2xl px-5 py-3">
-                                    <div class="text-xs text-white/40">Smart Layer</div>
-                                    <div class="font-bold text-white">Phase-change Baselayer</div>
-                                </div>
-                                <div class="top-pick-card rounded-2xl px-5 py-3">
-                                    <div class="text-xs text-white/40">Modular</div>
-                                    <div class="font-bold text-white">Convertible Vest</div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
             </section>
-            <!-- GSAP Core and ScrollTrigger Engine Injection -->
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-
-            <script>
-                (function () {
-                    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
-                    gsap.registerPlugin(ScrollTrigger);
-
-                    const steps = gsap.utils.toArray(".hero-step");
-                    if (!steps.length) return;
-
-                    const totalSteps = steps.length;
-                    const scrollDistance = totalSteps * 60;
-
-                    const mainNav = document.getElementById('main-nav');
-                    const radialWrapper = document.getElementById('radial-wrapper');
-
-                    // Dynamic sequence manager
-                    const mainTimeline = gsap.timeline({
-                        scrollTrigger: {
-                            trigger: "#hero-pin-target",
-                            start: "top top",
-                            end: `+=${scrollDistance}%`,
-                            scrub: 0.3,
-                            pin: true,
-                            pinSpacing: true,
-                            invalidateOnRefresh: true,
-                            onUpdate: (self) => {
-                                // Total normalized slider path calculation
-                                // self.progress spans 0.0 to 1.0 across the pinned block execution window.
-                                // Step 2 initializes perfectly at exactly 1 / (total slides - 1) progress weight.
-                                const stepActivationThreshold = 1 / (totalSteps - 1);
-
-
-                            }
-                        }
-                    });
-
-                    // Initialize staging states
-                    steps.forEach((step, idx) => {
-                        if (idx !== 0) {
-                            gsap.set(step, { opacity: 0, pointerEvents: "none" });
-                            gsap.set(step.querySelectorAll(".hero-title, .hero-desc, .reveal-container"), {
-                                y: 30, opacity: 0, filter: "blur(4px)"
-                            });
-                        } else {
-                            gsap.set(step, { opacity: 1, pointerEvents: "auto" });
-                            gsap.set(step.querySelectorAll(".hero-title, .hero-desc, .reveal-container"), {
-                                opacity: 1, y: 0, filter: "blur(0px)"
-                            });
-                        }
-                    });
-
-                    // Frame transitions loop setup
-                    for (let i = 0; i < steps.length - 1; i++) {
-                        const currentStep = steps[i];
-                        const nextStep = steps[i + 1];
-                        const label = `step_${i}`;
-
-                        mainTimeline.addLabel(label);
-
-                        mainTimeline.to(currentStep, {
-                            opacity: 0, duration: 0.6, ease: "power1.inOut",
-                            onComplete: () => { currentStep.style.pointerEvents = "none"; }
-                        }, label);
-
-                        mainTimeline.to(nextStep, {
-                            opacity: 1, duration: 0.6, ease: "power1.inOut",
-                            onStart: () => { nextStep.style.pointerEvents = "auto"; }
-                        }, label);
-
-                        mainTimeline.to(nextStep.querySelectorAll(".hero-title, .hero-desc, .reveal-container"), {
-                            y: 0, opacity: 1, filter: "blur(0px)",
-                            stagger: 0.08, duration: 0.7, ease: "power2.out"
-                        }, `${label}+=0.15`);
-
-                        mainTimeline.to({}, { duration: 0.4 });
-                    }
-
-                    // Live structural magnification updates
-                    const heroImages = document.querySelectorAll('.hero-step-image');
-                    ScrollTrigger.create({
-                        trigger: "#hero-pin-target",
-                        start: "top top",
-                        end: `+=${scrollDistance}%`,
-                        scrub: true,
-                        onUpdate: (self) => {
-                            heroImages.forEach((img) => {
-                                if (img) {
-                                    gsap.to(img, { scale: 1.02 + (self.progress * 0.12), duration: 0.1, overwrite: "auto" });
-                                }
-                            });
-                        }
-                    });
-
-                    window.addEventListener('resize', () => ScrollTrigger.refresh());
-                })();
-            </script>
-            <!-- MAIN STATIC BLOCK: full hero pin section -->
             <style>
-                .fill-animation {
-                    transition: clip-path 0.9s cubic-bezier(0.77, 0, 0.18, 1);
-                    white-space: nowrap;
+                /* Enforce normal touch flow so GSAP ScrollTrigger can register the movement */
+                #hero-pin-target {
+                    touch-action: auto !important;
+                    /* Changed from pan-y to let native scroll register */
+                    -webkit-overflow-scrolling: touch;
+                    overscroll-behavior-y: auto !important;
+                    /* Changed from none to prevent trapping the viewport */
                 }
 
-                .group:hover .fill-animation {
-                    clip-path: inset(0 0 0 0) !important;
-                }
-
-                /* Step containers isolated exclusively inside the pin target */
+                /* Base structural setups for frames */
                 .hero-step {
                     position: absolute;
                     inset: 0;
@@ -2401,6 +2239,7 @@
                     pointer-events: none;
                     z-index: 10;
                     overflow: hidden;
+                    will-change: transform, opacity;
                 }
 
                 .hero-step:first-child {
@@ -2415,7 +2254,7 @@
                     width: 100%;
                     height: 100%;
                     object-fit: cover;
-                    filter: brightness(0.4) saturate(1.1);
+                    filter: brightness(0.35) saturate(1.05);
                     transform: scale(1.02);
                     will-change: transform;
                 }
@@ -2423,11 +2262,19 @@
                 .step-bg-overlay {
                     position: absolute;
                     inset: 0;
-                    background: radial-gradient(circle at 30% 20%, rgba(0, 0, 0, 0.25) 0%, #000000cc 90%);
+                    background: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.2) 0%, #050505ef 95%);
                     z-index: 5;
                 }
 
-                /* Scroll indicator animation */
+                /* Global utility optimization to enforce smooth scaling operations */
+                .hero-title,
+                .hero-desc,
+                .reveal-container,
+                .standard-reveal,
+                .top-picks-row {
+                    will-change: transform, opacity, filter;
+                }
+
                 .scroll-indicator-line {
                     animation: pulseLine 1.6s infinite cubic-bezier(0.4, 0, 0.2, 1);
                 }
@@ -2454,74 +2301,131 @@
                     letter-spacing: 0.22em;
                 }
 
-                /* Custom sleek scrollbar */
-                ::-webkit-scrollbar {
-                    width: 4px;
-                }
-
-                ::-webkit-scrollbar-track {
-                    background: #0a0a0a;
-                }
-
-                ::-webkit-scrollbar-thumb {
-                    background: #ff2e1aaa;
-                    border-radius: 20px;
-                }
-
-                /* Glassmorphic cards */
                 .top-pick-card {
                     background: rgba(8, 8, 12, 0.6);
                     backdrop-filter: blur(14px);
                     border: 0.5px solid rgba(255, 255, 255, 0.12);
                     transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-                    cursor: default;
                 }
 
                 .top-pick-card:hover {
                     border-color: rgba(255, 70, 40, 0.65);
                     background: rgba(18, 18, 22, 0.85);
                     transform: translateY(-5px);
-                    box-shadow: 0 15px 30px -12px rgba(0, 0, 0, 0.5);
                 }
 
                 .text-outline {
                     -webkit-text-stroke: 1px rgba(255, 255, 245, 0.5);
                     color: transparent;
                 }
-
-                .hero-step-content {
-                    pointer-events: auto;
-                    z-index: 40;
-                }
-
-                .top-picks-row {
-                    transition: opacity 0.45s ease, transform 0.45s ease;
-                }
-
-                @media (max-width: 768px) {
-                    .top-picks-row {
-                        flex-wrap: wrap;
-                        justify-content: center;
-                        gap: 0.75rem;
-                    }
-
-                    .hero-step-content {
-                        padding: 0 1.5rem !important;
-                    }
-                }
-
-                @media (max-width: 640px) {
-                    .hero-title {
-                        letter-spacing: -0.02em;
-                    }
-
-                    .top-pick-card {
-                        padding: 0.5rem 0.9rem;
-                    }
-                }
             </style>
-        </div>
+            <script>
+                (function () {
+                    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+                    gsap.registerPlugin(ScrollTrigger);
 
+                    const steps = gsap.utils.toArray(".hero-step");
+                    if (!steps.length) return;
+
+                    const totalSteps = steps.length;
+                    // Set explicit spacing scale calculation targeting responsive view ratios smoothly
+                    const scrollDistance = totalSteps * 100;
+
+                    const mainNav = document.getElementById('main-nav');
+                    const radialWrapper = document.getElementById('radial-wrapper');
+
+                    // 1. TIMELINE ARCHITECTURE FOR THE TEXT REVEALS AND OVERLAYS
+                    const mainTimeline = gsap.timeline({
+                        scrollTrigger: {
+                            trigger: "#hero-pin-target",
+                            start: "top top",
+                            end: `+=${scrollDistance}%`,
+                            scrub: 0.5, // Slightly increased scrub for buttery momentum handling
+                            pin: true,
+                            pinSpacing: true,
+                            invalidateOnRefresh: true,
+                            onUpdate: (self) => {
+                                // Smooth hide/reveal logic based on slider timeline process window boundary
+                                if (self.progress >= 0.95) {
+                                    // Show Nav smoothly sliding from top, Circle Button smoothly sliding from bottom
+                                    gsap.to(mainNav, { y: 0, opacity: 1, duration: 0.4, ease: "power2.out", overwrite: "auto" });
+                                    gsap.to(radialWrapper, { y: 0, opacity: 1, duration: 0.4, ease: "power2.out", overwrite: "auto" });
+                                } else {
+                                    // Hide Nav up, Hide Circle down cleanly
+                                    gsap.to(mainNav, { y: -80, opacity: 0, duration: 0.3, ease: "power2.in", overwrite: "auto" });
+                                    gsap.to(radialWrapper, { y: 110, opacity: 0, duration: 0.3, ease: "power2.in", overwrite: "auto" });
+                                }
+                            }
+                        }
+                    });
+
+                    // 2. INITIALIZE ELEMENT STAGING PROPERTIES PRE-RENDER
+                    steps.forEach((step, idx) => {
+                        if (idx !== 0) {
+                            gsap.set(step, { opacity: 0, pointerEvents: "none" });
+                            gsap.set(step.querySelectorAll(".hero-title, .hero-desc, .reveal-container, .top-picks-row"), {
+                                y: 40, opacity: 0, filter: "blur(6px)"
+                            });
+                        } else {
+                            gsap.set(step, { opacity: 1, pointerEvents: "auto" });
+                            gsap.set(step.querySelectorAll(".hero-title, .hero-desc, .reveal-container, .standard-reveal"), {
+                                opacity: 1, y: 0, filter: "blur(0px)"
+                            });
+                        }
+                    });
+
+                    // 3. SEAMLESS INTER-STEP TRANSITIONS LOOP
+                    for (let i = 0; i < steps.length - 1; i++) {
+                        const currentStep = steps[i];
+                        const nextStep = steps[i + 1];
+                        const label = `step_${i}`;
+
+                        mainTimeline.addLabel(label);
+
+                        // Outgoing slide animation
+                        mainTimeline.to(currentStep, {
+                            opacity: 0, duration: 0.8, ease: "power1.inOut",
+                            onComplete: () => { currentStep.style.pointerEvents = "none"; }
+                        }, label);
+
+                        // Incoming slide base animation
+                        mainTimeline.to(nextStep, {
+                            opacity: 1, duration: 0.8, ease: "power1.inOut",
+                            onStart: () => { nextStep.style.pointerEvents = "auto"; }
+                        }, label);
+
+                        // Buttery smooth staggered blurred text reveal for content items
+                        mainTimeline.to(nextStep.querySelectorAll(".reveal-container, .hero-title, .hero-desc, .top-picks-row"), {
+                            y: 0, opacity: 1, filter: "blur(0px)",
+                            stagger: 0.1, duration: 0.9, ease: "power3.out"
+                        }, `${label}+=0.2`);
+
+                        // Holds each step configuration frame in position momentarily before initiating next transition sequence
+                        mainTimeline.to({}, { duration: 0.5 });
+                    }
+
+                    // 4. MAGNIFICATION SCALE TRACKER ENGINE (Optimized fallback logic execution)
+                    const heroImages = document.querySelectorAll('.hero-step-image');
+                    ScrollTrigger.create({
+                        trigger: "#hero-pin-target",
+                        start: "top top",
+                        end: `+=${scrollDistance}%`,
+                        scrub: true,
+                        onUpdate: (self) => {
+                            heroImages.forEach((img) => {
+                                if (img) {
+                                    // Scales beautifully from 1.02 base linearly with user scroll positioning momentum
+                                    gsap.to(img, { scale: 1.02 + (self.progress * 0.08), duration: 0.2, overwrite: "auto" });
+                                }
+                            });
+                        }
+                    });
+
+                    // Device performance check to recalculate layout values smoothly upon orientation shift
+                    window.addEventListener('resize', () => ScrollTrigger.refresh());
+                })();
+            </script>
+        </div>
 
 
 
