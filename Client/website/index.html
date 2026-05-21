@@ -193,7 +193,7 @@
 
     <!-- navbar  -->
     <nav id="main-nav"
-        class="fixed top-3 z-50 glass left-1/2 -translate-x-1/2 w-[90%] max-w-[30rem] rounded-[2rem] px-6 py-4 transition-all duration-500 overflow-hidden -translate-y-20 opacity-0">
+        class="fixed top-3 z-50 glass left-1/2 -translate-x-1/2 w-[90%] max-w-[30rem] rounded-[2rem] px-6 py-4 transition-all duration-500 overflow-hidden opacity-0">
         <div class="max-w-7xl mx-auto flex justify-between items-center transition-all duration-500" id="nav-header">
             <div class="flex items-center gap-2 font-bold text-[14px] tracking-tighter ">
                 Store Name ...
@@ -1750,8 +1750,7 @@
     <!-- navbar -->
 
     <!-- circle btn -->
-    <div id="radial-wrapper"
-        class="fixed bottom-10 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 translate-y-28 opacity-0">
+    <div id="radial-wrapper" class="fixed bottom-10 left-1/2 -translate-x-1/2 z-50 transition-all duration-500">
         <div class="relative flex items-center justify-center">
 
             <a href="#" class="nav-bubble" onclick="openSearch()" onmouseenter="showHint('Search')"
@@ -2069,293 +2068,273 @@
 
     <main class="flex flex-col items-center">
 
-        <div id="hero-main-container" class="bg-[#050505] relative w-full">
-            <!-- PINNING TARGET (Set at 800px height) -->
-            <section id="hero-pin-target" class="relative w-full h-[800px] overflow-hidden select-none">
+        <div id="hero-main-container" class="bg-[#050505] relative w-full overflow-hidden">
+            <section id="hero-display-target" class="relative w-full h-dvh overflow-hidden select-none">
 
-                <!-- STEP 1 — Raw Heritage / Essentials -->
-                <div class="hero-step" data-step="0">
-                    <div class="step-bg-overlay"></div>
-                    <img src="https://img.magnific.com/premium-photo/clothing-store-generative-ai_1259709-41783.jpg"
-                        class="hero-step-image" alt="curated heritage">
-
-                    <div
-                        class="absolute top-6 left-6 md:top-10 md:left-12 z-40 hidden sm:flex flex-col gap-1 text-[9px] font-mono tracking-[0.2em] text-white/40 uppercase">
-                        <div>SYS_REF // B_026</div>
-                        <div class="flex items-center gap-1.5 text-white/60">
-                            <span class="w-1 h-1 rounded-full bg-emerald-500 animate-pulse"></span> ENGINE ACTIVE
-                        </div>
+                <div class="absolute inset-0 z-0">
+                    <div id="bg-step-0" class="hero-bg-layer active"
+                        style="background-image: url('https://images.unsplash.com/photo-1635776062360-af423602aff3?q=80&w=1032&auto=format&fit=crop');">
                     </div>
+                    <div id="bg-step-1" class="hero-bg-layer"
+                        style="background-image: url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2070&auto=format');">
+                    </div>
+                    <div id="bg-step-2" class="hero-bg-layer"
+                        style="background-image: url('https://images.unsplash.com/photo-1539109136881-3be0616acf4b?q=80&w=2070&auto=format');">
+                    </div>
+                    <div id="bg-step-3" class="hero-bg-layer"
+                        style="background-image: url('https://images.unsplash.com/photo-1556905055-8f358a7a47b2?q=80&w=2070&auto=format');">
+                    </div>
+                    <div class="step-bg-overlay"></div>
+                </div>
 
-                    <div
-                        class="hero-step-content relative z-30 w-full max-w-[1400px] mx-auto px-6 md:px-12 h-full flex flex-col justify-between py-12 md:py-16">
-                        <div></div>
-                        <div class="store-brand-content w-full text-center my-auto standard-reveal">
+                <div
+                    class="absolute top-6 left-6 md:top-10 md:left-12 z-40 hidden sm:flex flex-col gap-1 text-[9px] font-mono tracking-[0.2em] text-white/40 uppercase">
+                    <div>SYS_REF // B_026</div>
+                    <div class="flex items-center gap-1.5 text-white/60">
+                        <span class="w-1 h-1 rounded-full bg-emerald-500 animate-pulse"></span> ENGINE ACTIVE
+                    </div>
+                </div>
+
+                <div
+                    class="relative z-30 w-full max-w-[1400px] mx-auto px-0 md:px-0 h-full flex flex-col justify-between">
+                    <div></div>
+
+                    <div id="hero-content-vault" class="w-full text-center my-auto">
+                        <div id="data-step-0" class="hero-content-blueprint dynamic-visible">
                             <div class="mb-8">
-                                <span
-                                    class="block text-[10px] font-mono tracking-[0.4em] uppercase text-amber-400/80 mb-4">//
-                                    INITIALIZING ARCHIVE INTRO</span>
-                                <h1 class="text-white font-black tracking-[0.15em] text-5xl md:text-8xl uppercase">
-                                    STORENAME
-                                </h1>
+                                <h1
+                                    class="hero-split-text text-white font-black tracking-[0.15em] text-4xl md:text-8xl uppercase">
+                                    STORENAME</h1>
                                 <div
                                     class="h-[1px] w-28 bg-gradient-to-r from-transparent via-red-500 to-transparent mx-auto my-6">
                                 </div>
                                 <div
                                     class="premium-badge inline-flex items-center gap-2 px-5 py-2 rounded-full border border-white/10 bg-black/40 backdrop-blur-md text-[10px] font-bold tracking-[0.25em] uppercase text-white/80 transition-colors duration-300 hover:border-red-500/40">
-                                    <span class="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse"></span> EST. 2026 •
+                                    EST. 2026 •
                                     CURATED
                                     ARCHIVE
                                 </div>
                             </div>
                             <p
-                                class="text-white/50 text-base md:text-lg max-w-xl mx-auto font-light leading-relaxed mb-0 px-4">
+                                class="text-white/50 text-base md:text-lg max-w-xl mx-auto font-light leading-relaxed px-4">
                                 Simplicity is everything. We strip away the noise to bring you products that actually
-                                matter to
+                                matter
+                                to
                                 your daily routine.
                             </p>
                         </div>
 
-                        <div class="w-full flex flex-col gap-10 md:gap-8 standard-reveal">
-                            <div
-                                class="w-full grid grid-cols-1 md:grid-cols-3 items-center border-t border-b border-white/10 backdrop-blur-sm bg-black/10 py-6 px-4 md:px-8 gap-6 md:gap-4">
-                                <div class="flex flex-col items-center md:items-start gap-2">
-                                    <span class="text-[9px] font-mono tracking-widest text-white/30 uppercase">// INDEX
-                                        SPLIT</span>
-                                    <div
-                                        class="flex items-center gap-4 text-xs font-bold tracking-[0.2em] text-white/70">
-                                        <span
-                                            class="hover:text-white transition-colors duration-300 cursor-pointer">01_MALE</span>
-                                        <span class="text-white/20">/</span>
-                                        <span
-                                            class="hover:text-white transition-colors duration-300 cursor-pointer">02_FEMALE</span>
-                                    </div>
-                                </div>
-                                <div class="flex justify-center items-center gap-6 overflow-x-auto no-scrollbar py-1">
-                                    <div class="flex items-center gap-2 group/node cursor-pointer">
-                                        <span
-                                            class="w-1 h-1 rounded-full bg-white/20 group-hover/node:bg-red-500 transition-colors duration-300"></span>
-                                        <span
-                                            class="text-[10px] font-bold tracking-widest text-white/40 group-hover/node:text-white transition-colors duration-300 uppercase">ESSENTIALS</span>
-                                    </div>
-                                    <div class="flex items-center gap-2 group/node cursor-pointer">
-                                        <span
-                                            class="w-1 h-1 rounded-full bg-white/20 group-hover/node:bg-blue-400 transition-colors duration-300"></span>
-                                        <span
-                                            class="text-[10px] font-bold tracking-widest text-white/40 group-hover/node:text-white transition-colors duration-300 uppercase">MODERNIST</span>
-                                    </div>
-                                    <div class="flex items-center gap-2 group/node cursor-pointer">
-                                        <span
-                                            class="w-1 h-1 rounded-full bg-white/20 group-hover/node:bg-amber-400 transition-colors duration-300"></span>
-                                        <span
-                                            class="text-[10px] font-bold tracking-widest text-white/40 group-hover/node:text-white transition-colors duration-300 uppercase">SILHOUETTES</span>
-                                    </div>
-                                </div>
-                                <div class="flex flex-col items-center md:items-end gap-1 font-mono">
-                                    <span class="text-[8px] tracking-[0.25em] text-white/30 uppercase">SYSTEM
-                                        ARCHITECTURE</span>
-                                    <div class="text-[10px] font-bold tracking-widest text-white/80">
-                                        BUILT BY <span
-                                            class="text-red-500 transition-all duration-300 hover:text-white">MATAGER</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="flex flex-col items-center gap-3">
-                                <div class="relative w-[1px] h-10 bg-white/10 overflow-hidden">
-                                    <div
-                                        class="scroll-indicator-line w-full h-full bg-gradient-to-b from-transparent via-red-500 to-transparent">
-                                    </div>
-                                </div>
-                                <span
-                                    class="scroll-text text-[9px] uppercase tracking-[0.4em] text-white/40 font-medium select-none animate-pulse">scroll
-                                    to explore</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- STEP 2 — Modernist Edge -->
-                <div class="hero-step" data-step="1">
-                    <div class="step-bg-overlay"></div>
-                    <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2070&auto=format"
-                        class="hero-step-image" alt="modernist">
-                    <div
-                        class="hero-step-content relative z-30 w-full max-w-[1400px] mx-auto px-6 md:px-12 h-full flex flex-col justify-center">
-                        <div class="flex flex-col items-start max-w-[1400px]">
-                            <div class="reveal-container mb-5">
+                        <div id="data-step-1" class="hero-content-blueprint">
+                            <div class="mb-5">
                                 <span
                                     class="premium-badge inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-blue-400/30 bg-blue-950/30 backdrop-blur-md text-[11px] font-bold tracking-[0.3em] uppercase text-blue-200">
                                     COLLECTION 01: MODERN MEN
                                 </span>
                             </div>
                             <h1
-                                class="hero-title text-[clamp(2.8rem,9vw,7rem)] font-extrabold text-white leading-[0.85] tracking-tighter mb-6">
-                                Elevate your <br>
-                                <span
+                                class="hero-split-text text-[clamp(2.8rem,6vw,5.5rem)] font-extrabold text-white leading-[1.05] tracking-tighter mb-6 uppercase">
+                                Elevate your <span
                                     class="bg-gradient-to-r from-blue-300 to-cyan-400 bg-clip-text text-transparent">Appearance</span>
-                                <br>
-                                with curated <div class="relative inline-block"><span class="text-outline"
-                                        style="-webkit-text-stroke: 1px white;">essentials.</span></div>
                             </h1>
-                            <p class="hero-desc text-white/60 text-lg md:text-xl max-w-xl font-light">Simplicity is
-                                everything.
-                                We strip away the noise for your daily routine.</p>
-                            <div class="top-picks-row mt-12 w-full flex flex-wrap gap-4 md:gap-6">
+                            <p class="text-white/60 text-lg max-w-xl mx-auto font-light mb-8">Simplicity is everything.
+                                We
+                                strip
+                                away the noise for your daily routine.</p>
+                            <div class="mt-6 w-full flex justify-center gap-4 md:gap-6">
                                 <div class="top-pick-card rounded-2xl px-5 py-3 flex items-center gap-3">
                                     <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">🧥
                                     </div>
-                                    <div>
+                                    <div class="text-left">
                                         <div class="text-xs uppercase text-white/40">Overcoat</div>
-                                        <div class="font-semibold text-white">Structural Wool</div>
+                                        <div class="font-semibold text-white text-sm">Structural Wool</div>
                                     </div>
                                 </div>
                                 <div class="top-pick-card rounded-2xl px-5 py-3 flex items-center gap-3">
                                     <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">👞
                                     </div>
-                                    <div>
+                                    <div class="text-left">
                                         <div class="text-xs uppercase text-white/40">Derby</div>
-                                        <div class="font-semibold text-white">Tanned Leather</div>
+                                        <div class="font-semibold text-white text-sm">Tanned Leather</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
 
-                <!-- STEP 3 — Uncompromising Elegance -->
-                <div class="hero-step" data-step="2">
-                    <div class="step-bg-overlay"></div>
-                    <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?q=80&w=2070&auto=format"
-                        class="hero-step-image" alt="golden elegance">
-                    <div
-                        class="hero-step-content relative z-30 w-full max-w-[1400px] mx-auto px-6 md:px-12 h-full flex flex-col justify-center">
-                        <div class="flex flex-col items-start max-w-[1400px]">
-                            <div class="reveal-container mb-5">
+                        <div id="data-step-2" class="hero-content-blueprint">
+                            <div class="mb-5">
                                 <span
                                     class="premium-badge inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-amber-500/40 bg-black/30 text-amber-400 text-xs font-bold tracking-[0.4em] uppercase backdrop-blur-lg">
                                     LAST DROP: APRIL 05, 2026
                                 </span>
                             </div>
                             <h1
-                                class="hero-title text-[clamp(2.8rem,9vw,7rem)] font-extrabold text-white leading-[0.85] tracking-tighter mb-6">
-                                Uncompromising <br>
-                                <span class="text-amber-300 brightness-125 drop-shadow-lg">Elegance</span> with <br>
-                                modern <div class="relative inline-block"><span class="text-transparent"
-                                        style="-webkit-text-stroke: 1px rgba(255,215,120,0.7);">silhouettes.</span>
-                                </div>
+                                class="hero-split-text text-[clamp(2.8rem,6vw,5.5rem)] font-extrabold text-white leading-[1.05] tracking-tighter mb-6 uppercase">
+                                Uncompromising <span
+                                    class="text-amber-300 brightness-125 drop-shadow-lg">Elegance</span>
                             </h1>
-                            <p class="hero-desc text-white/60 text-lg md:text-xl max-w-xl font-light leading-relaxed">
+                            <p class="text-white/60 text-lg max-w-xl mx-auto font-light leading-relaxed">
                                 Grace meets function. We strip away the noise to bring you pieces that transition
                                 effortlessly
                                 through your daily routine.
                             </p>
                         </div>
-                    </div>
-                </div>
 
-                <!-- STEP 4 — Futuristic Minimalism -->
-                <div class="hero-step" data-step="3">
-                    <div class="step-bg-overlay"></div>
-                    <img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?q=80&w=2070&auto=format"
-                        class="hero-step-image" alt="future minimal">
-                    <div
-                        class="hero-step-content relative z-30 w-full max-w-[1400px] mx-auto px-6 md:px-12 h-full flex flex-col justify-center">
-                        <div class="flex flex-col items-start max-w-[1400px]">
-                            <div class="reveal-container mb-5">
+                        <div id="data-step-3" class="hero-content-blueprint">
+                            <div class="mb-5">
                                 <span
                                     class="premium-badge inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/20 bg-neutral-900/60 backdrop-blur-xl text-white/80 text-xs font-bold tracking-widest uppercase">
                                     ✦ PRE-ORDER: DROP II ✦
                                 </span>
                             </div>
                             <h1
-                                class="hero-title text-[clamp(2.8rem,9vw,7rem)] font-extrabold text-white leading-[0.85] tracking-tighter mb-6">
-                                Future <br>
-                                <span
+                                class="hero-split-text text-[clamp(2.8rem,6vw,5.5rem)] font-extrabold text-white leading-[1.05] tracking-tighter mb-6 uppercase">
+                                Future <span
                                     class="text-transparent bg-clip-text bg-gradient-to-r from-neutral-200 to-stone-400">Silhouette</span>
-                                <br>
-                                <span class="inline-flex items-baseline gap-2">intelligent <span
-                                        class="text-4xl md:text-7xl font-black">layering.</span></span>
                             </h1>
-                            <p class="hero-desc text-white/60 text-lg max-w-xl">Adaptive essentials —
-                                temperature-regulating,
-                                seamless fusion of form and function.</p>
+                            <p class="text-white/60 text-lg max-w-xl mx-auto font-light">Adaptive essentials —
+                                temperature-regulating, seamless fusion of form and function.</p>
                         </div>
                     </div>
+
+                    <div class="w-full flex flex-col gap-6 font-mono">
+                        <div
+                            class="w-full grid grid-cols-1 md:grid-cols-3 items-center border-t border-b border-white/10 backdrop-blur-sm bg-black/10 py-5 px-4 md:px-8 gap-6 md:gap-4">
+
+                            <div class="flex justify-center items-center gap-6 overflow-x-auto no-scrollbar py-1">
+                                <div class="hero-nav-node active" onclick="switchHeroStep(0)">
+                                    <span class="node-dot"></span>
+                                    <span class="node-label">HERITAGE</span>
+                                </div>
+                                <div class="hero-nav-node" onclick="switchHeroStep(1)">
+                                    <span class="node-dot bg-blue-400"></span>
+                                    <span class="node-label">ESSENTIALS</span>
+                                </div>
+                                <div class="hero-nav-node" onclick="switchHeroStep(2)">
+                                    <span class="node-dot bg-amber-400"></span>
+                                    <span class="node-label">MODERNIST</span>
+                                </div>
+                                <div class="hero-nav-node" onclick="switchHeroStep(3)">
+                                    <span class="node-dot bg-purple-400"></span>
+                                    <span class="node-label">FUTURE</span>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
                 </div>
             </section>
 
             <style>
-                #hero-pin-target {
-                    touch-action: auto !important;
-                    -webkit-overflow-scrolling: touch;
-                    overscroll-behavior-y: auto !important;
-                }
-
-                .hero-step {
+                .hero-bg-layer {
                     position: absolute;
                     inset: 0;
                     width: 100%;
                     height: 100%;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
+                    background-size: cover;
+                    background-position: center;
                     opacity: 0;
-                    pointer-events: none;
-                    z-index: 10;
-                    overflow: hidden;
-                    will-change: transform, opacity;
+                    transform: scale(1.05);
+                    filter: brightness(0.25) saturate(1.1);
+                    transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), transform 1.6s cubic-bezier(0.25, 1, 0.5, 1);
+                    z-index: 0;
                 }
 
-                .hero-step:first-child {
+                .hero-bg-layer.active {
                     opacity: 1;
-                    pointer-events: auto;
-                    z-index: 20;
-                }
-
-                .hero-step-image {
-                    position: absolute;
-                    inset: 0;
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                    filter: brightness(0.35) saturate(1.05);
-                    transform: scale(1.02);
-                    will-change: transform;
+                    transform: scale(1);
+                    z-index: 1;
                 }
 
                 .step-bg-overlay {
                     position: absolute;
                     inset: 0;
-                    background: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.2) 0%, #050505ef 95%);
-                    z-index: 5;
+                    background: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.1) 0%, #050505f5 95%);
+                    z-index: 2;
                 }
 
-                .hero-title,
-                .hero-desc,
-                .reveal-container,
-                .standard-reveal,
-                .top-picks-row {
-                    will-change: transform, opacity, filter;
+                /* Nav Node Interactions */
+                .hero-nav-node {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    cursor: pointer;
+                    opacity: 0.4;
+                    transform: scale(0.95);
+                    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
                 }
 
-                .scroll-indicator-line {
-                    animation: pulseLine 1.6s infinite cubic-bezier(0.4, 0, 0.2, 1);
+                .hero-nav-node:hover,
+                .hero-nav-node.active {
+                    opacity: 1;
+                    transform: scale(1);
                 }
 
-                @keyframes pulseLine {
+                .node-dot {
+                    width: 5px;
+                    height: 5px;
+                    border-radius: 50%;
+                    background-color: #fff;
+                    transition: transform 0.3s ease;
+                }
+
+                .hero-nav-node:hover .node-dot,
+                .hero-nav-node.active .node-dot {
+                    transform: scale(1.5);
+                }
+
+                .node-label {
+                    font-size: 10px;
+                    font-weight: 700;
+                    tracking: 0.15em;
+                    color: #fff;
+                }
+
+                /* Micro-Content Blueprint Layout */
+                .hero-content-blueprint {
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    margin: 0 auto;
+                    opacity: 0;
+                    filter: blur(15px);
+                    pointer-events: none;
+                    transition: opacity 0.6s ease, filter 0.6s ease;
+                }
+
+                .hero-content-blueprint.dynamic-visible {
+                    position: relative;
+                    top: 0;
+                    transform: none;
+                    opacity: 1;
+                    filter: blur(0px);
+                    pointer-events: auto;
+                }
+
+                /* Unique Character Animation Effects */
+                .hero-split-text {
+                    perspective: 400px;
+                }
+
+                .hero-split-text span {
+                    display: inline-block;
+                    animation: textRevealEffect 0.5s cubic-bezier(0.25, 1, 0.5, 1) both;
+                }
+
+                @keyframes textRevealEffect {
                     0% {
-                        transform: translateY(-100%);
                         opacity: 0;
-                    }
-
-                    40% {
-                        transform: translateY(0);
-                        opacity: 1;
+                        transform: translateY(25px) rotateX(-45deg);
+                        filter: blur(4px);
                     }
 
                     100% {
-                        transform: translateY(100%);
-                        opacity: 0;
+                        opacity: 1;
+                        transform: translateY(0) rotateX(0deg);
+                        filter: blur(0);
                     }
                 }
 
@@ -2365,128 +2344,83 @@
                 }
 
                 .top-pick-card {
-                    background: rgba(8, 8, 12, 0.6);
+                    background: rgba(8, 8, 12, 0.4);
                     backdrop-filter: blur(14px);
-                    border: 0.5px solid rgba(255, 255, 255, 0.12);
-                    transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-                }
-
-                .top-pick-card:hover {
-                    border-color: rgba(255, 70, 40, 0.65);
-                    background: rgba(18, 18, 22, 0.85);
-                    transform: translateY(-5px);
-                }
-
-                .text-outline {
-                    -webkit-text-stroke: 1px rgba(255, 255, 245, 0.5);
-                    color: transparent;
+                    border: 0.5px solid rgba(255, 255, 255, 0.08);
                 }
             </style>
 
             <script>
-                (function () {
-                    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
-                    gsap.registerPlugin(ScrollTrigger);
-
-                    const target = document.getElementById("hero-pin-target");
-                    const steps = gsap.utils.toArray(".hero-step");
-                    if (!target || !steps.length) return;
-
-                    const totalSteps = steps.length;
-                    const mainNav = document.getElementById('main-nav');
-                    const radialWrapper = document.getElementById('radial-wrapper');
-
-                    // EXACT PIXEL SPACE ALLOCATION FOR STEP SCROLL TRACKS
-                    // Each slider step gets an explicit 800px tracking sequence window
-                    const getPinDistance = () => window.innerHeight * (totalSteps * 0.85);
-
-                    // 1. ISOLATED HERO TIMELINE
-                    const mainTimeline = gsap.timeline({
-                        scrollTrigger: {
-                            trigger: target,
-                            start: "top top",
-                            end: () => `+=${getPinDistance()}`, // Dynamic calculation wrapper
-                            scrub: 1.2, // Slightly increased for a more luxurious, premium dampening effect
-                            pin: true,
-                            pinSpacing: true,
-                            invalidateOnRefresh: true, // Forces recalculation on device orientation changes
-                            onUpdate: (self) => {
-                                if (self.progress >= 0.95) {
-                                    if (mainNav) gsap.to(mainNav, { y: 0, opacity: 1, duration: 0.4, ease: "power2.out", overwrite: "auto" });
-                                    if (radialWrapper) gsap.to(radialWrapper, { y: 0, opacity: 1, duration: 0.4, ease: "power2.out", overwrite: "auto" });
-                                } else {
-                                    if (mainNav) gsap.to(mainNav, { y: -80, opacity: 0, duration: 0.3, ease: "power2.in", overwrite: "auto" });
-                                    if (radialWrapper) gsap.to(radialWrapper, { y: 110, opacity: 0, duration: 0.3, ease: "power2.in", overwrite: "auto" });
-                                }
-                            }
-                        }
-                    });
-
-                    // 2. INITIAL STAGING DECOUPLING
-                    steps.forEach((step, idx) => {
-                        if (idx !== 0) {
-                            gsap.set(step, { opacity: 0, pointerEvents: "none" });
-                            gsap.set(step.querySelectorAll(".hero-title, .hero-desc, .reveal-container, .top-picks-row"), {
-                                y: 40, opacity: 0, filter: "blur(6px)"
-                            });
-                        } else {
-                            gsap.set(step, { opacity: 1, pointerEvents: "auto" });
-                            gsap.set(step.querySelectorAll(".hero-title, .hero-desc, .reveal-container, .standard-reveal"), {
-                                opacity: 1, y: 0, filter: "blur(0px)"
-                            });
-                        }
-                    });
-
-                    // 3. STEP TRANSITIONS LOOP BOUNDED BY THE TIMELINE
-                    for (let i = 0; i < steps.length - 1; i++) {
-                        const currentStep = steps[i];
-                        const nextStep = steps[i + 1];
-                        const label = `step_${i}`;
-
-                        mainTimeline.addLabel(label);
-
-                        mainTimeline.to(currentStep, {
-                            opacity: 0, duration: 0.8, ease: "power1.inOut",
-                            onComplete: () => { currentStep.style.pointerEvents = "none"; }
-                        }, label);
-
-                        mainTimeline.to(nextStep, {
-                            opacity: 1, duration: 0.8, ease: "power1.inOut",
-                            onStart: () => { nextStep.style.pointerEvents = "auto"; }
-                        }, label);
-
-                        mainTimeline.to(nextStep.querySelectorAll(".reveal-container, .hero-title, .hero-desc, .top-picks-row"), {
-                            y: 0, opacity: 1, filter: "blur(0px)",
-                            stagger: 0.1, duration: 0.9, ease: "power3.out"
-                        }, label); // Removed the +=0.2 delay to lock content presentation synchronously with background transitions
-
-                        mainTimeline.to({}, { duration: 0.4 });
+                function adjustHeroHeight() {
+                    const heroTarget = document.getElementById('hero-display-target');
+                    if (heroTarget) {
+                        heroTarget.style.height = `${window.innerHeight}px`;
                     }
+                }
 
-                    // 4. IMAGE ZOOM TARGETING ELEMENT ALONE WITH RESPONSIVE VELOCITY
-                    const heroImages = target.querySelectorAll('.hero-step-image');
-                    ScrollTrigger.create({
-                        trigger: target,
-                        start: "top top",
-                        end: () => `+=${getPinDistance()}`,
-                        scrub: true,
-                        onUpdate: (self) => {
-                            heroImages.forEach((img) => {
-                                if (img) {
-                                    // Parallax structural zoom calculated fluidly based on total screen height track progress
-                                    gsap.to(img, { scale: 1.02 + (self.progress * 0.06), duration: 0.2, overwrite: "auto" });
-                                }
-                            });
+                // Run on load and whenever the screen matches a new size dimension
+                document.addEventListener("DOMContentLoaded", () => {
+                    adjustHeroHeight();
+                    window.addEventListener('resize', adjustHeroHeight);
+                });
+
+                function switchHeroStep(stepIndex) {
+                    // 1. Update Navigation Nodes Elements
+                    const nodes = document.querySelectorAll('.hero-nav-node');
+                    nodes.forEach((node, idx) => {
+                        if (idx === stepIndex) node.classList.add('active');
+                        else node.classList.remove('active');
+                    });
+
+                    // 2. Cross-Fade Background Images Smoothly
+                    const bgLayers = document.querySelectorAll('.hero-bg-layer');
+                    bgLayers.forEach((layer, idx) => {
+                        if (idx === stepIndex) layer.classList.add('active');
+                        else layer.classList.remove('active');
+                    });
+
+                    // 3. Complete Text Switching and Run Typography Animation
+                    const blueprints = document.querySelectorAll('.hero-content-blueprint');
+                    blueprints.forEach((blueprint, idx) => {
+                        if (idx === stepIndex) {
+                            blueprint.classList.add('dynamic-visible');
+
+                            // Trigger the Custom Unique Split-Character Reveal Animation
+                            const header = blueprint.querySelector('.hero-split-text');
+                            if (header && !header.dataset.splitDone) {
+                                const rawText = header.innerText;
+                                header.innerHTML = rawText.split('').map((char, i) => {
+                                    if (char === ' ') return ' ';
+                                    return `<span style="animation-delay: ${i * 25}ms">${char}</span>`;
+                                }).join('');
+                                header.dataset.splitDone = "true";
+                            } else if (header) {
+                                // Re-trigger animation on already split headers
+                                const spans = header.querySelectorAll('span');
+                                spans.forEach((span, i) => {
+                                    span.style.animation = 'none';
+                                    span.offsetHeight; // Trigger reflow to restart animation sequence
+                                    span.style.animation = `textRevealEffect 0.5s cubic-bezier(0.25, 1, 0.5, 1) both ${i * 25}ms`;
+                                });
+                            }
+                        } else {
+                            blueprint.classList.remove('dynamic-visible');
                         }
                     });
+                }
 
-                    // 5. WINDOW RESIZE LATCH
-                    // Ensures that if a user rotates their phone or scales their desktop window, 
-                    // the scroll heights adjust instantly without breaking the landing page flow.
-                    window.addEventListener("resize", () => {
-                        ScrollTrigger.refresh();
-                    });
-                })();
+                // Initialize First Entry Word Splits on Document Mounting Load
+                document.addEventListener("DOMContentLoaded", () => {
+                    const initialHeader = document.querySelector('.hero-content-blueprint.dynamic-visible .hero-split-text');
+                    if (initialHeader) {
+                        const text = initialHeader.innerText;
+                        initialHeader.innerHTML = text.split('').map((char, i) => {
+                            if (char === ' ') return ' ';
+                            return `<span style="animation-delay: ${i * 30}ms">${char}</span>`;
+                        }).join('');
+                        initialHeader.dataset.splitDone = "true";
+                    }
+                });
             </script>
         </div>
 
