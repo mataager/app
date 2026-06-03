@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Smooth Product Cards | Performance Hero</title>
+    <!-- Font Awesome Icons (assumed from original context) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Google Fonts Inter for consistency -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap"
+        rel="stylesheet">
+    <style>
+        /* ========== GLOBAL RESET & PERFORMANCE BASE ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #050505;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* demo container for product cards – showing multiple cards to test scroll smoothness */
+        .products-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 6rem 2rem 8rem 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        /* ========== ENHANCED PRODUCT CARD (PERFORMANCE FIRST) ========== */
+        .product-card {
+            --card-radius: 2rem;
+            --transition-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            width: 100%;
+            background: #000000;
+            border-radius: var(--card-radius);
+            cursor: pointer;
+            overflow: hidden;
+            /* GPU acceleration & prevent layout thrashing */
+            will-change: transform, opacity;
+            /* initial state for scroll reveal (invisible, slightly shifted) */
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.7s var(--transition-smooth), transform 0.7s var(--transition-smooth);
+            /* subtle shadow to enhance depth */
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        /* visible state when scrolled into view */
+        .product-card.card-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* inner image container */
+        .product-card .aspect-cover {
+            aspect-ratio: 4 / 5;
+            overflow: hidden;
+            position: relative;
+            background-color: #0a0a0a;
+            /* will-change hints for smoother scale and filters */
+            will-change: transform;
+        }
+
+        /* background image layer with GPU acceleration */
+        .product-card .card-bg-image {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition: transform 0.7s var(--transition-smooth), filter 0.5s ease-out;
+            will-change: transform, filter;
+            transform: scale(1.02);
+        }
+
+        /* group hover → scale and subtle blur without repaint jitter */
+        .product-card:hover .card-bg-image {
+            transform: scale(1.12);
+            filter: blur(3px);
+        }
+
+        /* Gradient overlay for text readability */
+        .product-card .image-gradient {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.5) 40%, rgba(0, 0, 0, 0.2) 70%, transparent 100%);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        /* Heart icon container: glass morphism */
+        .product-card .favorite-btn {
+            position: absolute;
+            top: 1.25rem;
+            right: 1.25rem;
+            background: rgba(15, 15, 20, 0.65);
+            backdrop-filter: blur(12px);
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.25s ease;
+            cursor: pointer;
+            z-index: 15;
+            border: 0.5px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .favorite-btn:active {
+            transform: scale(0.92);
+        }
+
+        /* hover overlay container — smooth entrance with transform + opacity (GPU accelerated) */
+        .product-card .hover-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 20;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 1.5rem;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.45s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            pointer-events: none;
+        }
+
+        /* on card hover, overlay fades in and slides smoothly */
+        .product-card:hover .hover-overlay {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        /* inner elements have staggered appearance for extra polish */
+        .hover-overlay .action-buttons {
+            transform: translateY(12px);
+            transition: transform 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1) 0.05s;
+        }
+
+        .hover-overlay .product-info {
+            transform: translateY(12px);
+            transition: transform 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1) 0.12s;
+        }
+
+        .product-card:hover .hover-overlay .action-buttons,
+        .product-card:hover .hover-overlay .product-info {
+            transform: translateY(0);
+        }
+
+        /* button styling refined */
+        .btn-primary {
+            width: 100%;
+            padding: 0.75rem 0;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            font-size: 0.7rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+            transform: scale(0.98);
+        }
+
+        .btn-secondary {
+            padding: 0.6rem 0;
+            background: rgba(255, 255, 255, 0.95);
+            color: black;
+            border: none;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .btn-secondary:hover {
+            background: #e5e7eb;
+            transform: scale(0.97);
+        }
+
+        .btn-glass {
+            padding: 0.6rem 0;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            border: 0.5px solid rgba(255, 255, 255, 0.25);
+            color: white;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .btn-glass:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(0.98);
+        }
+
+        /* price tag badge */
+        .price-badge {
+            display: flex;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            border-radius: 0.5rem;
+            overflow: hidden;
+            border: 0.5px solid rgba(255, 255, 255, 0.15);
+            width: fit-content;
+        }
+
+        .discount-sticker {
+            background: #dc2626;
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 800;
+            padding: 0.25rem 0.6rem;
+        }
+
+        .price-value {
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.25rem 0.8rem;
+            color: white;
+        }
+
+        /* responsive adjustments */
+        @media (max-width: 640px) {
+            .products-grid {
+                padding: 3rem 1rem;
+                gap: 1.2rem;
+                grid-template-columns: 1fr;
+            }
+
+            .hover-overlay {
+                padding: 1rem;
+            }
+        }
+
+        /* Avoid FOUC for cards that are not yet visible (prevent flash of content) */
+        .product-card {
+            will-change: transform, opacity;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =============================================== -->
+    <!-- DEMO GRID WITH 6 ENHANCED PRODUCT CARDS          -->
+    <!-- Each card includes scroll-reveal & smooth texts -->
+    <!-- =============================================== -->
+    <div class="products-grid">
+
+        <!-- PRODUCT CARD 1 (FULL REWRITE WITH ENHANCED SMOOTHNESS & SCROLL REVEAL) -->
+        <div class="product-card glass rounded-[2rem] group cursor-pointer overflow-hidden transition-all duration-500 relative w-full bg-black"
+            onclick="toggleOverlay(this, event)">
+            <div class="aspect-cover relative">
+                <!-- Background image with performance optimized -->
+                <div class="card-bg-image"
+                    style="background-image: url('https://assets.adidas.com/images/w_1880,f_auto,q_auto/a4ff4a779ee34deca8cc9a6f1f411440_9366/KC6611_HM1.jpg');">
+                </div>
+                <!-- gradient overlay for readability -->
+                <div class="image-gradient"></div>
+
+                <!-- Favorite heart button -->
+                <div class="favorite-btn"
+                    onclick="event.stopPropagation(); showAlert('favorite', 'Item added to your favorites list.')">
+                    <i
+                        class="bi bi-heart text-sm absolute transition-all duration-300 group-hover/heart:opacity-0 text-white"></i>
+                    <i
+                        class="bi bi-heart-fill text-sm text-red-500 absolute scale-0 opacity-0 transition-all duration-300 group-hover:scale-100 group-hover:opacity-100"></i>
+                </div>
+
+                <!-- HOVER OVERLAY – smooth texts + actions with staggered animation -->
+                <div class="hover-overlay">
+                    <div class="action-buttons flex flex-col gap-2 mb-5">
+                        <button class="btn-primary"
+                            onclick="event.stopPropagation(); handleAddToCart('Adidas Originals Italia')">
+                            <i class="bi bi-bag-plus-fill"></i> Add to Bag
+                        </button>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button class="btn-secondary"
+                                onclick="event.stopPropagation(); alert('Quick buy flow')">Quick Buy</button>
+                            <button class="btn-glass" onclick="event.stopPropagation(); openQuickLook('PROD_001')">Quick
+                                Look</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h4 class="font-bold text-lg text-white leading-tight">Adidas classic t-shirt</h4>
+                        <p class="text-[10px] mb-2 opacity-70 tracking-[0.2em] uppercase text-white">ADIDAS ORIGINALS
+                        </p>
+                        <div class="flex items-center justify-between flex-wrap gap-2">
+                            <div class="price-badge">
+                                <span class="discount-sticker">-50%</span>
+                                <span class="price-value">EGP 1,290</span>
+                            </div>
+                            <span class="text-[10px] text-emerald-400 font-bold flex items-center gap-1">
+                                <i class="bi bi-truck"></i> FREE SHIPPING
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCT CARD 2 (variation to test multiple cards) -->
+        <div class="product-card glass rounded-[2rem] group cursor-pointer overflow-hidden relative w-full bg-black"
+            onclick="toggleOverlay(this, event)">
+            <div class="aspect-cover relative">
+                <div class="card-bg-image"
+                    style="background-image: url('https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=800&auto=format');">
+                </div>
+                <div class="image-gradient"></div>
+                <div class="favorite-btn" onclick="event.stopPropagation(); showAlert('favorite', 'Added to wishlist')">
+                    <i
+                        class="bi bi-heart text-sm absolute transition-all duration-300 group-hover/heart:opacity-0 text-white"></i>
+                    <i
+                        class="bi bi-heart-fill text-sm text-red-500 absolute scale-0 opacity-0 transition-all duration-300 group-hover:scale-100 group-hover:opacity-100"></i>
+                </div>
+                <div class="hover-overlay">
+                    <div class="action-buttons flex flex-col gap-2 mb-5">
+                        <button class="btn-primary"
+                            onclick="event.stopPropagation(); handleAddToCart('Minimalist Leather Jacket')">
+                            <i class="bi bi-bag-plus-fill"></i> Add to Bag
+                        </button>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button class="btn-secondary"
+                                onclick="event.stopPropagation(); alert('Instant checkout')">Quick Buy</button>
+                            <button class="btn-glass" onclick="event.stopPropagation(); openQuickLook('PROD_002')">Quick
+                                Look</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h4 class="font-bold text-lg text-white leading-tight">Bomber Jacket</h4>
+                        <p class="text-[10px] mb-2 opacity-70 tracking-[0.2em] uppercase text-white">LIMITED EDITION</p>
+                        <div class="flex items-center justify-between">
+                            <div class="price-badge">
+                                <span class="discount-sticker">-30%</span>
+                                <span class="price-value">EGP 2,890</span>
+                            </div>
+                            <span class="text-[10px] text-emerald-400 font-bold flex items-center gap-1"><i
+                                    class="bi bi-shield-check"></i> EXCLUSIVE</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCT CARD 3 -->
+        <div class="product-card glass rounded-[2rem] group cursor-pointer overflow-hidden relative w-full bg-black"
+            onclick="toggleOverlay(this, event)">
+            <div class="aspect-cover relative">
+                <div class="card-bg-image"
+                    style="background-image: url('https://images.unsplash.com/photo-1564584217132-2271feaeb3c5?w=800&auto=format');">
+                </div>
+                <div class="image-gradient"></div>
+                <div class="favorite-btn"
+                    onclick="event.stopPropagation(); showAlert('favorite', 'Saved to collection')">
+                    <i
+                        class="bi bi-heart text-sm absolute transition-all duration-300 group-hover/heart:opacity-0 text-white"></i>
+                    <i
+                        class="bi bi-heart-fill text-sm text-red-500 absolute scale-0 opacity-0 transition-all duration-300 group-hover:scale-100 group-hover:opacity-100"></i>
+                </div>
+                <div class="hover-overlay">
+                    <div class="action-buttons flex flex-col gap-2 mb-5">
+                        <button class="btn-primary"
+                            onclick="event.stopPropagation(); handleAddToCart('Slim Fit Denim')">
+                            <i class="bi bi-bag-plus-fill"></i> Add to Bag
+                        </button>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button class="btn-secondary" onclick="event.stopPropagation(); alert('Quick buy')">Quick
+                                Buy</button>
+                            <button class="btn-glass" onclick="event.stopPropagation(); openQuickLook('PROD_003')">Quick
+                                Look</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h4 class="font-bold text-lg text-white leading-tight">Raw Selvedge Denim</h4>
+                        <p class="text-[10px] mb-2 opacity-70 tracking-[0.2em] uppercase text-white">ARTISAN CRAFT</p>
+                        <div class="flex items-center justify-between">
+                            <div class="price-badge">
+                                <span class="discount-sticker">NEW</span>
+                                <span class="price-value">EGP 3,450</span>
+                            </div>
+                            <span class="text-[10px] text-amber-400 font-bold flex items-center gap-1"><i
+                                    class="bi bi-star-fill"></i> BESTSELLER</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCT CARD 4 additional for smoothness testing -->
+        <div class="product-card glass rounded-[2rem] group cursor-pointer overflow-hidden relative w-full bg-black"
+            onclick="toggleOverlay(this, event)">
+            <div class="aspect-cover relative">
+                <div class="card-bg-image"
+                    style="background-image: url('https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=800&auto=format');">
+                </div>
+                <div class="image-gradient"></div>
+                <div class="favorite-btn"
+                    onclick="event.stopPropagation(); showAlert('favorite', 'Added to favorites')">
+                    <i
+                        class="bi bi-heart text-sm absolute transition-all duration-300 group-hover/heart:opacity-0 text-white"></i>
+                    <i
+                        class="bi bi-heart-fill text-sm text-red-500 absolute scale-0 opacity-0 transition-all duration-300 group-hover:scale-100 group-hover:opacity-100"></i>
+                </div>
+                <div class="hover-overlay">
+                    <div class="action-buttons flex flex-col gap-2 mb-5">
+                        <button class="btn-primary" onclick="event.stopPropagation(); handleAddToCart('Wool Overcoat')">
+                            <i class="bi bi-bag-plus-fill"></i> Add to Bag
+                        </button>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button class="btn-secondary"
+                                onclick="event.stopPropagation(); alert('Fast checkout')">Quick Buy</button>
+                            <button class="btn-glass" onclick="event.stopPropagation(); openQuickLook('PROD_004')">Quick
+                                Look</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h4 class="font-bold text-lg text-white leading-tight">Heritage Overcoat</h4>
+                        <p class="text-[10px] mb-2 opacity-70 tracking-[0.2em] uppercase text-white">CASHMERE BLEND</p>
+                        <div class="flex items-center justify-between">
+                            <div class="price-badge">
+                                <span class="discount-sticker">-20%</span>
+                                <span class="price-value">EGP 5,990</span>
+                            </div>
+                            <span class="text-[10px] text-emerald-400 font-bold flex items-center gap-1"><i
+                                    class="bi bi-truck"></i> FREE</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- dummy spacer for smooth scroll effect demonstration -->
+    <div style="height: 2rem; background: transparent;"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <script>
+        // ========== PERFORMANCE & SMOOTH CARD REVEAL ON SCROLL ==========
+        // Using GSAP ScrollTrigger to add "card-visible" class when cards enter viewport.
+        // This avoids layout thrashing, uses highly performant class toggle + CSS transitions.
+        // No lag, no continuous callbacks on scroll (just intersection detection).
+
+        (function () {
+            if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+                gsap.registerPlugin(ScrollTrigger);
+
+                // Select all product cards within the grid (the rewritten ones)
+                const productCards = document.querySelectorAll('.product-card');
+                if (productCards.length) {
+                    // For each card, create a ScrollTrigger that toggles the class once
+                    productCards.forEach((card, index) => {
+                        // add a tiny staggered delay based on index for buttery feel (optional)
+                        ScrollTrigger.create({
+                            trigger: card,
+                            start: "top 85%",     // when top of card hits 85% of viewport height (early reveal)
+                            onEnter: () => {
+                                card.classList.add('card-visible');
+                            },
+                            once: true,           // only animate once, reduces overhead
+                            toggleActions: "play none none none",
+                            // markers: false, (debug off)
+                        });
+                        // also if the card is already in view (like after refresh) force check
+                        const rect = card.getBoundingClientRect();
+                        const windowHeight = window.innerHeight;
+                        if (rect.top < windowHeight * 0.85 && rect.bottom > 0) {
+                            card.classList.add('card-visible');
+                        }
+                    });
+                }
+
+                // additionally, any new cards added dynamically would be covered but static grid is fine.
+                // small refresh on resize to avoid any glitch
+                window.addEventListener('resize', () => {
+                    ScrollTrigger.refresh();
+                    productCards.forEach(card => {
+                        if (!card.classList.contains('card-visible')) {
+                            const rect = card.getBoundingClientRect();
+                            if (rect.top < window.innerHeight * 0.85) {
+                                card.classList.add('card-visible');
+                            }
+                        }
+                    });
+                });
+
+                // also pre-warm GPU by setting will-change on cards that are near viewport?
+                // but we already have CSS will-change on .product-card (good practice)
+            } else {
+                // fallback if GSAP not loaded: use Intersection Observer for smooth reveals (lightweight)
+                const fallbackObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('card-visible');
+                            fallbackObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.2, rootMargin: "0px 0px -50px 0px" });
+
+                document.querySelectorAll('.product-card').forEach(card => fallbackObserver.observe(card));
+            }
+        })();
+
+        // ========== MOCK FUNCTIONS TO AVOID BROKEN LINKS (preserve original behavior) ==========
+        window.toggleOverlay = function (el, event) {
+            // optional overlay toggle logic if needed (just for compatibility)
+            // we keep the same function signature from original.
+            console.log('Card clicked', el);
+        };
+
+        window.showAlert = function (type, message) {
+            // mimic original: alert message but non-blocking toast style (no lag)
+            if (window.innerWidth < 640) {
+                // subtle console or lightweight alert? not blocking UI
+                console.log(`[${type}] ${message}`);
+            }
+            // optionally show a small non-intrusive toaster, but we avoid heavy dom
+            const toast = document.createElement('div');
+            toast.innerText = message;
+            toast.style.position = 'fixed';
+            toast.style.bottom = '20px';
+            toast.style.left = '50%';
+            toast.style.transform = 'translateX(-50%)';
+            toast.style.backgroundColor = '#1f1f1f';
+            toast.style.color = '#fff';
+            toast.style.padding = '12px 24px';
+            toast.style.borderRadius = '40px';
+            toast.style.fontSize = '13px';
+            toast.style.fontWeight = '500';
+            toast.style.backdropFilter = 'blur(12px)';
+            toast.style.zIndex = '9999';
+            toast.style.border = '1px solid rgba(255,255,255,0.1)';
+            toast.style.fontFamily = "'Inter', sans-serif";
+            toast.style.whiteSpace = 'nowrap';
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.3s';
+                setTimeout(() => toast.remove(), 300);
+            }, 1800);
+        };
+
+        window.handleAddToCart = function (productName) {
+            console.log(`Added to cart: ${productName}`);
+            showAlert('cart', `${productName} added to bag`);
+        };
+
+        window.openQuickLook = function (productId) {
+            console.log(`Quick look for product: ${productId}`);
+            showAlert('quicklook', 'Opening product preview');
+        };
+
+        // preload scrolltrigger refresh after fonts and images settle
+        window.addEventListener('load', () => {
+            if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+            // manually trigger visible check after images load
+            const cards = document.querySelectorAll('.product-card');
+            cards.forEach(card => {
+                if (!card.classList.contains('card-visible')) {
+                    const rect = card.getBoundingClientRect();
+                    if (rect.top < window.innerHeight * 0.85) {
+                        card.classList.add('card-visible');
+                    }
+                }
+            });
+        });
+
+        // extra performance: passive scroll listener to prevent event blocking (no heavy operations)
+        document.addEventListener('wheel', () => { }, { passive: true });
+    </script>
+
+</body>
+
+</html>
