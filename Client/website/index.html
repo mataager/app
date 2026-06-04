@@ -705,123 +705,161 @@
 
 
                 <div id="cart-step-1" class="space-y-4">
-                    <div class="flex items-center justify-between px-1 mb-4">
+                    <div class="flex items-center justify-between px-1 mb-3">
                         <div class="flex items-center gap-2">
-                            <span class="text-[10px] font-bold dark:text-white/40 uppercase tracking-widest">Your Cart
-                                Items</span>
-
-
+                            <span
+                                class="text-[10px] font-bold text-black/50 dark:text-white/40 uppercase tracking-widest">
+                                Your Cart Items
+                            </span>
                         </div>
-
                         <div class="flex items-center gap-3">
-                            <span class="text-[10px] font-bold text-blue-500 px-3 py-1.5 rounded-lg bg-blue-500/10">+3
-                                Items</span>
+                            <span id="cart-badge-counter"
+                                class="text-[10px] font-bold text-blue-500 px-2.5 py-1 rounded-lg bg-blue-500/10 transition-all">
+                                0 Items
+                            </span>
                         </div>
                     </div>
-                    <div id="cart-items" class="max-h-[120px] overflow-y-auto space-y-4 pr-1 scrollbar-hide">
-                        <div class="flex justify-between items-center">
-                            <div class="flex gap-3">
+
+                    <div id="cart-items" class="max-h-[120px] overflow-y-auto space-y-2 pr-1 custom-scrollbar">
+
+                        <div class="cart-item-row flex justify-between items-center p-2 rounded-xl bg-black/[0.02] dark:bg-white/[0.03] border border-black/5 dark:border-white/5 transition-all hover:bg-black/[0.04] dark:hover:bg-white/[0.05]"
+                            data-item-price="1290" data-quantity="1">
+                            <div class="flex gap-3 items-center">
                                 <div
-                                    class="w-12 h-12 rounded-xl border border-black/5 dark:border-white/10 overflow-hidden bg-gray-100">
+                                    class="w-12 h-12 rounded-lg border border-black/5 dark:border-white/10 overflow-hidden bg-neutral-100 dark:bg-neutral-800 flex-shrink-0">
                                     <img src="https://assets.adidas.com/images/w_1880,f_auto,q_auto/a4ff4a779ee34deca8cc9a6f1f411440_9366/KC6611_HM1.jpg"
-                                        class="object-cover h-full w-full">
+                                        class="object-cover h-full w-full" alt="Product thumbnail">
                                 </div>
-                                <div>
-                                    <p class="text-xs font-bold dark:text-white leading-tight">Adidas classic t-shirt
+
+                                <div class="space-y-0.5">
+                                    <p class="text-xs font-bold text-neutral-800 dark:text-white leading-tight">
+                                        Adidas classic t-shirt
                                     </p>
-                                    <div class="flex items-center gap-2 mt-1">
-                                        <p class="text-[9px] uppercase font-bold text-black/40 dark:text-white/40">M</p>
-                                        <div
-                                            class="w-2 h-2 rounded-full bg-blue-500 border border-black/10 dark:border-white/20">
-                                        </div>
-                                        <p class="text-[9px] font-bold text-black/40 dark:text-white/40">Blue</p>
+                                    <div class="flex items-center gap-1.5">
+                                        <span
+                                            class="text-[9px] uppercase font-bold text-black/40 dark:text-white/40 bg-black/5 dark:bg-white/10 px-1.5 py-0.5 rounded">M</span>
+                                        <span class="w-1.5 h-1.5 rounded-full bg-blue-500 inline-block"></span>
+                                        <span class="text-[9px] font-bold text-black/40 dark:text-white/40">Blue</span>
+                                        <span class="text-[9px] font-bold text-black/30 dark:text-white/30 ml-1">Qty:
+                                            1</span>
                                     </div>
-                                    <p class="text-[10px] text-blue-500 font-bold mt-0.5">EGP 1,290</p>
+                                    <p class="text-[10px] text-blue-500 font-bold">EGP 1,290</p>
                                 </div>
                             </div>
-                            <button
-                                class="text-red-500 opacity-50 hover:opacity-100 transition-all text-[10px] font-bold">Remove</button>
+
+                            <button onclick="removeCartItemRow(this)"
+                                class="text-red-500/60 hover:text-red-500 text-[10px] font-bold transition-colors px-2 py-1 hover:bg-red-500/5 rounded-lg">
+                                Remove
+                            </button>
                         </div>
+
+                        <div class="cart-item-row flex justify-between items-center p-2 rounded-xl bg-black/[0.02] dark:bg-white/[0.03] border border-black/5 dark:border-white/5 transition-all hover:bg-black/[0.04] dark:hover:bg-white/[0.05]"
+                            data-item-price="1290" data-quantity="2">
+                            <div class="flex gap-3 items-center">
+                                <div
+                                    class="w-12 h-12 rounded-lg border border-black/5 dark:border-white/10 overflow-hidden bg-neutral-100 dark:bg-neutral-800 flex-shrink-0">
+                                    <img src="https://assets.adidas.com/images/w_1880,f_auto,q_auto/a4ff4a779ee34deca8cc9a6f1f411440_9366/KC6611_HM1.jpg"
+                                        class="object-cover h-full w-full" alt="Product thumbnail">
+                                </div>
+
+                                <div class="space-y-0.5">
+                                    <p class="text-xs font-bold text-neutral-800 dark:text-white leading-tight">
+                                        Adidas classic t-shirt
+                                    </p>
+                                    <div class="flex items-center gap-1.5">
+                                        <span
+                                            class="text-[9px] uppercase font-bold text-black/40 dark:text-white/40 bg-black/5 dark:bg-white/10 px-1.5 py-0.5 rounded">L</span>
+                                        <span class="w-1.5 h-1.5 rounded-full bg-blue-500 inline-block"></span>
+                                        <span class="text-[9px] font-bold text-black/40 dark:text-white/40">Blue</span>
+                                        <span class="text-[9px] font-bold text-black/30 dark:text-white/30 ml-1">Qty:
+                                            2</span>
+                                    </div>
+                                    <p class="text-[10px] text-blue-500 font-bold">EGP 2,580</p>
+                                </div>
+                            </div>
+
+                            <button onclick="removeCartItemRow(this)"
+                                class="text-red-500/60 hover:text-red-500 text-[10px] font-bold transition-colors px-2 py-1 hover:bg-red-500/5 rounded-lg">
+                                Remove
+                            </button>
+                        </div>
+
                     </div>
 
+                    <script>
+                        // --- Dynamic Counter Re-calculation Engine ---
+                        function synchronizeCartItemCount() {
+                            const itemRows = document.querySelectorAll('.cart-item-row');
+                            let totalQuantityAccumulator = 0;
+
+                            itemRows.forEach(row => {
+                                // Parses the structural quantity value directly from dataset properties safely
+                                const parsedQuantity = parseInt(row.getAttribute('data-quantity')) || 0;
+                                totalQuantityAccumulator += parsedQuantity;
+                            });
+
+                            // Update view counter pill DOM target
+                            const counterBadge = document.getElementById('cart-badge-counter');
+                            if (counterBadge) {
+                                counterBadge.textContent = `${totalQuantityAccumulator} Item${totalQuantityAccumulator !== 1 ? 's' : ''}`;
+                            }
+                        }
+
+                        // --- Action Trigger Handler ---
+                        function removeCartItemRow(buttonElement) {
+                            const targetRow = buttonElement.closest('.cart-item-row');
+                            if (targetRow) {
+                                targetRow.remove();
+                                synchronizeCartItemCount();
+
+                                // Note: If you have an active total order recalculation logic statement initialized elsewhere, 
+                                // append your updateTotalPrice() callback target trigger right here.
+                            }
+                        }
+
+                        // Perform initialization calculation count immediately upon module presentation parsing
+                        document.addEventListener("DOMContentLoaded", () => {
+                            synchronizeCartItemCount();
+                        });
+                        // Manual invocation fallback execution path for asynchronous component loading frameworks
+                        synchronizeCartItemCount();
+                    </script>
+
+                    <!-- Delivery Method Toggle Controllers -->
                     <div class="space-y-2">
                         <p class="text-[10px] font-bold dark:text-white/40 uppercase px-1">Delivery Method</p>
                         <div class="grid grid-cols-2 gap-2">
                             <!-- Home Delivery Option -->
-                            <label
-                                class="relative p-3 rounded-xl border-2 border-blue-500 bg-blue-500/5 cursor-pointer delivery-option"
+                            <label class="relative p-3 rounded-xl border cursor-pointer delivery-option transition-all"
                                 id="label-home">
-                                <input type="radio" name="delivery" class="hidden" checked
+                                <input type="radio" name="delivery" class="hidden" id="radio-home"
                                     onchange="toggleDelivery('home')">
                                 <p class="text-[11px] font-bold dark:text-white">Home Delivery</p>
                                 <p class="text-[9px] opacity-60 dark:text-white">2-3 Days</p>
                             </label>
 
                             <!-- Store Pickup Option -->
-                            <label
-                                class="relative p-3 rounded-xl border border-black/10 dark:border-white/10 cursor-pointer delivery-option"
+                            <label class="relative p-3 rounded-xl border cursor-pointer delivery-option transition-all"
                                 id="label-store">
-                                <input type="radio" name="delivery" class="hidden" onchange="toggleDelivery('store')">
+                                <input type="radio" name="delivery" class="hidden" id="radio-store"
+                                    onchange="toggleDelivery('store')">
                                 <p class="text-[11px] font-bold dark:text-white">Store Pickup</p>
                                 <p class="text-[9px] opacity-60 dark:text-white">Main Branch</p>
                             </label>
                         </div>
                     </div>
 
-                    <!-- Dynamic Info Section -->
+                    <!-- Unified Dynamic Info Container -->
                     <div id="delivery-info-container"
                         class="p-3 rounded-2xl bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/10 mt-2">
-                        <!-- Content will be injected here by JavaScript -->
+                        <!-- Injected dynamically via JavaScript -->
                     </div>
 
-                    <script>
-                        function toggleDelivery(type) {
-                            const container = document.getElementById('delivery-info-container');
-                            const homeLabel = document.getElementById('label-home');
-                            const storeLabel = document.getElementById('label-store');
-
-                            // Toggle border/style for labels
-                            if (type === 'home') {
-                                homeLabel.classList.add('border-blue-500', 'bg-blue-500/5');
-                                homeLabel.classList.remove('border-black/10', 'dark:border-white/10');
-                                storeLabel.classList.remove('border-blue-500', 'bg-blue-500/5');
-                                storeLabel.classList.add('border-black/10', 'dark:border-white/10');
-
-                                container.innerHTML = `
-                                <div class="flex justify-between items-center mb-1">
-                                    <span class="text-[10px] font-bold dark:text-white/60 uppercase">Shipping to</span>
-                                    <span class="text-[10px] text-blue-500 font-bold">Standard • EGP 50</span>
-                                </div>
-                                <div class="flex justify-between items-end">
-                                    <p class="text-[11px] font-bold dark:text-white">10th of Ramadan City, Al-Sharqia</p>
-                                    <button class="text-[10px] font-bold text-blue-500 hover:underline">Change</button>
-                                </div>`;
-                            } else {
-                                storeLabel.classList.add('border-blue-500', 'bg-blue-500/5');
-                                storeLabel.classList.remove('border-black/10', 'dark:border-white/10');
-                                homeLabel.classList.remove('border-blue-500', 'bg-blue-500/5');
-                                homeLabel.classList.add('border-black/10', 'dark:border-white/10');
-
-                                container.innerHTML = `
-                                <div class="flex justify-between items-center mb-1">
-                                    <span class="text-[10px] font-bold dark:text-white/60 uppercase">Pickup Location</span>
-                                    <span class="text-[10px] text-green-500 font-bold">Free • EGP 0</span>
-                                </div>
-                                <div class="flex justify-between items-end">
-                                    <p class="text-[11px] font-bold dark:text-white">Main Branch, Cairo Heliopolis</p>
-                                    <a href="https://maps.google.com" target="_blank" class="text-[10px] font-bold text-blue-500 hover:underline">Open in Maps</a>
-                                </div>`;
-                            }
-                        }
-
-                        // Initialize the view on load
-                        toggleDelivery('home');
-                    </script>
-
+                    <!-- Total and Action Button Footer Area -->
                     <div class="pt-4 border-t border-black/5 dark:border-white/5">
                         <div class="flex justify-between items-center mb-4">
                             <span class="text-xs font-bold dark:text-white opacity-50 uppercase">Total</span>
-                            <span class="text-sm font-bold dark:text-white">EGP 1,340</span>
+                            <span id="checkout-total-price" class="text-sm font-bold dark:text-white">EGP 1,340</span>
                         </div>
                         <button onclick="showCheckoutStep(2)"
                             class="w-full py-3 bg-blue-600 text-white rounded-xl font-bold text-xs active:scale-95 transition-all">
@@ -830,89 +868,283 @@
                     </div>
                 </div>
 
+                <!-- Custom Layout Tweaks for the Scrollable Sub-Interfaces -->
+                <style>
+                    .custom-scrollbar::-webkit-scrollbar {
+                        width: 4px;
+                    }
+
+                    .custom-scrollbar::-webkit-scrollbar-track {
+                        background: transparent;
+                    }
+
+                    .custom-scrollbar::-webkit-scrollbar-thumb {
+                        background: rgba(255, 255, 255, 0.1);
+                        border-radius: 2px;
+                    }
+                </style>
+
+                <script>
+                    // --- Data registries ---
+                    const shippingAddresses = [
+                        { id: 'addr-1', shortName: '10th of Ramadan, Sharqia', costText: 'Standard • EGP 50', costVal: 50, fullName: '10th of Ramadan City, Al-Sharqia' },
+                        { id: 'addr-2', shortName: 'El-Nasr St, Nasr City', costText: 'Standard • EGP 35', costVal: 35, fullName: 'Block 10, El-Nasr St, Nasr City, Cairo' },
+                        { id: 'addr-3', shortName: 'Smouha, Alexandria', costText: 'Express • EGP 60', costVal: 60, fullName: 'Victor Hamden St, Smouha, Alexandria' }
+                    ];
+
+                    const pickupBranches = [
+                        { id: 'branch-1', city: 'Cairo', costText: 'Free • EGP 0', costVal: 0, fullName: 'Main Branch, Cairo Heliopolis', mapsUrl: 'https://maps.google.com' },
+                        { id: 'branch-2', city: 'Alexandria', costText: 'Free • EGP 0', costVal: 0, fullName: 'Alexandria Branch, Smouha', mapsUrl: 'https://maps.google.com/?q=Smouha+Alexandria' },
+                        { id: 'branch-3', city: 'Mansoura', costText: 'Free • EGP 0', costVal: 0, fullName: 'Mansoura Branch, El-Gayeish St', mapsUrl: 'https://maps.google.com/?q=Mansoura' }
+                    ];
+
+                    // --- State variables trackers ---
+                    let currentDeliveryType = 'home';
+                    let activeAddressId = 'addr-1';
+                    let activeBranchId = 'branch-1';
+                    const baseCartTotal = 1290;
+
+                    // --- Main Core Switching Engine ---
+                    function toggleDelivery(type) {
+                        currentDeliveryType = type;
+                        const container = document.getElementById('delivery-info-container');
+                        const homeLabel = document.getElementById('label-home');
+                        const storeLabel = document.getElementById('label-store');
+
+                        // Sync active styling parameters for labels
+                        if (type === 'home') {
+                            document.getElementById('radio-home').checked = true;
+                            homeLabel.className = "relative p-3 rounded-xl border border-blue-500 bg-blue-500/5 cursor-pointer delivery-option transition-all";
+                            storeLabel.className = "relative p-3 rounded-xl border border-black/10 dark:border-white/10 cursor-pointer delivery-option transition-all";
+                            renderHomeDeliveryUI(container);
+                        } else {
+                            document.getElementById('radio-store').checked = true;
+                            storeLabel.className = "relative p-3 rounded-xl border border-blue-500 bg-blue-500/5 cursor-pointer delivery-option transition-all";
+                            homeLabel.className = "relative p-3 rounded-xl border border-black/10 dark:border-white/10 cursor-pointer delivery-option transition-all";
+                            renderStorePickupUI(container);
+                        }
+                        updateTotalPrice();
+                    }
+
+                    // --- UI Render Sub-routines ---
+                    function renderHomeDeliveryUI(container) {
+                        const activeAddr = shippingAddresses.find(a => a.id === activeAddressId);
+
+                        let unpickedHTML = '';
+                        shippingAddresses.forEach(addr => {
+                            if (addr.id !== activeAddressId) {
+                                unpickedHTML += `
+                                <button onclick="selectHomeAddress('${addr.id}')" class="w-full text-left text-[11px] font-medium text-neutral-400 hover:text-blue-500 transition-colors py-0.5 block">
+                                    ${addr.shortName}
+                                </button>`;
+                            }
+                        });
+
+                        container.innerHTML = `
+                        <div>
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="text-[10px] font-bold dark:text-white/60 uppercase">Shipping to</span>
+                                <span class="text-[10px] text-blue-500 font-bold">${activeAddr.costText}</span>
+                            </div>
+                            <div class="flex justify-between items-end">
+                                <div>
+                                    <p class="text-[11px] font-bold dark:text-white leading-tight">${activeAddr.fullName}</p>
+                                    <button onclick="toggleSubList('shipping-list')" class="text-[10px] text-blue-500 font-medium hover:underline mt-0.5 block text-left">Change address</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="shipping-list" class="hidden mt-3 pt-3 border-t border-black/5 dark:border-white/10 max-h-24 overflow-y-auto custom-scrollbar">
+                            <p class="text-[9px] dark:text-white/40 uppercase mb-2">Other Saved Addresses:</p>
+                            <div class="space-y-1.5">${unpickedHTML}</div>
+                        </div>`;
+                    }
+
+                    function renderStorePickupUI(container) {
+                        const activeBranch = pickupBranches.find(b => b.id === activeBranchId);
+
+                        let unpickedHTML = '';
+                        pickupBranches.forEach(branch => {
+                            if (branch.id !== activeBranchId) {
+                                unpickedHTML += `
+                                <button onclick="selectStoreBranch('${branch.id}')" class="w-full text-left text-[11px] font-medium text-neutral-400 hover:text-blue-500 transition-colors py-0.5 block">
+                                    ${branch.city}
+                                </button>`;
+                            }
+                        });
+
+                        container.innerHTML = `
+                        <div>
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="text-[10px] font-bold dark:text-white/60 uppercase">Pickup Location</span>
+                                <span class="text-[10px] text-green-500 font-bold">${activeBranch.costText}</span>
+                            </div>
+                            <div class="flex justify-between items-end">
+                                <div>
+                                    <p class="text-[11px] font-bold dark:text-white leading-tight">${activeBranch.fullName}</p>
+                                    <button onclick="toggleSubList('pickup-list')" class="text-[10px] text-blue-500 font-medium hover:underline mt-0.5 block text-left">Change location</button>
+                                </div>
+                                <a href="${activeBranch.mapsUrl}" target="_blank" class="text-[10px] font-bold text-blue-500 hover:underline">Open in Maps</a>
+                            </div>
+                        </div>
+                        <div id="pickup-list" class="hidden mt-3 pt-3 border-t border-black/5 dark:border-white/10 max-h-24 overflow-y-auto custom-scrollbar">
+                            <p class="text-[9px] dark:text-white/40 uppercase mb-2">Other Available Branches:</p>
+                            <div class="space-y-1.5">${unpickedHTML}</div>
+                        </div>`;
+                    }
+
+                    // --- Interactive Callbacks ---
+                    function toggleSubList(id) {
+                        const targetList = document.getElementById(id);
+                        if (targetList) targetList.classList.toggle('hidden');
+                    }
+
+                    function selectHomeAddress(id) {
+                        activeAddressId = id;
+                        renderHomeDeliveryUI(document.getElementById('delivery-info-container'));
+                        updateTotalPrice();
+                    }
+
+                    function selectStoreBranch(id) {
+                        activeBranchId = id;
+                        renderStorePickupUI(document.getElementById('delivery-info-container'));
+                        updateTotalPrice();
+                    }
+
+                    function updateTotalPrice() {
+                        let executionFee = 0;
+                        if (currentDeliveryType === 'home') {
+                            const currentAddr = shippingAddresses.find(a => a.id === activeAddressId);
+                            executionFee = currentAddr ? currentAddr.costVal : 0;
+                        } else {
+                            const currentBranch = pickupBranches.find(b => b.id === activeBranchId);
+                            executionFee = currentBranch ? currentBranch.costVal : 0;
+                        }
+
+                        const localizedTotal = baseCartTotal + executionFee;
+                        document.getElementById('checkout-total-price').textContent = `EGP ${localizedTotal.toLocaleString()}`;
+                    }
+
+                    // Initialize layout default on DOM state load
+                    toggleDelivery('home');
+                </script>
+
                 <div id="cart-step-2" class="hidden space-y-4">
-                    <button onclick="showCheckoutStep(1)"
-                        class="text-[10px] font-bold text-blue-500 flex items-center gap-1 mb-2">
-                        ← Back to Cart
-                    </button>
 
-                    <div class="space-y-2">
-                        <p class="text-[10px] font-bold dark:text-white/40 uppercase px-1">Order Note</p>
-                        <textarea placeholder="Any special instructions?"
-                            class="w-full p-3 bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/10 rounded-xl text-[11px] focus:outline-none focus:ring-1 focus:ring-blue-500 dark:text-white min-h-[60px]"></textarea>
-                    </div>
+                    <div class="space-y-4">
+                        <!-- Back Button Component matching Screenshot_3-6-2026_141342_.jpeg -->
+                        <button onclick="showCheckoutStep(1)"
+                            class="text-xs font-bold text-blue-500 hover:underline flex items-center gap-1">
+                            ← Back to Cart
+                        </button>
 
-                    <div class="space-y-2">
-                        <p class="text-[10px] font-bold dark:text-white/40 uppercase px-1">Payment Method</p>
-                        <div class="grid grid-cols-1 gap-2">
+                        <!-- Order Note Input Field -->
+                        <div class="space-y-1.5">
+                            <p class="text-[10px] font-bold dark:text-white/40 uppercase px-1">Order Note</p>
+                            <textarea placeholder="Any special instructions?"
+                                class="w-full p-3 rounded-xl border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 text-xs text-neutral-800 dark:text-neutral-200 placeholder-neutral-400 focus:outline-none focus:border-blue-500 resize-none h-16 transition-all"></textarea>
+                        </div>
 
-                            <label
-                                class="payment-option relative flex items-center justify-between p-3 rounded-xl border border-black/5 dark:border-white/10 bg-black/5 dark:bg-white/5 cursor-pointer transition-all hover:bg-black/10 dark:hover:bg-white/10 has-[:checked]:border-blue-500 has-[:checked]:bg-blue-500/5">
-                                <input type="radio" name="payment-method" value="cash" class="hidden peer" checked>
-                                <div class="flex items-center gap-3">
+                        <!-- Payment Selector Element -->
+                        <div class="space-y-2">
+                            <p class="text-[10px] font-bold dark:text-white/40 uppercase px-1">Payment Method</p>
+                            <div class="grid grid-cols-1 gap-2">
+
+                                <!-- Cash on Delivery Option -->
+                                <label
+                                    class="payment-option relative flex items-center justify-between p-3 rounded-xl border border-black/5 dark:border-white/10 bg-black/5 dark:bg-white/5 cursor-pointer transition-all hover:bg-black/10 dark:hover:bg-white/10 has-[:checked]:border-blue-500 has-[:checked]:bg-blue-500/5">
+                                    <input type="radio" name="payment-method" value="cash" class="hidden peer" checked
+                                        onchange="updatePaymentFee(0)">
+                                    <div class="flex items-center gap-3">
+                                        <div
+                                            class="w-8 h-8 rounded-lg bg-white dark:bg-white/10 flex items-center justify-center text-lg shadow-sm border border-black/5 dark:border-transparent">
+                                            💵
+                                        </div>
+                                        <div>
+                                            <p class="text-[11px] font-bold dark:text-white">Cash on Delivery</p>
+                                            <p class="text-[9px] opacity-50 dark:text-white">Pay when you receive</p>
+                                        </div>
+                                    </div>
                                     <div
-                                        class="w-8 h-8 rounded-lg bg-white dark:bg-white/10 flex items-center justify-center text-lg">
-                                        💵
+                                        class="w-4 h-4 rounded-full border border-black/10 dark:border-white/20 peer-checked:border-blue-500 peer-checked:bg-blue-500 flex items-center justify-center transition-all">
+                                        <div
+                                            class="w-1.5 h-1.5 rounded-full bg-white opacity-0 peer-checked:opacity-100">
+                                        </div>
                                     </div>
-                                    <div>
-                                        <p class="text-[11px] font-bold dark:text-white">Cash on Delivery</p>
-                                        <p class="text-[9px] opacity-50 dark:text-white">Pay when you receive</p>
-                                    </div>
-                                </div>
-                                <div
-                                    class="w-4 h-4 rounded-full border-2 border-black/10 dark:border-white/20 peer-checked:border-blue-500 peer-checked:bg-blue-500 flex items-center justify-center transition-all">
-                                    <div class="w-1.5 h-1.5 rounded-full bg-white opacity-0 peer-checked:opacity-100">
-                                    </div>
-                                </div>
-                            </label>
+                                </label>
 
-                            <label
-                                class="payment-option relative flex items-center justify-between p-3 rounded-xl border border-black/5 dark:border-white/10 bg-black/5 dark:bg-white/5 cursor-pointer transition-all hover:bg-black/10 dark:hover:bg-white/10 has-[:checked]:border-blue-500 has-[:checked]:bg-blue-500/5">
-                                <input type="radio" name="payment-method" value="card" class="hidden peer">
-                                <div class="flex items-center gap-3">
+                                <!-- Credit / Debit Card Option (Includes dynamic fee message) -->
+                                <label
+                                    class="payment-option relative flex items-center justify-between p-3 rounded-xl border border-black/5 dark:border-white/10 bg-black/5 dark:bg-white/5 cursor-pointer transition-all hover:bg-black/10 dark:hover:bg-white/10 has-[:checked]:border-blue-500 has-[:checked]:bg-blue-500/5">
+                                    <input type="radio" name="payment-method" value="card" class="hidden peer"
+                                        onchange="updatePaymentFee(20)">
+                                    <div class="flex items-center gap-3">
+                                        <div
+                                            class="w-8 h-8 rounded-lg bg-white dark:bg-white/10 flex items-center justify-center text-lg shadow-sm border border-black/5 dark:border-transparent">
+                                            💳
+                                        </div>
+                                        <div>
+                                            <p class="text-[11px] font-bold dark:text-white">Credit / Debit Card</p>
+                                            <p class="text-[9px] opacity-50 dark:text-white">Visa, Mastercard, etc.
+                                                <span class="text-blue-500 font-bold ml-1">+ EGP 20 Fee</span>
+                                            </p>
+                                        </div>
+                                    </div>
                                     <div
-                                        class="w-8 h-8 rounded-lg bg-white dark:bg-white/10 flex items-center justify-center text-lg">
-                                        💳
+                                        class="w-4 h-4 rounded-full border border-black/10 dark:border-white/20 peer-checked:border-blue-500 peer-checked:bg-blue-500 flex items-center justify-center transition-all">
+                                        <div
+                                            class="w-1.5 h-1.5 rounded-full bg-white opacity-0 peer-checked:opacity-100">
+                                        </div>
                                     </div>
-                                    <div>
-                                        <p class="text-[11px] font-bold dark:text-white">Credit / Debit Card</p>
-                                        <p class="text-[9px] opacity-50 dark:text-white">Visa, Mastercard, etc.</p>
-                                    </div>
-                                </div>
-                                <div
-                                    class="w-4 h-4 rounded-full border-2 border-black/10 dark:border-white/20 peer-checked:border-blue-500 peer-checked:bg-blue-500 flex items-center justify-center transition-all">
-                                    <div class="w-1.5 h-1.5 rounded-full bg-white opacity-0 peer-checked:opacity-100">
-                                    </div>
-                                </div>
-                            </label>
+                                </label>
 
-                            <label
-                                class="payment-option relative flex items-center justify-between p-3 rounded-xl border border-black/5 dark:border-white/10 bg-black/5 dark:bg-white/5 cursor-pointer transition-all hover:bg-black/10 dark:hover:bg-white/10 has-[:checked]:border-blue-500 has-[:checked]:bg-blue-500/5">
-                                <input type="radio" name="payment-method" value="wallet" class="hidden peer">
-                                <div class="flex items-center gap-3">
+                                <!-- InstaPay / Wallet Option (Includes dynamic fee message) -->
+                                <label
+                                    class="payment-option relative flex items-center justify-between p-3 rounded-xl border border-black/5 dark:border-white/10 bg-black/5 dark:bg-white/5 cursor-pointer transition-all hover:bg-black/10 dark:hover:bg-white/10 has-[:checked]:border-blue-500 has-[:checked]:bg-blue-500/5">
+                                    <input type="radio" name="payment-method" value="wallet" class="hidden peer"
+                                        onchange="updatePaymentFee(10)">
+                                    <div class="flex items-center gap-3">
+                                        <div
+                                            class="w-8 h-8 rounded-lg bg-white dark:bg-white/10 flex items-center justify-center text-lg shadow-sm border border-black/5 dark:border-transparent">
+                                            📱
+                                        </div>
+                                        <div>
+                                            <p class="text-[11px] font-bold dark:text-white">InstaPay / Wallet</p>
+                                            <p class="text-[9px] opacity-50 dark:text-white">Instant transfer <span
+                                                    class="text-blue-500 font-bold ml-1">+ EGP 10 Fee</span></p>
+                                        </div>
+                                    </div>
                                     <div
-                                        class="w-8 h-8 rounded-lg bg-white dark:bg-white/10 flex items-center justify-center text-lg">
-                                        📱
+                                        class="w-4 h-4 rounded-full border border-black/10 dark:border-white/20 peer-checked:border-blue-500 peer-checked:bg-blue-500 flex items-center justify-center transition-all">
+                                        <div
+                                            class="w-1.5 h-1.5 rounded-full bg-white opacity-0 peer-checked:opacity-100">
+                                        </div>
                                     </div>
-                                    <div>
-                                        <p class="text-[11px] font-bold dark:text-white">InstaPay / Wallet</p>
-                                        <p class="text-[9px] opacity-50 dark:text-white">Instant transfer</p>
-                                    </div>
-                                </div>
-                                <div
-                                    class="w-4 h-4 rounded-full border-2 border-black/10 dark:border-white/20 peer-checked:border-blue-500 peer-checked:bg-blue-500 flex items-center justify-center transition-all">
-                                    <div class="w-1.5 h-1.5 rounded-full bg-white opacity-0 peer-checked:opacity-100">
-                                    </div>
-                                </div>
-                            </label>
+                                </label>
 
+                            </div>
+                        </div>
+
+                        <!-- Action Confirmation Button -->
+                        <div class="pt-2">
+                            <button id="confirm-order-btn" onclick="submitOrder()"
+                                class="w-full py-3 bg-blue-600 text-white rounded-xl font-bold text-xs active:scale-95 transition-all">
+                                Confirm Order • EGP 1,340
+                            </button>
                         </div>
                     </div>
 
-                    <button onclick="submitOrder()"
-                        class="w-full py-4 bg-blue-600 text-white rounded-xl font-bold text-xs active:scale-95 transition-all shadow-lg shadow-blue-600/20">
-                        Confirm Order • EGP 1,340
-                    </button>
+                    <script>
+                        // Configuration values initialized from previous sub-menus
+                        const baseCartTotalWithShipping = 1340;
+
+                        function updatePaymentFee(feeAmount) {
+                            const confirmButton = document.getElementById('confirm-order-btn');
+                            const calculatedTotal = baseCartTotalWithShipping + feeAmount;
+
+                            // Modifies the inner text smoothly to display current running totals
+                            confirmButton.textContent = `Confirm Order • EGP ${calculatedTotal.toLocaleString()}`;
+                        }
+                    </script>
                 </div>
             </div>
             <script>
@@ -989,16 +1221,15 @@
 
             <div class="px-2 pb-4 space-y-4 max-h-[400px] overflow-y-auto pr-1">
 
+
                 <div id="content-orders" class="profile-content space-y-4 mt-4">
                     <!-- Search and Filter Header -->
                     <div class="space-y-3 mb-6">
-                        <!-- Search Bar -->
                         <div class="relative">
                             <input type="text" placeholder="Search orders by ID or item..."
-                                class="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white text-sm focus:outline-none focus:border-blue-500/50 transition-colors text-base">
+                                class="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white text-sm focus:outline-none focus:border-blue-500/50 transition-colors">
                         </div>
 
-                        <!-- Status Filter Dropdown -->
                         <div class="relative">
                             <select
                                 class="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-[10px] font-black uppercase tracking-widest text-white appearance-none focus:outline-none cursor-pointer backdrop-blur-sm">
@@ -1016,41 +1247,156 @@
 
                     <!-- Orders List -->
                     <div class="space-y-4 max-h-[400px] overflow-y-auto pr-2 scrollbar-none">
-                        <!-- Delivered Order -->
-                        <div
-                            class="p-4 rounded-2xl bg-blue-500/5 border border-blue-500/20 backdrop-blur-md hover:bg-blue-500/10 transition-all cursor-pointer group">
+
+                        <!-- Shipped Order Example (with live tracking active) -->
+                        <div onclick="toggleOrderCardExpansion(8821)"
+                            class="p-4 rounded-2xl bg-white/[0.02] border border-white/5 backdrop-blur-md hover:bg-white/[0.05] hover:border-white/10 transition-all duration-300 cursor-pointer group">
                             <div class="flex justify-between items-start mb-2">
                                 <span
-                                    class="text-[10px] font-black text-blue-400 uppercase tracking-tighter">Delivered</span>
-                                <span class="text-[10px] opacity-40 text-white font-mono">#ORD-8821</span>
+                                    class="text-[10px] font-black text-indigo-400 uppercase tracking-tighter bg-indigo-500/10 px-2 py-0.5 rounded-md">Shipped</span>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-[10px] opacity-40 text-white font-mono">#ORD-8821</span>
+                                    <i id="order-chevron-8821"
+                                        class="bi bi-chevron-down text-[10px] text-white/30 group-hover:text-white/60 transition-transform duration-300"></i>
+                                </div>
                             </div>
-                            <p class="text-xs font-bold text-white group-hover:text-blue-400 transition-colors">Adidas
-                                classic t-shirt +
-                                2 items</p>
+
+                            <p class="text-xs font-bold text-white group-hover:text-indigo-400 transition-colors">Adidas
+                                classic t-shirt
+                                + 2 items</p>
+
                             <div class="flex justify-between items-end mt-2">
                                 <p class="text-[10px] opacity-50 text-white">April 09, 2026</p>
                                 <p class="text-[11px] font-black text-white">EGP 3,450</p>
+                            </div>
+
+                            <!-- Expandable Drawer -->
+                            <div id="order-details-8821"
+                                class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                                <div class="pt-3 mt-3 border-t border-white/5 space-y-4 text-[11px] text-white/70">
+
+                                    <!-- NEW: Premium Tracking Progress Section -->
+                                    <div class="bg-white/[0.02] p-3 rounded-xl border border-white/5 space-y-3">
+                                        <div class="flex justify-between items-center mb-1">
+                                            <p class="text-[9px] uppercase tracking-wider font-bold opacity-40">Live
+                                                Tracking</p>
+                                            <p
+                                                class="text-[9px] font-mono text-indigo-400 font-bold bg-indigo-400/10 px-1.5 py-0.5 rounded">
+                                                In Transit</p>
+                                        </div>
+
+                                        <!-- Stepper Timeline Grid -->
+                                        <div class="relative flex justify-between items-start pt-1 px-1">
+                                            <!-- Track Background Line -->
+                                            <div class="absolute top-[7px] left-2 right-2 h-[2px] bg-white/10 z-0">
+                                            </div>
+                                            <!-- Track Active Line -->
+                                            <div class="absolute top-[7px] left-2 w-2/3 h-[2px] bg-indigo-500 z-0">
+                                            </div>
+
+                                            <!-- Step 1: Placed -->
+                                            <div class="relative z-10 flex flex-col items-center text-center w-1/4">
+                                                <div
+                                                    class="w-3 h-3 rounded-full bg-indigo-500 ring-4 ring-indigo-500/20 flex items-center justify-center">
+                                                    <div class="w-1.5 h-1.5 bg-white rounded-full"></div>
+                                                </div>
+                                                <p class="text-[9px] font-bold text-white mt-1.5 leading-none">Placed
+                                                </p>
+                                                <p class="text-[8px] opacity-40 scale-90 origin-top mt-0.5">Apr 09</p>
+                                            </div>
+
+                                            <!-- Step 2: Processing -->
+                                            <div class="relative z-10 flex flex-col items-center text-center w-1/4">
+                                                <div
+                                                    class="w-3 h-3 rounded-full bg-indigo-500 ring-4 ring-indigo-500/20 flex items-center justify-center">
+                                                    <div class="w-1.5 h-1.5 bg-white rounded-full"></div>
+                                                </div>
+                                                <p class="text-[9px] font-bold text-white mt-1.5 leading-none">Processed
+                                                </p>
+                                                <p class="text-[8px] opacity-40 scale-90 origin-top mt-0.5">Apr 10</p>
+                                            </div>
+
+                                            <!-- Step 3: Shipped (Current Active Step) -->
+                                            <div class="relative z-10 flex flex-col items-center text-center w-1/4">
+                                                <div
+                                                    class="w-3 h-3 rounded-full bg-indigo-500 ring-4 ring-indigo-400/40 animate-pulse flex items-center justify-center">
+                                                    <div class="w-1.5 h-1.5 bg-white rounded-full"></div>
+                                                </div>
+                                                <p class="text-[9px] font-bold text-indigo-400 mt-1.5 leading-none">
+                                                    Shipped</p>
+                                                <p class="text-[8px] opacity-50 scale-90 origin-top mt-0.5">Apr 11</p>
+                                            </div>
+
+                                            <!-- Step 4: Out for Delivery -->
+                                            <div class="relative z-10 flex flex-col items-center text-center w-1/4">
+                                                <div
+                                                    class="w-3 h-3 rounded-full bg-white/10 ring-4 ring-black/0 flex items-center justify-center">
+                                                </div>
+                                                <p class="text-[9px] font-medium opacity-30 mt-1.5 leading-none">
+                                                    Delivered</p>
+                                                <p class="text-[8px] opacity-0 scale-90 origin-top mt-0.5">-</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Items Summary List -->
+                                    <div class="space-y-2">
+                                        <p class="text-[9px] uppercase tracking-wider font-bold opacity-40">Items
+                                            Summary</p>
+                                        <div
+                                            class="flex justify-between items-center bg-white/[0.02] p-2 rounded-xl border border-white/5">
+                                            <div>
+                                                <p class="text-white font-medium">Adidas Classic T-Shirt</p>
+                                                <p class="text-[9px] opacity-50">Size: M | Color: Royal Blue</p>
+                                            </div>
+                                            <p class="font-mono text-white/90">x1</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Delivery Logistics Block -->
+                                    <div class="grid grid-cols-2 gap-2">
+                                        <div class="bg-white/[0.02] p-2 rounded-xl border border-white/5">
+                                            <p class="text-[9px] uppercase tracking-wider font-bold opacity-40 mb-0.5">
+                                                Shipping
+                                                Destination</p>
+                                            <p class="leading-tight text-white/90">Giza, Al Haram St.</p>
+                                        </div>
+                                        <div class="bg-white/[0.02] p-2 rounded-xl border border-white/5">
+                                            <p class="text-[9px] uppercase tracking-wider font-bold opacity-40 mb-0.5">
+                                                Courier Partner
+                                            </p>
+                                            <p class="leading-tight text-white/90">Aramex (Express)</p>
+                                        </div>
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
 
-                        <!-- Pending Order -->
-                        <div
-                            class="p-4 rounded-2xl bg-orange-500/5 border border-orange-500/20 backdrop-blur-md hover:bg-orange-500/10 transition-all cursor-pointer group">
-                            <div class="flex justify-between items-start mb-2">
-                                <span
-                                    class="text-[10px] font-black text-orange-400 uppercase tracking-tighter">Pending</span>
-                                <span class="text-[10px] opacity-40 text-white font-mono">#ORD-8811</span>
-                            </div>
-                            <p class="text-xs font-bold text-white group-hover:text-orange-400 transition-colors">Adidas
-                                classic t-shirt
-                                + 2 items</p>
-                            <div class="flex justify-between items-end mt-2">
-                                <p class="text-[10px] opacity-50 text-white">April 09, 2026</p>
-                                <p class="text-[11px] font-black text-white">EGP 3,450</p>
-                            </div>
-                        </div>
                     </div>
+                    <!-- Expansion Script Logic Integration -->
+                    <script>
+                        function toggleOrderCardExpansion(orderId) {
+                            const detailBlock = document.getElementById(`order-details-${orderId}`);
+                            const chevronIcon = document.getElementById(`order-chevron-${orderId}`);
+
+                            if (!detailBlock) return;
+
+                            if (detailBlock.style.maxHeight && detailBlock.style.maxHeight !== '0px') {
+                                detailBlock.style.maxHeight = '0px';
+                                chevronIcon.style.transform = 'rotate(0deg)';
+                            } else {
+                                // Recalculates dynamically including the tracking content height
+                                detailBlock.style.maxHeight = detailBlock.scrollHeight + "px";
+                                chevronIcon.style.transform = 'rotate(180deg)';
+                            }
+                        }
+                    </script>
                 </div>
+
+
+
+
 
                 <div id="content-fit" class="profile-content space-y-4 hidden">
                     <!-- Part 1: Smart Fit Summary -->
@@ -1152,15 +1498,292 @@
                 </div>
 
                 <div id="content-Notifications" class="profile-content space-y-4 hidden">
-                    <!-- Part 1: Notifications  -->
-                    <div class="p-4 rounded-2xl bg-blue-500/10 border border-blue-500/20">
-                        <div class="flex justify-between items-start mb-2">
-                            <p class="text-[11px] font-bold text-blue-600 dark:text-blue-400"> Notifications</p>
-                            <button
-                                class="text-[9px] bg-blue-600 text-white px-2 py-0.5 rounded-full font-bold uppercase tracking-tighter">Edit</button>
-                        </div>
 
+                    <div class="flex items-center justify-between px-2 mb-4">
+                        <div class="flex items-center gap-2">
+                            <span class="text-[10px] font-bold text-white/40 uppercase tracking-widest">Notifications
+                                Center</span>
+                        </div>
+                        <div>
+                            <span id="notification-badge-counter"
+                                class="text-[10px] font-bold text-blue-400 px-2.5 py-1 rounded-lg bg-blue-500/10 transition-all">
+                                0 Unread
+                            </span>
+                        </div>
                     </div>
+
+                    <div id="notification-scroll-container"
+                        class="max-h-[320px] overflow-y-auto space-y-2 pr-1 custom-scrollbar">
+                    </div>
+
+                    <div class="mt-4 pt-3 border-t border-white/5 flex justify-between items-center px-1">
+                        <button onclick="clearAllNotifications()"
+                            class="text-[10px] font-bold text-white/30 hover:text-red-400 transition-colors">
+                            Clear All
+                        </button>
+                        <button onclick="markAllNotificationsAsRead()"
+                            class="text-[10px] font-bold text-blue-400 hover:underline transition-colors">
+                            Mark all as read
+                        </button>
+                    </div>
+
+
+                    <div id="global-toast-container"
+                        class="fixed top-4 left-1/2 -translate-x-1/2 w-[80%] max-w-[26rem] z-50 pointer-events-none">
+                        <div id="global-toast-card"
+                            class="w-full rounded-2xl border border-white/10 bg-[#1a1a1a]/80 backdrop-blur-md -translate-y-full transition-all duration-700 ease-in-out opacity-0 overflow-hidden shadow-xl">
+                            <div class="px-6 py-4 flex items-center gap-4">
+                                <div id="alert-icon-container"
+                                    class="w-10 h-10 rounded-full flex items-center justify-center shrink-0">
+                                    <i id="alert-icon" class="bi"></i>
+                                </div>
+                                <div class="flex-1 overflow-hidden">
+                                    <p id="alert-heading"
+                                        class="text-xs font-bold text-white uppercase tracking-tighter">
+                                    </p>
+                                    <div class="relative overflow-hidden h-4">
+                                        <p id="alert-message"
+                                            class="text-[11px] opacity-70 text-white whitespace-nowrap absolute left-0">
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <style>
+                        /* Clean custom scrollbar for tracking windows */
+                        .custom-scrollbar::-webkit-scrollbar {
+                            width: 4px;
+                        }
+
+                        .custom-scrollbar::-webkit-scrollbar-track {
+                            background: transparent;
+                        }
+
+                        .custom-scrollbar::-webkit-scrollbar-thumb {
+                            background: rgba(255, 255, 255, 0.1);
+                            border-radius: 99px;
+                        }
+
+                        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+                            background: rgba(255, 255, 255, 0.25);
+                            border-radius: 99px;
+                        }
+                    </style>
+
+                    <script>
+                        // --- Queue Engine State Management ---
+                        let notificationAlertQueue = [];
+                        let isToastCurrentlyProcessing = false;
+
+                        const alertConfiguration = {
+                            cart: { heading: "Added to Cart", icon: "bi-bag-check-fill", color: "bg-emerald-500/20 text-emerald-400" },
+                            auth: { heading: "Security", icon: "bi-shield-lock-fill", color: "bg-blue-500/20 text-blue-400" },
+                            success: { heading: "Success", icon: "bi-check-circle-fill", color: "bg-emerald-500/20 text-emerald-400" },
+                            logout: { heading: "Session", icon: "bi-door-open-fill", color: "bg-orange-500/20 text-orange-400" },
+                            favorite: { heading: "Wishlist", icon: "bi-heart-fill", color: "bg-pink-500/20 text-pink-400" },
+                            shipping: { heading: "Delivery", icon: "bi-truck", color: "bg-indigo-500/20 text-indigo-400" }
+                        };
+
+                        // Concrete mock array containing base test notifications matching image contexts
+                        let systemNotificationsList = [
+                            { id: 1, type: 'cart', time: 'Just Now', text: 'Adidas classic t-shirt successfully packaged.', isRead: false },
+                            { id: 2, type: 'shipping', time: '2 hrs ago', text: 'Order package routed out to dispatch center for address: 10th of Ramadan City, Al-Sharqia.', isRead: false },
+                            { id: 3, type: 'auth', time: 'Yesterday', text: 'Secure login processed successfully from an authenticated device container block session.', isRead: true }
+                        ];
+
+                        // --- Core Notification Render Engine ---
+                        function renderNotificationViewTray() {
+                            const listContainer = document.getElementById('notification-scroll-container');
+                            if (!listContainer) return;
+
+                            if (systemNotificationsList.length === 0) {
+                                listContainer.innerHTML = `
+                                                                <div class="py-8 text-center text-xs text-white/30 flex flex-col items-center gap-2">
+                                                                    <i class="bi bi-bell-slash text-lg"></i>
+                                                                    <span>No notifications available</span>
+                                                                </div>`;
+                                updateCountBadgePill();
+                                return;
+                            }
+
+                            listContainer.innerHTML = systemNotificationsList.map(item => {
+                                const uiType = alertConfiguration[item.type] || alertConfiguration.auth;
+                                const readStatusMarkerStyle = item.isRead ? 'opacity-60' : 'border-l-2 border-l-blue-500';
+                                const unreadDotIndicator = item.isRead ? '' : '<span class="w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0"></span>';
+
+                                return `
+                                                                <div id="noti-card-${item.id}" 
+                                                                     onclick="toggleNotificationCardExpansion(${item.id})"
+                                                                     class="group transition-all duration-300 ease-in-out cursor-pointer p-3 rounded-xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.05] hover:border-white/10 ${readStatusMarkerStyle}">
+                                                                    
+                                                                    <div class="flex items-start justify-between gap-3">
+                                                                        <div class="flex gap-3 items-center">
+                                                                            <div class="w-8 h-8 rounded-lg flex items-center justify-center text-sm shrink-0 ${uiType.color}">
+                                                                                <i class="bi ${uiType.icon}"></i>
+                                                                            </div>
+                                                                            <div>
+                                                                                <div class="flex items-center gap-2">
+                                                                                    <p class="text-xs font-bold text-white leading-tight">${uiType.heading}</p>
+                                                                                    ${unreadDotIndicator}
+                                                                                </div>
+                                                                                <p class="text-[9px] text-white/40 mt-0.5">${item.time}</p>
+                                                                            </div>
+                                                                        </div>
+                                                                        <i id="chevron-icon-${item.id}" class="bi bi-chevron-down text-[10px] text-white/30 group-hover:text-white/60 transition-transform duration-300"></i>
+                                                                    </div>
+                                                
+                                                                    <div id="noti-details-${item.id}" class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                                                                        <div class="pt-2 mt-2 border-t border-white/5">
+                                                                            <p class="text-[11px] text-white/70 leading-relaxed font-normal">
+                                                                                ${item.text}
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                
+                                                                </div>
+                                                            `;
+                            }).join('');
+
+                            updateCountBadgePill();
+                        }
+
+                        // --- Card Expansion Logic ---
+                        function toggleNotificationCardExpansion(notificationId) {
+                            const targetDetailsBlock = document.getElementById(`noti-details-${notificationId}`);
+                            const targetChevronIcon = document.getElementById(`chevron-icon-${notificationId}`);
+                            const trackingRecord = systemNotificationsList.find(n => n.id === notificationId);
+
+                            if (!targetDetailsBlock) return;
+
+                            if (targetDetailsBlock.style.maxHeight && targetDetailsBlock.style.maxHeight !== '0px') {
+                                targetDetailsBlock.style.maxHeight = '0px';
+                                targetChevronIcon.style.transform = 'rotate(0deg)';
+                            } else {
+                                targetDetailsBlock.style.maxHeight = targetDetailsBlock.scrollHeight + "px";
+                                targetChevronIcon.style.transform = 'rotate(180deg)';
+
+                                if (trackingRecord && !trackingRecord.isRead) {
+                                    trackingRecord.isRead = true;
+                                    setTimeout(() => {
+                                        renderNotificationViewTray();
+                                        const freshDetailsBlock = document.getElementById(`noti-details-${notificationId}`);
+                                        const freshChevron = document.getElementById(`chevron-icon-${notificationId}`);
+                                        if (freshDetailsBlock) {
+                                            freshDetailsBlock.style.transition = 'none';
+                                            freshDetailsBlock.style.maxHeight = freshDetailsBlock.scrollHeight + "px";
+                                            if (freshChevron) freshChevron.style.transform = 'rotate(180deg)';
+                                            setTimeout(() => freshDetailsBlock.style.transition = '', 50);
+                                        }
+                                    }, 450);
+                                }
+                            }
+                        }
+
+                        // --- Helper Utility Methods ---
+                        function updateCountBadgePill() {
+                            const unreadCount = systemNotificationsList.filter(n => !n.isRead).length;
+                            const targetCounterBadge = document.getElementById('notification-badge-counter');
+                            if (targetCounterBadge) {
+                                targetCounterBadge.textContent = `${unreadCount} Unread`;
+                                if (unreadCount === 0) {
+                                    targetCounterBadge.className = "text-[10px] font-bold text-white/30 px-2.5 py-1 rounded-lg bg-white/5 transition-all";
+                                } else {
+                                    targetCounterBadge.className = "text-[10px] font-bold text-blue-400 px-2.5 py-1 rounded-lg bg-blue-500/10 transition-all";
+                                }
+                            }
+                        }
+
+                        function markAllNotificationsAsRead() {
+                            systemNotificationsList.forEach(n => n.isRead = true);
+                            renderNotificationViewTray();
+                        }
+
+                        function clearAllNotifications() {
+                            systemNotificationsList = [];
+                            renderNotificationViewTray();
+                        }
+
+                        // --- Live Real-Time Queue Notification Controller Pipeline ---
+                        function showAlert(type, message) {
+                            // 1. Instantly inject into the logs list array context for instant notification panel rendering
+                            const generateNewId = systemNotificationsList.length ? Math.max(...systemNotificationsList.map(n => n.id)) + 1 : 1;
+                            systemNotificationsList.unshift({
+                                id: generateNewId,
+                                type: type,
+                                time: 'Just Now',
+                                text: message,
+                                isRead: false
+                            });
+                            renderNotificationViewTray();
+
+                            // 2. Stage new actions directly inside sequential queue array list
+                            notificationAlertQueue.push({ type, message });
+
+                            // Trigger processing sequence safely
+                            processNextQueueAlert();
+                        }
+
+                        // Sequential animation process handler loop
+                        function processNextQueueAlert() {
+                            if (isToastCurrentlyProcessing || notificationAlertQueue.length === 0) return;
+
+                            isToastCurrentlyProcessing = true;
+                            const currentAlert = notificationAlertQueue.shift();
+
+                            const wrapper = document.getElementById('global-toast-card');
+                            const heading = document.getElementById('alert-heading');
+                            const msgElem = document.getElementById('alert-message');
+                            const iconContainer = document.getElementById('alert-icon-container');
+                            const icon = document.getElementById('alert-icon');
+
+                            const config = alertConfiguration[currentAlert.type] || alertConfiguration.auth;
+
+                            // Clean styling transform parameters layout prior to showing
+                            msgElem.style.transition = 'none';
+                            msgElem.style.transform = 'translateX(0)';
+
+                            heading.innerText = config.heading;
+                            msgElem.innerText = currentAlert.message;
+                            icon.className = `bi ${config.icon}`;
+                            iconContainer.className = `w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${config.color}`;
+
+                            // Slide down display transition rules call
+                            wrapper.classList.remove('-translate-y-full', 'opacity-0');
+                            wrapper.classList.add('translate-y-0', 'opacity-100');
+
+                            let dynamicDismissalDelay = 3500;
+
+                            // Horizontal text scrolling configuration metrics calculations
+                            setTimeout(() => {
+                                const overflowSpace = msgElem.scrollWidth - msgElem.parentElement.clientWidth;
+                                if (overflowSpace > 0) {
+                                    const calculatedScrollSpeed = Math.max(2.5, (overflowSpace / 35));
+                                    msgElem.style.transition = `transform ${calculatedScrollSpeed}s linear`;
+                                    msgElem.style.transform = `translateX(-${overflowSpace + 24}px)`;
+
+                                    dynamicDismissalDelay += (calculatedScrollSpeed * 1000) - 1500;
+                                }
+                            }, 400);
+
+                            // Auto removal dismissal sequence setup
+                            setTimeout(() => {
+                                wrapper.classList.add('-translate-y-full', 'opacity-0');
+                                wrapper.classList.remove('translate-y-0', 'opacity-100');
+
+                                setTimeout(() => {
+                                    isToastCurrentlyProcessing = false;
+                                    // Loop through remaining queue notifications back to back
+                                    processNextQueueAlert();
+                                }, 750);
+                            }, dynamicDismissalDelay);
+                        }
+
+                        // Initialize layout display tracking parameters on loading execution loops
+                        renderNotificationViewTray();
+                    </script>
                 </div>
 
                 <div id="content-related" class="profile-content space-y-4 hidden">
