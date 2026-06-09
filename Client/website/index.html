@@ -1944,9 +1944,8 @@
                     </style>
 
                     <script>
-                        // --- Queue Engine State Management ---
-                        let notificationAlertQueue = [];
-                        let isToastCurrentlyProcessing = false;
+                        // --- Queue & Notification State Management ---
+                        let isAlertActive = false;
 
                         const alertConfiguration = {
                             cart: { heading: "Added to Cart", icon: "bi-bag-check-fill", color: "bg-emerald-500/20 text-emerald-400" },
@@ -1954,15 +1953,11 @@
                             success: { heading: "Success", icon: "bi-check-circle-fill", color: "bg-emerald-500/20 text-emerald-400" },
                             logout: { heading: "Session", icon: "bi-door-open-fill", color: "bg-orange-500/20 text-orange-400" },
                             favorite: { heading: "Wishlist", icon: "bi-heart-fill", color: "bg-pink-500/20 text-pink-400" },
-                            shipping: { heading: "Delivery", icon: "bi-truck", color: "bg-indigo-500/20 text-indigo-400" }
+                            shipping: { heading: "Delivery", icon: "bi-truck", color: "bg-indigo-500/20 text-indigo-400" },
+                            reminder: { heading: "Restock Alert", icon: "bi-bell-fill", color: "bg-amber-500/20 text-amber-400" }
                         };
 
-                        // Concrete mock array containing base test notifications matching image contexts
-                        let systemNotificationsList = [
-                            { id: 1, type: 'cart', time: 'Just Now', text: 'Adidas classic t-shirt successfully packaged.', isRead: false },
-                            { id: 2, type: 'shipping', time: '2 hrs ago', text: 'Order package routed out to dispatch center for address: 10th of Ramadan City, Al-Sharqia.', isRead: false },
-                            { id: 3, type: 'auth', time: 'Yesterday', text: 'Secure login processed successfully from an authenticated device container block session.', isRead: true }
-                        ];
+                        let systemNotificationsList = [];
 
                         // --- Core Notification Render Engine ---
                         function renderNotificationViewTray() {
@@ -1971,56 +1966,53 @@
 
                             if (systemNotificationsList.length === 0) {
                                 listContainer.innerHTML = `
-                                                                <div class="py-8 text-center text-xs text-white/30 flex flex-col items-center gap-2">
-                                                                    <i class="bi bi-bell-slash text-lg"></i>
-                                                                    <span>No notifications available</span>
-                                                                </div>`;
+                                    <div class="py-8 text-center text-xs text-white/30 flex flex-col items-center gap-2">
+                                        <i class="bi bi-bell-slash text-lg"></i>
+                                        <span>No notifications available</span>
+                                    </div>`;
                                 updateCountBadgePill();
                                 return;
                             }
 
                             listContainer.innerHTML = systemNotificationsList.map(item => {
                                 const uiType = alertConfiguration[item.type] || alertConfiguration.auth;
-                                // const readStatusMarkerStyle = item.isRead ? 'opacity-60' : 'border-l-2 border-l-blue-500';
                                 const unreadDotIndicator = item.isRead ? '' : '<span class="w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0"></span>';
 
                                 return `
-                                                                <div id="noti-card-${item.id}" 
-                                                                     onclick="toggleNotificationCardExpansion(${item.id})"
-                                                                     class="group transition-all duration-300 ease-in-out cursor-pointer p-3 rounded-xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.05] hover:border-white/10">
-                                                                    
-                                                                    <div class="flex items-start justify-between gap-3">
-                                                                        <div class="flex gap-3 items-center">
-                                                                            <div class="w-8 h-8 rounded-lg flex items-center justify-center text-sm shrink-0 ${uiType.color}">
-                                                                                <i class="bi ${uiType.icon}"></i>
-                                                                            </div>
-                                                                            <div>
-                                                                                <div class="flex items-center gap-2">
-                                                                                    <p class="text-xs font-bold text-white leading-tight">${uiType.heading}</p>
-                                                                                    ${unreadDotIndicator}
-                                                                                </div>
-                                                                                <p class="text-[9px] text-white/40 mt-0.5">${item.time}</p>
-                                                                            </div>
-                                                                        </div>
-                                                                        <i id="chevron-icon-${item.id}" class="bi bi-chevron-down text-[10px] text-white/30 group-hover:text-white/60 transition-transform duration-300"></i>
-                                                                    </div>
-                                                
-                                                                    <div id="noti-details-${item.id}" class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
-                                                                        <div class="pt-2 mt-2 border-t border-white/5">
-                                                                            <p class="text-[11px] text-white/70 leading-relaxed font-normal">
-                                                                                ${item.text}
-                                                                            </p>
-                                                                        </div>
-                                                                    </div>
-                                                
-                                                                </div>
-                                                            `;
+                                    <div id="noti-card-${item.id}" 
+                                         onclick="event.stopPropagation(); toggleNotificationCardExpansion(${item.id})"
+                                         class="group transition-all duration-300 ease-in-out cursor-pointer p-3 rounded-xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.05] hover:border-white/10 mb-2">
+                                        
+                                        <div class="flex items-start justify-between gap-3">
+                                            <div class="flex gap-3 items-center">
+                                                <div class="w-8 h-8 rounded-lg flex items-center justify-center text-sm shrink-0 ${uiType.color}">
+                                                    <i class="bi ${uiType.icon}"></i>
+                                                </div>
+                                                <div>
+                                                    <div class="flex items-center gap-2">
+                                                        <p class="text-xs font-bold text-white leading-tight">${uiType.heading}</p>
+                                                        ${unreadDotIndicator}
+                                                    </div>
+                                                    <p class="text-[9px] text-white/40 mt-0.5">${item.time}</p>
+                                                </div>
+                                            </div>
+                                            <i id="chevron-icon-${item.id}" class="bi bi-chevron-down text-[10px] text-white/30 group-hover:text-white/60 transition-transform duration-300"></i>
+                                        </div>
+                                    
+                                        <div id="noti-details-${item.id}" class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                                            <div class="pt-2 mt-2 border-t border-white/5">
+                                                <p class="text-[11px] text-white/70 leading-relaxed font-normal">
+                                                    ${item.text}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>`;
                             }).join('');
 
                             updateCountBadgePill();
                         }
 
-                        // --- Card Expansion Logic ---
+                        // --- Card Expansion Accordion Logic ---
                         function toggleNotificationCardExpansion(notificationId) {
                             const targetDetailsBlock = document.getElementById(`noti-details-${notificationId}`);
                             const targetChevronIcon = document.getElementById(`chevron-icon-${notificationId}`);
@@ -2030,10 +2022,10 @@
 
                             if (targetDetailsBlock.style.maxHeight && targetDetailsBlock.style.maxHeight !== '0px') {
                                 targetDetailsBlock.style.maxHeight = '0px';
-                                targetChevronIcon.style.transform = 'rotate(0deg)';
+                                if (targetChevronIcon) targetChevronIcon.style.transform = 'rotate(0deg)';
                             } else {
                                 targetDetailsBlock.style.maxHeight = targetDetailsBlock.scrollHeight + "px";
-                                targetChevronIcon.style.transform = 'rotate(180deg)';
+                                if (targetChevronIcon) targetChevronIcon.style.transform = 'rotate(180deg)';
 
                                 if (trackingRecord && !trackingRecord.isRead) {
                                     trackingRecord.isRead = true;
@@ -2052,7 +2044,6 @@
                             }
                         }
 
-                        // --- Helper Utility Methods ---
                         function updateCountBadgePill() {
                             const unreadCount = systemNotificationsList.filter(n => !n.isRead).length;
                             const targetCounterBadge = document.getElementById('notification-badge-counter');
@@ -2075,84 +2066,105 @@
                             systemNotificationsList = [];
                             renderNotificationViewTray();
                         }
-
-                        // --- Live Real-Time Queue Notification Controller Pipeline ---
+                        // --- Integrated Live Toast Window Injector Engine (Append Mode) ---
                         function showAlert(type, message) {
-                            // 1. Instantly inject into the logs list array context for instant notification panel rendering
-                            const generateNewId = systemNotificationsList.length ? Math.max(...systemNotificationsList.map(n => n.id)) + 1 : 1;
-                            systemNotificationsList.unshift({
-                                id: generateNewId,
+                            // 1. Inject directly into your notification center data stream array
+                            const newNotification = {
+                                id: Date.now(),
                                 type: type,
                                 time: 'Just Now',
                                 text: message,
                                 isRead: false
-                            });
-                            renderNotificationViewTray();
+                            };
+                            systemNotificationsList.unshift(newNotification);
 
-                            // 2. Stage new actions directly inside sequential queue array list
-                            notificationAlertQueue.push({ type, message });
+                            // Call your tray render if it exists in your script environment
+                            if (typeof renderNotificationViewTray === 'function') {
+                                renderNotificationViewTray();
+                            }
 
-                            // Trigger processing sequence safely
-                            processNextQueueAlert();
-                        }
+                            // 2. Locate target layout zone
+                            const targetZone = document.getElementById('dynamic-alert-target-zone');
+                            if (!targetZone) {
+                                console.error("Layout Target Error: #dynamic-alert-target-zone wrapper container is missing from the layout DOM.");
+                                return;
+                            }
 
-                        // Sequential animation process handler loop
-                        function processNextQueueAlert() {
-                            if (isToastCurrentlyProcessing || notificationAlertQueue.length === 0) return;
+                            const config = alertConfiguration[type] || alertConfiguration.auth;
+                            const uniqueAlertId = `alert-node-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
 
-                            isToastCurrentlyProcessing = true;
-                            const currentAlert = notificationAlertQueue.shift();
+                            // 3. Construct premium glassmorphic layout card node raw HTML string 
+                            const alertHTML = `
+        <div id="${uniqueAlertId}" 
+             class="glass w-full rounded-2xl pointer-events-auto border border-white/10 shadow-2xl overflow-hidden transition-all duration-500 ease-in-out opacity-0 -translate-y-4 scale-95 transform">
+            <div class="px-5 py-3.5 flex items-center gap-4 bg-black/20 backdrop-blur-xl">
+                <div class="w-9 h-9 rounded-full flex items-center justify-center shrink-0 ${config.color}">
+                    <i class="bi ${config.icon} text-sm"></i>
+                </div>
+                <div class="flex-1 overflow-hidden">
+                    <p class="text-[10px] font-bold text-white uppercase tracking-wider mb-0.5 leading-none">${config.heading}</p>
+                    <div class="relative overflow-hidden h-4 flex items-center text-box-wrapper">
+                        <p class="alert-msg-text text-[11px] text-white/70 whitespace-nowrap absolute left-0 leading-tight will-change-transform">
+                            ${message}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
 
-                            const wrapper = document.getElementById('global-toast-card');
-                            const heading = document.getElementById('alert-heading');
-                            const msgElem = document.getElementById('alert-message');
-                            const iconContainer = document.getElementById('alert-icon-container');
-                            const icon = document.getElementById('alert-icon');
+                            // 4. Convert string template smoothly into an active DOM element element node
+                            const parser = new DOMParser();
+                            const doc = parser.parseFromString(alertHTML, 'text/html');
+                            const alertElement = doc.getElementById(uniqueAlertId);
 
-                            const config = alertConfiguration[currentAlert.type] || alertConfiguration.auth;
+                            // Append dynamically into target zone container area
+                            targetZone.appendChild(alertElement);
 
-                            // Clean styling transform parameters layout prior to showing
-                            msgElem.style.transition = 'none';
-                            msgElem.style.transform = 'translateX(0)';
-
-                            heading.innerText = config.heading;
-                            msgElem.innerText = currentAlert.message;
-                            icon.className = `bi ${config.icon}`;
-                            iconContainer.className = `w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${config.color}`;
-
-                            // Slide down display transition rules call
-                            wrapper.classList.remove('-translate-y-full', 'opacity-0');
-                            wrapper.classList.add('translate-y-0', 'opacity-100');
-
-                            let dynamicDismissalDelay = 3500;
-
-                            // Horizontal text scrolling configuration metrics calculations
-                            setTimeout(() => {
-                                const overflowSpace = msgElem.scrollWidth - msgElem.parentElement.clientWidth;
-                                if (overflowSpace > 0) {
-                                    const calculatedScrollSpeed = Math.max(2.5, (overflowSpace / 35));
-                                    msgElem.style.transition = `transform ${calculatedScrollSpeed}s linear`;
-                                    msgElem.style.transform = `translateX(-${overflowSpace + 24}px)`;
-
-                                    dynamicDismissalDelay += (calculatedScrollSpeed * 1000) - 1500;
-                                }
-                            }, 400);
-
-                            // Auto removal dismissal sequence setup
-                            setTimeout(() => {
-                                wrapper.classList.add('-translate-y-full', 'opacity-0');
-                                wrapper.classList.remove('translate-y-0', 'opacity-100');
-
+                            // 5. Trigger slide down entry animation frame
+                            requestAnimationFrame(() => {
                                 setTimeout(() => {
-                                    isToastCurrentlyProcessing = false;
-                                    // Loop through remaining queue notifications back to back
-                                    processNextQueueAlert();
-                                }, 750);
-                            }, dynamicDismissalDelay);
+                                    alertElement.classList.remove('opacity-0', '-translate-y-4', 'scale-95');
+                                    alertElement.classList.add('opacity-100', 'translate-y-0', 'scale-100');
+                                }, 10);
+                            });
+
+                            // 6. Run safe width marquee calculations natively inside the layout container
+                            setTimeout(() => {
+                                const msgTextNode = alertElement.querySelector('.alert-msg-text');
+                                if (!msgTextNode) return;
+
+                                const containerWidth = msgTextNode.parentElement.clientWidth;
+                                const textWidth = msgTextNode.scrollWidth;
+                                const overflow = textWidth - containerWidth;
+
+                                if (overflow > 0 && containerWidth > 0) {
+                                    msgTextNode.style.transition = `transform 3.5s linear`;
+                                    msgTextNode.style.transform = `translateX(-${overflow + 20}px)`;
+                                }
+                            }, 600);
+
+                            // 7. Auto Hide & Element Removal Cycle Loop
+                            setTimeout(() => {
+                                // Slide out gracefully
+                                alertElement.classList.remove('opacity-100', 'translate-y-0', 'scale-100');
+                                alertElement.classList.add('opacity-0', '-translate-y-2', 'scale-95');
+
+                                // Completely destroy node element from DOM layout once CSS transitions close down
+                                setTimeout(() => {
+                                    alertElement.remove();
+                                }, 500);
+                            }, 4500);
                         }
 
-                        // Initialize layout display tracking parameters on loading execution loops
-                        renderNotificationViewTray();
+                        // --- Dynamic Action Trigger Test Example ---
+                        function handleAddToCart(productName) {
+                            showAlert('cart', `${productName} has been successfully added to your shopping bag.`);
+                        }
+                        // Initialize UI on Load
+                        document.addEventListener("DOMContentLoaded", () => {
+                            renderNotificationViewTray();
+                        });
                     </script>
                 </div>
 
@@ -2946,120 +2958,14 @@
             // Your existing toggleMenu remains the same
         </script>
     </div>
-    <!--  -->
 
-
-    <div id="alert-wrapper"
-        class="fixed top-4 left-1/2 -translate-x-1/2 w-[80%] max-w-[26rem] z-40 pointer-events-none">
-        <div id="alert-box"
-            class="glass w-full rounded-b-[2rem] -translate-y-full transition-all duration-700 ease-in-out opacity-0 overflow-hidden">
-            <div class="px-6 py-4 flex items-center gap-4">
-                <div id="alert-icon-container" class="w-10 h-10 rounded-full flex items-center justify-center shrink-0">
-                    <i id="alert-icon" class="bi"></i>
-                </div>
-                <div class="flex-1 overflow-hidden">
-                    <p id="alert-heading" class="text-xs font-bold dark:text-white uppercase tracking-tighter"></p>
-                    <div class="relative overflow-hidden h-4">
-                        <p id="alert-message"
-                            class="text-[11px] opacity-70 dark:text-white whitespace-nowrap absolute left-0"></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <script>
-            // Initialize the lock variable
-            let isAlertActive = false;
-
-            const alerts = {
-                // Added the missing cart and auth types
-                cart: {
-                    heading: "Added to Cart",
-                    icon: "bi-bag-check-fill",
-                    color: "bg-emerald-500/20 text-emerald-500"
-                },
-                auth: {
-                    heading: "Security",
-                    icon: "bi-shield-lock-fill",
-                    color: "bg-blue-500/20 text-blue-500"
-                },
-                success: {
-                    heading: "Success",
-                    icon: "bi-check-circle-fill",
-                    color: "bg-emerald-500/20 text-emerald-500"
-                },
-                logout: {
-                    heading: "Session",
-                    icon: "bi-door-open-fill",
-                    color: "bg-orange-500/20 text-orange-500"
-                },
-                favorite: {
-                    heading: "Wishlist",
-                    icon: "bi-heart-fill",
-                    color: "bg-pink-500/20 text-pink-500"
-                },
-                shipping: {
-                    heading: "Delivery",
-                    icon: "bi-truck",
-                    color: "bg-indigo-500/20 text-indigo-500"
-                }
-            };
-
-            function handleAddToCart(productName) {
-                console.log(`${productName} added to cart`);
-                showAlert('cart', `${productName} has been successfully added to your shopping bag.`);
-            }
-
-            function showAlert(type, message) {
-                if (isAlertActive) return;
-                isAlertActive = true;
-
-                const wrapper = document.getElementById('alert-box');
-                const heading = document.getElementById('alert-heading');
-                const msgElem = document.getElementById('alert-message');
-                const iconContainer = document.getElementById('alert-icon-container');
-                const icon = document.getElementById('alert-icon');
-
-                const config = alerts[type] || alerts.auth;
-
-                // 1. Set Content
-                heading.innerText = config.heading;
-                msgElem.innerText = message;
-                icon.className = `bi ${config.icon}`;
-                iconContainer.className = `w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${config.color}`;
-
-                // 2. Show Alert (Slide down)
-                // Increased to 5.5rem to ensure it clears your nav bar height
-                wrapper.classList.remove('-translate-y-full', 'opacity-0');
-                wrapper.classList.add('translate-y-[4rem]', 'opacity-100');
-
-                // 3. Handle Scrolling logic
-                setTimeout(() => {
-                    const overflow = msgElem.scrollWidth - msgElem.parentElement.clientWidth;
-                    if (overflow > 0) {
-                        // Increased time to 3s for better readability during overflow
-                        msgElem.style.transition = `transform 3s linear`;
-                        msgElem.style.transform = `translateX(-${overflow + 20}px)`;
-                    }
-                }, 500);
-
-                // 4. Hide Alert after 4 seconds
-                setTimeout(() => {
-                    wrapper.classList.add('-translate-y-full', 'opacity-0');
-                    wrapper.classList.remove('translate-y-[4rem]', 'opacity-100');
-
-                    // Reset state and scroll for next time
-                    setTimeout(() => {
-                        msgElem.style.transition = 'none';
-                        msgElem.style.transform = 'translateX(0)';
-                        isAlertActive = false; // RELEASE THE LOCK
-                    }, 700);
-                }, 4000);
-            }
-        </script>
+    <div id="dynamic-alert-target-zone"
+        class="fixed top-4 left-1/2 -translate-x-1/2 w-[80%] max-w-[26rem] z-50 pointer-events-none flex flex-col gap-3">
     </div>
 
 
     <main class="flex flex-col items-center">
+
 
         <div id="hero-main-container"
             class="bg-[#050505] relative w-full overflow-hidden transition-[height] duration-700 ease-in-out will-change-[height]">
@@ -3178,8 +3084,8 @@
                             <div
                                 class="w-full flex flex-nowrap md:flex-wrap justify-start md:justify-center gap-5 mt-4 overflow-x-auto md:overflow-x-visible pb-4 md:pb-0 snap-x snap-mandatory no-scrollbar px-4">
 
-                                <div class="product-card glass rounded-[2rem] group cursor-pointer overflow-hidden transition-all duration-500 relative w-[190px] h-[220px] bg-black border border-white/10 shadow-2xl flex flex-col shrink-0 snap-center"
-                                    onclick="toggleOverlay(this, event)">
+                                <div
+                                    class="product-card glass rounded-[2rem] group cursor-pointer overflow-hidden transition-all duration-500 relative w-[190px] h-[220px] bg-black border border-white/10 shadow-2xl flex flex-col shrink-0 snap-center">
                                     <div class="absolute inset-0 w-full h-full overflow-hidden">
                                         <div class="absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out group-hover:scale-110 group-hover:blur-sm"
                                             style="background-image: url('https://assets.adidas.com/images/w_1880,f_auto,q_auto/a4ff4a779ee34deca8cc9a6f1f411440_9366/KC6611_HM1.jpg');">
@@ -3242,8 +3148,67 @@
                                     </div>
                                 </div>
 
-                                <div class="product-card glass rounded-[2rem] group cursor-pointer overflow-hidden transition-all duration-500 relative w-[190px] h-[220px] bg-black border border-white/10 shadow-2xl flex flex-col shrink-0 snap-center"
-                                    onclick="toggleOverlay(this, event)">
+                                <div
+                                    class="product-card glass rounded-[2rem] group cursor-pointer overflow-hidden transition-all duration-500 relative w-[190px] h-[220px] bg-black border border-white/10 shadow-2xl flex flex-col shrink-0 snap-center opacity-90">
+
+                                    <div class="absolute inset-0 w-full h-full overflow-hidden">
+                                        <div class="absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out group-hover:scale-110 group-hover:blur-sm brightness-[0.6]"
+                                            style="background-image: url('https://assets.adidas.com/images/w_1880,f_auto,q_auto/a4ff4a779ee34deca8cc9a6f1f411440_9366/KC6611_HM1.jpg');">
+                                        </div>
+                                        <div
+                                            class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-black/40 z-10">
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        class="absolute top-4 left-4 bg-red-950/80 backdrop-blur-md border border-red-500/30 text-red-400 text-[8px] uppercase font-black tracking-wider px-2 py-1 rounded-md z-40 shadow-md">
+                                        Sold Out
+                                    </div>
+
+                                    <div
+                                        class="absolute bottom-3 left-3 right-3 glass border border-white/10 rounded-[1.25rem] p-3 z-30 overflow-hidden bg-black/50 backdrop-blur-xl transition-all duration-500 min-h-[96px] flex flex-col justify-center">
+
+                                        <div
+                                            class="flex flex-col gap-1.5 transition-all duration-500 ease-in-out group-hover:opacity-0 group-hover:translate-y-4 group-hover:pointer-events-none text-left">
+                                            <div>
+                                                <h4
+                                                    class="font-bold text-xs text-white/60 truncate line-through leading-tight tracking-wide">
+                                                    Adidas
+                                                    classic t-shirt</h4>
+                                                <p
+                                                    class="text-[8px] opacity-40 tracking-[0.15em] uppercase text-white mt-0.5">
+                                                    ADIDAS</p>
+                                            </div>
+                                            <div class="flex items-center justify-between mt-0.5">
+                                                <div class="flex items-center justify-between">
+                                                    <span class="text-[10px] font-bold text-white tracking-wide">EGP
+                                                        4,500</span>
+                                                </div>
+                                                <span
+                                                    class="text-[7px] text-zinc-400 font-bold uppercase tracking-wider">Unavailable</span>
+                                            </div>
+                                        </div>
+
+                                        <div
+                                            class="absolute inset-x-3 bottom-3 top-3 opacity-0 translate-y-4 pointer-events-none transition-all duration-500 ease-in-out group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto flex flex-col justify-center gap-1.5">
+                                            <button
+                                                class="w-full py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-xl font-bold transition active:scale-95 flex items-center justify-center gap-1 text-[8px] uppercase tracking-wider"
+                                                onclick="event.stopPropagation(); showAlert('reminder', 'Restock alert set successfully.')">
+                                                <i class="bi bi-bell-fill"></i> Remind Me
+                                            </button>
+                                            <div class="grid grid-cols-2 gap-1.5">
+                                                <button
+                                                    onclick="event.stopPropagation(); window.location.href='https://wa.me/1234567890?text=Hi! Is the Adidas Classic T-shirt restocking soon?';"
+                                                    class="py-1.5 bg-white text-black rounded-lg font-bold hover:bg-gray-200 transition active:scale-95 text-[8px] uppercase tracking-wide">Chat</button>
+                                                <button onclick="event.stopPropagation(); openQuickLook('PROD_001')"
+                                                    class="py-1.5 bg-white/10 border border-white/10 text-white rounded-lg font-bold hover:bg-white/20 transition text-[8px] uppercase tracking-wide">Look</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div
+                                    class="product-card glass rounded-[2rem] group cursor-pointer overflow-hidden transition-all duration-500 relative w-[190px] h-[220px] bg-black border border-white/10 shadow-2xl flex flex-col shrink-0 snap-center">
                                     <div class="absolute inset-0 w-full h-full overflow-hidden">
                                         <div class="absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out group-hover:scale-110 group-hover:blur-sm"
                                             style="background-image: url('https://assets.adidas.com/images/w_1880,f_auto,q_auto/c8ece493c83c4594a05c2e92bd259bd2_9366/KG2891_21_model.jpg');">
@@ -3286,8 +3251,8 @@
                                     </div>
                                 </div>
 
-                                <div class="product-card glass rounded-[2rem] group cursor-pointer overflow-hidden transition-all duration-500 relative w-[190px] h-[220px] bg-black border border-white/10 shadow-2xl flex flex-col shrink-0 snap-center"
-                                    onclick="toggleOverlay(this, event)">
+                                <div
+                                    class="product-card glass rounded-[2rem] group cursor-pointer overflow-hidden transition-all duration-500 relative w-[190px] h-[220px] bg-black border border-white/10 shadow-2xl flex flex-col shrink-0 snap-center">
                                     <div class="absolute inset-0 w-full h-full overflow-hidden">
                                         <div class="absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out group-hover:scale-110 group-hover:blur-sm"
                                             style="background-image: url('https://assets.adidas.com/images/w_1880,f_auto,q_auto/6169c8abb4b045e7873d1d74f07e88b3_9366/JD4827_21_model.jpg');">
@@ -3409,8 +3374,8 @@
                             <div
                                 class="w-full flex flex-nowrap md:flex-wrap justify-start md:justify-center gap-5 mt-2 overflow-x-auto md:overflow-x-visible pb-4 md:pb-0 snap-x snap-mandatory no-scrollbar px-4">
 
-                                <div class="product-card glass rounded-[2rem] group cursor-pointer overflow-hidden transition-all duration-500 relative w-[190px] h-[220px] bg-black border border-white/10 shadow-2xl flex flex-col shrink-0 snap-center"
-                                    onclick="toggleOverlay(this, event)">
+                                <div
+                                    class="product-card glass rounded-[2rem] group cursor-pointer overflow-hidden transition-all duration-500 relative w-[190px] h-[220px] bg-black border border-white/10 shadow-2xl flex flex-col shrink-0 snap-center">
                                     <div class="absolute inset-0 w-full h-full overflow-hidden">
                                         <div class="absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out group-hover:scale-110 group-hover:blur-sm"
                                             style="background-image: url('https://assets.adidas.com/images/w_1880,f_auto,q_auto/87ff53e45ef14648acc17e4f5c7971ed_9366/JZ0699_21_model.jpg');">
@@ -3472,8 +3437,8 @@
                                     </div>
                                 </div>
 
-                                <div class="product-card glass rounded-[2rem] group cursor-pointer overflow-hidden transition-all duration-500 relative w-[190px] h-[220px] bg-black border border-white/10 shadow-2xl flex flex-col shrink-0 snap-center"
-                                    onclick="toggleOverlay(this, event)">
+                                <div
+                                    class="product-card glass rounded-[2rem] group cursor-pointer overflow-hidden transition-all duration-500 relative w-[190px] h-[220px] bg-black border border-white/10 shadow-2xl flex flex-col shrink-0 snap-center">
                                     <div class="absolute inset-0 w-full h-full overflow-hidden">
                                         <div class="absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out group-hover:scale-110 group-hover:blur-sm"
                                             style="background-image: url('https://assets.adidas.com/images/w_1880,f_auto,q_auto/ca728feb359a47d1875f1c4eb2cbcc4d_9366/JZ0705_HM1.jpg');">
@@ -3910,8 +3875,8 @@
                 <!-- Featured Grid -->
                 <div id="grid-featured"
                     class="product-grid visible-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
-                    <div class="product-card glass rounded-[2rem] group cursor-pointer overflow-hidden transition-all duration-500 relative w-full bg-black"
-                        onclick="toggleOverlay(this, event)">
+                    <div
+                        class="product-card glass rounded-[2rem] group cursor-pointer overflow-hidden transition-all duration-500 relative w-full bg-black">
 
                         <div class="aspect-[4/5] overflow-hidden relative">
                             <div class="absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out group-hover:scale-110 group-hover:blur-sm"
@@ -3972,14 +3937,70 @@
                             </div>
                         </div>
                     </div>
+                    <div
+                        class="product-card glass rounded-[2rem] group cursor-pointer overflow-hidden transition-all duration-500 relative w-full bg-black/50 opacity-90">
+
+                        <div class="aspect-[4/5] overflow-hidden relative">
+                            <div class="absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out group-hover:scale-110 group-hover:blur-sm brightness-[0.7]"
+                                style="background-image: url('https://assets.adidas.com/images/w_1880,f_auto,q_auto/a4ff4a779ee34deca8cc9a6f1f411440_9366/KC6611_HM1.jpg');">
+                            </div>
+
+                            <div
+                                class="absolute top-4 left-4 bg-red-950/80 backdrop-blur-md border border-red-500/30 text-red-400 text-[8px] uppercase font-black tracking-wider px-2 py-1 rounded-md z-40 shadow-md">
+                                Sold Out
+                            </div>
+
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent flex flex-col justify-end p-6 translate-y-12 opacity-0 transition-all duration-500 ease-in-out group-hover:translate-y-0 group-hover:opacity-100 z-40">
+
+                                <div
+                                    class="flex flex-col gap-2 mb-6 transform translate-y-4 transition-transform duration-700 delay-75 group-hover:translate-y-0">
+                                    <button
+                                        class="w-full py-3 bg-amber-600 hover:bg-amber-700 text-white rounded-xl font-bold transition active:scale-95 flex items-center justify-center gap-1 text-[10px] uppercase tracking-wider"
+                                        onclick="event.stopPropagation(); showAlert('reminder', 'We\'ll notify you the instant this item restocks!')">
+                                        <i class="bi bi-bell-fill"></i> Set Reminder
+                                    </button>
+                                    <div class="grid grid-cols-2 gap-2">
+                                        <button
+                                            onclick="event.stopPropagation(); window.location.href='mailto:owner@store.com?subject=Inquiry about Adidas classic t-shirt';"
+                                            class="py-2.5 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-xl font-bold hover:bg-white/20 transition text-[10px] uppercase tracking-wide">
+                                            Talk to Owner
+                                        </button>
+                                        <button onclick="event.stopPropagation(); openQuickLook('PROD_001')"
+                                            class="py-2.5 bg-white/5 border border-white/10 text-white/60 rounded-xl font-medium hover:bg-white/10 transition text-[10px] uppercase">
+                                            Quick Look
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="transform translate-y-4 transition-transform duration-700 delay-150 group-hover:translate-y-0">
+                                    <h4 class="font-bold text-lg text-white/50 line-through leading-tight">Adidas
+                                        classic t-shirt</h4>
+                                    <p class="text-[10px] mb-3 opacity-40 tracking-[0.2em] uppercase text-white">ADIDAS
+                                    </p>
+
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-[10px] font-bold text-white tracking-wide">EGP
+                                                4,500</span>
+                                        </div>
+                                        <span class="text-[10px] text-zinc-500 font-bold flex items-center gap-1">
+                                            Unavailable
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Best Seller Grid (Empty Placeholder) -->
                 <div id="grid-best-seller"
                     class="product-grid hidden-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                     <!-- Insert similar cards here -->
-                    <div class="product-card glass rounded-[2rem] group cursor-pointer overflow-hidden transition-all duration-500 relative w-full bg-black"
-                        onclick="toggleOverlay(this, event)">
+                    <div
+                        class="product-card glass rounded-[2rem] group cursor-pointer overflow-hidden transition-all duration-500 relative w-full bg-black">
 
                         <div class="aspect-[4/5] overflow-hidden relative">
                             <div class="absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out group-hover:scale-110 group-hover:blur-sm"
@@ -4040,8 +4061,8 @@
                         </div>
                     </div>
 
-                    <div class="product-card glass rounded-[2rem] group cursor-pointer overflow-hidden transition-all duration-500 relative w-full bg-black"
-                        onclick="toggleOverlay(this, event)">
+                    <div
+                        class="product-card glass rounded-[2rem] group cursor-pointer overflow-hidden transition-all duration-500 relative w-full bg-black">
 
                         <div class="aspect-[4/5] overflow-hidden relative">
                             <div class="absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out group-hover:scale-110 group-hover:blur-sm"
@@ -4181,58 +4202,6 @@
         </style>
 
         <script>
-            // New Overlay Toggle Logic
-            function toggleOverlay(card, event) {
-                // Prevent trigger if clicking internal buttons
-                if (event.target.closest('button') || event.target.closest('.group\\/heart')) return;
-
-                const overlay = card.querySelector('.quick-shop-overlay');
-                const isHidden = overlay.classList.contains('translate-y-full');
-
-                // This handles mobile "tap to see overlay"
-                if (isHidden) {
-                    overlay.classList.remove('translate-y-full', 'opacity-0');
-                } else {
-                    overlay.classList.add('translate-y-full', 'opacity-0');
-                }
-            }
-
-            // Original Filter Logic
-            // function filterProducts(targetId, btn) {
-            //     document.querySelectorAll('.category-btn').forEach(b => {
-            //         b.classList.remove('active', 'text-black', 'bg-white');
-
-            //         // b.classList.add('text-white/40', 'bg-white/5');
-            //     });
-            //     btn.classList.add('active');
-            //     // btn.classList.remove('text-white/40', 'bg-white/5');
-
-
-            //     const allTextWrappers = document.querySelectorAll('.text-content-wrapper');
-            //     const targetText = document.getElementById(`text-${targetId}`);
-
-            //     allTextWrappers.forEach(wrap => {
-            //         if (wrap.classList.contains('active-text')) {
-            //             wrap.classList.remove('active-text');
-            //             wrap.classList.add('exit-text');
-            //             setTimeout(() => wrap.classList.remove('exit-text'), 700);
-            //         }
-            //         wrap.classList.add('hidden-text');
-            //     });
-            //     targetText.classList.remove('hidden-text');
-            //     targetText.classList.add('active-text');
-
-            //     const allGrids = document.querySelectorAll('.product-grid');
-            //     const targetGrid = document.getElementById(`grid-${targetId}`);
-
-            //     allGrids.forEach(grid => {
-            //         grid.classList.remove('visible-grid');
-            //         grid.classList.add('hidden-grid');
-            //     });
-            //     targetGrid.classList.remove('hidden-grid');
-            //     targetGrid.classList.add('visible-grid');
-            // }
-
             // Updated Filter Logic
             function filterProducts(targetId, btn) {
                 document.querySelectorAll('.category-btn').forEach(b => {
