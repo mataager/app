@@ -39,6 +39,11 @@
             --bluredimage: 0.7;
         }
 
+        .light-theme .hero-bg-layer {
+            filter: brightness(1) saturate(1);
+            /* Completely removes brightness and saturation filters */
+        }
+
         body {
             background-color: var(--bg-color);
             color: var(--text-main);
@@ -204,7 +209,7 @@
                     class="w-10 h-10 rounded-full glass flex items-center justify-center transition border border-black/5 dark:border-white/10">
                     <i id="theme-icon" class="bi bi-moon-stars"></i>
                 </button>
-                <button onclick="closeAllViews()()" id="close-quicklook"
+                <button onclick="closeAllViews()" id="close-quicklook"
                     class="hidden w-10 h-10 rounded-full bg-red-500/10 text-red-500 flex items-center justify-center transition">
                     <i class="bi bi-x-lg"></i>
                 </button>
@@ -243,7 +248,7 @@
                     </div>
 
                     <div class="w-full px-0.5 mt-1">
-                        <div class="h-1 w-full bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden relative">
+                        <div class="h-[1px] w-full bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden relative">
                             <div id="image-progress-bar"
                                 class="absolute top-0 left-0 h-full w-1/2 bg-zinc-800 dark:bg-zinc-300 opacity-40 transition-all duration-150 ease-out rounded-full"
                                 style="left: 0%; opacity: 0.4;"></div>
@@ -370,34 +375,248 @@
                             </div>
                         </div>
 
-                        <div id="pane-reviews" class="space-y-3 pd-pane hidden">
-                            <button
-                                class="w-full py-2 border border-dashed border-black/20 dark:border-white/20 rounded-lg text-[9px] font-bold uppercase tracking-widest opacity-60 hover:opacity-100 transition-opacity dark:text-white">
+                        <div id="pane-reviews" class="space-y-3.5 pd-pane hidden">
+
+                            <button onclick="toggleReviewForm()" id="btn-write-review"
+                                class="w-full py-2.5 border border-dashed border-black/20 dark:border-white/15 rounded-xl text-[9px] font-black uppercase tracking-[0.2em] opacity-70 hover:opacity-100 transition-all duration-300 dark:text-white bg-white/[0.01] hover:bg-white/[0.03] active:scale-[0.99]">
                                 Write a Review
                             </button>
-                            <div
-                                class="flex flex-wrap gap-2 overflow-x-auto snap-x snap-mandatory pb-1 scrollbar-none max-h-[185px]">
-                                <div
-                                    class="snap-start w-full bg-slate-50 dark:bg-white/5 p-3 rounded-xl border border-black/5 dark:border-white/5">
-                                    <div class="flex justify-between items-start mb-1">
+
+                            <div id="review-form-panel"
+                                class="transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] scale-95 opacity-0 max-h-0 overflow-hidden space-y-3 bg-slate-50 dark:bg-white/[0.02] border border-black/5 dark:border-white/5 rounded-xl p-0">
+                                <div class="p-3.5 space-y-3">
+                                    <p class="text-[9px] uppercase tracking-widest font-black text-blue-400">Share Your
+                                        Experience</p>
+
+                                    <div class="grid grid-cols-2 gap-2">
+                                        <div
+                                            class="bg-black/[0.02] dark:bg-white/[0.02] border border-black/5 dark:border-white/5 rounded-xl p-2 flex flex-col focus-within:border-blue-500/30 transition-colors">
+                                            <label
+                                                class="text-[7.5px] uppercase font-bold tracking-wider text-zinc-500 mb-0.5">Your
+                                                Name</label>
+                                            <input type="text" id="form-review-name" placeholder="e.g. Alex M."
+                                                class="bg-transparent text-white text-[10px] focus:outline-none w-full placeholder-zinc-600">
+                                        </div>
+                                        <div
+                                            class="bg-black/[0.02] dark:bg-white/[0.02] border border-black/5 dark:border-white/5 rounded-xl p-2 flex flex-col focus-within:border-blue-500/30 transition-colors">
+                                            <label
+                                                class="text-[7.5px] uppercase font-bold tracking-wider text-zinc-500 mb-0.5">Rating</label>
+                                            <select id="form-review-rating"
+                                                class="bg-transparent text-yellow-400 text-[10px] font-bold focus:outline-none w-full cursor-pointer [color-scheme:dark]">
+                                                <option value="5" class="bg-zinc-950 text-yellow-400">★★★★★ (5/5)
+                                                </option>
+                                                <option value="4" class="bg-zinc-950 text-yellow-400">★★★★☆ (4/5)
+                                                </option>
+                                                <option value="3" class="bg-zinc-950 text-yellow-400">★★★☆☆ (3/5)
+                                                </option>
+                                                <option value="2" class="bg-zinc-950 text-yellow-400">★★☆☆☆ (2/5)
+                                                </option>
+                                                <option value="1" class="bg-zinc-950 text-yellow-400">★☆☆☆☆ (1/5)
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        class="bg-black/[0.02] dark:bg-white/[0.02] border border-black/5 dark:border-white/5 rounded-xl p-2 flex flex-col focus-within:border-blue-500/30 transition-colors">
+                                        <label
+                                            class="text-[7.5px] uppercase font-bold tracking-wider text-zinc-500 mb-0.5">Review
+                                            Description</label>
+                                        <textarea id="form-review-text" rows="2"
+                                            placeholder="Write about fabric quality, sizing accuracy, style profile..."
+                                            class="bg-transparent text-white text-[10px] leading-relaxed focus:outline-none w-full resize-none placeholder-zinc-600"></textarea>
+                                    </div>
+
+                                    <div class="space-y-1.5">
+                                        <label
+                                            class="text-[7.5px] uppercase font-black tracking-widest text-zinc-400 block px-1">Attach
+                                            Media
+                                            (Max 3 photos)</label>
+                                        <div class="grid grid-cols-3 gap-2">
+                                            <div
+                                                class="relative flex items-center justify-center border border-dashed border-white/10 hover:border-white/20 bg-white/[0.01] hover:bg-white/[0.03] rounded-xl h-12 transition-all cursor-pointer overflow-hidden group">
+                                                <input type="file" accept="image/*"
+                                                    class="absolute inset-0 opacity-0 cursor-pointer z-10"
+                                                    onchange="previewReviewImage(this, 1)">
+                                                <div id="preview-slot-1"
+                                                    class="absolute inset-0 flex flex-col items-center justify-center text-zinc-500 group-hover:text-zinc-400 transition-colors pointer-events-none">
+                                                    <span class="text-xs">+</span><span
+                                                        class="text-[7px] uppercase font-bold">Img 1</span>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="relative flex items-center justify-center border border-dashed border-white/10 hover:border-white/20 bg-white/[0.01] hover:bg-white/[0.03] rounded-xl h-12 transition-all cursor-pointer overflow-hidden group">
+                                                <input type="file" accept="image/*"
+                                                    class="absolute inset-0 opacity-0 cursor-pointer z-10"
+                                                    onchange="previewReviewImage(this, 2)">
+                                                <div id="preview-slot-2"
+                                                    class="absolute inset-0 flex flex-col items-center justify-center text-zinc-500 group-hover:text-zinc-400 transition-colors pointer-events-none">
+                                                    <span class="text-xs">+</span><span
+                                                        class="text-[7px] uppercase font-bold">Img 2</span>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="relative flex items-center justify-center border border-dashed border-white/10 hover:border-white/20 bg-white/[0.01] hover:bg-white/[0.03] rounded-xl h-12 transition-all cursor-pointer overflow-hidden group">
+                                                <input type="file" accept="image/*"
+                                                    class="absolute inset-0 opacity-0 cursor-pointer z-10"
+                                                    onchange="previewReviewImage(this, 3)">
+                                                <div id="preview-slot-3"
+                                                    class="absolute inset-0 flex flex-col items-center justify-center text-zinc-500 group-hover:text-zinc-400 transition-colors pointer-events-none">
+                                                    <span class="text-xs">+</span><span
+                                                        class="text-[7px] uppercase font-bold">Img 3</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex justify-end pt-1">
+                                        <button onclick="submitUserReview()"
+                                            class="text-[8px] font-black uppercase tracking-[0.15em] bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg transition-all shadow-[0_4px_12px_rgba(59,130,246,0.1)] active:scale-95">
+                                            Post Review
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="reviews-feed-container"
+                                class="space-y-2 overflow-y-auto max-h-[220px] pr-0.5 custom-scrollbar">
+
+                                <div onclick="toggleReviewExpand(this)"
+                                    class="review-card cursor-pointer snap-start w-full bg-slate-50 dark:bg-white/5 p-3 rounded-xl border border-black/5 dark:border-white/5 hover:border-black/10 dark:hover:border-white/10 transition-all duration-300 ease-out overflow-hidden max-h-[64px]">
+                                    <div class="flex justify-between items-start mb-1 pointer-events-none">
                                         <span class="text-[10px] font-bold dark:text-white">Ahmed M.</span>
                                         <span class="text-[10px] text-yellow-400">★★★★★</span>
                                     </div>
-                                    <p class="text-[10px] opacity-70 dark:text-zinc-300 line-clamp-2">"Excellent fabric
-                                        composition
-                                        density profile. Fits cleanly true to size specifications."</p>
+                                    <p
+                                        class="review-text text-[10px] opacity-70 dark:text-zinc-300 line-clamp-2 leading-relaxed transition-all pointer-events-none">
+                                        "Excellent fabric composition density profile. Fits cleanly true to size
+                                        specifications."
+                                    </p>
+                                    <div
+                                        class="media-container mt-3 grid grid-cols-3 gap-1.5 opacity-0 pointer-events-none transition-opacity duration-300">
+                                        <div
+                                            class="aspect-square rounded-lg bg-zinc-900/40 border border-white/5 overflow-hidden">
+                                            <img src="https://assets.adidas.com/images/w_1880,f_auto,q_auto/a4ff4a779ee34deca8cc9a6f1f411440_9366/KC6611_HM1.jpg"
+                                                class="w-full h-full object-cover">
+                                        </div>
+                                    </div>
                                 </div>
-                                <div
-                                    class="snap-start w-full bg-slate-50 dark:bg-white/5 p-3 rounded-xl border border-black/5 dark:border-white/5">
-                                    <div class="flex justify-between items-start mb-1">
+
+                                <div onclick="toggleReviewExpand(this)"
+                                    class="review-card cursor-pointer snap-start w-full bg-slate-50 dark:bg-white/5 p-3 rounded-xl border border-black/5 dark:border-white/5 hover:border-black/10 dark:hover:border-white/10 transition-all duration-300 ease-out overflow-hidden max-h-[64px]">
+                                    <div class="flex justify-between items-start mb-1 pointer-events-none">
                                         <span class="text-[10px] font-bold dark:text-white">Sarah K.</span>
                                         <span class="text-[10px] text-yellow-400">★★★★☆</span>
                                     </div>
-                                    <p class="text-[10px] opacity-70 dark:text-zinc-300 line-clamp-2">"Very clean retro
-                                        style
-                                        profile. Delivery took slightly longer than normal expectations."</p>
+                                    <p
+                                        class="review-text text-[10px] opacity-70 dark:text-zinc-300 line-clamp-2 leading-relaxed transition-all pointer-events-none">
+                                        "Very clean retro style profile. Delivery took slightly longer than normal
+                                        expectations."
+                                    </p>
+                                    <div
+                                        class="media-container mt-3 grid grid-cols-3 gap-1.5 opacity-0 pointer-events-none transition-opacity duration-300">
+                                    </div>
                                 </div>
+
                             </div>
+                            <script>
+                                // Handles the sliding expansion of the dynamic "Write a Review" panel
+                                function toggleReviewForm() {
+                                    const panel = document.getElementById('review-form-panel');
+                                    const btn = document.getElementById('btn-write-review');
+
+                                    if (panel.classList.contains('opacity-0')) {
+                                        panel.classList.remove('max-h-0', 'opacity-0', 'scale-95');
+                                        panel.style.maxHeight = panel.scrollHeight + "px";
+                                        panel.classList.add('opacity-100', 'scale-100', 'p-0');
+                                        btn.innerText = "Close Form";
+                                        btn.classList.replace('dark:text-white', 'text-zinc-400');
+                                    } else {
+                                        panel.style.maxHeight = "0px";
+                                        panel.classList.remove('opacity-100', 'scale-100');
+                                        panel.classList.add('opacity-0', 'scale-95');
+                                        btn.innerText = "Write a Review";
+                                        btn.classList.replace('text-zinc-400', 'dark:text-white');
+                                    }
+                                }
+
+                                // Displays dynamic image thumbnails inside input grid when added
+                                function previewReviewImage(input, slotId) {
+                                    const slot = document.getElementById(`preview-slot-${slotId}`);
+                                    if (input.files && input.files[0]) {
+                                        const reader = new FileReader();
+                                        reader.onload = function (e) {
+                                            slot.innerHTML = `<img src="${e.target.result}" class="w-full h-full object-cover">`;
+                                            slot.classList.remove('text-zinc-500');
+                                        }
+                                        reader.readAsDataURL(input.files[0]);
+                                    }
+                                }
+
+                                // Handles expanding / collapsing any individual card item seamlessly
+                                function toggleReviewExpand(card) {
+                                    const textElement = card.querySelector('.review-text');
+                                    const mediaContainer = card.querySelector('.media-container');
+
+                                    // Check if card is currently collapsed or expanded
+                                    const isCollapsed = card.style.maxHeight === "" || card.style.maxHeight === "64px";
+
+                                    // Collapse all open review items first to preserve viewport balance
+                                    document.querySelectorAll('.review-card').forEach(c => {
+                                        c.style.maxHeight = "64px";
+                                        c.querySelector('.review-text').classList.add('line-clamp-2');
+                                        const mc = c.querySelector('.media-container');
+                                        if (mc) mc.classList.add('opacity-0', 'pointer-events-none');
+                                    });
+
+                                    if (isCollapsed) {
+                                        // Unclamp text layer parameters
+                                        textElement.classList.remove('line-clamp-2');
+
+                                        // Set maxHeight to scrollHeight dynamically to enable native smooth transition
+                                        const hasMedia = mediaContainer && mediaContainer.children.length > 0;
+                                        const extraPaddingHeight = hasMedia ? 110 : 40;
+                                        card.style.maxHeight = (card.scrollHeight + extraPaddingHeight) + "px";
+
+                                        if (mediaContainer) {
+                                            mediaContainer.classList.remove('opacity-0', 'pointer-events-none');
+                                            mediaContainer.classList.add('opacity-100');
+                                        }
+                                    }
+                                }
+
+                                // Dummy insertion engine for real-time local updates testing
+                                function submitUserReview() {
+                                    const name = document.getElementById('form-review-name').value || "Anonymous";
+                                    const stars = "★".repeat(document.getElementById('form-review-rating').value).padEnd(5, "☆");
+                                    const text = document.getElementById('form-review-text').value || "No descriptive text provided.";
+
+                                    const container = document.getElementById('reviews-feed-container');
+
+                                    const newCardHTML = `
+                                                                <div onclick="toggleReviewExpand(this)" class="review-card cursor-pointer snap-start w-full bg-slate-50 dark:bg-white/5 p-3 rounded-xl border border-black/5 dark:border-white/5 hover:border-black/10 dark:hover:border-white/10 transition-all duration-300 ease-out overflow-hidden max-h-[64px]">
+                                                                    <div class="flex justify-between items-start mb-1 pointer-events-none">
+                                                                        <span class="text-[10px] font-bold dark:text-white">${name}</span>
+                                                                        <span class="text-[10px] text-yellow-400">${stars}</span>
+                                                                    </div>
+                                                                    <p class="review-text text-[10px] opacity-70 dark:text-zinc-300 line-clamp-2 leading-relaxed transition-all pointer-events-none">
+                                                                        "${text}"
+                                                                    </p>
+                                                                    <div class="media-container mt-3 grid grid-cols-3 gap-1.5 opacity-0 pointer-events-none transition-opacity duration-300"></div>
+                                                                </div>
+                                                            `;
+
+                                    container.insertAdjacentHTML('afterbegin', newCardHTML);
+                                    toggleReviewForm();
+
+                                    // Reset Inputs
+                                    document.getElementById('form-review-name').value = '';
+                                    document.getElementById('form-review-text').value = '';
+                                    document.getElementById('preview-slot-1').innerHTML = '<span class="text-xs">+</span><span class="text-[7px] uppercase font-bold">Img 1</span>';
+                                    document.getElementById('preview-slot-2').innerHTML = '<span class="text-xs">+</span><span class="text-[7px] uppercase font-bold">Img 2</span>';
+                                    document.getElementById('preview-slot-3').innerHTML = '<span class="text-xs">+</span><span class="text-[7px] uppercase font-bold">Img 3</span>';
+                                }
+                            </script>
                         </div>
 
                     </div>
@@ -484,7 +703,6 @@
                 }
             </script>
         </div>
-
 
         <!-- Main Container (Mimicking your app's view) -->
         <div id="search-view" class="hidden opacity-0 scale-95 transition-all duration-500 ease-out overflow-hidden">
@@ -691,11 +909,6 @@
                 }
             </style>
         </div>
-
-
-
-
-
 
         <div id="cart-view" class="hidden opacity-0 scale-95 transition-all duration-500 ease-out overflow-hidden">
             <hr class="my-4 border-black/5 dark:border-white/5">
@@ -1222,9 +1435,10 @@
             <div class="px-2 pb-4 space-y-4 max-h-[400px] overflow-y-auto pr-1">
 
                 <div id="content-fit" class="profile-content mt-4 space-y-4">
-                    <!-- Part 1: Smart Fit Summary & Engine Banner -->
+                    <!-- Part 1: Smart Fit Card Engine Banner (Houses Edit Form + Displays State Summary Text) -->
                     <div
-                        class="p-3.5 rounded-2xl bg-gradient-to-br from-blue-500/[0.12] via-blue-500/[0.06] to-transparent border border-blue-500/20 backdrop-blur-md shadow-[0_8px_32px_rgba(59,130,246,0.05)]">
+                        class="p-3.5 rounded-2xl bg-gradient-to-br from-blue-500/[0.12] via-blue-500/[0.06] to-transparent border border-blue-500/20 backdrop-blur-md shadow-[0_8px_32px_rgba(59,130,246,0.05)] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
+
                         <div class="flex justify-between items-center mb-1.5">
                             <p
                                 class="text-[10px] font-extrabold uppercase tracking-widest text-blue-400 flex items-center gap-1.5">
@@ -1236,73 +1450,35 @@
                                 Edit
                             </button>
                         </div>
-                        <p class="text-[10px] leading-relaxed text-slate-300/80">
-                            Scanning for <span id="summary-style"
-                                class="text-white font-semibold drop-shadow-[0_0_8px_rgba(255,255,255,0.2)]">Streetwear
-                                Style</span>
-                            in <span id="summary-top"
-                                class="text-white font-semibold drop-shadow-[0_0_8px_rgba(255,255,255,0.2)]">Size
-                                M</span> with <span id="summary-color"
-                                class="text-white font-semibold drop-shadow-[0_0_8px_rgba(255,255,255,0.2)]">Blue/Neutral</span>
-                            preferences.
-                        </p>
-                    </div>
 
-                    <!-- Part 2: Interactive User Stats Grid (Display & Edit States) -->
-                    <div class="relative overflow-hidden rounded-2xl">
-                        <!-- DISPLAY MODE: Horizontal Scrollable Cards -->
-                        <div id="fit-display-row"
-                            class="flex gap-2 overflow-x-auto pb-1 scrollbar-none snap-x transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
-                            <!-- Height Metric -->
-                            <div
-                                class="flex-shrink-0 p-2.5 min-w-[74px] rounded-xl bg-white/[0.03] border border-white/5 hover:border-white/10 flex flex-col items-center justify-center snap-center transition-colors duration-300">
-                                <p class="text-[7.5px] font-bold uppercase tracking-widest text-zinc-500">Height</p>
-                                <p id="val-height" class="text-[11px] font-black text-slate-200 mt-0.5">180cm</p>
-                            </div>
-                            <!-- Weight Metric -->
-                            <div
-                                class="flex-shrink-0 p-2.5 min-w-[74px] rounded-xl bg-white/[0.03] border border-white/5 hover:border-white/10 flex flex-col items-center justify-center snap-center transition-colors duration-300">
-                                <p class="text-[7.5px] font-bold uppercase tracking-widest text-zinc-500">Weight</p>
-                                <p id="val-weight" class="text-[11px] font-black text-slate-200 mt-0.5">75kg</p>
-                            </div>
-                            <!-- Top Metric -->
-                            <div
-                                class="flex-shrink-0 p-2.5 min-w-[74px] rounded-xl bg-white/[0.03] border border-white/5 hover:border-white/10 flex flex-col items-center justify-center snap-center transition-colors duration-300">
-                                <p class="text-[7.5px] font-bold uppercase tracking-widest text-zinc-500">Top</p>
-                                <p id="val-top" class="text-[11px] font-black text-slate-200 mt-0.5">M</p>
-                            </div>
-                            <!-- Bottom Metric -->
-                            <div
-                                class="flex-shrink-0 p-2.5 min-w-[74px] rounded-xl bg-white/[0.03] border border-white/5 hover:border-white/10 flex flex-col items-center justify-center snap-center transition-colors duration-300">
-                                <p class="text-[7.5px] font-bold uppercase tracking-widest text-zinc-500">Bottom</p>
-                                <p id="val-bottom" class="text-[11px] font-black text-slate-200 mt-0.5">32</p>
-                            </div>
-                            <!-- Shoe Metric -->
-                            <div
-                                class="flex-shrink-0 p-2.5 min-w-[74px] rounded-xl bg-white/[0.03] border border-white/5 hover:border-white/10 flex flex-col items-center justify-center snap-center transition-colors duration-300">
-                                <p class="text-[7.5px] font-bold uppercase tracking-widest text-zinc-500">Shoe</p>
-                                <p id="val-shoe" class="text-[11px] font-black text-slate-200 mt-0.5">42</p>
-                            </div>
-                            <!-- Style Metric -->
-                            <div
-                                class="flex-shrink-0 p-2.5 min-w-[74px] rounded-xl bg-white/[0.03] border border-white/5 hover:border-white/10 flex flex-col items-center justify-center snap-center transition-colors duration-300">
-                                <p class="text-[7.5px] font-bold uppercase tracking-widest text-zinc-500">Style</p>
-                                <p id="val-style" class="text-[11px] font-black text-slate-200 mt-0.5">Modern</p>
-                            </div>
-                            <!-- Highlighted Fit Metric -->
-                            <div
-                                class="flex-shrink-0 p-2.5 min-w-[74px] rounded-xl bg-blue-500/[0.06] border border-blue-500/20 flex flex-col items-center justify-center snap-center shadow-[inset_0_1px_12px_rgba(59,130,246,0.05)]">
-                                <p class="text-[7.5px] font-black uppercase tracking-widest text-blue-400">Fit</p>
-                                <p id="val-fit" class="text-[11px] font-black text-blue-400 mt-0.5">Loose</p>
-                            </div>
+                        <!-- DISPLAY MODE: High-end Dynamic Summary Row -->
+                        <div id="fit-summary-text" class="transition-all duration-300 ease-out opacity-100 scale-100">
+                            <p class="text-[10px] leading-relaxed text-slate-300/80">
+                                Scanning for <span id="summary-style"
+                                    class="text-white font-semibold drop-shadow-[0_0_8px_rgba(255,255,255,0.2)]">Streetwear
+                                    Style</span>
+                                in <span id="summary-top"
+                                    class="text-white font-semibold drop-shadow-[0_0_8px_rgba(255,255,255,0.2)]">Size
+                                    M</span>
+                                with <span id="summary-color"
+                                    class="text-white font-semibold drop-shadow-[0_0_8px_rgba(255,255,255,0.2)]">Blue/Neutral</span>
+                                preferences.
+                            </p>
+                            <!-- Hidden Value Nodes to safely hold non-displayed metric metrics inside the background DOM layers -->
+                            <span id="val-height" class="hidden">170cm</span>
+                            <span id="val-weight" class="hidden">75kg</span>
+                            <span id="val-bottom" class="hidden">32</span>
+                            <span id="val-shoe" class="hidden">42</span>
+                            <span id="val-fit" class="hidden">Loose</span>
                         </div>
 
-                        <!-- EDIT MODE: Glassmorphism Input Form Panel (Dynamically Animated) -->
+                        <!-- EDIT MODE: Glassmorphism Input Form Panel (Dynamically Animated Drop-In) -->
                         <div id="fit-edit-panel"
-                            class="transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] scale-95 opacity-0 pointer-events-none max-h-0 overflow-hidden bg-white/[0.01] border border-white/5 rounded-2xl p-0 space-y-3.5">
+                            class="transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] scale-95 opacity-0 pointer-events-none max-h-0 overflow-hidden space-y-3.5">
 
-                            <p class="text-[8px] uppercase tracking-[0.18em] font-black text-zinc-500 px-1">Adjust
-                                Engine Parameters</p>
+                            <p class="text-[8px] uppercase tracking-[0.18em] font-black text-zinc-400 pt-2 px-1">
+                                Adjust Engine Parameters
+                            </p>
 
                             <div class="grid grid-cols-3 gap-2">
                                 <!-- Height Input -->
@@ -1311,7 +1487,7 @@
                                     <label
                                         class="text-[7.5px] uppercase font-bold tracking-wider text-zinc-500 mb-0.5">Height
                                         (cm)</label>
-                                    <input type="number" id="input-height" value="180"
+                                    <input type="number" id="input-height" value="170"
                                         class="bg-transparent text-white text-[11px] font-bold focus:outline-none w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none">
                                 </div>
                                 <!-- Weight Input -->
@@ -1331,7 +1507,7 @@
                                     <select id="input-style"
                                         class="bg-transparent text-white text-[11px] font-bold focus:outline-none w-full cursor-pointer [color-scheme:dark]">
                                         <option value="Modern" class="bg-zinc-950">Modern</option>
-                                        <option value="Streetwear" class="bg-zinc-950">Streetwear</option>
+                                        <option value="Streetwear" class="bg-zinc-950" selected>Streetwear</option>
                                         <option value="Vintage" class="bg-zinc-950">Vintage</option>
                                         <option value="Minimalist" class="bg-zinc-950">Minimalist</option>
                                     </select>
@@ -1394,9 +1570,7 @@
                         </div>
                     </div>
 
-                    <hr class="border-white/5 my-1.5">
-
-                    <!-- Part 3: Search & Category Selector -->
+                    <!-- Part 2: Search & Category Selector -->
                     <div class="space-y-2.5">
                         <!-- Search Bar -->
                         <div class="relative group">
@@ -1419,7 +1593,7 @@
                         </div>
                     </div>
 
-                    <!-- Part 4: Horizontal Scrollable Products Grid -->
+                    <!-- Part 3: Horizontal Scrollable Products Grid -->
                     <div class="flex gap-2.5 overflow-x-auto pb-1 snap-x scrollbar-none">
                         <!-- Product Item 1 -->
                         <div class="min-w-[105px] snap-start group cursor-pointer">
@@ -1454,28 +1628,24 @@
                         </div>
                     </div>
 
-                    <!-- UI State Javascript Engine -->
+                    <!-- UI State JavaScript Engine -->
                     <script>
                         function toggleFitEditMode() {
-                            const displayRow = document.getElementById('fit-display-row');
+                            const summaryText = document.getElementById('fit-summary-text');
                             const editPanel = document.getElementById('fit-edit-panel');
                             const editBtn = document.getElementById('fit-edit-btn');
 
                             if (editPanel.classList.contains('pointer-events-none')) {
-                                // Switch into Edit Mode cleanly
-                                displayRow.classList.add('opacity-0', 'pointer-events-none', 'scale-95');
+                                // SWITCH INTO EDIT MODE
+                                summaryText.classList.add('opacity-0', 'scale-95');
 
-                                // Delay displaying input panel metrics briefly to allow the grid layout to slide out cleanly
                                 setTimeout(() => {
-                                    displayRow.classList.add('hidden');
-                                    editPanel.classList.remove('hidden');
-                                    // Force Layout repaint
-                                    editPanel.offsetHeight;
+                                    summaryText.classList.add('hidden');
 
+                                    // Smooth slide transition dropdown reveal
                                     editPanel.style.maxHeight = editPanel.scrollHeight + "px";
-                                    editPanel.classList.remove('scale-95', 'opacity-0');
-                                    editPanel.classList.add('scale-100', 'opacity-100', 'p-3');
-                                    editPanel.classList.remove('pointer-events-none');
+                                    editPanel.classList.remove('scale-95', 'opacity-0', 'pointer-events-none');
+                                    editPanel.classList.add('scale-100', 'opacity-100');
                                 }, 200);
 
                                 editBtn.innerText = "Cancel";
@@ -1483,19 +1653,18 @@
                                 editBtn.classList.replace('text-blue-300', 'text-zinc-400');
                                 editBtn.classList.add('border-zinc-700');
                             } else {
-                                // Return gracefully back to normal visualization rows
+                                // SWITCH BACK TO VISUALIZATION MODE
                                 editPanel.classList.add('scale-95', 'opacity-0', 'pointer-events-none');
                                 editPanel.style.maxHeight = "0px";
-                                editPanel.classList.remove('p-3');
 
                                 setTimeout(() => {
-                                    editPanel.classList.add('hidden');
-                                    displayRow.classList.remove('hidden');
-                                    // Force Layout repaint
-                                    displayRow.offsetHeight;
+                                    summaryText.classList.remove('hidden');
 
-                                    displayRow.classList.remove('opacity-0', 'pointer-events-none', 'scale-95');
-                                }, 300);
+                                    // Force DOM repainting engine ticks
+                                    summaryText.offsetHeight;
+
+                                    summaryText.classList.remove('opacity-0', 'scale-95');
+                                }, 250);
 
                                 editBtn.innerText = "Edit";
                                 editBtn.classList.replace('bg-zinc-800', 'bg-blue-500/20');
@@ -1505,6 +1674,7 @@
                         }
 
                         function saveFitChanges() {
+                            // Keep dynamic hidden inputs stored reliably within application metrics data layer
                             document.getElementById('val-height').innerText = document.getElementById('input-height').value + 'cm';
                             document.getElementById('val-weight').innerText = document.getElementById('input-weight').value + 'kg';
                             document.getElementById('val-bottom').innerText = document.getElementById('input-bottom').value;
@@ -1514,10 +1684,9 @@
                             const selectedStyle = document.getElementById('input-style').value;
                             const selectedFit = document.getElementById('input-fit').value;
 
-                            document.getElementById('val-top').innerText = selectedTop;
-                            document.getElementById('val-style').innerText = selectedStyle;
                             document.getElementById('val-fit').innerText = selectedFit;
 
+                            // Instantly apply UI transformations to target text layers
                             document.getElementById('summary-style').innerText = selectedStyle + ' Style';
                             document.getElementById('summary-top').innerText = 'Size ' + selectedTop;
 
@@ -3475,7 +3644,9 @@
                     opacity: 0;
                     transform: scale(1.05);
                     filter: brightness(0.25) saturate(1.1);
-                    transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), transform 1.6s cubic-bezier(0.25, 1, 0.5, 1);
+                    transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1),
+                        transform 1.6s cubic-bezier(0.25, 1, 0.5, 1),
+                        filter 1.2s cubic-bezier(0.25, 1, 0.5, 1);
                     z-index: 0;
                 }
 
