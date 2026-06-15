@@ -105,13 +105,879 @@
 
     <main class="flex flex-col items-center px-4 gap-[100px]">
 
-        <section class="flex flex-col items-center text-center pt-20 pb-20">
-            <img src="./assets/img/Logo.png" alt="logo" class="reveal animate-up h-20 w-auto mb-10 opacity-90">
+        <!-- section for the opening -->
+        <section id="role-selection-section"
+            class="flex flex-col items-center min-h-screen text-center px-4 py-8 sm:py-20 relative overflow-hidden text-white selection:bg-white/20 gap-3 transition-all duration-500 ease-in-out"
+            style="display: flex; justify-content: center;">
 
-            <div class="reveal animate-up flex items-center gap-3 mb-8">
+            <div class="w-full flex gap-4 flex-col items-center pt-4 sm:pt-0">
+                <img src="./assets/img/Logo.png" alt="logo" class="h-14 sm:h-20 w-auto opacity-95 transition-all">
                 <p class="text-sm shining-text text-white/60">Smart, Fast, Always Active.</p>
             </div>
 
+            <div class="w-full max-w-2xl flex flex-col items-center gap-3">
+
+                <div class="w-full grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 px-2 sm:px-0">
+
+                    <label
+                        class="group relative flex items-center p-4 rounded-2xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.05] hover:border-white/10 active:scale-[0.99] transition-all duration-300 cursor-pointer backdrop-blur-md">
+                        <input type="radio" name="user_role" value="seller"
+                            class="peer absolute right-4 top-1/2 -translate-y-1/2 accent-white w-4 h-4 opacity-40 checked:opacity-100 transition-opacity"
+                            checked="">
+
+                        <div
+                            class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center mr-3 shrink-0 group-hover:scale-105 transition-transform duration-300">
+                            <svg class="w-4 h-4 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                            </svg>
+                        </div>
+
+                        <div class="pr-8 text-left">
+                            <h3 class="text-sm sm:text-base font-bold tracking-tight text-white/90">Merchant Engine</h3>
+                            <p
+                                class="text-[11px] sm:text-xs text-white/40 mt-0.5 group-hover:text-white/50 transition-colors line-clamp-1">
+                                Deploy instant stores, access POS, scale revenue.</p>
+                        </div>
+                    </label>
+
+                    <label
+                        class="group relative flex items-center p-4 rounded-2xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.05] hover:border-white/10 active:scale-[0.99] transition-all duration-300 cursor-pointer backdrop-blur-md">
+                        <input type="radio" name="user_role" value="customer"
+                            class="peer absolute right-4 top-1/2 -translate-y-1/2 accent-white w-4 h-4 opacity-40 checked:opacity-100 transition-opacity">
+
+                        <div
+                            class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center mr-3 shrink-0 group-hover:scale-105 transition-transform duration-300">
+                            <svg class="w-4 h-4 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                        </div>
+
+                        <div class="pr-8 text-left">
+                            <h3 class="text-sm sm:text-base font-bold tracking-tight text-white/90">Continue as Customer
+                            </h3>
+                            <p
+                                class="text-[11px] sm:text-xs text-white/40 mt-0.5 group-hover:text-white/50 transition-colors line-clamp-1">
+                                Discover regional brands and fluid purchases.</p>
+                        </div>
+                    </label>
+
+                </div>
+
+
+                <div class="w-full px-2 block">
+                    <div
+                        class="flex items-center justify-between p-3 rounded-xl bg-white/[0.01] border border-white/5 backdrop-blur-sm">
+                        <div class="flex items-center gap-2">
+                            <span class="relative flex h-1.5 w-1.5">
+                                <span
+                                    class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
+                            </span>
+                            <p class="text-[11px] font-light text-white/50 text-left">Ecosystem Pulse</p>
+                        </div>
+                        <p class="text-[10px] font-mono text-white/70 bg-white/5 px-2 py-0.5 rounded-md">14.2k active
+                            nodes</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-full max-w-md px-2 sm:px-0 pb-2 sm:pb-0 flex flex-col gap-3">
+
+                <div
+                    class="flex items-center justify-between p-1.5 rounded-full bg-white/[0.03] border border-white/10 backdrop-blur-xl shadow-2xl shadow-black">
+                    <a href="#" id="explore-btn"
+                        class="flex-1 text-xs sm:text-sm text-white/50 hover:text-white font-medium py-3 px-4 transition text-center tracking-wide">
+                        Learn Ecosystem
+                    </a>
+                    <button id="continue-btn"
+                        class="flex-1 text-xs sm:text-sm bg-white text-black font-bold py-3.5 px-6 rounded-full hover:bg-neutral-200 active:scale-95 transition duration-200 shadow-md shadow-white/10">
+                        Continue Setup
+                    </button>
+                </div>
+
+                <div
+                    class="w-full px-4 py-3 rounded-2xl bg-white/[0.01] border border-white/5 text-center transition-all duration-300">
+                    <p id="hint-text" class="text-xs tracking-wide text-white/40 leading-relaxed font-light">
+                        💡 <span class="text-white/60 font-normal">Guide:</span> Select <span
+                            class="text-white/70 font-medium">Merchant Engine</span> to start selling or choose <span
+                            class="text-white/70 font-medium">Customer Mode</span> if you want to start shopping across
+                        the matrix.
+                    </p>
+                </div>
+            </div>
+
+        </section>
+
+        <div id="redirect-overlay"
+            class="fixed inset-0 z-[10000] hidden opacity-0 transition-opacity duration-700 flex items-center justify-center bg-black/60 backdrop-blur-xl">
+            <div class="bg-[#111111]/90 p-10 rounded-[2rem] shadow-2xl border border-white/10 text-center max-w-md w-full mx-4 transform scale-95 transition-transform duration-700"
+                id="overlay-card">
+
+                <div class="mb-8 flex justify-center">
+                    <div class="w-16 h-16 border-2 border-white/20 border-t-white rounded-full animate-spin"></div>
+                </div>
+
+                <h2 class="text-3xl font-bold text-white mb-2">Environment Ready!</h2>
+                <p class="text-gray-400 text-lg mb-6">
+                    You will be redirecting to your dashboard in
+                </p>
+
+                <div id="countdown-timer" class="text-6xl font-bold text-white mb-8 tabular-nums tracking-tighter">
+                </div>
+
+                <button
+                    onclick="window.location.href='https://mataager.github.io/App/Client/Dashboard/index.html#dashboard'"
+                    class="w-full py-4 px-6 bg-white text-black font-semibold rounded-xl flex items-center justify-center gap-2 hover:bg-gray-200 transition-colors mb-8 redirectNow">
+                    Redirect Now <i class="bi bi-arrow-right-short"></i>
+                </button>
+
+                <div class="pt-6 border-t border-white/10 text-left space-y-3">
+                    <div class="flex gap-3 items-start">
+                        <i class="bi bi-credit-card text-blue-400 mt-1"></i>
+                        <p class="text-xs text-gray-400 leading-normal">
+                            <span class="text-gray-200 font-medium block">Subscription Payment</span>
+                            Complete your subscription directly from the platform after redirection.
+                        </p>
+                    </div>
+                    <div class="flex gap-3 items-start">
+                        <i class="bi bi-heart-fill text-rose-500 mt-1"></i>
+                        <p class="text-xs text-gray-400 leading-normal">
+                            <span class="text-gray-200 font-medium block">Giving Back</span>
+                            3% of your subscription goes directly toward supporting local charity works.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="main-card"
+            class="flex flex-col items-center justify-center min-h-screen text-center px-4 py-8 relative overflow-hidden text-white hidden gap-3 transition-all duration-500 ease-in-out"
+            style="animation-delay: 200ms">
+            <div>
+
+                <div id="step-indicators"
+                    class="flex items-center gap-2 mb-5 reveal animate-up [animation-delay:400ms] "
+                    style="max-width: 450px;min-width: 300px;">
+                    <div class="dot w-1.5 h-1.5 rounded-full bg-white/60 transition-all duration-300"
+                        style="animation-delay: 100ms">
+                    </div>
+                    <div class="step-line w-8 h-[1px] animate-indicator"
+                        style="animation-delay: 150ms; background-color: rgba(255, 255, 255, 0.4);"></div>
+
+                    <div class="dot w-1.5 h-1.5 rounded-full bg-white/60 transition-all duration-300"
+                        style="animation-delay: 200ms">
+                    </div>
+                    <div class="step-line w-8 h-[1px] animate-indicator"
+                        style="animation-delay: 250ms; background-color: rgba(255, 255, 255, 0.4);"></div>
+
+                    <div class="dot w-1.5 h-1.5 rounded-full bg-white/60 transition-all duration-300"
+                        style="animation-delay: 300ms">
+                    </div>
+                    <div class="step-line w-8 h-[1px] animate-indicator"
+                        style="animation-delay: 350ms; background-color: rgba(255, 255, 255, 0.4);"></div>
+
+                    <div class="dot w-1.5 h-1.5 rounded-full bg-white/60 transition-all duration-300"
+                        style="animation-delay: 400ms">
+                    </div>
+                    <div class="step-line w-8 h-[1px] animate-indicator"
+                        style="animation-delay: 450ms; background-color: rgba(255, 255, 255, 0.4);"></div>
+
+                    <div class="dot w-1.5 h-1.5 rounded-full bg-white/60 transition-all duration-300"
+                        style="animation-delay: 500ms">
+                    </div>
+                    <div class="step-line w-8 h-[1px] animate-indicator"
+                        style="animation-delay: 550ms; background-color: rgba(255, 255, 255, 0.4);"></div>
+
+                    <div class="dot w-1.5 h-1.5 rounded-full bg-white/60 transition-all duration-300"
+                        style="animation-delay: 600ms">
+                    </div>
+                    <div class="step-line w-8 h-[1px] animate-indicator"
+                        style="animation-delay: 650ms; background-color: rgba(255, 255, 255, 0.4);"></div>
+                    <div class="dot w-1.5 h-1.5 rounded-full bg-white shadow-[0_0_12px_#fff] transition-all duration-300"
+                        style="animation-delay: 700ms"></div>
+                </div>
+                <div id="step-content" class="reveal animate-up [animation-delay:400ms] " style="
+                        max-width: 450px;
+                        min-width: 300px;
+                    ">
+                    <h1 class="text-xl font-semibold tracking-tight mb-1 animate-up">Store Identity</h1>
+                    <p class="text-sm text-white/40 mb-8 animate-up">Upload your logo and pick your brand color.</p>
+
+                    <div class="space-y-8 animate-up">
+                        <div class="flex flex-col items-center justify-center">
+                            <div onclick="document.getElementById('storeLogoInput').click()"
+                                class="relative group cursor-pointer w-28 h-28 mb-3">
+                                <div id="preview-circle"
+                                    class="w-full h-full rounded-full border-2 border-dashed border-white/20 bg-white/[0.03] flex items-center justify-center overflow-hidden transition-all group-hover:border-white/40">
+                                    <i class="bi bi-cloud-arrow-up text-2xl text-white/20"></i>
+                                </div>
+                                <div class="absolute bottom-0 right-0 bg-white text-black rounded-full p-1.5 shadow-lg">
+                                    <i class="bi bi-camera-fill text-base"></i>
+                                </div>
+                                <input type="file" id="storeLogoInput" accept="image/*" class="hidden"
+                                    onchange="handleLogoUpload(event)">
+                            </div>
+                            <p class="text-[10px] uppercase tracking-[0.2em] text-white/30">Store Logo</p>
+                        </div>
+
+                        <div class="space-y-4">
+                            <label class="text-[11px] uppercase tracking-widest text-white/30 ml-1">Brand Accent
+                                Color</label>
+                            <div
+                                class="flex flex-wrap gap-3 justify-between items-center bg-white/[0.02] p-4 rounded-2xl border border-white/5">
+                                <div class="flex gap-2">
+
+                                    <button onclick="selectColor('#3b82f6')"
+                                        class="w-8 h-8 rounded-full border-2 transition-transform hover:scale-110 border-transparent"
+                                        style="background-color: #3b82f6"></button>
+
+                                    <button onclick="selectColor('#8b5cf6')"
+                                        class="w-8 h-8 rounded-full border-2 transition-transform hover:scale-110 border-transparent"
+                                        style="background-color: #8b5cf6"></button>
+
+                                    <button onclick="selectColor('#ec4899')"
+                                        class="w-8 h-8 rounded-full border-2 transition-transform hover:scale-110 border-transparent"
+                                        style="background-color: #ec4899"></button>
+
+                                    <button onclick="selectColor('#10b981')"
+                                        class="w-8 h-8 rounded-full border-2 transition-transform hover:scale-110 border-transparent"
+                                        style="background-color: #10b981"></button>
+
+                                    <button onclick="selectColor('#f59e0b')"
+                                        class="w-8 h-8 rounded-full border-2 transition-transform hover:scale-110 border-transparent"
+                                        style="background-color: #f59e0b"></button>
+
+                                </div>
+
+                                <div class="flex items-center gap-2 border-l border-white/10 pl-3">
+                                    <div id="color-indicator"
+                                        class="w-4 h-4 rounded-full transition-colors duration-300">
+                                    </div>
+                                    <input type="text" id="brandColor" value="#3b82f6"
+                                        class="bg-transparent text-white text-xs font-mono outline-none w-20"
+                                        oninput="updateColorIndicator(this.value)" onfocus="this.select()">
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="storeLogo" value="">
+                    </div>
+                </div>
+
+                <div id="action-bar"
+                    class="mt-8 flex items-center justify-between gap-10 reveal animate-up [animation-delay:450ms]">
+                    <button id="back-btn" onclick="prevStep()"
+                        class="flex items-center text-sm text-white/30 hover:text-white transition-colors hidden"
+                        style="display: block;">
+                        <i class="bi bi-arrow-left-short me-1"></i> Back
+                    </button>
+
+                    <button id="next-btn" onclick="nextStep()"
+                        class="flex items-center ml-auto bg-white text-black font-bold px-8 py-3 rounded-xl hover:bg-gray-100 transition-all active:scale-95">Pay
+                        1650 EGP GO <i class="bi bi-arrow-right-short ms-1"></i></button>
+                </div>
+
+                <p id="toggle-area"
+                    class="border-t border-white/10 text-center pt-4 mt-4 text-sm text-white/30 reveal animate-up [animation-delay:500ms]"
+                    style="display: none;">
+                    Already have an account?
+                    <button onclick="toggleSignIn()" class="text-white hover:text-blue-400 font-medium">Sign In</button>
+                </p>
+
+            </div>
+
+        </div>
+
+        <script>
+            let currentStep = 0;
+            let isSignIn = false;
+            let isResetting = false; // Track if we are in the "Forgot Password" view
+            const formData = {};
+
+            const steps = [
+                {
+                    title: "Sales channels",
+                    sub: "What is your current strategy?",
+                    key: "channels",
+                    html: (data) => renderOptions([
+                        { t: "Hybrid Unified Store", s: "POS synced with your website.", i: "bi-globe text-4xl mr-2,bi-pc-display text-4xl" },
+                        { t: "Online Store", s: "Sell through a custom website.", i: "bi-globe text-4xl" },
+                        { t: "POS Setup", s: "POS cashier system only.", i: "bi-pc-display text-4xl" }
+                    ], data.channels, true)
+                },
+                {
+                    title: "Create Account",
+                    sub: "Enter your email to get started.",
+                    fields: ['email'],
+                    html: (data) => `<div class="space-y-4 animate-up">
+                        <label class="text-[11px] uppercase tracking-widest text-white/30 ml-1">Email Address</label>
+                        <input type="email" id="email" value="${data.email || ''}" placeholder="name@gmail.com" class="w-full px-4 py-4 bg-white/[0.03] border border-white/10 rounded-xl text-white outline-none focus:border-white/40 transition-all ">
+                    </div>`
+                },
+                {
+                    title: "Complete Signup",
+                    sub: "Set your password and name.",
+                    fields: ['firstName', 'lastName', 'password'],
+                    html: (data) => `<div class="space-y-4 animate-up">
+                        <div class="flex gap-2">
+                            <input type="text" id="firstName" value="${data.firstName || ''}" placeholder="First Name" class="w-1/2 px-4 py-4 bg-white/[0.03] border border-white/10 rounded-xl text-white outline-none ">
+                            <input type="text" id="lastName" value="${data.lastName || ''}" placeholder="Last Name" class="w-1/2 px-4 py-4 bg-white/[0.03] border border-white/10 rounded-xl text-white outline-none ">
+                        </div>
+                        <div class="relative group">
+                            <input type="password" id="password" value="${data.password || ''}" placeholder="Create a password" class="w-full px-4 py-4 bg-white/[0.03] border border-white/10 rounded-xl text-white outline-none focus:border-white/40 transition-all">
+                            <button type="button" onclick="togglePassword()" class="absolute right-4 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/60 focus:outline-none"><i id="toggleIcon" class="bi bi-eye"></i></button>
+                        </div>
+                    </div>`
+                },
+                {
+                    title: "What’s your focus?",
+                    sub: "Choose the categories you plan to sell.",
+                    key: "focus",
+                    html: (data) => renderOptions([
+                        { t: "Apparel & Accessories", s: "Clothing, shoes, watches, and jewelry." },
+                        { t: "Home & Garden", s: "Décor, kitchenware, and furniture." },
+                        { t: "Beauty & Wellness", s: "Organic skincare and personal care." },
+                        { t: "Electronics & Gadgets", s: "High-tech devices and gear." }
+                    ], data.focus)
+                },
+                {
+                    title: "Inventory Size",
+                    sub: "Choose the plan that fits your needs.",
+                    key: "inventory",
+                    html: (data) => renderOptions([
+                        {
+                            t: "1 - 5 item",
+                            s: "Perfect for a boutique setup or single product launch.",
+                            p: "50 EGP/mo",
+                            id: "plan1" // Added ID
+                        },
+                        {
+                            t: "5 - 20 item",
+                            s: "Ideal for small collections and growing brands.",
+                            p: "150 EGP/mo",
+                            id: "plan2" // Added ID
+                        },
+                        {
+                            t: "20 - 100 item",
+                            s: "A comprehensive catalog for established shops.",
+                            p: "250 EGP/mo",
+                            id: "plan3" // Added ID
+                        },
+                        {
+                            t: "100 - 300 item",
+                            s: "High-volume inventory with multiple categories.",
+                            p: "650 EGP/mo",
+                            id: "plan4" // Added ID
+                        },
+                        {
+                            t: "300 - 750 item",
+                            s: "Large scale enterprise-level product management.",
+                            p: "1200 EGP/mo",
+                            id: "plan5" // Added ID
+                        }
+                    ], data.inventory)
+                },
+                {
+                    title: "Store Name",
+                    sub: "What should we call your store?",
+                    fields: ['storeName'],
+                    html: (data) => `<div class="space-y-4 animate-up">
+                        <label class="text-[11px] uppercase tracking-widest text-white/30 ml-1">Store Name</label>
+                        <input type="text" id="storeName" value="${data.storeName || ''}" placeholder="My Awesome Store" class="w-full px-4 py-4 bg-white/[0.03] border border-white/10 rounded-xl text-white outline-none focus:border-white/40">
+                    </div>`
+                },
+                {
+                    title: "Store Identity",
+                    sub: "Upload your logo and pick your brand color.",
+                    fields: ['storeLogo', 'brandColor'],
+                    html: (data) => `
+            <div class="space-y-8 animate-up">
+                <div class="flex flex-col items-center justify-center">
+                    <div onclick="document.getElementById('storeLogoInput').click()" class="relative group cursor-pointer w-28 h-28 mb-3">
+                        <div id="preview-circle" class="w-full h-full rounded-full border-2 border-dashed border-white/20 bg-white/[0.03] flex items-center justify-center overflow-hidden transition-all group-hover:border-white/40">
+                            ${data.storeLogo ? `<img src="${data.storeLogo}" class="w-full h-full object-cover">` : `<i class="bi bi-cloud-arrow-up text-2xl text-white/20"></i>`}
+                        </div>
+                        <div class="absolute bottom-0 right-0 bg-white text-black rounded-full p-1.5 shadow-lg">
+                            <i class="bi bi-camera-fill text-base"></i>
+                        </div>
+                        <input type="file" id="storeLogoInput" accept="image/*" class="hidden" onchange="handleLogoUpload(event)">
+                    </div>
+                    <p class="text-[10px] uppercase tracking-[0.2em] text-white/30">Store Logo</p>
+                </div>
+        
+                <div class="space-y-4">
+                    <label class="text-[11px] uppercase tracking-widest text-white/30 ml-1">Brand Accent Color</label>
+                    <div class="flex flex-wrap gap-3 justify-between items-center bg-white/[0.02] p-4 rounded-2xl border border-white/5">
+                        <div class="flex gap-2">
+                            ${['#3b82f6', '#8b5cf6', '#ec4899', '#10b981', '#f59e0b'].map(color => `
+                                <button onclick="selectColor('${color}')" 
+                                        class="w-8 h-8 rounded-full border-2 transition-transform hover:scale-110 ${data.brandColor === color ? 'border-white scale-110' : 'border-transparent'}" 
+                                        style="background-color: ${color}"></button>
+                            `).join('')}
+                        </div>
+                        
+                        <div class="flex items-center gap-2 border-l border-white/10 pl-3">
+                            <div id="color-indicator" class="w-4 h-4 rounded-full transition-colors duration-300" style="background-color: ${data.brandColor || '#3b82f6'}"></div>
+                            <input type="text" id="brandColor" value="${data.brandColor || '#3b82f6'}" 
+                                   class="bg-transparent text-white text-xs font-mono outline-none w-20" 
+                                   oninput="updateColorIndicator(this.value)"
+                                   onfocus="this.select()">
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" id="storeLogo" value="${data.storeLogo || ''}">
+            </div>`
+                },
+            ];
+
+            function renderOptions(opts, current, hasIcons = false) {
+                return `<div class="grid grid-cols-1 categories-options gap-3 animate-up">
+            ${opts.map(o => {
+                    const isSelected = current === o.t;
+                    return `
+                <div class="option-card group relative overflow-hidden p-4 rounded-xl flex justify-between items-center cursor-pointer transition-all duration-300 ${isSelected ? 'selected' : ''}" 
+                    onclick="setChoice(this, '${o.t}', '${o.p || ''}', '${o.id || ''}')" style="height: 85px;">
+                    
+                    <div class="flex flex-col z-10">
+                        <div class="flex items-center gap-2">
+                            <span class="text-white font-medium capitalize">${o.t}</span>
+                            ${o.p ? `<span class="text-[10px] px-2 py-0.5 bg-white/10 rounded-full border border-white/10">${o.p}</span>` : ''}
+                        </div>
+                        <small class="text-white/50">${o.s}</small>
+                    </div>
+        
+                    ${hasIcons && o.i ? `
+                    <div class="submerged-icon absolute -bottom-6 left-4 opacity-20 pointer-events-none transition-all duration-500 ease-in-out group-hover:-translate-y-2 flex gap-2">
+                        ${o.i.split(',').map(icon => `<i class="bi ${icon} text-4xl text-white"></i>`).join('')}
+                    </div>` : ''}
+        
+                    <div class="check-box z-10 w-5 h-5 border border-white/20 rounded flex items-center justify-center transition-all duration-300">
+                        <i class="bi bi-check-lg ${isSelected ? '' : 'scale-0'} transition-transform duration-200 text-black"></i>
+                    </div>
+                </div>`;
+                }).join('')}
+        </div>`;
+            }
+
+            //handle the display and pick the image and the unique color
+            window.handleLogoUpload = (event) => {
+                const file = event.target.files[0];
+                const previewCircle = document.getElementById('preview-circle');
+                const hiddenInput = document.getElementById('storeLogo');
+
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const imageUrl = e.target.result;
+                        // Update Preview & Data
+                        if (previewCircle) previewCircle.innerHTML = `<img src="${imageUrl}" class="w-full h-full object-cover animate-fade-in">`;
+                        if (hiddenInput) hiddenInput.value = imageUrl;
+                        formData.storeLogo = imageUrl;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            };
+
+            window.selectColor = (color) => {
+                const input = document.getElementById('brandColor');
+                const indicator = document.getElementById('color-indicator');
+
+                // Update Input, Indicator, and Global Data
+                if (input) input.value = color.toUpperCase();
+                if (indicator) indicator.style.backgroundColor = color;
+                formData.brandColor = color;
+
+                // Optional: If you want the "Finish Setup" button to change color too
+                const finishBtn = document.getElementById('next-btn');
+                if (finishBtn) finishBtn.style.backgroundColor = color;
+            };
+
+            window.updateColorIndicator = (value) => {
+                const indicator = document.getElementById('color-indicator');
+                const finishBtn = document.getElementById('next-btn');
+
+                // Validate hex format (#FFF or #FFFFFF)
+                if (/^#([0-9A-F]{3}){1,2}$/i.test(value)) {
+                    if (indicator) indicator.style.backgroundColor = value;
+                    if (finishBtn) finishBtn.style.backgroundColor = value;
+                    formData.brandColor = value;
+                }
+            };  // Also add a listener to trigger the hidden file input when the circle is clicked
+            document.addEventListener('click', (e) => {
+                if (e.target.closest('#logo-preview-container')) {
+                    document.getElementById('storeLogoInput').click();
+                }
+            });
+
+            function saveCurrentData() {
+                const step = steps[currentStep];
+                if (step.fields) {
+                    step.fields.forEach(id => {
+                        const el = document.getElementById(id);
+                        if (el) formData[id] = el.value.trim();
+                    });
+                }
+            }
+
+            function validateStep() {
+                const step = steps[currentStep];
+                let isValid = true;
+
+                if (step.fields) {
+                    for (let id of step.fields) {
+                        const el = document.getElementById(id);
+                        const container = el.closest('div'); // Get the wrapper to append icons
+
+                        // Check if field is empty
+                        if (!el || !el.value.trim()) {
+                            showError(el);
+                            isValid = false;
+                        } else {
+                            clearError(el);
+                        }
+                    }
+                }
+
+                if (step.key && !formData[step.key]) {
+                    // Handle selection-based steps (like radio buttons or cards)
+                    const selectionContainer = document.querySelector(`[data-key="${step.key}"]`) || document.getElementById(step.key);
+                    if (selectionContainer) {
+                        selectionContainer.classList.add('border-red-500', 'ring-2', 'ring-red-200');
+                        setTimeout(() => selectionContainer.classList.remove('ring-2'), 2000);
+                    }
+                    isValid = false;
+                }
+
+                return isValid;
+            }
+
+            function showError(el) {
+                // 1. Add visual error state to the input
+                el.classList.add('border-red-500', 'transition-all', 'duration-300');
+
+                // 2. Fix positioning: Ensure the input's immediate parent is the anchor
+                const parent = el.parentElement;
+                parent.classList.add('relative');
+
+                // 3. Remove existing icon to prevent the "double icon" look in your screenshots
+                const existingIcon = parent.querySelector('.error-icon');
+                if (existingIcon) existingIcon.remove();
+
+                // 4. Create and inject the Bootstrap icon
+                const icon = document.createElement('i');
+                // Using 'translate-y-[-50%]' for pixel-perfect centering
+                icon.className = 'bi bi-exclamation-circle-fill text-red-500 error-icon absolute right-3 top-1/2 -translate-y-1/2 animate-fade-in z-10';
+
+                parent.appendChild(icon);
+
+                // 5. Trigger the shake
+                el.classList.add('animate-shake');
+                setTimeout(() => el.classList.remove('animate-shake'), 500);
+
+                // 6. Clear on type
+                el.addEventListener('input', () => clearError(el), { once: true });
+            }
+
+            function clearError(el) {
+                el.classList.remove('border-red-500');
+                // Find the icon specifically within this input's parent
+                const icon = el.parentElement.querySelector('.error-icon');
+                if (icon) icon.remove();
+            }
+
+            function render() {
+                const content = document.getElementById('step-content');
+                const nextBtn = document.getElementById('next-btn');
+                const data = steps[currentStep];
+
+                content.innerHTML = `
+                        <h1 class="text-xl font-semibold tracking-tight mb-1 animate-up">${data.title}</h1>
+                        <p class="text-sm text-white/40 mb-8 animate-up">${data.sub}</p>
+                        ${data.html(formData)}
+                    `;
+
+                // Ensure button has the correct onclick for Sign Up flow
+                nextBtn.onclick = nextStep;
+                nextBtn.innerHTML = (currentStep === steps.length - 1) ? 'Pay 1650 EGP GO <i class="bi bi-arrow-right-short ms-1"></i>' : 'Continue <i class="bi bi-arrow-right-short ms-1"></i>';
+
+                updateIndicators();
+            }
+
+            function setChoice(el, value, price = '', planId = '') {
+                const step = steps[currentStep];
+                const key = step.key;
+
+                // Save the primary selection (e.g., "1 - 5 item")
+                formData[key] = value;
+
+                // If it's the inventory step, capture the extra details
+                if (key === 'inventory') {
+                    formData.planPrice = price;
+                    formData.planId = planId;
+                }
+
+                // UI Feedback (Keeping your existing logic)
+                el.parentElement.querySelectorAll('.option-card').forEach(c => {
+                    c.classList.remove('selected');
+                    const check = c.querySelector('.bi-check-lg');
+                    if (check) check.classList.add('scale-0');
+                });
+                el.classList.add('selected');
+                el.querySelector('.bi-check-lg').classList.remove('scale-0');
+            }
+
+            function updateIndicators() {
+                const indicators = document.getElementById('step-indicators');
+                const dots = indicators.querySelectorAll('.dot');
+                const lines = indicators.querySelectorAll('.step-line');
+                const backBtn = document.getElementById('back-btn');
+                const toggle = document.getElementById('toggle-area');
+
+                // Handle visibility of the whole bar
+                indicators.style.display = (isSignIn || isResetting) ? 'none' : 'flex';
+                backBtn.style.display = (currentStep === 0 || isSignIn || isResetting) ? 'none' : 'block';
+                toggle.style.display = (currentStep === 0 || isSignIn || isResetting) ? 'block' : 'none';
+
+                // Update Dots
+                dots.forEach((dot, i) => {
+                    if (i === currentStep) {
+                        // Active Step: Large and Glowing
+                        dot.className = "dot w-1.5 h-1.5 rounded-full bg-white shadow-[0_0_12px_#fff] transition-all duration-300";
+                    } else if (i < currentStep) {
+                        // Past Steps: Slightly visible
+                        dot.className = "dot w-1.5 h-1.5 rounded-full bg-white/60 transition-all duration-300";
+                    } else {
+                        // Future Steps: Dimmed
+                        dot.className = "dot w-1.5 h-1.5 rounded-full bg-white/20 transition-all duration-300";
+                    }
+                });
+
+                // Update Lines
+                lines.forEach((line, i) => {
+                    // If the step after this line is reached, highlight the line
+                    if (i < currentStep) {
+                        line.style.backgroundColor = "rgba(255, 255, 255, 0.4)";
+                    } else {
+                        line.style.backgroundColor = "rgba(255, 255, 255, 0.1)";
+                    }
+                });
+            }
+
+            function nextStep() {
+                saveCurrentData();
+                if (!validateStep()) return;
+
+                if (currentStep < steps.length - 1) {
+                    currentStep++;
+                    render();
+                } else {
+                    settingEnvironment();
+                    formData.created_at = new Date().toISOString();
+
+                    console.log("Final Data Captured:", formData);
+                    // Final submission logic here
+                }
+            }
+
+            function prevStep() {
+                saveCurrentData();
+                if (currentStep > 0) {
+                    currentStep--;
+                    render();
+                }
+            }
+
+            function togglePassword() {
+                const input = document.getElementById('password');
+                const icon = document.getElementById('toggleIcon');
+                if (!input) return;
+                const isPass = input.type === "password";
+                input.type = isPass ? "text" : "password";
+                icon.classList.replace(isPass ? 'bi-eye' : 'bi-eye-slash', isPass ? 'bi-eye-slash' : 'bi-eye');
+            }
+
+            function toggleSignIn() {
+                isSignIn = !isSignIn;
+                isResetting = false; // Reset the reset state if they toggle back
+                const content = document.getElementById('step-content');
+                const nextBtn = document.getElementById('next-btn');
+                const toggleArea = document.getElementById('toggle-area');
+
+                if (isSignIn) {
+                    content.innerHTML = `
+                            <h1 class="text-xl font-semibold tracking-tight mb-1 animate-up">Welcome Back</h1>
+                            <p class="text-sm text-white/40 mb-8 animate-up">Enter your credentials to access your store.</p>
+                            <div class="space-y-4 animate-up">
+                                <div class="space-y-2">
+                                    <input type="email" id="loginEmail" placeholder="Email Address" class="w-full px-4 py-4 bg-white/[0.03] border border-white/10 rounded-xl text-white outline-none focus:border-white/40">
+                                </div>
+                                 <div class="space-y-2">
+                                     <input type="password" id="loginPass" placeholder="Password" class="w-full px-4 py-4 bg-white/[0.03] border border-white/10 rounded-xl text-white outline-none focus:border-white/40">
+                                </div>
+                                <div class="flex justify-end">
+                                    <button onclick="handleForgotPassword()" class="text-xs text-white/40 hover:text-white transition-colors">
+                                        Forgot Password?
+                                    </button>
+                                </div>
+                            </div>`;
+
+                    // Re-bind button for Login only
+                    nextBtn.innerHTML = 'Sign In <i class="bi bi-door-open ms-2"></i>';
+                    nextBtn.onclick = handleSignIn;
+
+                    toggleArea.innerHTML = `Don't have an account? <button onclick="toggleSignIn()" class="text-white hover:text-blue-400 font-medium">Sign Up</button>`;
+                } else {
+                    currentStep = 0;
+                    toggleArea.innerHTML = `Already have an account? <button onclick="toggleSignIn()" class="text-white hover:text-blue-400 font-medium">Sign In</button>`;
+                    render();
+                }
+                updateIndicators();
+            }
+
+            function handleSignIn() {
+                const emailEl = document.getElementById('loginEmail');
+                const passEl = document.getElementById('loginPass');
+
+                const email = emailEl.value.trim();
+                const pass = passEl.value.trim();
+
+                let isValid = true;
+
+                // Validate Email
+                if (!email) {
+                    showError(emailEl);
+                    isValid = false;
+                } else {
+                    clearError(emailEl);
+                }
+
+                // Validate Password
+                if (!pass) {
+                    showError(passEl);
+                    isValid = false;
+                } else {
+                    clearError(passEl);
+                }
+
+                if (!isValid) return; // Stop here if validation failed
+
+                console.log("Logging in with:", email, pass);
+            }
+
+            function handleForgotPassword() {
+                isResetting = true;
+                const content = document.getElementById('step-content');
+                const nextBtn = document.getElementById('next-btn');
+                const toggleArea = document.getElementById('toggle-area');
+
+                content.innerHTML = `
+                        <div class="animate-up">
+                            <h1 class="text-xl font-semibold tracking-tight mb-1">Reset Password</h1>
+                            <p class="text-sm text-white/40 mb-8">Enter your email and we'll send you a retrieval link.</p>
+                            <div class="space-y-4">
+                                <label class="text-[11px] uppercase tracking-widest text-white/30 ml-1">Email Address</label>
+                                <input type="email" id="resetEmail" placeholder="name@gmail.com" class="w-full px-4 py-4 bg-white/[0.03] border border-white/10 rounded-xl text-white outline-none focus:border-white/40 transition-all">
+                            </div>
+                            <div id="status-message" class="mt-4 text-sm hidden"></div>
+                        </div>`;
+
+                nextBtn.innerHTML = `Send Retrieval Link <i class="bi bi-mailbox ms-2"></i>`;
+                nextBtn.onclick = () => sendResetLink();
+
+                toggleArea.innerHTML = `Remembered your password? <button onclick="toggleSignIn()" class="text-white hover:text-blue-400 font-medium">Sign In</button>`;
+                updateIndicators();
+            }
+
+            function sendResetLink() {
+                const emailInput = document.getElementById('resetEmail');
+                const nextBtn = document.getElementById('next-btn');
+                const statusMsg = document.getElementById('status-message');
+                const email = emailInput.value.trim();
+
+                // 1. Reset visual states
+                clearError(emailInput);
+
+
+                // 2. Validate using the new visual system
+                if (!email || !email.includes('@')) {
+                    showError(emailInput);
+                    return;
+                }
+
+                // 3. Process the "Sending" state
+                nextBtn.innerHTML = `<span class="animate-spin inline-block me-2">⚙️</span> Sending...`;
+                nextBtn.disabled = true;
+
+                // Simulate API call
+                setTimeout(() => {
+                    const gmailUrl = "https://mail.google.com/mail/u/0/#search/from%3AMatager+reset";
+
+                    // Hide standard error text if it was visible
+                    statusMsg.classList.add('hidden');
+
+                    // Show the Premium Success Card
+                    statusMsg.innerHTML = `
+                    <div class="flex items-start gap-3 p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl animate-up">
+                        <i class="bi bi-check-circle-fill text-emerald-400 mt-1"></i>
+                        <div class="space-y-2">
+                            <p class="text-emerald-400 font-bold text-sm">Reset Link Sent!</p>
+                            <p class="text-white/60 text-xs leading-relaxed">Recovery link sent to <span class="text-white font-medium">${email}</span>.</p>
+                            <a href="${gmailUrl}" target="_blank" class="inline-flex items-center gap-2 text-[11px] font-bold text-emerald-400 hover:text-emerald-300 uppercase tracking-wider transition-colors">
+                                Open Gmail Inbox <i class="bi bi-box-arrow-up-right"></i>
+                            </a>
+                        </div>
+                    </div>`;
+
+                    statusMsg.className = "mt-4 block"; // Ensure it's visible
+                    statusMsg.classList.remove('hidden');
+
+                    nextBtn.innerText = "Resend Link";
+                    nextBtn.disabled = false;
+                }, 1200);
+            }
+            render();
+        </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                const continueBtn = document.getElementById("continue-btn");
+                const roleSection = document.getElementById("role-selection-section");
+                const mainCard = document.getElementById("main-card");
+
+                continueBtn.addEventListener("click", () => {
+                    // 1. Get the selected option value (optional, if you want to use it right away)
+                    const selectedRole = document.querySelector('input[name="user_role"]:checked').value;
+                    console.log("Selected user role:", selectedRole);
+
+                    // 2. Smoothly fade out and slightly shrink the original section
+                    roleSection.classList.add("opacity-0", "scale-95", "pointer-events-none");
+
+                    // 3. Wait for the fade-out transition to complete (500ms match duration-500)
+                    setTimeout(() => {
+                        // Hide the first section from the layout space entirely
+                        roleSection.style.display = "none";
+
+                        // Reveal the main card structure contextually
+                        mainCard.classList.remove("hidden");
+
+                        // 4. Force a quick browser reflow to trigger the entry animation cleanly
+                        void mainCard.offsetWidth;
+
+                        // 5. Fade in and scale up the main card beautifully
+                        mainCard.classList.remove("opacity-0", "scale-95");
+                        mainCard.classList.add("opacity-100", "scale-100");
+                    }, 500);
+                });
+            });
+        </script>
+
+        <!-- end section for the opening -->
+
+
+
+        <!-- section for the learn more and explore features till end code  -->
+
+        <section class="flex flex-col items-center text-center pt-20 pb-20">
             <h1 id="animate-h1" class="text-5xl md:text-7xl font-bold max-w-4xl mb-6 leading-[1.1] tracking-tight">
                 <span class="word" style="animation-delay: 200ms;">Build,</span>
                 <span class="word" style="animation-delay: 300ms;">Launch</span>
@@ -224,59 +1090,140 @@
         </section>
 
         <section class="max-w-7xl mx-auto py-20 px-4 w-full">
-            <div class="flex flex-col md:flex-row justify-between items-start mb-12 gap-4 card-reveal">
+            <div
+                class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-4 card-reveal active">
                 <div>
-                    <h2 class="text-3xl font-bold mb-2">Recent Launches</h2>
-                    <p class="text-white/40">Discover the newest stores built on Matager.</p>
+                    <h2 class="text-3xl font-bold mb-2 text-white">Recent Launches</h2>
+                    <p class="text-white/40">Discover the newest stores built on Matager and see how they thrive.</p>
                 </div>
-                <a href="#" class="text-sm font-medium text-blue-400 hover:text-blue-300 transition ">View
-                    all stores <i class="bi bi-arrow-right"></i></a>
+                <a href="#"
+                    class="text-sm font-medium text-blue-400 hover:text-blue-300 transition flex items-center gap-1 group">
+                    View all stores
+                    <i class="bi bi-arrow-right transition-transform group-hover:translate-x-1"></i>
+                </a>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
                 <div
-                    class="glass p-6 rounded-3xl flex flex-col items-center text-center group cursor-pointer card-reveal">
-                    <div
-                        class="w-24 h-24 mb-6 rounded-full bg-gradient-to-br from-white/10 to-white/5 flex items-center justify-center border border-white/10 group-hover:border-blue-500/50 transition-all duration-500">
-                        <i
-                            class="bi bi-shop text-4xl text-white/80 group-hover:text-blue-400 group-hover:scale-110 transition-transform"></i>
+                    class="glass p-6 rounded-3xl flex flex-col justify-between group cursor-pointer hover:bg-white/[0.03] transition-all duration-300 border border-white/5 hover:border-blue-500/30 card-reveal active">
+                    <div>
+                        <div class="flex justify-between items-center mb-6">
+                            <span
+                                class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center gap-1.5">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Live
+                            </span>
+                            <span class="text-xs text-white/40 uppercase tracking-widest font-medium">Home &amp;
+                                Garden</span>
+                        </div>
+
+                        <div class="flex items-center gap-4 mb-6">
+                            <div
+                                class="w-16 h-16 rounded-2xl bg-gradient-to-br from-white/10 to-white/5 flex items-center justify-center border border-white/10 group-hover:border-blue-500/50 transition-all duration-500 shrink-0">
+                                <i
+                                    class="bi bi-shop text-2xl text-white/80 group-hover:text-blue-400 group-hover:scale-110 transition-transform"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-xl text-white group-hover:text-blue-400 transition-colors">
+                                    Lumina
+                                    Decor</h4>
+                                <p class="text-xs text-white/40 mt-0.5">Launched: June 2026</p>
+                            </div>
+                        </div>
                     </div>
-                    <h4 class="font-bold text-lg mb-1">Lumina Decor</h4>
-                    <p class="text-xs text-white/40 uppercase tracking-widest">Home & Garden</p>
+
+                    <div class="mt-4 pt-4 border-t border-white/5 grid grid-cols-2 gap-4">
+                        <div>
+                            <p class="text-[10px] text-white/40 uppercase tracking-wider mb-0.5">Revenue Status</p>
+                            <p class="text-sm font-semibold text-white flex items-center gap-1">
+                                Growing Fast
+                            </p>
+                        </div>
+                        <div>
+                            <p class="text-[10px] text-white/40 uppercase tracking-wider mb-0.5">Live Products</p>
+                            <p class="text-sm font-semibold text-white">142 Items</p>
+                        </div>
+                    </div>
                 </div>
 
                 <div
-                    class="glass p-6 rounded-3xl flex flex-col items-center text-center group cursor-pointer card-reveal">
-                    <div
-                        class="w-24 h-24 mb-6 rounded-full bg-gradient-to-br from-white/10 to-white/5 flex items-center justify-center border border-white/10 group-hover:border-purple-500/50 transition-all duration-500">
-                        <i
-                            class="bi bi-shop text-4xl text-white/80 group-hover:text-purple-400 group-hover:scale-110 transition-transform"></i>
+                    class="glass p-6 rounded-3xl flex flex-col justify-between group cursor-pointer hover:bg-white/[0.03] transition-all duration-300 border border-white/5 hover:border-purple-500/30 card-reveal active">
+                    <div>
+                        <div class="flex justify-between items-center mb-6">
+                            <span
+                                class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center gap-1.5">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Live
+                            </span>
+                            <span class="text-xs text-white/40 uppercase tracking-widest font-medium">Apparel</span>
+                        </div>
+
+                        <div class="flex items-center gap-4 mb-6">
+                            <div
+                                class="w-16 h-16 rounded-2xl bg-gradient-to-br from-white/10 to-white/5 flex items-center justify-center border border-white/10 group-hover:border-purple-500/50 transition-all duration-500 shrink-0">
+                                <i
+                                    class="bi bi-shop text-2xl text-white/80 group-hover:text-purple-400 group-hover:scale-110 transition-transform"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-xl text-white group-hover:text-purple-400 transition-colors">
+                                    Apex Gear
+                                </h4>
+                                <p class="text-xs text-white/40 mt-0.5">Launched: May 2026</p>
+                            </div>
+                        </div>
                     </div>
-                    <h4 class="font-bold text-lg mb-1">Apex Gear</h4>
-                    <p class="text-xs text-white/40 uppercase tracking-widest">Apparel & Accessories</p>
+
+                    <div class="mt-4 pt-4 border-t border-white/5 grid grid-cols-2 gap-4">
+                        <div>
+                            <p class="text-[10px] text-white/40 uppercase tracking-wider mb-0.5">Revenue Status</p>
+                            <p class="text-sm font-semibold text-white flex items-center gap-1">
+                                High Volume
+                            </p>
+                        </div>
+                        <div>
+                            <p class="text-[10px] text-white/40 uppercase tracking-wider mb-0.5">Live Products</p>
+                            <p class="text-sm font-semibold text-white">380 Items</p>
+                        </div>
+                    </div>
                 </div>
 
                 <div
-                    class="glass p-6 rounded-3xl flex flex-col items-center text-center group cursor-pointer card-reveal">
-                    <div
-                        class="w-24 h-24 mb-6 rounded-full bg-gradient-to-br from-white/10 to-white/5 flex items-center justify-center border border-white/10 group-hover:border-emerald-500/50 transition-all duration-500">
-                        <i
-                            class="bi bi-shop text-4xl text-white/80 group-hover:text-emerald-400 group-hover:scale-110 transition-transform"></i>
-                    </div>
-                    <h4 class="font-bold text-lg mb-1">Velvet Bloom</h4>
-                    <p class="text-xs text-white/40 uppercase tracking-widest">Beauty & Wellness</p>
-                </div>
+                    class="glass p-6 rounded-3xl flex flex-col justify-between group cursor-pointer hover:bg-white/[0.03] transition-all duration-300 border border-white/5 hover:border-emerald-500/30 card-reveal active">
+                    <div>
+                        <div class="flex justify-between items-center mb-6">
+                            <span
+                                class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center gap-1.5">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Live
+                            </span>
+                            <span class="text-xs text-white/40 uppercase tracking-widest font-medium">Beauty</span>
+                        </div>
 
-                <div
-                    class="glass p-6 rounded-3xl flex flex-col items-center text-center group cursor-pointer card-reveal">
-                    <div
-                        class="w-24 h-24 mb-6 rounded-full bg-gradient-to-br from-white/10 to-white/5 flex items-center justify-center border border-white/10 group-hover:border-orange-500/50 transition-all duration-500">
-                        <i
-                            class="bi bi-shop text-4xl text-white/80 group-hover:text-orange-400 group-hover:scale-110 transition-transform"></i>
+                        <div class="flex items-center gap-4 mb-6">
+                            <div
+                                class="w-16 h-16 rounded-2xl bg-gradient-to-br from-white/10 to-white/5 flex items-center justify-center border border-white/10 group-hover:border-emerald-500/50 transition-all duration-500 shrink-0">
+                                <i
+                                    class="bi bi-shop text-2xl text-white/80 group-hover:text-emerald-400 group-hover:scale-110 transition-transform"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-xl text-white group-hover:text-emerald-400 transition-colors">
+                                    Velvet
+                                    Bloom</h4>
+                                <p class="text-xs text-white/40 mt-0.5">Launched: April 2026</p>
+                            </div>
+                        </div>
                     </div>
-                    <h4 class="font-bold text-lg mb-1">Tech Pulse</h4>
-                    <p class="text-xs text-white/40 uppercase tracking-widest">Electronics & Gadgets</p>
+
+                    <div class="mt-4 pt-4 border-t border-white/5 grid grid-cols-2 gap-4">
+                        <div>
+                            <p class="text-[10px] text-white/40 uppercase tracking-wider mb-0.5">Revenue Status</p>
+                            <p class="text-sm font-semibold text-white flex items-center gap-1">
+                                Consistent
+                            </p>
+                        </div>
+                        <div>
+                            <p class="text-[10px] text-white/40 uppercase tracking-wider mb-0.5">Live Products</p>
+                            <p class="text-sm font-semibold text-white">64 Items</p>
+                        </div>
+                    </div>
                 </div>
 
             </div>
