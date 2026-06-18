@@ -107,7 +107,7 @@
 
         <!-- section for the opening -->
         <section id="role-selection-section"
-            class="flex flex-col items-center min-h-screen text-center px-4 py-8 sm:py-20 relative overflow-hidden text-white selection:bg-white/20 gap-3 transition-all duration-500 ease-in-out"
+            class="flex flex-col items-center min-h-screen text-center px-4 py-8 sm:py-20 relative overflow-hidden text-white selection:bg-white/20 gap-3 transition-all duration-200 ease-in-out"
             style="display: flex; justify-content: center;">
 
             <div class="w-full flex gap-4 flex-col items-center pt-4 sm:pt-0">
@@ -253,13 +253,13 @@
         </div>
 
         <div id="main-card"
-            class="flex flex-col items-center justify-center min-h-screen text-center px-4 py-8 relative overflow-hidden text-white hidden gap-3 transition-all duration-500 ease-in-out"
+            class="flex flex-col items-center justify-center min-h-screen text-center px-4 py-8 relative overflow-hidden text-white hidden gap-3 transition-all duration-200 ease-in-out"
             style="animation-delay: 200ms">
             <div>
 
                 <div id="step-indicators"
-                    class="flex items-center gap-2 mb-5 reveal animate-up [animation-delay:400ms] "
-                    style="max-width: 450px;min-width: 300px;">
+                    class="flex items-center gap-2 mb-5 reveal animate-up [animation-delay:200ms] "
+                    style="max-width: 450px;min-width: 300px;justify-content: center;">
                     <div class="dot w-1.5 h-1.5 rounded-full bg-white/60 transition-all duration-300"
                         style="animation-delay: 100ms">
                     </div>
@@ -379,17 +379,68 @@
                 </div>
 
                 <p id="toggle-area"
-                    class="border-t border-white/10 text-center pt-4 mt-4 text-sm text-white/30 reveal animate-up [animation-delay:500ms]"
-                    style="display: none;">
-                    Already have an account?
-                    <button onclick="toggleSignIn()" class="text-white hover:text-blue-400 font-medium">Sign In</button>
+                    class="border-t border-white/10 text-center pt-4 mt-4 text-sm text-white/30 reveal animate-up [animation-delay:200ms] flex flex-col items-center gap-2">
+                    <span class="mx-2 flex gap-1">
+                        Already have an account?
+                        <button onclick="toggleSignIn()" class="text-white hover:text-blue-400 font-medium">Sign
+                            In</button>
+                    </span>
+                    <button onclick="returntohome()"
+                        class="reveal animate-up [animation-delay:200ms] text-white hover:text-blue-400 font-medium underline underline-offset-4">
+                        Return to Home
+                    </button>
                 </p>
+                <div id="passwordMenu"
+                    class="absolute right-4 bottom-[105px] mt-2 w-56 bg-[#1a1a1a] border border-white/10 rounded-xl shadow-xl z-20 overflow-hidden text-left animate-up hidden">
+                    <button type="button" onclick="generateSecurePassword()"
+                        class="w-full px-4 py-3 text-xs text-white/70 hover:bg-white/[0.05] hover:text-white transition-colors flex items-center gap-2">
+                        <i class="bi bi-shield-lock"></i> Create secure password
+                    </button>
+                    <button type="button" onclick="usePhoneNumberAsPassword()"
+                        class="w-full px-4 py-3 text-xs text-white/70 hover:bg-white/[0.05] hover:text-white border-t border-white/5 transition-colors flex items-center gap-2">
+                        <i class="bi bi-phone"></i> Use phone number
+                    </button>
+
+                    <div
+                        class="px-4 py-2.5 bg-white/[0.01] border-t border-white/5 text-[10px] text-white/30 leading-normal flex items-start gap-1.5 select-none">
+                        <i class="bi bi-patch-check text-white/20 mt-0.5 shrink-0"></i>
+                        <span>Matager never monitors or stores your raw choice during generation. This stays strictly
+                            private to
+                            you.</span>
+                    </div>
+                </div>
+
+
+
 
             </div>
 
         </div>
 
         <script>
+            function returntohome() {
+                const mainCard = document.getElementById("main-card");
+                const roleSection = document.getElementById("role-selection-section");
+
+                // 1. Smoothly fade out and shrink the main card
+                mainCard.classList.remove("opacity-100", "scale-100");
+                mainCard.classList.add("opacity-0", "scale-95");
+
+                // 2. Wait for the fade-out transition to complete
+                setTimeout(() => {
+                    // Hide the main card from layout
+                    mainCard.classList.add("hidden");
+
+                    // Bring back the role selection layout display
+                    roleSection.style.display = ""; // Resets to default (block/flex etc.)
+
+                    // 3. Force reflow so the transition registers
+                    void roleSection.offsetWidth;
+
+                    // 4. Fade in and scale up the role selection section
+                    roleSection.classList.remove("opacity-0", "scale-95", "pointer-events-none");
+                }, 200);
+            }
             let currentStep = 0;
             let isSignIn = false;
             let isResetting = false; // Track if we are in the "Forgot Password" view
@@ -411,24 +462,39 @@
                     sub: "Enter your email to get started.",
                     fields: ['email'],
                     html: (data) => `<div class="space-y-4 animate-up">
-                        <label class="text-[11px] uppercase tracking-widest text-white/30 ml-1">Email Address</label>
-                        <input type="email" id="email" value="${data.email || ''}" placeholder="name@gmail.com" class="w-full px-4 py-4 bg-white/[0.03] border border-white/10 rounded-xl text-white outline-none focus:border-white/40 transition-all ">
+                        <input type="email" id="email" value="${data.email || ''}" placeholder="emailaddress@gmail.com" class="w-full px-4 py-4 bg-white/[0.03] border border-white/10 rounded-xl text-white outline-none focus:border-white/40 transition-all ">
                     </div>`
                 },
                 {
                     title: "Complete Signup",
-                    sub: "Set your password and name.",
-                    fields: ['firstName', 'lastName', 'password'],
-                    html: (data) => `<div class="space-y-4 animate-up">
-                        <div class="flex gap-2">
-                            <input type="text" id="firstName" value="${data.firstName || ''}" placeholder="First Name" class="w-1/2 px-4 py-4 bg-white/[0.03] border border-white/10 rounded-xl text-white outline-none ">
-                            <input type="text" id="lastName" value="${data.lastName || ''}" placeholder="Last Name" class="w-1/2 px-4 py-4 bg-white/[0.03] border border-white/10 rounded-xl text-white outline-none ">
-                        </div>
-                        <div class="relative group">
-                            <input type="password" id="password" value="${data.password || ''}" placeholder="Create a password" class="w-full px-4 py-4 bg-white/[0.03] border border-white/10 rounded-xl text-white outline-none focus:border-white/40 transition-all">
-                            <button type="button" onclick="togglePassword()" class="absolute right-4 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/60 focus:outline-none"><i id="toggleIcon" class="bi bi-eye"></i></button>
-                        </div>
-                    </div>`
+                    sub: "Set your password and credentials.",
+                    fields: ['firstName', 'lastName', 'phone', 'password'], // Added phone to the tracked fields
+                    html: (data) => `<div class="space-y-4 animate-up text-left">
+        <div class="flex gap-2">
+            <input type="text" id="firstName" value="${data.firstName || ''}" placeholder="First Name" class="w-1/2 px-4 py-4 bg-white/[0.03] border border-white/10 rounded-xl text-white outline-none focus:border-white/40 transition-all">
+            <input type="text" id="lastName" value="${data.lastName || ''}" placeholder="Last Name" class="w-1/2 px-4 py-4 bg-white/[0.03] border border-white/10 rounded-xl text-white outline-none focus:border-white/40 transition-all">
+        </div>
+
+        <div class="relative">
+            <input type="tel" id="phone" value="${data.phone || ''}" placeholder="Phone Number" class="w-full px-4 py-4 bg-white/[0.03] border border-white/10 rounded-xl text-white outline-none focus:border-white/40 transition-all">
+        </div>
+
+        <div class="relative group">
+            <input type="password" id="password" value="${data.password || ''}" placeholder="Create a password" class="w-full pl-4 pr-24 py-4 bg-white/[0.03] border border-white/10 rounded-xl text-white outline-none focus:border-white/40 transition-all">
+            
+            <div class="absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-3 z-10">
+                <button type="button" onclick="togglePassword()" class="text-white/30 hover:text-white/60 focus:outline-none transition-colors">
+                    <i id="toggleIcon" class="bi bi-eye"></i>
+                </button>
+
+                <div class="relative">
+                    <button type="button" onclick="togglePasswordMenu(event)" class="text-white/30 hover:text-white/60 focus:outline-none transition-colors flex items-center">
+                        <i class="bi bi-gear-fill"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>`
                 },
                 {
                     title: "What’s your focus?",
@@ -560,6 +626,69 @@
         </div>`;
             }
 
+            // Toggles visibility of the settings menu panel
+            function togglePasswordMenu(event) {
+                event.stopPropagation();
+                const menu = document.getElementById('passwordMenu');
+                if (menu) menu.classList.toggle('hidden');
+            }
+
+            // Generates an alphanumeric secure password with symbols
+            function generateSecurePassword() {
+                const length = 10;
+                const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+";
+                let password = "";
+
+                for (let i = 0, n = charset.length; i < length; ++i) {
+                    password += charset.charAt(Math.floor(Math.random() * n));
+                }
+
+                const passwordInput = document.getElementById('password');
+                if (passwordInput) {
+                    passwordInput.value = password;
+                    passwordInput.type = "text"; // Show it automatically so they can record it
+
+                    // Dispatch an input event so any parent form frameworks (like yours) notice the state update
+                    passwordInput.dispatchEvent(new Event('input', { bubbles: true }));
+                }
+
+                const toggleIcon = document.getElementById('toggleIcon');
+                if (toggleIcon) toggleIcon.className = "bi bi-eye-slash";
+
+                hidePasswordMenu();
+            }
+
+            // Automatically pulls data down from the phone field above
+            function usePhoneNumberAsPassword() {
+                const phoneInput = document.getElementById('phone');
+                const passwordInput = document.getElementById('password');
+
+                const phone = phoneInput.value.trim();
+
+                if (phoneInput && phoneInput.value.trim() !== "") {
+                    passwordInput.value = phoneInput.value.trim();
+                    passwordInput.dispatchEvent(new Event('input', { bubbles: true }));
+                } else {
+                    if (!phone) {
+                        showError(phoneInput);
+                        isValid = false;
+                    } else {
+                        clearError(phoneInput);
+                    }
+                }
+
+                hidePasswordMenu();
+            }
+
+            // Close helper
+            function hidePasswordMenu() {
+                const menu = document.getElementById('passwordMenu');
+                if (menu) menu.classList.add('hidden');
+            }
+
+            // Global window event listener to shut menu if user clicks outside context area
+            document.addEventListener('click', hidePasswordMenu);
+
             //handle the display and pick the image and the unique color
             window.handleLogoUpload = (event) => {
                 const file = event.target.files[0];
@@ -660,17 +789,6 @@
                 const parent = el.parentElement;
                 parent.classList.add('relative');
 
-                // 3. Remove existing icon to prevent the "double icon" look in your screenshots
-                const existingIcon = parent.querySelector('.error-icon');
-                if (existingIcon) existingIcon.remove();
-
-                // 4. Create and inject the Bootstrap icon
-                const icon = document.createElement('i');
-                // Using 'translate-y-[-50%]' for pixel-perfect centering
-                icon.className = 'bi bi-exclamation-circle-fill text-red-500 error-icon absolute right-3 top-1/2 -translate-y-1/2 animate-fade-in z-10';
-
-                parent.appendChild(icon);
-
                 // 5. Trigger the shake
                 el.classList.add('animate-shake');
                 setTimeout(() => el.classList.remove('animate-shake'), 500);
@@ -681,9 +799,6 @@
 
             function clearError(el) {
                 el.classList.remove('border-red-500');
-                // Find the icon specifically within this input's parent
-                const icon = el.parentElement.querySelector('.error-icon');
-                if (icon) icon.remove();
             }
 
             function render() {
@@ -737,7 +852,7 @@
                 // Handle visibility of the whole bar
                 indicators.style.display = (isSignIn || isResetting) ? 'none' : 'flex';
                 backBtn.style.display = (currentStep === 0 || isSignIn || isResetting) ? 'none' : 'block';
-                toggle.style.display = (currentStep === 0 || isSignIn || isResetting) ? 'block' : 'none';
+                toggle.style.display = (currentStep === 0 || isSignIn || isResetting) ? 'flex' : 'none';
 
                 // Update Dots
                 dots.forEach((dot, i) => {
@@ -826,10 +941,21 @@
                     nextBtn.innerHTML = 'Sign In <i class="bi bi-door-open ms-2"></i>';
                     nextBtn.onclick = handleSignIn;
 
-                    toggleArea.innerHTML = `Don't have an account? <button onclick="toggleSignIn()" class="text-white hover:text-blue-400 font-medium">Sign Up</button>`;
+                    toggleArea.innerHTML = `<span class="mx-2 flex gap-1">Don't have an account? <button onclick="toggleSignIn()" class="text-white hover:text-blue-400 font-medium">Sign Up</button></span>
+                    <button onclick="returntohome()"
+                        class="reveal animate-up [animation-delay:200ms] text-white hover:text-blue-400 font-medium underline underline-offset-4">
+                        Return to Home
+                    </button>`;
                 } else {
                     currentStep = 0;
-                    toggleArea.innerHTML = `Already have an account? <button onclick="toggleSignIn()" class="text-white hover:text-blue-400 font-medium">Sign In</button>`;
+                    toggleArea.innerHTML = `<span class="mx-2 flex gap-1">
+                        Already have an account?
+                        <button onclick="toggleSignIn()" class="text-white hover:text-blue-400 font-medium">Sign
+                            In</button></span>   
+                        <button onclick="returntohome()"
+                        class="reveal animate-up [animation-delay:200ms] text-white hover:text-blue-400 font-medium underline underline-offset-4">
+                        Return to Home
+                    </button>`;
                     render();
                 }
                 updateIndicators();
@@ -941,18 +1067,25 @@
         <script>
             document.addEventListener("DOMContentLoaded", () => {
                 const continueBtn = document.getElementById("continue-btn");
+                const backBtn = document.getElementById("back-btn"); // Assumes you have a back/return button
                 const roleSection = document.getElementById("role-selection-section");
                 const mainCard = document.getElementById("main-card");
 
+                // --- Go to Main Card ---
                 continueBtn.addEventListener("click", () => {
-                    // 1. Get the selected option value (optional, if you want to use it right away)
-                    const selectedRole = document.querySelector('input[name="user_role"]:checked').value;
+                    // 1. Get the selected option value
+                    const checkedRadio = document.querySelector('input[name="user_role"]:checked');
+                    if (!checkedRadio) {
+                        console.log("No role selected");
+                        return; // Safety check in case nothing is selected
+                    }
+                    const selectedRole = checkedRadio.value;
                     console.log("Selected user role:", selectedRole);
 
                     // 2. Smoothly fade out and slightly shrink the original section
                     roleSection.classList.add("opacity-0", "scale-95", "pointer-events-none");
 
-                    // 3. Wait for the fade-out transition to complete (500ms match duration-500)
+                    // 3. Wait for the fade-out transition to complete
                     setTimeout(() => {
                         // Hide the first section from the layout space entirely
                         roleSection.style.display = "none";
@@ -966,7 +1099,7 @@
                         // 5. Fade in and scale up the main card beautifully
                         mainCard.classList.remove("opacity-0", "scale-95");
                         mainCard.classList.add("opacity-100", "scale-100");
-                    }, 500);
+                    }, 200);
                 });
             });
         </script>
