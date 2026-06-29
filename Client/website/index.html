@@ -2763,39 +2763,39 @@
     <div id="radial-wrapper"
         class="fixed top-[5.3rem] left-1/2 -translate-x-1/2 z-40 pointer-events-none opacity-0 -translate-y-2 scale-95 transition-all duration-300 ease-out flex items-center justify-center gap-4 px-6 py-3 rounded-b-[30px] glass max-w-[90%] w-max">
         <div class="flex items-center justify-center gap-4 relative">
-            <a href="#" class="nav-bubble" onclick="openSearch()" onmouseenter="showHint('Search')"
+            <a href="#" class="nav-bubble" onclick="openSearch(event)" onmouseenter="showHint('Search')"
                 onmouseleave="hideHint()">
                 <i class="bi bi-search"></i>
             </a>
 
-            <a href="#" class="nav-bubble" onclick="openCatalog()" onmouseenter="showHint('Items')"
+            <a href="#" class="nav-bubble" onclick="openCatalog(event)" onmouseenter="showHint('Items')"
                 onmouseleave="hideHint()">
                 <i class="bi bi-grid-1x2"></i>
             </a>
 
-            <a href="#" class="nav-bubble" onclick="openCart()" onmouseenter="showHint('Cart')"
+            <a href="#" class="nav-bubble" onclick="openCart(event)" onmouseenter="showHint('Cart')"
                 onmouseleave="hideHint()">
                 <i class="bi bi-bag"></i>
             </a>
 
-            <a href="#" class="nav-bubble" onclick="openProfile()" onmouseenter="showHint('Me')"
+            <a href="#" class="nav-bubble" onclick="openProfile(event)" onmouseenter="showHint('Me')"
                 onmouseleave="hideHint()">
                 <i class="bi bi-universal-access"></i>
             </a>
 
-            <a href="#" class="nav-bubble" onclick="openHelp()" onmouseenter="showHint('Help')"
+            <a href="#" class="nav-bubble" onclick="openHelp(event)" onmouseenter="showHint('Help')"
                 onmouseleave="hideHint()">
                 <i class="bi bi-person-raised-hand"></i>
             </a>
 
-            <a href="#" class="nav-bubble" onclick="toggleTheme()" onmouseenter="showHint('theme')"
+            <a href="#" class="nav-bubble" onclick="toggleTheme(event)" onmouseenter="showHint('theme')"
                 onmouseleave="hideHint()">
                 <i id="theme-icon" class="bi bi-moon-stars"></i>
             </a>
 
-
         </div>
     </div>
+
 
     <style>
         /* Standard Flat Row Bubble Layout Styling */
@@ -2846,6 +2846,49 @@
         }
     </style>
     <script>
+
+        // function toggleMenu() {
+        //     const wrapper = document.getElementById('radial-wrapper');
+        //     const homeIcon = document.getElementById('home-icon');
+        //     const closeIcon = document.getElementById('close-icon');
+
+        //     if (!wrapper) return;
+
+        //     // Toggle active state
+        //     const isOpen = wrapper.classList.toggle('active');
+
+        //     // Smoothly morph the button icons inside the navbar header
+        //     if (isOpen) {
+        //         if (homeIcon) homeIcon.classList.add('opacity-0', 'scale-50', 'rotate-45');
+        //         if (closeIcon) {
+        //             closeIcon.classList.remove('opacity-0', 'scale-50', 'rotate-90');
+        //             closeIcon.classList.add('opacity-100', 'scale-100', 'rotate-0');
+        //         }
+        //     } else {
+        //         if (homeIcon) homeIcon.classList.remove('opacity-0', 'scale-50', 'rotate-45');
+        //         if (closeIcon) {
+        //             closeIcon.classList.add('opacity-0', 'scale-50', 'rotate-90');
+        //             closeIcon.classList.remove('opacity-100', 'scale-100', 'rotate-0');
+        //         }
+        //     }
+        // }
+
+        // function closeMenu() {
+        //     const wrapper = document.getElementById('radial-wrapper');
+        //     const homeIcon = document.getElementById('home-icon');
+        //     const closeIcon = document.getElementById('close-icon');
+
+        //     if (wrapper && wrapper.classList.contains('active')) {
+        //         wrapper.classList.remove('active');
+
+        //         // Reset icons back to default grid view
+        //         if (homeIcon) homeIcon.classList.remove('opacity-0', 'scale-50', 'rotate-45');
+        //         if (closeIcon) {
+        //             closeIcon.classList.add('opacity-0', 'scale-50', 'rotate-90');
+        //             closeIcon.classList.remove('opacity-100', 'scale-100', 'rotate-0');
+        //         }
+        //     }
+        // }
 
         function toggleMenu() {
             const wrapper = document.getElementById('radial-wrapper');
@@ -4238,8 +4281,12 @@
         class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 opacity-0 pointer-events-none transition-all duration-500">
     </div>
 
+
     <script>
-        function toggleTheme() {
+        function toggleTheme(e) {
+            // Prevent the default anchor tag '#' jump behavior
+            if (e) e.preventDefault();
+
             const body = document.body;
             const icon = document.getElementById('theme-icon');
 
@@ -4251,8 +4298,6 @@
                 icon.classList.replace('bi-sun', 'bi-moon-stars');
             }
         }
-    </script>
-    <script>
         function hideTogglingBtn() {
             const btn = document.getElementById('menu-toggle-btn');
             if (btn) {
@@ -4268,16 +4313,7 @@
                 btn.style.pointerEvents = 'auto';
             }
         }
-        // Helper to lock background scroll without breaking layout/GSAP positions
-        function lockBackgroundScroll() {
-            const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-            document.documentElement.style.setProperty('--removed-body-scrollbar-width', `${scrollbarWidth}px`);
 
-            document.documentElement.classList.add('nav-view-locked');
-            document.body.classList.add('nav-view-locked');
-        }
-
-        // Generic function to open any sub-view in the nav
         function openNavView(viewId, targetWidth = "34rem") {
             const nav = document.getElementById('main-nav');
             const targetView = document.getElementById(viewId);
@@ -4286,10 +4322,6 @@
             const closeBtn = document.getElementById('close-quicklook');
             const themeBtn = document.querySelector('button[onclick="toggleTheme()"]');
 
-            // Safe, non-jumping scroll lock applied here
-            lockBackgroundScroll();
-
-            // Smoothly hide the toggle button when nav opens
             hideTogglingBtn();
 
             ['product-details', 'search-view', 'cart-view', 'profile-view', 'help-view', 'catalog-view', 'explore-view'].forEach(id => {
@@ -4300,20 +4332,16 @@
                 }
             });
 
-            // 1. Deactivate Radial & Show Overlay
+            // Deactivate Radial & Show Overlay
             overlay.classList.add('active', 'opacity-100', 'pointer-events-auto');
-            radial.style.transition = "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)";
-            radial.classList.add('opacity-0', 'pointer-events-none', 'scale-90', '-translate-y-4');
-            radial.style.zIndex = "0";
 
-            // 2. Prepare Target View
+
             targetView.classList.remove('hidden');
 
             setTimeout(() => {
                 nav.classList.remove('px-6', 'py-4');
                 nav.classList.add('px-4', 'py-4');
 
-                // Make nav handle internally scrollable content fields smoothly
                 nav.style.maxHeight = "calc(100vh - 4rem)";
                 nav.style.overflowY = "auto";
                 nav.style.webkitOverflowScrolling = "touch";
@@ -4329,9 +4357,7 @@
             }, 10);
         }
 
-        // Open the product details quick view panel
         function openQuickLook(productId) {
-
             const nav = document.getElementById('main-nav');
             const details = document.getElementById('product-details');
             const overlay = document.getElementById('nav-overlay');
@@ -4339,33 +4365,23 @@
             const closeBtn = document.getElementById('close-quicklook');
             const themeBtn = document.querySelector('button[onclick="toggleTheme()"]');
 
-            // Safe, non-jumping scroll lock applied identically here
-            lockBackgroundScroll();
-
-            // Smoothly hide the toggle button when quicklook opens
+            // FIX 2: Ensure radial menu state is closed structure-wise when going straight to quicklook
+            closeMenu();
             hideTogglingBtn();
 
-            // 1. Handle Overlay and Radial Menu State
+            // Handle Overlay and Radial Menu State
             overlay.classList.add('active', 'opacity-100', 'pointer-events-auto');
 
-            radial.style.transition = "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)";
-            radial.classList.add('opacity-0', 'pointer-events-none', 'scale-90', '-translate-y-4');
-            radial.style.zIndex = "0";
-
-            // 2. Expand Navigation Container
             details.classList.remove('hidden');
-
             const isMobile = window.innerWidth < 768;
 
             setTimeout(() => {
                 nav.classList.remove('px-6', 'py-4');
                 nav.classList.add('px-4', 'py-4');
 
-                // Setup vertical container restrictions so long product details scroll natively inside the nav
                 nav.style.maxHeight = "calc(100vh - 4rem)";
                 nav.style.overflowY = "auto";
                 nav.style.webkitOverflowScrolling = "touch";
-
                 nav.style.maxWidth = isMobile ? "calc(100vw - 2rem)" : "65rem";
 
                 details.classList.add('is-open');
@@ -4375,40 +4391,79 @@
                 if (themeBtn) themeBtn.classList.add('hidden');
             }, 10);
 
-            // 3. Inject Content
+            // Inject Content
             const images = [
                 'https://assets.adidas.com/images/w_1880,f_auto,q_auto/a4ff4a779ee34deca8cc9a6f1f411440_9366/KC6611_HM1.jpg',
                 'https://assets.adidas.com/images/w_1880,f_auto,q_auto/1f0135cfef624e779735b6390f38c98b_9366/KC6611_HM5.jpg'
             ];
-            document.getElementById('ql-image-container').innerHTML = images.map(src => `<img src="${src}" class="ql-slide snap-center">`).join('');
-            document.getElementById('ql-title').innerText = "Adidas classic t-shirt";
-            document.getElementById('ql-price').innerText = "EGP 1,290";
+            if (document.getElementById('ql-image-container')) {
+                document.getElementById('ql-image-container').innerHTML = images.map(src => `<img src="${src}" class="ql-slide snap-center">`).join('');
+            }
+            if (document.getElementById('ql-title')) document.getElementById('ql-title').innerText = "Adidas classic t-shirt";
+            if (document.getElementById('ql-price')) document.getElementById('ql-price').innerText = "EGP 1,290";
         }
+
+        // // Helper functions for specific triggers
+        function closeAllViews() {
+            const nav = document.getElementById('main-nav');
+            const views = ['product-details', 'search-view', 'cart-view', 'profile-view', 'help-view', 'catalog-view', 'explore-view'];
+            const overlay = document.getElementById('nav-overlay');
+            const radial = document.getElementById('radial-wrapper');
+            const closeBtn = document.getElementById('close-quicklook');
+            const themeBtn = document.querySelector('button[onclick="toggleTheme()"]');
+
+            showTogglingBtn();
+
+            // FIX 1: Only force scrolling if body.style.top was actually set by a scroll locker.
+            const scrollY = document.body.style.top;
+            document.body.style.position = '';
+            document.body.style.top = '';
+            document.body.style.width = '';
+            document.body.style.overflow = '';
+
+            if (scrollY && scrollY !== '0px' && scrollY !== '') {
+                window.scrollTo(0, parseInt(scrollY) * -1);
+            }
+
+            views.forEach(id => {
+                const view = document.getElementById(id);
+                if (view) {
+                    view.classList.remove('is-open');
+                    view.classList.add('opacity-0', 'scale-95');
+                }
+            });
+
+            nav.classList.add('px-6', 'py-4');
+            nav.classList.remove('px-4');
+            nav.style.maxWidth = "";
+
+            // Clear overlay state
+            overlay.classList.remove('active', 'opacity-100', 'pointer-events-auto');
+
+            setTimeout(() => {
+                views.forEach(id => {
+                    const view = document.getElementById(id);
+                    if (view && !view.classList.contains('is-open')) {
+                        view.classList.add('hidden');
+                    }
+                });
+            }, 500);
+
+            if (closeBtn) closeBtn.classList.add('hidden');
+            if (themeBtn) themeBtn.classList.remove('hidden');
+        }
+
         // Helper functions for specific triggers
-        function openSearch() {
-            openNavView('search-view', '30rem');
-        }
+        // Add 'e' (the event) into your quick helpers
+        function openSearch(e) { if (e) e.preventDefault(); openNavView('search-view', '30rem'); }
+        function openCart(e) { if (e) e.preventDefault(); openNavView('cart-view', '28rem'); }
+        function openProfile(e) { if (e) e.preventDefault(); openNavView('profile-view', '32rem'); }
+        function openHelp(e) { if (e) e.preventDefault(); openNavView('help-view', '28rem'); }
+        function openCatalog(e) { if (e) e.preventDefault(); openNavView('catalog-view', '40rem'); }
+        function openExplore() { openNavView('explore-view', '45rem'); if (typeof animateExploreGrid === 'function') animateExploreGrid(); }
 
-        function openCart() {
-            openNavView('cart-view', '28rem');
-        }
-
-        function openProfile() {
-            openNavView('profile-view', '32rem');
-        }
-
-        function openHelp() {
-            openNavView('help-view', '28rem');
-        }
-
-        function openCatalog() {
-            openNavView('catalog-view', '40rem');
-        }
-
-        function openExplore() {
-            openNavView('explore-view', '45rem');
-            animateExploreGrid();
-        }
+        function showHint(text) { }
+        function hideHint() { }
         function animateExploreGrid() {
             const grid = document.getElementById('explore-grid');
             const cards = grid.children;
@@ -4427,59 +4482,12 @@
             });
         }
 
-        // // Updated close function to handle any active view
-        function closeAllViews() {
-            const nav = document.getElementById('main-nav');
-            const views = ['product-details', 'search-view', 'cart-view', 'profile-view', 'help-view', 'catalog-view', 'explore-view'];
-            const overlay = document.getElementById('nav-overlay');
-            const radial = document.getElementById('radial-wrapper');
-            const closeBtn = document.getElementById('close-quicklook');
-            const themeBtn = document.querySelector('button[onclick="toggleTheme()"]');
-
-            showTogglingBtn();
-
-            const scrollY = document.body.style.top;
-            document.body.style.position = '';
-            document.body.style.top = '';
-            document.body.style.width = '';
-            document.body.style.overflow = '';
-
-            // Roll back the browser view straight to the saved pixel coordinate
-            if (scrollY) {
-                window.scrollTo(0, parseInt(scrollY || '0') * -1);
-            }
-
-            views.forEach(id => {
-                const view = document.getElementById(id);
-                view.classList.remove('is-open');
-                view.classList.add('opacity-0', 'scale-95');
-            });
-
-            nav.classList.add('px-6', 'py-4');
-            nav.classList.remove('px-4');
-            nav.style.maxWidth = "";
-
-            radial.classList.remove('opacity-0', 'pointer-events-none', 'scale-90', '-translate-y-4');
-            radial.style.zIndex = "50";
-            overlay.classList.remove('active', 'opacity-100', 'pointer-events-auto');
-
-            setTimeout(() => {
-                views.forEach(id => {
-                    const view = document.getElementById(id);
-                    if (!view.classList.contains('is-open')) {
-                        view.classList.add('hidden');
-                    }
-                });
-            }, 500);
-
-            closeBtn.classList.add('hidden');
-            themeBtn.classList.remove('hidden');
-        }
 
 
 
 
     </script>
+
     <script>
         const progressPath = document.querySelector('#nav-progress');
         const pathLength = 144.5;
@@ -4516,6 +4524,7 @@
             }, 300);
         });
     </script>
+
     <script>
         window.addEventListener('DOMContentLoaded', () => {
             const loader = document.getElementById('loader');
