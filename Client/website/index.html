@@ -2761,7 +2761,7 @@
 
     <!-- circle btn -->
     <div id="radial-wrapper"
-        class="fixed top-[5.3rem] left-1/2 -translate-x-1/2 z-40 pointer-events-none opacity-0 -translate-y-2 scale-95 transition-all duration-300 ease-out flex items-center justify-center gap-4 px-6 py-3 rounded-b-[30px] glass max-w-[90%] w-max">
+        class="fixed top-[5.3rem] left-1/2 -translate-x-1/2 z-40 pointer-events-none opacity-0 -translate-y-2 scale-95 transition-all duration-300 ease-out flex items-center justify-nter gap-4 px-6 py-3 rounded-b-[30px] glass max-w-[70%] sm:max-w-[400px] justify-start overflow-auto w-max">
         <div class="flex items-center justify-center gap-4 relative">
             <a href="#" class="nav-bubble" onclick="openSearch(event)" onmouseenter="showHint('Search')"
                 onmouseleave="hideHint()">
@@ -2792,6 +2792,12 @@
                 onmouseleave="hideHint()">
                 <i id="theme-icon" class="bi bi-moon-stars"></i>
             </a>
+
+            <a href="#" class="nav-bubble" onclick="toggleTheme(event)" onmouseenter="showHint('theme')"
+                onmouseleave="hideHint()">
+                <i class="bi bi-binoculars"></i>
+            </a>
+
 
         </div>
     </div>
