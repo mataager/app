@@ -345,7 +345,7 @@
                                         class="text-[10px] font-bold text-blue-600 dark:text-blue-400 uppercase tracking-tighter">Promo
                                         Eligible</span>
                                     <span
-                                        class="text-[9px] bg-blue-600 text-white px-1.5 py-0.5 rounded font-mono font-bold">WELCOME10</span>
+                                        class="text-[9px] bg-blue-600 text-white px-1.5 py-0.5 rounded  font-bold">WELCOME10</span>
                                 </div>
                                 <p class="text-[10px] opacity-60 dark:text-white leading-tight">Apply code at checkout
                                     for 10%
@@ -1727,55 +1727,164 @@
                     </div>
 
                     <!-- Orders List -->
-                    <div class="space-y-4 max-h-[400px] overflow-y-auto pr-2 scrollbar-none">
+                    <div class="space-y-4 max-h-[400px] pr-2 scrollbar-none">
 
-                        <!-- Shipped Order Example (with live tracking active) -->
+                        <div onclick="toggleOrderCardExpansion(8822)"
+                            class="p-4 rounded-2xl bg-white/[0.02] border border-white/5 backdrop-blur-md hover:bg-white/[0.05] hover:border-white/10 transition-all duration-300 cursor-pointer group">
+                            <div class="flex justify-between items-start mb-2">
+                                <span
+                                    class="text-[10px] font-black text-amber-400 uppercase tracking-tighter bg-amber-500/10 px-2 py-0.5 rounded-md">Pending</span>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-[10px] opacity-40 text-white ">#ORD-8822</span>
+                                    <i id="order-chevron-8822"
+                                        class="bi bi-chevron-down text-[10px] text-white/30 group-hover:text-white/60 transition-transform duration-300"
+                                        style="transform: rotate(0deg);"></i>
+                                </div>
+                            </div>
+
+                            <p class="text-xs font-bold text-white group-hover:text-amber-400 transition-colors">Nike
+                                Air Max Sneaker + 1 item
+                            </p>
+
+                            <div class="flex justify-between items-end mt-2">
+                                <p class="text-[10px] opacity-50 text-white">July 04, 2026</p>
+                                <p class="text-[11px] font-black text-white">EGP 5,200</p>
+                            </div>
+
+                            <div id="order-details-8822"
+                                class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out"
+                                style="max-height: 0px;">
+                                <div class="pt-3 mt-3 border-t border-white/5 space-y-4 text-[11px] text-white/70">
+
+                                    <div class="bg-white/[0.02] p-3 rounded-xl border border-white/5 space-y-3">
+                                        <div class="flex justify-between items-center mb-1">
+                                            <p class="text-[9px] uppercase tracking-wider font-bold opacity-40">Live
+                                                Tracking</p>
+                                            <p
+                                                class="text-[9px]  text-amber-400 font-bold bg-amber-400/10 px-1.5 py-0.5 rounded">
+                                                Awaiting Confirmation</p>
+                                        </div>
+
+                                        <div class="relative flex justify-between items-start pt-1 px-1">
+                                            <div class="absolute top-[7px] left-2 right-2 h-[2px] bg-white/10 z-0">
+                                            </div>
+                                            <div class="absolute top-[7px] left-2 w-0 w-1/6 h-[2px] bg-amber-500 z-0">
+                                            </div>
+
+                                            <div class="relative z-10 flex flex-col items-center text-center w-1/4">
+                                                <div
+                                                    class="w-3 h-3 rounded-full bg-amber-500 ring-4 ring-amber-400/40 animate-pulse flex items-center justify-center">
+                                                    <div class="w-1.5 h-1.5 bg-white rounded-full"></div>
+                                                </div>
+                                                <p class="text-[9px] font-bold text-amber-400 mt-1.5 leading-none">
+                                                    Placed</p>
+                                                <p class="text-[8px] opacity-50 scale-90 origin-top mt-0.5">Just Now</p>
+                                            </div>
+
+                                            <div class="relative z-10 flex flex-col items-center text-center w-1/4">
+                                                <div
+                                                    class="w-3 h-3 rounded-full bg-white/10 flex items-center justify-center">
+                                                </div>
+                                                <p class="text-[9px] font-medium opacity-30 mt-1.5 leading-none">
+                                                    Processed</p>
+                                                <p class="text-[8px] opacity-0 scale-90 origin-top mt-0.5">-</p>
+                                            </div>
+
+                                            <div class="relative z-10 flex flex-col items-center text-center w-1/4">
+                                                <div
+                                                    class="w-3 h-3 rounded-full bg-white/10 flex items-center justify-center">
+                                                </div>
+                                                <p class="text-[9px] font-medium opacity-30 mt-1.5 leading-none">Shipped
+                                                </p>
+                                                <p class="text-[8px] opacity-0 scale-90 origin-top mt-0.5">-</p>
+                                            </div>
+
+                                            <div class="relative z-10 flex flex-col items-center text-center w-1/4">
+                                                <div
+                                                    class="w-3 h-3 rounded-full bg-white/10 flex items-center justify-center">
+                                                </div>
+                                                <p class="text-[9px] font-medium opacity-30 mt-1.5 leading-none">
+                                                    Delivered</p>
+                                                <p class="text-[8px] opacity-0 scale-90 origin-top mt-0.5">-</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="space-y-2">
+                                        <p class="text-[9px] uppercase tracking-wider font-bold opacity-40">Items
+                                            Summary</p>
+                                        <div
+                                            class="flex justify-between items-center bg-white/[0.02] p-2 rounded-xl border border-white/5">
+                                            <div>
+                                                <p class="text-white font-medium">Nike Air Max Sneaker</p>
+                                                <p class="text-[9px] opacity-50">Size: 43 | Color: Stealth Black</p>
+                                            </div>
+                                            <p class=" text-white/90">x1</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="grid grid-cols-2 gap-2">
+                                        <div class="bg-white/[0.02] p-2 rounded-xl border border-white/5">
+                                            <p class="text-[9px] uppercase tracking-wider font-bold opacity-40 mb-0.5">
+                                                Shipping Destination</p>
+                                            <p class="leading-tight text-white/90">Giza, Al Haram St.</p>
+                                        </div>
+                                        <div class="bg-white/[0.02] p-2 rounded-xl border border-white/5">
+                                            <p class="text-[9px] uppercase tracking-wider font-bold opacity-40 mb-0.5">
+                                                Courier Partner</p>
+                                            <p class="leading-tight text-white/90">Aramex (Express)</p>
+                                        </div>
+                                    </div>
+
+                                    <button onclick="event.stopPropagation(); handleCancelOrder(8822);"
+                                        class="w-full mt-2 py-2.5 rounded-xl border border-rose-500/20 bg-rose-500/5 hover:bg-rose-500/10 hover:border-rose-500/40 text-rose-400 font-bold tracking-wide text-[10px] uppercase transition-all duration-200 pointer-events-auto">
+                                        Cancel Order
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
                         <div onclick="toggleOrderCardExpansion(8821)"
                             class="p-4 rounded-2xl bg-white/[0.02] border border-white/5 backdrop-blur-md hover:bg-white/[0.05] hover:border-white/10 transition-all duration-300 cursor-pointer group">
                             <div class="flex justify-between items-start mb-2">
                                 <span
                                     class="text-[10px] font-black text-indigo-400 uppercase tracking-tighter bg-indigo-500/10 px-2 py-0.5 rounded-md">Shipped</span>
                                 <div class="flex items-center gap-2">
-                                    <span class="text-[10px] opacity-40 text-white font-mono">#ORD-8821</span>
+                                    <span class="text-[10px] opacity-40 text-white ">#ORD-8821</span>
                                     <i id="order-chevron-8821"
                                         class="bi bi-chevron-down text-[10px] text-white/30 group-hover:text-white/60 transition-transform duration-300"></i>
                                 </div>
                             </div>
 
                             <p class="text-xs font-bold text-white group-hover:text-indigo-400 transition-colors">Adidas
-                                classic t-shirt
-                                + 2 items</p>
+                                classic t-shirt + 2
+                                items</p>
 
                             <div class="flex justify-between items-end mt-2">
                                 <p class="text-[10px] opacity-50 text-white">April 09, 2026</p>
                                 <p class="text-[11px] font-black text-white">EGP 3,450</p>
                             </div>
 
-                            <!-- Expandable Drawer -->
                             <div id="order-details-8821"
                                 class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
                                 <div class="pt-3 mt-3 border-t border-white/5 space-y-4 text-[11px] text-white/70">
 
-                                    <!-- NEW: Premium Tracking Progress Section -->
                                     <div class="bg-white/[0.02] p-3 rounded-xl border border-white/5 space-y-3">
                                         <div class="flex justify-between items-center mb-1">
                                             <p class="text-[9px] uppercase tracking-wider font-bold opacity-40">Live
                                                 Tracking</p>
                                             <p
-                                                class="text-[9px] font-mono text-indigo-400 font-bold bg-indigo-400/10 px-1.5 py-0.5 rounded">
-                                                In Transit</p>
+                                                class="text-[9px]  text-indigo-400 font-bold bg-indigo-500/10 px-1.5 py-0.5 rounded">
+                                                In
+                                                Transit</p>
                                         </div>
 
-                                        <!-- Stepper Timeline Grid -->
                                         <div class="relative flex justify-between items-start pt-1 px-1">
-                                            <!-- Track Background Line -->
                                             <div class="absolute top-[7px] left-2 right-2 h-[2px] bg-white/10 z-0">
                                             </div>
-                                            <!-- Track Active Line -->
                                             <div class="absolute top-[7px] left-2 w-2/3 h-[2px] bg-indigo-500 z-0">
                                             </div>
 
-                                            <!-- Step 1: Placed -->
                                             <div class="relative z-10 flex flex-col items-center text-center w-1/4">
                                                 <div
                                                     class="w-3 h-3 rounded-full bg-indigo-500 ring-4 ring-indigo-500/20 flex items-center justify-center">
@@ -1786,7 +1895,6 @@
                                                 <p class="text-[8px] opacity-40 scale-90 origin-top mt-0.5">Apr 09</p>
                                             </div>
 
-                                            <!-- Step 2: Processing -->
                                             <div class="relative z-10 flex flex-col items-center text-center w-1/4">
                                                 <div
                                                     class="w-3 h-3 rounded-full bg-indigo-500 ring-4 ring-indigo-500/20 flex items-center justify-center">
@@ -1797,7 +1905,6 @@
                                                 <p class="text-[8px] opacity-40 scale-90 origin-top mt-0.5">Apr 10</p>
                                             </div>
 
-                                            <!-- Step 3: Shipped (Current Active Step) -->
                                             <div class="relative z-10 flex flex-col items-center text-center w-1/4">
                                                 <div
                                                     class="w-3 h-3 rounded-full bg-indigo-500 ring-4 ring-indigo-400/40 animate-pulse flex items-center justify-center">
@@ -1808,10 +1915,9 @@
                                                 <p class="text-[8px] opacity-50 scale-90 origin-top mt-0.5">Apr 11</p>
                                             </div>
 
-                                            <!-- Step 4: Out for Delivery -->
                                             <div class="relative z-10 flex flex-col items-center text-center w-1/4">
                                                 <div
-                                                    class="w-3 h-3 rounded-full bg-white/10 ring-4 ring-black/0 flex items-center justify-center">
+                                                    class="w-3 h-3 rounded-full bg-white/10 flex items-center justify-center">
                                                 </div>
                                                 <p class="text-[9px] font-medium opacity-30 mt-1.5 leading-none">
                                                     Delivered</p>
@@ -1820,7 +1926,6 @@
                                         </div>
                                     </div>
 
-                                    <!-- Items Summary List -->
                                     <div class="space-y-2">
                                         <p class="text-[9px] uppercase tracking-wider font-bold opacity-40">Items
                                             Summary</p>
@@ -1830,26 +1935,22 @@
                                                 <p class="text-white font-medium">Adidas Classic T-Shirt</p>
                                                 <p class="text-[9px] opacity-50">Size: M | Color: Royal Blue</p>
                                             </div>
-                                            <p class="font-mono text-white/90">x1</p>
+                                            <p class=" text-white/90">x1</p>
                                         </div>
                                     </div>
 
-                                    <!-- Delivery Logistics Block -->
                                     <div class="grid grid-cols-2 gap-2">
                                         <div class="bg-white/[0.02] p-2 rounded-xl border border-white/5">
                                             <p class="text-[9px] uppercase tracking-wider font-bold opacity-40 mb-0.5">
-                                                Shipping
-                                                Destination</p>
+                                                Shipping Destination</p>
                                             <p class="leading-tight text-white/90">Giza, Al Haram St.</p>
                                         </div>
                                         <div class="bg-white/[0.02] p-2 rounded-xl border border-white/5">
                                             <p class="text-[9px] uppercase tracking-wider font-bold opacity-40 mb-0.5">
-                                                Courier Partner
-                                            </p>
+                                                Courier Partner</p>
                                             <p class="leading-tight text-white/90">Aramex (Express)</p>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -2075,6 +2176,96 @@
                             renderNotificationViewTray();
                         }
                         // --- Integrated Live Toast Window Injector Engine (Append Mode) ---
+                        //                     function showAlert(type, message) {
+                        //                         // 1. Inject directly into your notification center data stream array
+                        //                         const newNotification = {
+                        //                             id: Date.now(),
+                        //                             type: type,
+                        //                             time: 'Just Now',
+                        //                             text: message,
+                        //                             isRead: false
+                        //                         };
+                        //                         systemNotificationsList.unshift(newNotification);
+
+                        //                         // Call your tray render if it exists in your script environment
+                        //                         if (typeof renderNotificationViewTray === 'function') {
+                        //                             renderNotificationViewTray();
+                        //                         }
+
+                        //                         // 2. Locate target layout zone
+                        //                         const targetZone = document.getElementById('dynamic-alert-target-zone');
+                        //                         if (!targetZone) {
+                        //                             console.error("Layout Target Error: #dynamic-alert-target-zone wrapper container is missing from the layout DOM.");
+                        //                             return;
+                        //                         }
+
+                        //                         const config = alertConfiguration[type] || alertConfiguration.auth;
+                        //                         const uniqueAlertId = `alert-node-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+
+                        //                         // 3. Construct premium glassmorphic layout card node raw HTML string 
+                        //                         const alertHTML = `
+                        //     <div id="${uniqueAlertId}" 
+                        //          class="glass w-full w-[90%] max-w-[30rem] rounded-[2rem] pointer-events-auto border border-white/10 shadow-2xl overflow-hidden transition-all duration-500 ease-in-out opacity-0 -translate-y-4 scale-95 transform">
+                        //         <div class="px-5 py-3.5 flex items-center gap-4 bg-black/20 backdrop-blur-xl">
+                        //             <div class="w-9 h-9 rounded-full flex items-center justify-center shrink-0 ${config.color}">
+                        //                 <i class="bi ${config.icon} text-sm"></i>
+                        //             </div>
+                        //             <div class="flex-1 overflow-hidden">
+                        //                 <p class="text-[10px] font-bold text-white uppercase tracking-wider mb-0.5 leading-none">${config.heading}</p>
+                        //                 <div class="relative overflow-hidden h-4 flex items-center text-box-wrapper">
+                        //                     <p class="alert-msg-text text-[11px] text-white/70 whitespace-nowrap absolute left-0 leading-tight will-change-transform">
+                        //                         ${message}
+                        //                     </p>
+                        //                 </div>
+                        //             </div>
+                        //         </div>
+                        //     </div>
+                        // `;
+
+                        //                         // 4. Convert string template smoothly into an active DOM element element node
+                        //                         const parser = new DOMParser();
+                        //                         const doc = parser.parseFromString(alertHTML, 'text/html');
+                        //                         const alertElement = doc.getElementById(uniqueAlertId);
+
+                        //                         // Append dynamically into target zone container area
+                        //                         targetZone.appendChild(alertElement);
+
+                        //                         // 5. Trigger slide down entry animation frame
+                        //                         requestAnimationFrame(() => {
+                        //                             setTimeout(() => {
+                        //                                 alertElement.classList.remove('opacity-0', '-translate-y-4', 'scale-95');
+                        //                                 alertElement.classList.add('opacity-100', 'translate-y-0', 'scale-100');
+                        //                             }, 10);
+                        //                         });
+
+                        //                         // 6. Run safe width marquee calculations natively inside the layout container
+                        //                         setTimeout(() => {
+                        //                             const msgTextNode = alertElement.querySelector('.alert-msg-text');
+                        //                             if (!msgTextNode) return;
+
+                        //                             const containerWidth = msgTextNode.parentElement.clientWidth;
+                        //                             const textWidth = msgTextNode.scrollWidth;
+                        //                             const overflow = textWidth - containerWidth;
+
+                        //                             if (overflow > 0 && containerWidth > 0) {
+                        //                                 msgTextNode.style.transition = `transform 3.5s linear`;
+                        //                                 msgTextNode.style.transform = `translateX(-${overflow + 20}px)`;
+                        //                             }
+                        //                         }, 600);
+
+                        //                         // 7. Auto Hide & Element Removal Cycle Loop
+                        //                         setTimeout(() => {
+                        //                             // Slide out gracefully
+                        //                             alertElement.classList.remove('opacity-100', 'translate-y-0', 'scale-100');
+                        //                             alertElement.classList.add('opacity-0', '-translate-y-2', 'scale-95');
+
+                        //                             // Completely destroy node element from DOM layout once CSS transitions close down
+                        //                             setTimeout(() => {
+                        //                                 alertElement.remove();
+                        //                             }, 500);
+                        //                         }, 4500);
+                        //                     }
+
                         function showAlert(type, message) {
                             // 1. Inject directly into your notification center data stream array
                             const newNotification = {
@@ -2126,6 +2317,13 @@
                             const doc = parser.parseFromString(alertHTML, 'text/html');
                             const alertElement = doc.getElementById(uniqueAlertId);
 
+                            // --- FIX: Remove any existing alert instantly before adding the new one ---
+                            const activeAlert = targetZone.querySelector('[id^="alert-node-"]');
+                            if (activeAlert) {
+                                activeAlert.remove();
+                            }
+                            // -------------------------------------------------------------------------
+
                             // Append dynamically into target zone container area
                             targetZone.appendChild(alertElement);
 
@@ -2154,17 +2352,19 @@
 
                             // 7. Auto Hide & Element Removal Cycle Loop
                             setTimeout(() => {
-                                // Slide out gracefully
-                                alertElement.classList.remove('opacity-100', 'translate-y-0', 'scale-100');
-                                alertElement.classList.add('opacity-0', '-translate-y-2', 'scale-95');
+                                // Ensure the element still exists in the DOM before trying to animate/remove it
+                                if (document.getElementById(uniqueAlertId)) {
+                                    // Slide out gracefully
+                                    alertElement.classList.remove('opacity-100', 'translate-y-0', 'scale-100');
+                                    alertElement.classList.add('opacity-0', '-translate-y-2', 'scale-95');
 
-                                // Completely destroy node element from DOM layout once CSS transitions close down
-                                setTimeout(() => {
-                                    alertElement.remove();
-                                }, 500);
+                                    // Completely destroy node element from DOM layout once CSS transitions close down
+                                    setTimeout(() => {
+                                        alertElement.remove();
+                                    }, 500);
+                                }
                             }, 4500);
                         }
-
                         // --- Dynamic Action Trigger Test Example ---
                         function handleAddToCart(productName) {
                             showAlert('cart', `${productName} has been successfully added to your shopping bag.`);
@@ -2285,7 +2485,7 @@
                         <button
                             class="w-full p-3 text-center text-xs font-bold rounded-xl bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white transition-all"
                             onclick="showAlert('logout', 'You have been logged out. Redirecting to home...')">
-                            Sign Out Account
+                            Sign Out
                         </button>
                     </div>
                 </div>
@@ -2793,9 +2993,9 @@
                 <i id="theme-icon" class="bi bi-moon-stars"></i>
             </a>
 
-            <a href="#" class="nav-bubble" onclick="toggleTheme(event)" onmouseenter="showHint('theme')"
+            <a href="#" class="nav-bubble" onclick="opentemplates(event)" onmouseenter="showHint('templates')"
                 onmouseleave="hideHint()">
-                <i class="bi bi-binoculars"></i>
+                <i class="bi bi-eye"></i>
             </a>
 
 
@@ -2979,13 +3179,13 @@
 
                 <div class="absolute inset-0 z-0">
                     <div id="bg-step-0" class="hero-bg-layer active"
-                        style="background-image: url('https://t3.ftcdn.net/jpg/07/02/38/18/360_F_702381809_k0Jj93x9uwdtgqjja3mWDfWWj9ryHj7N.jpg');">
+                        style="background-image: url('https://plus.unsplash.com/premium_photo-1766341848265-2d4910d4c2ba?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
                     </div>
                     <div id="bg-step-1" class="hero-bg-layer"
-                        style="background-image: url('https://as1.ftcdn.net/v2/jpg/03/67/56/80/1000_F_367568069_G3QEBPzm0DGj7ZPBeK2w6SoHarUB2qk8.jpg');">
+                        style="background-image: url('https://plus.unsplash.com/premium_photo-1780948463371-140ae396299c?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
                     </div>
                     <div id="bg-step-2" class="hero-bg-layer"
-                        style="background-image: url('https://as2.ftcdn.net/jpg/03/88/88/03/1000_F_388880322_FNyVT5dU6YEHZYrtzu1n5b8RN45EiK7n.webp');">
+                        style="background-image: url('https://plus.unsplash.com/premium_photo-1726843669720-46319c0e2326?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
                     </div>
                     <div id="bg-step-3" class="hero-bg-layer"
                         style="background-image: url('https://t4.ftcdn.net/jpg/06/06/08/59/360_F_606085957_m7lE4bgggPgS8q3IzKcT6bTTIlx5Dy6U.jpg');">
@@ -2994,7 +3194,7 @@
                 </div>
 
                 <div
-                    class="absolute top-6 left-6 md:top-10 md:left-12 z-40 hidden sm:flex flex-col gap-1 text-[9px] font-mono tracking-[0.2em] text-white/40 uppercase">
+                    class="absolute top-6 left-6 md:top-10 md:left-12 z-40 hidden sm:flex flex-col gap-1 text-[9px]  tracking-[0.2em] text-white/40 uppercase">
                     <div>SYS_REF // B_026</div>
                     <div class="flex items-center gap-1.5 text-white/60">
                         <span class="w-1 h-1 rounded-full bg-emerald-500 animate-pulse"></span> ENGINE ACTIVE
@@ -3131,7 +3331,7 @@
                                                         1,290</span>
                                                 </div>
                                                 <span
-                                                    class="text-[8px] text-emerald-400 font-bold flex items-center gap-0.5 tracking-wider font-mono">
+                                                    class="text-[8px] text-emerald-400 font-bold flex items-center gap-0.5 tracking-wider ">
                                                     <i class="bi bi-truck"></i> FREE
                                                 </span>
                                             </div>
@@ -3420,7 +3620,7 @@
                                                         1,290</span>
                                                 </div>
                                                 <span
-                                                    class="text-[8px] text-emerald-400 font-bold flex items-center gap-0.5 tracking-wider font-mono">
+                                                    class="text-[8px] text-emerald-400 font-bold flex items-center gap-0.5 tracking-wider ">
                                                     <i class="bi bi-truck"></i> FREE
                                                 </span>
                                             </div>
@@ -3574,7 +3774,7 @@
                         }
                     </script>
 
-                    <div class="w-full flex flex-col gap-6 font-mono">
+                    <div class="w-full flex flex-col gap-6 ">
                         <div
                             class="w-full grid grid-cols-1 md:grid-cols-3 items-center border-t border-b border-white/10 backdrop-blur-sm bg-black/10 py-5 px-4 md:px-8 gap-6 md:gap-4">
 
