@@ -198,7 +198,7 @@
 
     <!-- navbar  -->
     <nav id="main-nav"
-        class="fixed top-3 z-50 glass left-1/2 -translate-x-1/2 w-[90%] max-w-[30rem] rounded-[2rem] px-6 py-4 transition-all duration-500 overflow-hidden">
+        class="fixed top-3 z-50 glass left-1/2 -translate-x-1/2 w-[90%] max-w-[30rem] rounded-[2rem] px-6 py-4 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.3,1)] overflow-hidden transform -translate-y-24 opacity-0 pointer-events-none">
         <div class="max-w-7xl mx-auto flex justify-between items-center transition-all duration-500" id="nav-header">
             <div class="flex items-center gap-2 font-bold text-[14px] tracking-tighter text-white">
                 Store Name ...
@@ -3052,50 +3052,6 @@
         }
     </style>
     <script>
-
-        // function toggleMenu() {
-        //     const wrapper = document.getElementById('radial-wrapper');
-        //     const homeIcon = document.getElementById('home-icon');
-        //     const closeIcon = document.getElementById('close-icon');
-
-        //     if (!wrapper) return;
-
-        //     // Toggle active state
-        //     const isOpen = wrapper.classList.toggle('active');
-
-        //     // Smoothly morph the button icons inside the navbar header
-        //     if (isOpen) {
-        //         if (homeIcon) homeIcon.classList.add('opacity-0', 'scale-50', 'rotate-45');
-        //         if (closeIcon) {
-        //             closeIcon.classList.remove('opacity-0', 'scale-50', 'rotate-90');
-        //             closeIcon.classList.add('opacity-100', 'scale-100', 'rotate-0');
-        //         }
-        //     } else {
-        //         if (homeIcon) homeIcon.classList.remove('opacity-0', 'scale-50', 'rotate-45');
-        //         if (closeIcon) {
-        //             closeIcon.classList.add('opacity-0', 'scale-50', 'rotate-90');
-        //             closeIcon.classList.remove('opacity-100', 'scale-100', 'rotate-0');
-        //         }
-        //     }
-        // }
-
-        // function closeMenu() {
-        //     const wrapper = document.getElementById('radial-wrapper');
-        //     const homeIcon = document.getElementById('home-icon');
-        //     const closeIcon = document.getElementById('close-icon');
-
-        //     if (wrapper && wrapper.classList.contains('active')) {
-        //         wrapper.classList.remove('active');
-
-        //         // Reset icons back to default grid view
-        //         if (homeIcon) homeIcon.classList.remove('opacity-0', 'scale-50', 'rotate-45');
-        //         if (closeIcon) {
-        //             closeIcon.classList.add('opacity-0', 'scale-50', 'rotate-90');
-        //             closeIcon.classList.remove('opacity-100', 'scale-100', 'rotate-0');
-        //         }
-        //     }
-        // }
-
         function toggleMenu() {
             const wrapper = document.getElementById('radial-wrapper');
             const homeIcon = document.getElementById('home-icon');
@@ -3163,6 +3119,28 @@
         }
 
     </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const mainNav = document.getElementById("main-nav");
+            let hasRevealed = false;
+
+            function handleFirstScroll() {
+                if (!hasRevealed && window.scrollY > 20) {
+                    hasRevealed = true;
+
+                    // Smoothly slide down to original position and make clickable
+                    mainNav.classList.remove("-translate-y-24", "opacity-0", "pointer-events-none");
+                    mainNav.classList.add("translate-y-0", "opacity-100", "pointer-events-auto");
+
+                    // Clean up the window event listener since it's now revealed
+                    window.removeEventListener("scroll", handleFirstScroll);
+                }
+            }
+
+            // Bind scroll listener
+            window.addEventListener("scroll", handleFirstScroll);
+        });
+    </script>
 
 
     <div id="dynamic-alert-target-zone"
@@ -3208,155 +3186,86 @@
                     <div id="hero-content-vault"
                         class="w-full text-center mt-auto mb-4 px-4 z-40 max-h-[85vh] overflow-y-auto no-scrollbar">
 
+
+
                         <div id="data-step-0"
-                            class="hero-content-blueprint flex flex-col items-center gap-6 dynamic-visible">
-                            <div class="mb-4">
-                                <h1 class="hero-split-text text-white font-black tracking-[0.15em] text-4xl md:text-7xl uppercase"
-                                    data-split-done="true"><span style="animation-delay: 0ms">S</span><span
-                                        style="animation-delay: 30ms">T</span><span
-                                        style="animation-delay: 60ms">O</span><span
-                                        style="animation-delay: 90ms">R</span><span
-                                        style="animation-delay: 120ms">E</span><span
-                                        style="animation-delay: 150ms">N</span><span
-                                        style="animation-delay: 180ms">A</span><span
-                                        style="animation-delay: 210ms">M</span><span
-                                        style="animation-delay: 240ms">E</span></h1>
-                                <div
-                                    class="h-[1px] w-28 bg-gradient-to-r from-transparent via-red-500 to-transparent mx-auto mt-4">
+                            class="hero-content-blueprint flex flex-col items-center justify-center min-h-[80vh] gap-8 px-4 py-12 text-center select-none dynamic-visible">
+
+                            <!-- Premium Brand Presentation Header -->
+                            <div class="flex flex-col items-center gap-4">
+                                <!-- Logo Display Block -->
+                                <div class="relative group flex items-center justify-center px-8 py-5  ">
+                                    <div
+                                        class="absolute -inset-1 rounded-3xl bg-gradient-to-r from-white/0 via-white/5 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 blul">
+                                    </div>
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/d/d1/Lanvin_logo_2023.svg"
+                                        alt="Brand Logo"
+                                        class="relative z-10 h-8 md:h-11 w-auto object-contain invert brightness-200 tracking-[0.3em] transition-transform duration-700 group-hover:scale-[1.02]">
                                 </div>
+
+                                <!-- Store Statement / Biography -->
+                                <p
+                                    class="text-white/70 text-xs md:text-sm max-w-lg mx-auto font-light leading-relaxed tracking-[0.15em] uppercase px-4 mt-2">
+                                    Master the essentials. <span class="text-white font-medium">Simplicity is
+                                        everything</span>, complexity is
+                                    nothing.
+                                </p>
                             </div>
-                            <div class="flex flex-wrap items-center justify-center gap-3">
 
-                                <button onclick="triggerFastView('mens-jackets')"
-                                    class="group flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium tracking-wide text-slate-100 uppercase backdrop-blur-sm transition-all duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] hover:-translate-y-0.5 hover:border-white/40 hover:bg-white/15 hover:shadow-lg active:translate-y-0">
-                                    <span
-                                        class="h-1.5 w-1.5 rounded-full bg-white/40 transition-all duration-300 group-hover:bg-white group-hover:shadow-[0_0_8px_#ffffff]"></span>
-                                    Men's Jackets
-                                </button>
+                            <!-- Minimalist Separator Line -->
+                            <div
+                                class="h-[1px] w-24 bg-gradient-to-r from-transparent via-white/20 to-transparent mx-auto">
+                            </div>
 
-                                <button onclick="triggerFastView('womens-tshirts')"
-                                    class="group flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium tracking-wide text-slate-100 uppercase backdrop-blur-sm transition-all duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] hover:-translate-y-0.5 hover:border-white/40 hover:bg-white/15 hover:shadow-lg active:translate-y-0">
-                                    <span
-                                        class="h-1.5 w-1.5 rounded-full bg-white/40 transition-all duration-300 group-hover:bg-white group-hover:shadow-[0_0_8px_#ffffff]"></span>
-                                    Women's T-Shirts
-                                </button>
+                            <!-- Store Metadata Details Grid -->
+                            <div
+                                class="grid grid-cols-1 md:grid-cols-3 gap-y-4 gap-x-8 max-w-3xl w-full mx-auto px-6 py-5 rounded-[2rem] bg-black/30 border border-white/5 backdrop-blur-xl">
 
-                                <button onclick="triggerFastView('accessories')"
-                                    class="group flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium tracking-wide text-slate-100 uppercase backdrop-blur-sm transition-all duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] hover:-translate-y-0.5 hover:border-white/40 hover:bg-white/15 hover:shadow-lg active:translate-y-0">
-                                    <span
-                                        class="h-1.5 w-1.5 rounded-full bg-white/40 transition-all duration-300 group-hover:bg-white group-hover:shadow-[0_0_8px_#ffffff]"></span>
-                                    Accessories
-                                </button>
+                                <!-- Curator Info Column -->
+                                <div
+                                    class="flex flex-col items-center md:items-start text-center md:text-left gap-1 md:border-r md:border-white/5 md:pr-4">
+                                    <span class="text-[9px] uppercase tracking-[0.2em] font-bold text-white/40">Creative
+                                        Director</span>
+                                    <span class="text-xs uppercase tracking-wider text-slate-200 font-medium">Alexander
+                                        Vauthier</span>
+                                </div>
 
-                                <button onclick="triggerFastView('footwear')"
-                                    class="group flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium tracking-wide text-slate-100 uppercase backdrop-blur-sm transition-all duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] hover:-translate-y-0.5 hover:border-white/40 hover:bg-white/15 hover:shadow-lg active:translate-y-0">
+                                <!-- Physical Flagship Address Column -->
+                                <div
+                                    class="flex flex-col items-center md:items-start text-center md:text-left gap-1 md:border-r md:border-white/5 md:px-4">
+                                    <span class="text-[9px] uppercase tracking-[0.2em] font-bold text-white/40">Flagship
+                                        Atelier</span>
                                     <span
-                                        class="h-1.5 w-1.5 rounded-full bg-white/40 transition-all duration-300 group-hover:bg-white group-hover:shadow-[0_0_8px_#ffffff]"></span>
-                                    Footwear
-                                </button>
+                                        class="text-xs uppercase tracking-wider text-slate-200 font-medium truncate max-w-full">22
+                                        Rue du
+                                        Faubourg Saint-Honoré, Paris</span>
+                                </div>
+
+                                <!-- Direct Contact Connection Column -->
+                                <div
+                                    class="flex flex-col items-center md:items-start text-center md:text-left gap-1 md:pl-4">
+                                    <span
+                                        class="text-[9px] uppercase tracking-[0.2em] font-bold text-white/40">Concierge
+                                        Desk</span>
+                                    <a href="mailto:concierge@store.com"
+                                        class="text-xs tracking-wider text-blue-400 hover:text-blue-300 transition-colors duration-300 font-medium">ateliers@lanvin.com</a>
+                                </div>
 
                             </div>
-                            <p class="text-white/50 text-sm md:text-base max-w-xl mx-auto font-light leading-relaxed">
-                                Simplicity is everything. We strip away the noise to bring you products that actually
-                                matter to your daily
-                                routine.
-                            </p>
+
+                            <!-- Primary Navigation Interaction Area -->
+                            <div class="mt-2 transition-all duration-500">
+                                <button onclick="smoothScrollToProducts()"
+                                    class="group relative flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-10 py-4 text-[10px] font-bold tracking-[0.25em] text-white uppercase backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-white/30 hover:bg-white/10 hover:shadow-[0_0_40px_rgba(255,255,255,0.04)] active:scale-95">
+                                    Explore Collection
+                                    <i
+                                        class="bi bi-chevron-down text-xs transition-transform duration-300 group-hover:translate-y-0.5"></i>
+                                </button>
+                            </div>
+
                         </div>
 
                         <div id="data-step-1" class="hero-content-blueprint w-full">
-
-
-                            <div id="product-slider-container"
-                                class="w-full flex flex-nowrap justify-start md:justify-center items-end gap-4 mt-3 overflow-x-auto no-scrollbar px-4 snap-x snap-mandatory">
-
-                                <div data-product-id="1"
-                                    class="product-card glass group cursor-pointer overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.25,1,0.3,1)] relative bg-black border border-white/10 shadow-2xl flex flex-col shrink-0 snap-center">
-                                    <div class="absolute inset-0 w-full h-full overflow-hidden">
-                                        <div class="bg-img absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out"
-                                            style="background-image: url('https://assets.adidas.com/images/w_1880,f_auto,q_auto/a4ff4a779ee34deca8cc9a6f1f411440_9366/KC6611_HM1.jpg');">
-                                        </div>
-                                        <div
-                                            class="bg-overlay absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-black/20 z-10 transition-opacity duration-500">
-                                        </div>
-                                    </div>
-
-
-                                </div>
-
-                                <div data-product-id="2"
-                                    class="product-card glass group cursor-pointer overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.25,1,0.3,1)] relative bg-black border border-white/10 shadow-2xl flex flex-col shrink-0 snap-center">
-                                    <div class="absolute inset-0 w-full h-full overflow-hidden">
-                                        <div class="bg-img absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out"
-                                            style="background-image: url('https://assets.adidas.com/images/w_1880,f_auto,q_auto/a4ff4a779ee34deca8cc9a6f1f411440_9366/KC6611_HM1.jpg');">
-                                        </div>
-                                        <div
-                                            class="bg-overlay absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-black/40 z-10 transition-opacity duration-500">
-                                        </div>
-                                    </div>
-
-                                    <div
-                                        class="sold-out-badge absolute top-4 left-4 bg-red-950/80 backdrop-blur-md border border-red-500/30 text-red-400 text-[9px] uppercase font-black tracking-wider px-2.5 py-1 rounded-md z-40 shadow-md transition-all duration-300 transform scale-75 opacity-0 pointer-events-none">
-                                        Sold Out
-                                    </div>
-
-
-                                </div>
-
-                                <div data-product-id="3"
-                                    class="product-card glass group cursor-pointer overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.25,1,0.3,1)] relative bg-black border border-white/10 shadow-2xl flex flex-col shrink-0 snap-center">
-                                    <div class="absolute inset-0 w-full h-full overflow-hidden">
-                                        <div class="bg-img absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out"
-                                            style="background-image: url('https://assets.adidas.com/images/w_1880,f_auto,q_auto/c8ece493c83c4594a05c2e92bd259bd2_9366/KG2891_21_model.jpg');">
-                                        </div>
-                                        <div
-                                            class="bg-overlay absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20 z-10 transition-opacity duration-500">
-                                        </div>
-                                    </div>
-
-
-                                </div>
-
-                                <div onclick="smoothScrollToProducts()"
-                                    class="product-card glass rounded-[2rem] group cursor-pointer transition-all duration-500 relative w-[85px] h-[100px] md:w-[100px] md:h-[115px] bg-white/[0.03] hover:bg-white/[0.07] border border-dashed border-white/20 hover:border-white/40 shadow-2xl flex flex-col items-center justify-center p-2 shrink-0 snap-center">
-                                    <div
-                                        class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center mb-1 group-hover:scale-110 group-hover:bg-blue-600/20 transition-all duration-500">
-                                        <i
-                                            class="bi bi-arrow-right-short text-xl text-white/70 group-hover:text-blue-400 transition-colors"></i>
-                                    </div>
-                                    <span
-                                        class="text-[8px] font-bold text-white tracking-wider uppercase text-center">View
-                                        All</span>
-                                </div>
-
-                            </div>
-
-                            <div class="flex flex-wrap items-center justify-center mt-4 gap-3 px-4">
-                                <button onclick="triggerFastView('mens-jackets')"
-                                    class="group flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium tracking-wide text-slate-100 uppercase backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-white/40 hover:bg-white/15 hover:shadow-lg">
-                                    <span
-                                        class="h-1.5 w-1.5 rounded-full bg-white/40 transition-all duration-300 group-hover:bg-white group-hover:shadow-[0_0_8px_#ffffff]"></span>
-                                    Men's Jackets
-                                </button>
-                                <button onclick="triggerFastView('womens-tshirts')"
-                                    class="group flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium tracking-wide text-slate-100 uppercase backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-white/40 hover:bg-white/15 hover:shadow-lg">
-                                    <span
-                                        class="h-1.5 w-1.5 rounded-full bg-white/40 transition-all duration-300 group-hover:bg-white group-hover:shadow-[0_0_8px_#ffffff]"></span>
-                                    Men's T-Shirts
-                                </button>
-                                <button onclick="triggerFastView('accessories')"
-                                    class="group flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium tracking-wide text-slate-100 uppercase backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-white/40 hover:bg-white/15 hover:shadow-lg">
-                                    <span
-                                        class="h-1.5 w-1.5 rounded-full bg-white/40 transition-all duration-300 group-hover:bg-white group-hover:shadow-[0_0_8px_#ffffff]"></span>
-                                    Men's Accessories
-                                </button>
-                                <button onclick="triggerFastView('footwear')"
-                                    class="group flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium tracking-wide text-slate-100 uppercase backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-white/40 hover:bg-white/15 hover:shadow-lg">
-                                    <span
-                                        class="h-1.5 w-1.5 rounded-full bg-white/40 transition-all duration-300 group-hover:bg-white group-hover:shadow-[0_0_8px_#ffffff]"></span>
-                                    Men's Footwear
-                                </button>
-                            </div>
-
                             <div>
                                 <h1 class="hero-split-text text-[clamp(2rem,5vw,4.5rem)] font-extrabold text-white leading-[1.1] tracking-tighter mt-4 uppercase"
                                     data-split-done="true">
@@ -3391,96 +3300,36 @@
                                 </h1>
                             </div>
 
-                            <script>
-                                document.addEventListener("DOMContentLoaded", () => {
-                                    let activeProductId = 0; // Default starting card
+                            <div class="flex flex-wrap items-center justify-center mt-4 gap-3 px-4">
+                                <button onclick="triggerFastView('mens-jackets')"
+                                    class="group flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium tracking-wide text-slate-100 uppercase backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-white/40 hover:bg-white/15 hover:shadow-lg">
+                                    <span
+                                        class="h-1.5 w-1.5 rounded-full bg-white/40 transition-all duration-300 group-hover:bg-white group-hover:shadow-[0_0_8px_#ffffff]"></span>
+                                    Men's Jackets
+                                </button>
+                                <button onclick="triggerFastView('womens-tshirts')"
+                                    class="group flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium tracking-wide text-slate-100 uppercase backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-white/40 hover:bg-white/15 hover:shadow-lg">
+                                    <span
+                                        class="h-1.5 w-1.5 rounded-full bg-white/40 transition-all duration-300 group-hover:bg-white group-hover:shadow-[0_0_8px_#ffffff]"></span>
+                                    Men's T-Shirts
+                                </button>
+                                <button onclick="triggerFastView('accessories')"
+                                    class="group flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium tracking-wide text-slate-100 uppercase backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-white/40 hover:bg-white/15 hover:shadow-lg">
+                                    <span
+                                        class="h-1.5 w-1.5 rounded-full bg-white/40 transition-all duration-300 group-hover:bg-white group-hover:shadow-[0_0_8px_#ffffff]"></span>
+                                    Men's Accessories
+                                </button>
+                                <button onclick="triggerFastView('footwear')"
+                                    class="group flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium tracking-wide text-slate-100 uppercase backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-white/40 hover:bg-white/15 hover:shadow-lg">
+                                    <span
+                                        class="h-1.5 w-1.5 rounded-full bg-white/40 transition-all duration-300 group-hover:bg-white group-hover:shadow-[0_0_8px_#ffffff]"></span>
+                                    Men's Footwear
+                                </button>
+                            </div>
 
-                                    const cards = document.querySelectorAll("#product-slider-container [data-product-id]");
 
-                                    function updateCarousel() {
-                                        cards.forEach(card => {
-                                            const id = parseInt(card.getAttribute("data-product-id"), 10);
-                                            const isMainActive = (id === activeProductId);
 
-                                            // 1. Manage Main Structural Sizing Styles
-                                            if (isMainActive) {
-                                                card.className = "product-card glass group cursor-pointer overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.25,1,0.3,1)] relative bg-black border border-white/10 shadow-2xl flex flex-col shrink-0 snap-center w-[180px] h-[230px] rounded-[1.5rem]";
-                                            } else {
-                                                card.className = "product-card glass group cursor-pointer overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.25,1,0.3,1)] relative bg-black border border-white/10 shadow-2xl flex flex-col shrink-0 snap-center w-[95px] h-[110px] rounded-[1.5rem]";
-                                            }
 
-                                            // 2. Inner Image Scale & Brightness Effects
-                                            const img = card.querySelector(".bg-img");
-                                            if (img) {
-                                                if (id === 2) { // Sold out unique state
-                                                    img.className = isMainActive
-                                                        ? "bg-img absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out scale-100 brightness-[0.6]"
-                                                        : "bg-img absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out scale-110 brightness-[0.7] group-hover:scale-115";
-                                                } else {
-                                                    img.className = isMainActive
-                                                        ? "bg-img absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out scale-100 filter-none"
-                                                        : "bg-img absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out scale-110 group-hover:scale-115";
-                                                }
-                                            }
-
-                                            // 3. Transparent Gradient Overlay Adjustments
-                                            const overlay = card.querySelector(".bg-overlay");
-                                            if (overlay && id === 1) {
-                                                overlay.className = isMainActive
-                                                    ? "bg-overlay absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-black/20 z-10 transition-opacity duration-500 opacity-100"
-                                                    : "bg-overlay absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-black/20 z-10 transition-opacity duration-500 opacity-40 group-hover:opacity-20";
-                                            }
-
-                                            // 4. Quick Wishlist Button Toggle
-                                            const favBtn = card.querySelector(".fav-btn");
-                                            if (favBtn) {
-                                                if (isMainActive) {
-                                                    favBtn.classList.remove("scale-75", "opacity-0", "pointer-events-none");
-                                                    favBtn.classList.add("scale-100", "opacity-100", "pointer-events-auto", "delay-150");
-                                                } else {
-                                                    favBtn.classList.remove("scale-100", "opacity-100", "pointer-events-auto", "delay-150");
-                                                    favBtn.classList.add("scale-75", "opacity-0", "pointer-events-none");
-                                                }
-                                            }
-
-                                            // 5. Sold out visual badge element tracker
-                                            const soldOutBadge = card.querySelector(".sold-out-badge");
-                                            if (soldOutBadge) {
-                                                if (isMainActive) {
-                                                    soldOutBadge.classList.remove("scale-75", "opacity-0", "pointer-events-none");
-                                                    soldOutBadge.classList.add("scale-100", "opacity-100", "pointer-events-auto");
-                                                } else {
-                                                    soldOutBadge.classList.remove("scale-100", "opacity-100", "pointer-events-auto");
-                                                    soldOutBadge.classList.add("scale-75", "opacity-0", "pointer-events-none");
-                                                }
-                                            }
-
-                                            // 6. Content Info Sliding Animation Panels
-                                            const panel = card.querySelector(".info-panel");
-                                            if (panel) {
-                                                if (isMainActive) {
-                                                    panel.classList.remove("translate-y-8", "opacity-0", "pointer-events-none");
-                                                    panel.classList.add("translate-y-0", "opacity-100", "pointer-events-auto", "delay-100");
-                                                } else {
-                                                    panel.classList.remove("translate-y-0", "opacity-100", "pointer-events-auto", "delay-100");
-                                                    panel.classList.add("translate-y-8", "opacity-0", "pointer-events-none");
-                                                }
-                                            }
-                                        });
-                                    }
-
-                                    // Assign dynamic Event click listeners to substitute @click expressions
-                                    cards.forEach(card => {
-                                        card.addEventListener("click", () => {
-                                            activeProductId = parseInt(card.getAttribute("data-product-id"), 10);
-                                            updateCarousel();
-                                        });
-                                    });
-
-                                    // Initial setup parse
-                                    updateCarousel();
-                                });
-                            </script>
                         </div>
 
 
