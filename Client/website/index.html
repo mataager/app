@@ -3193,20 +3193,20 @@
                     <div class="step-bg-overlay"></div>
                 </div>
 
-                <div
+                <!-- <div
                     class="absolute top-6 left-6 md:top-10 md:left-12 z-40 hidden sm:flex flex-col gap-1 text-[9px]  tracking-[0.2em] text-white/40 uppercase">
                     <div>SYS_REF // B_026</div>
                     <div class="flex items-center gap-1.5 text-white/60">
                         <span class="w-1 h-1 rounded-full bg-emerald-500 animate-pulse"></span> ENGINE ACTIVE
                     </div>
-                </div>
+                </div> -->
 
                 <div
                     class="relative z-30 w-full max-w-[1400px] mx-auto px-0 md:px-0 h-full flex flex-col justify-between">
                     <div></div>
 
                     <div id="hero-content-vault"
-                        class="w-full text-center my-auto px-4 md:px-8 z-40 max-h-[85vh] overflow-y-auto no-scrollbar">
+                        class="w-full text-center mt-auto mb-4 px-4 z-40 max-h-[85vh] overflow-y-auto no-scrollbar">
 
                         <div id="data-step-0"
                             class="hero-content-blueprint flex flex-col items-center gap-6 dynamic-visible">
@@ -3263,296 +3263,227 @@
                             </p>
                         </div>
 
-                        <div id="data-step-1" class="hero-content-blueprint">
-                            <div>
-                                <h1 class="hero-split-text text-[clamp(2rem,4.5vw,4rem)] font-extrabold text-white leading-[1.1] tracking-tighter mb-2 uppercase"
-                                    data-split-done="true"><span
-                                        style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 0ms 1 normal both running textRevealEffect;">M</span><span
-                                        style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 25ms 1 normal both running textRevealEffect;">E</span><span
-                                        style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 50ms 1 normal both running textRevealEffect;">N</span><span
-                                        style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 75ms 1 normal both running textRevealEffect;">S</span>
+                        <div id="data-step-1" class="hero-content-blueprint w-full">
 
-                                    <span
-                                        style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 175ms 1 normal both running textRevealEffect;">C</span><span
-                                        style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 200ms 1 normal both running textRevealEffect;">O</span><span
-                                        style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 225ms 1 normal both running textRevealEffect;">L</span><span
-                                        style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 250ms 1 normal both running textRevealEffect;">L</span><span
-                                        style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 275ms 1 normal both running textRevealEffect;">E</span><span
-                                        style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 300ms 1 normal both running textRevealEffect;">C</span><span
-                                        style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 325ms 1 normal both running textRevealEffect;">T</span><span
-                                        style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 350ms 1 normal both running textRevealEffect;">I</span><span
-                                        style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 375ms 1 normal both running textRevealEffect;">O</span><span
-                                        style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 400ms 1 normal both running textRevealEffect;">N</span>
 
-                                </h1>
-                            </div>
+                            <div id="product-slider-container"
+                                class="w-full flex flex-nowrap justify-start md:justify-center items-end gap-4 mt-3 overflow-x-auto no-scrollbar px-4 snap-x snap-mandatory">
 
-                            <div
-                                class="w-full flex flex-nowrap md:flex-wrap justify-start md:justify-center gap-5 mt-4 overflow-x-auto md:overflow-x-visible pb-4 md:pb-0 snap-x snap-mandatory no-scrollbar px-4">
-
-                                <div
-                                    class="product-card glass rounded-[2rem] group cursor-pointer overflow-hidden transition-all duration-500 relative w-[190px] h-[220px] bg-black border border-white/10 shadow-2xl flex flex-col shrink-0 snap-center">
+                                <div data-product-id="1"
+                                    class="product-card glass group cursor-pointer overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.25,1,0.3,1)] relative bg-black border border-white/10 shadow-2xl flex flex-col shrink-0 snap-center">
                                     <div class="absolute inset-0 w-full h-full overflow-hidden">
-                                        <div class="absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out group-hover:scale-110 group-hover:blur-sm"
+                                        <div class="bg-img absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out"
                                             style="background-image: url('https://assets.adidas.com/images/w_1880,f_auto,q_auto/a4ff4a779ee34deca8cc9a6f1f411440_9366/KC6611_HM1.jpg');">
                                         </div>
                                         <div
-                                            class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20 z-10">
+                                            class="bg-overlay absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-black/20 z-10 transition-opacity duration-500">
                                         </div>
                                     </div>
 
-                                    <div class="absolute top-4 right-4 glass w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 active:scale-90 group/heart cursor-pointer z-50"
-                                        onclick="event.stopPropagation(); showAlert('favorite', 'Item added to your favorites list.')">
-                                        <i
-                                            class="bi bi-heart text-xs absolute transition-all duration-300 group-hover/heart:opacity-0 text-white"></i>
-                                        <i
-                                            class="bi bi-heart-fill text-xs text-red-500 absolute scale-0 opacity-0 transition-all duration-300 group-hover/heart:scale-100 group-hover/heart:opacity-100"></i>
-                                    </div>
 
-                                    <div
-                                        class="absolute bottom-3 left-3 right-3 glass border border-white/10 rounded-[1.25rem] p-3 z-30 overflow-hidden bg-black/40 backdrop-blur-xl transition-all duration-500 min-h-[96px] flex flex-col justify-center">
-                                        <div
-                                            class="flex flex-col gap-1.5 transition-all duration-500 ease-in-out group-hover:opacity-0 group-hover:translate-y-4 group-hover:pointer-events-none text-left">
-                                            <div>
-                                                <h4
-                                                    class="font-bold text-xs text-white truncate leading-tight tracking-wide">
-                                                    Adidas classic
-                                                    t-shirt</h4>
-                                                <p
-                                                    class="text-[8px] opacity-50 tracking-[0.15em] uppercase text-white  mt-0.5">
-                                                    ADIDAS</p>
-                                            </div>
-                                            <div class="flex items-center justify-between mt-0.5">
-                                                <div
-                                                    class="flex items-center rounded-md overflow-hidden bg-white/10 border border-white/10 w-fit">
-                                                    <span
-                                                        class="bg-red-600 text-white text-[8px] font-black px-1.5 py-0.5">-50%</span>
-                                                    <span class="text-[9px] font-bold px-2 py-0.5 text-white">EGP
-                                                        1,290</span>
-                                                </div>
-                                                <span
-                                                    class="text-[8px] text-emerald-400 font-bold flex items-center gap-0.5 tracking-wider ">
-                                                    <i class="bi bi-truck"></i> FREE
-                                                </span>
-                                            </div>
-                                        </div>
-
-                                        <div
-                                            class="absolute inset-x-3 bottom-3 top-3 opacity-0 translate-y-4 pointer-events-none transition-all duration-500 ease-in-out group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto flex flex-col justify-center gap-1.5">
-                                            <button
-                                                class="w-full py-2 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition active:scale-95 flex items-center justify-center gap-1.5 text-[9px] uppercase tracking-wider"
-                                                onclick="event.stopPropagation(); handleAddToCart('Adidas Originals Italia')">
-                                                <i class="bi bi-bag-plus-fill"></i> Add to Bag
-                                            </button>
-                                            <div class="grid grid-cols-2 gap-1.5">
-                                                <button
-                                                    class="py-1.5 bg-white text-black rounded-lg font-bold hover:bg-gray-200 transition active:scale-95 text-[9px] uppercase tracking-wide">Buy</button>
-                                                <button onclick="event.stopPropagation(); openQuickLook('PROD_001')"
-                                                    class="py-1.5 bg-white/10 border border-white/10 text-white rounded-lg font-bold hover:bg-white/20 transition text-[9px] uppercase tracking-wide">Look</button>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
 
-                                <div
-                                    class="product-card glass rounded-[2rem] group cursor-pointer overflow-hidden transition-all duration-500 relative w-[190px] h-[220px] bg-black border border-white/10 shadow-2xl flex flex-col shrink-0 snap-center opacity-90">
-
+                                <div data-product-id="2"
+                                    class="product-card glass group cursor-pointer overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.25,1,0.3,1)] relative bg-black border border-white/10 shadow-2xl flex flex-col shrink-0 snap-center">
                                     <div class="absolute inset-0 w-full h-full overflow-hidden">
-                                        <div class="absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out group-hover:scale-110 group-hover:blur-sm brightness-[0.6]"
+                                        <div class="bg-img absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out"
                                             style="background-image: url('https://assets.adidas.com/images/w_1880,f_auto,q_auto/a4ff4a779ee34deca8cc9a6f1f411440_9366/KC6611_HM1.jpg');">
                                         </div>
                                         <div
-                                            class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-black/40 z-10">
+                                            class="bg-overlay absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-black/40 z-10 transition-opacity duration-500">
                                         </div>
                                     </div>
 
                                     <div
-                                        class="absolute top-4 left-4 bg-red-950/80 backdrop-blur-md border border-red-500/30 text-red-400 text-[8px] uppercase font-black tracking-wider px-2 py-1 rounded-md z-40 shadow-md">
+                                        class="sold-out-badge absolute top-4 left-4 bg-red-950/80 backdrop-blur-md border border-red-500/30 text-red-400 text-[9px] uppercase font-black tracking-wider px-2.5 py-1 rounded-md z-40 shadow-md transition-all duration-300 transform scale-75 opacity-0 pointer-events-none">
                                         Sold Out
                                     </div>
 
-                                    <div
-                                        class="absolute bottom-3 left-3 right-3 glass border border-white/10 rounded-[1.25rem] p-3 z-30 overflow-hidden bg-black/50 backdrop-blur-xl transition-all duration-500 min-h-[96px] flex flex-col justify-center">
 
-                                        <div
-                                            class="flex flex-col gap-1.5 transition-all duration-500 ease-in-out group-hover:opacity-0 group-hover:translate-y-4 group-hover:pointer-events-none text-left">
-                                            <div>
-                                                <h4
-                                                    class="font-bold text-xs text-white/60 truncate line-through leading-tight tracking-wide">
-                                                    Adidas
-                                                    classic t-shirt</h4>
-                                                <p
-                                                    class="text-[8px] opacity-40 tracking-[0.15em] uppercase text-white mt-0.5">
-                                                    ADIDAS</p>
-                                            </div>
-                                            <div class="flex items-center justify-between mt-0.5">
-                                                <div class="flex items-center justify-between">
-                                                    <span class="text-[10px] font-bold text-white tracking-wide">EGP
-                                                        4,500</span>
-                                                </div>
-                                                <span
-                                                    class="text-[7px] text-zinc-400 font-bold uppercase tracking-wider">Unavailable</span>
-                                            </div>
-                                        </div>
-
-                                        <div
-                                            class="absolute inset-x-3 bottom-3 top-3 opacity-0 translate-y-4 pointer-events-none transition-all duration-500 ease-in-out group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto flex flex-col justify-center gap-1.5">
-                                            <button
-                                                class="w-full py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-xl font-bold transition active:scale-95 flex items-center justify-center gap-1 text-[8px] uppercase tracking-wider"
-                                                onclick="event.stopPropagation(); showAlert('reminder', 'Restock alert set successfully.')">
-                                                <i class="bi bi-bell-fill"></i> Remind Me
-                                            </button>
-                                            <div class="grid grid-cols-2 gap-1.5">
-                                                <button
-                                                    onclick="event.stopPropagation(); window.location.href='https://wa.me/1234567890?text=Hi! Is the Adidas Classic T-shirt restocking soon?';"
-                                                    class="py-1.5 bg-white text-black rounded-lg font-bold hover:bg-gray-200 transition active:scale-95 text-[8px] uppercase tracking-wide">Chat</button>
-                                                <button onclick="event.stopPropagation(); openQuickLook('PROD_001')"
-                                                    class="py-1.5 bg-white/10 border border-white/10 text-white rounded-lg font-bold hover:bg-white/20 transition text-[8px] uppercase tracking-wide">Look</button>
-                                            </div>
-                                        </div>
-
-                                    </div>
                                 </div>
-                                <div
-                                    class="product-card glass rounded-[2rem] group cursor-pointer overflow-hidden transition-all duration-500 relative w-[190px] h-[220px] bg-black border border-white/10 shadow-2xl flex flex-col shrink-0 snap-center">
+
+                                <div data-product-id="3"
+                                    class="product-card glass group cursor-pointer overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.25,1,0.3,1)] relative bg-black border border-white/10 shadow-2xl flex flex-col shrink-0 snap-center">
                                     <div class="absolute inset-0 w-full h-full overflow-hidden">
-                                        <div class="absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out group-hover:scale-110 group-hover:blur-sm"
+                                        <div class="bg-img absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out"
                                             style="background-image: url('https://assets.adidas.com/images/w_1880,f_auto,q_auto/c8ece493c83c4594a05c2e92bd259bd2_9366/KG2891_21_model.jpg');">
                                         </div>
                                         <div
-                                            class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20 z-10">
+                                            class="bg-overlay absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20 z-10 transition-opacity duration-500">
                                         </div>
                                     </div>
-                                    <div
-                                        class="absolute bottom-3 left-3 right-3 glass border border-white/10 rounded-[1.25rem] p-3 z-30 overflow-hidden bg-black/40 backdrop-blur-xl transition-all duration-500 min-h-[96px] flex flex-col justify-center">
-                                        <div
-                                            class="flex flex-col gap-1.5 transition-all duration-500 ease-in-out group-hover:opacity-0 group-hover:translate-y-4 group-hover:pointer-events-none text-left">
-                                            <div>
-                                                <h4
-                                                    class="font-bold text-xs text-white truncate leading-tight tracking-wide">
-                                                    Liverpool FC Stadium Graphic T-Shirt</h4>
-                                                <p
-                                                    class="text-[8px] opacity-50 tracking-[0.15em] uppercase text-white mt-0.5">
-                                                    ADIDAS</p>
-                                            </div>
-                                            <div class="flex items-center justify-between mt-1">
-                                                <span class="text-[10px] font-bold text-white tracking-wide">EGP
-                                                    4,500</span>
-                                            </div>
-                                        </div>
-                                        <div
-                                            class="absolute inset-x-3 bottom-3 top-3 opacity-0 translate-y-4 pointer-events-none transition-all duration-500 ease-in-out group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto flex flex-col justify-center gap-1.5">
-                                            <button
-                                                class="w-full py-2 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition flex items-center justify-center gap-1.5 text-[9px] uppercase"
-                                                onclick="event.stopPropagation();">
-                                                <i class="bi bi-bag-plus-fill"></i> Add to Bag
-                                            </button>
-                                            <div class="grid grid-cols-2 gap-1.5">
-                                                <button
-                                                    class="py-1.5 bg-white text-black rounded-lg font-bold text-[9px] uppercase">Buy</button>
-                                                <button
-                                                    class="py-1.5 bg-white/10 border border-white/10 text-white rounded-lg font-bold text-[9px] uppercase">Look</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
 
-                                <div
-                                    class="product-card glass rounded-[2rem] group cursor-pointer overflow-hidden transition-all duration-500 relative w-[190px] h-[220px] bg-black border border-white/10 shadow-2xl flex flex-col shrink-0 snap-center">
-                                    <div class="absolute inset-0 w-full h-full overflow-hidden">
-                                        <div class="absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out group-hover:scale-110 group-hover:blur-sm"
-                                            style="background-image: url('https://assets.adidas.com/images/w_1880,f_auto,q_auto/6169c8abb4b045e7873d1d74f07e88b3_9366/JD4827_21_model.jpg');">
-                                        </div>
-                                        <div
-                                            class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20 z-10">
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="absolute bottom-3 left-3 right-3 glass border border-white/10 rounded-[1.25rem] p-3 z-30 overflow-hidden bg-black/40 backdrop-blur-xl transition-all duration-500 min-h-[96px] flex flex-col justify-center">
-                                        <div
-                                            class="flex flex-col gap-1.5 transition-all duration-500 ease-in-out group-hover:opacity-0 group-hover:translate-y-4 group-hover:pointer-events-none text-left">
-                                            <div>
-                                                <h4
-                                                    class="font-bold text-xs text-white truncate leading-tight tracking-wide">
-                                                    Future Icons 3-Stripes Full-Zip Hoodie</h4>
-                                            </div>
 
-                                        </div>
-                                        <div
-                                            class="absolute inset-x-3 bottom-3 top-3 opacity-0 translate-y-4 pointer-events-none transition-all duration-500 ease-in-out group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto flex flex-col justify-center gap-1.5">
-                                            <div class="flex items-center justify-between mt-1">
-                                                <span class="text-[10px] font-bold text-white tracking-wide">EGP
-                                                    3,200</span>
-                                            </div>
-                                            <button
-                                                class="w-full py-2 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition flex items-center justify-center gap-1.5 text-[9px] uppercase"
-                                                onclick="event.stopPropagation();">
-                                                <i class="bi bi-bag-plus-fill"></i> Add to Bag
-                                            </button>
-                                            <div class="grid grid-cols-2 gap-1.5">
-                                                <button
-                                                    class="py-1.5 bg-white text-black rounded-lg font-bold text-[9px] uppercase">Buy</button>
-                                                <button
-                                                    class="py-1.5 bg-white/10 border border-white/10 text-white rounded-lg font-bold text-[9px] uppercase">Look</button>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
 
                                 <div onclick="smoothScrollToProducts()"
-                                    class="product-card glass rounded-[2rem] group cursor-pointer transition-all duration-500 relative w-[190px] h-[220px] bg-white/[0.03] hover:bg-white/[0.07] border border-dashed border-white/20 hover:border-white/40 shadow-2xl flex flex-col items-center justify-center p-6 shrink-0 snap-center">
+                                    class="product-card glass rounded-[2rem] group cursor-pointer transition-all duration-500 relative w-[85px] h-[100px] md:w-[100px] md:h-[115px] bg-white/[0.03] hover:bg-white/[0.07] border border-dashed border-white/20 hover:border-white/40 shadow-2xl flex flex-col items-center justify-center p-2 shrink-0 snap-center">
                                     <div
-                                        class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center mb-3 group-hover:scale-110 group-hover:bg-blue-600/20 transition-all duration-500">
+                                        class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center mb-1 group-hover:scale-110 group-hover:bg-blue-600/20 transition-all duration-500">
                                         <i
-                                            class="bi bi-arrow-right-short text-2xl text-white/70 group-hover:text-blue-400 transition-colors"></i>
+                                            class="bi bi-arrow-right-short text-xl text-white/70 group-hover:text-blue-400 transition-colors"></i>
                                     </div>
                                     <span
-                                        class="text-xs font-bold text-white tracking-wider uppercase group-hover:text-white transition-colors">View
-                                        All Items</span>
-                                    <span class="text-[10px] text-white/40 mt-1 font-light text-center">Explore the
-                                        complete seasonal
-                                        layout</span>
+                                        class="text-[8px] font-bold text-white tracking-wider uppercase text-center">View
+                                        All</span>
                                 </div>
 
                             </div>
 
-                            <div class="flex flex-wrap items-center justify-center mt-4 gap-3">
-
+                            <div class="flex flex-wrap items-center justify-center mt-4 gap-3 px-4">
                                 <button onclick="triggerFastView('mens-jackets')"
-                                    class="group flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium tracking-wide text-slate-100 uppercase backdrop-blur-sm transition-all duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] hover:-translate-y-0.5 hover:border-white/40 hover:bg-white/15 hover:shadow-lg active:translate-y-0">
+                                    class="group flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium tracking-wide text-slate-100 uppercase backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-white/40 hover:bg-white/15 hover:shadow-lg">
                                     <span
                                         class="h-1.5 w-1.5 rounded-full bg-white/40 transition-all duration-300 group-hover:bg-white group-hover:shadow-[0_0_8px_#ffffff]"></span>
                                     Men's Jackets
                                 </button>
-
                                 <button onclick="triggerFastView('womens-tshirts')"
-                                    class="group flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium tracking-wide text-slate-100 uppercase backdrop-blur-sm transition-all duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] hover:-translate-y-0.5 hover:border-white/40 hover:bg-white/15 hover:shadow-lg active:translate-y-0">
+                                    class="group flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium tracking-wide text-slate-100 uppercase backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-white/40 hover:bg-white/15 hover:shadow-lg">
                                     <span
                                         class="h-1.5 w-1.5 rounded-full bg-white/40 transition-all duration-300 group-hover:bg-white group-hover:shadow-[0_0_8px_#ffffff]"></span>
                                     Men's T-Shirts
                                 </button>
-
                                 <button onclick="triggerFastView('accessories')"
-                                    class="group flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium tracking-wide text-slate-100 uppercase backdrop-blur-sm transition-all duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] hover:-translate-y-0.5 hover:border-white/40 hover:bg-white/15 hover:shadow-lg active:translate-y-0">
+                                    class="group flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium tracking-wide text-slate-100 uppercase backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-white/40 hover:bg-white/15 hover:shadow-lg">
                                     <span
                                         class="h-1.5 w-1.5 rounded-full bg-white/40 transition-all duration-300 group-hover:bg-white group-hover:shadow-[0_0_8px_#ffffff]"></span>
                                     Men's Accessories
                                 </button>
-
                                 <button onclick="triggerFastView('footwear')"
-                                    class="group flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium tracking-wide text-slate-100 uppercase backdrop-blur-sm transition-all duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] hover:-translate-y-0.5 hover:border-white/40 hover:bg-white/15 hover:shadow-lg active:translate-y-0">
+                                    class="group flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium tracking-wide text-slate-100 uppercase backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-white/40 hover:bg-white/15 hover:shadow-lg">
                                     <span
                                         class="h-1.5 w-1.5 rounded-full bg-white/40 transition-all duration-300 group-hover:bg-white group-hover:shadow-[0_0_8px_#ffffff]"></span>
                                     Men's Footwear
                                 </button>
-
                             </div>
 
+                            <div>
+                                <h1 class="hero-split-text text-[clamp(2rem,5vw,4.5rem)] font-extrabold text-white leading-[1.1] tracking-tighter mt-4 uppercase"
+                                    data-split-done="true">
+                                    <span
+                                        style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 0ms 1 normal both running textRevealEffect;">M</span>
+                                    <span
+                                        style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 25ms 1 normal both running textRevealEffect;">E</span>
+                                    <span
+                                        style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 50ms 1 normal both running textRevealEffect;">N</span>
+                                    <span
+                                        style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 75ms 1 normal both running textRevealEffect;">S</span>
+                                    <span
+                                        style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 175ms 1 normal both running textRevealEffect;">C</span>
+                                    <span
+                                        style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 200ms 1 normal both running textRevealEffect;">O</span>
+                                    <span
+                                        style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 225ms 1 normal both running textRevealEffect;">L</span>
+                                    <span
+                                        style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 250ms 1 normal both running textRevealEffect;">L</span>
+                                    <span
+                                        style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 275ms 1 normal both running textRevealEffect;">E</span>
+                                    <span
+                                        style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 300ms 1 normal both running textRevealEffect;">C</span>
+                                    <span
+                                        style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 325ms 1 normal both running textRevealEffect;">T</span>
+                                    <span
+                                        style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 350ms 1 normal both running textRevealEffect;">I</span>
+                                    <span
+                                        style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 375ms 1 normal both running textRevealEffect;">O</span>
+                                    <span
+                                        style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 400ms 1 normal both running textRevealEffect;">N</span>
+                                </h1>
+                            </div>
 
-                            <!-- <p class="text-white/60 text-xs md:text-sm max-w-xl mx-auto font-light">
-                                Simplicity is everything. We strip away the noise for your daily routine.
-                            </p> -->
+                            <script>
+                                document.addEventListener("DOMContentLoaded", () => {
+                                    let activeProductId = 0; // Default starting card
+
+                                    const cards = document.querySelectorAll("#product-slider-container [data-product-id]");
+
+                                    function updateCarousel() {
+                                        cards.forEach(card => {
+                                            const id = parseInt(card.getAttribute("data-product-id"), 10);
+                                            const isMainActive = (id === activeProductId);
+
+                                            // 1. Manage Main Structural Sizing Styles
+                                            if (isMainActive) {
+                                                card.className = "product-card glass group cursor-pointer overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.25,1,0.3,1)] relative bg-black border border-white/10 shadow-2xl flex flex-col shrink-0 snap-center w-[180px] h-[230px] rounded-[1.5rem]";
+                                            } else {
+                                                card.className = "product-card glass group cursor-pointer overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.25,1,0.3,1)] relative bg-black border border-white/10 shadow-2xl flex flex-col shrink-0 snap-center w-[95px] h-[110px] rounded-[1.5rem]";
+                                            }
+
+                                            // 2. Inner Image Scale & Brightness Effects
+                                            const img = card.querySelector(".bg-img");
+                                            if (img) {
+                                                if (id === 2) { // Sold out unique state
+                                                    img.className = isMainActive
+                                                        ? "bg-img absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out scale-100 brightness-[0.6]"
+                                                        : "bg-img absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out scale-110 brightness-[0.7] group-hover:scale-115";
+                                                } else {
+                                                    img.className = isMainActive
+                                                        ? "bg-img absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out scale-100 filter-none"
+                                                        : "bg-img absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out scale-110 group-hover:scale-115";
+                                                }
+                                            }
+
+                                            // 3. Transparent Gradient Overlay Adjustments
+                                            const overlay = card.querySelector(".bg-overlay");
+                                            if (overlay && id === 1) {
+                                                overlay.className = isMainActive
+                                                    ? "bg-overlay absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-black/20 z-10 transition-opacity duration-500 opacity-100"
+                                                    : "bg-overlay absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-black/20 z-10 transition-opacity duration-500 opacity-40 group-hover:opacity-20";
+                                            }
+
+                                            // 4. Quick Wishlist Button Toggle
+                                            const favBtn = card.querySelector(".fav-btn");
+                                            if (favBtn) {
+                                                if (isMainActive) {
+                                                    favBtn.classList.remove("scale-75", "opacity-0", "pointer-events-none");
+                                                    favBtn.classList.add("scale-100", "opacity-100", "pointer-events-auto", "delay-150");
+                                                } else {
+                                                    favBtn.classList.remove("scale-100", "opacity-100", "pointer-events-auto", "delay-150");
+                                                    favBtn.classList.add("scale-75", "opacity-0", "pointer-events-none");
+                                                }
+                                            }
+
+                                            // 5. Sold out visual badge element tracker
+                                            const soldOutBadge = card.querySelector(".sold-out-badge");
+                                            if (soldOutBadge) {
+                                                if (isMainActive) {
+                                                    soldOutBadge.classList.remove("scale-75", "opacity-0", "pointer-events-none");
+                                                    soldOutBadge.classList.add("scale-100", "opacity-100", "pointer-events-auto");
+                                                } else {
+                                                    soldOutBadge.classList.remove("scale-100", "opacity-100", "pointer-events-auto");
+                                                    soldOutBadge.classList.add("scale-75", "opacity-0", "pointer-events-none");
+                                                }
+                                            }
+
+                                            // 6. Content Info Sliding Animation Panels
+                                            const panel = card.querySelector(".info-panel");
+                                            if (panel) {
+                                                if (isMainActive) {
+                                                    panel.classList.remove("translate-y-8", "opacity-0", "pointer-events-none");
+                                                    panel.classList.add("translate-y-0", "opacity-100", "pointer-events-auto", "delay-100");
+                                                } else {
+                                                    panel.classList.remove("translate-y-0", "opacity-100", "pointer-events-auto", "delay-100");
+                                                    panel.classList.add("translate-y-8", "opacity-0", "pointer-events-none");
+                                                }
+                                            }
+                                        });
+                                    }
+
+                                    // Assign dynamic Event click listeners to substitute @click expressions
+                                    cards.forEach(card => {
+                                        card.addEventListener("click", () => {
+                                            activeProductId = parseInt(card.getAttribute("data-product-id"), 10);
+                                            updateCarousel();
+                                        });
+                                    });
+
+                                    // Initial setup parse
+                                    updateCarousel();
+                                });
+                            </script>
                         </div>
+
+
 
                         <div id="data-step-2" class="hero-content-blueprint">
                             <h1 class="hero-split-text text-[clamp(2rem,5vw,4.5rem)] font-extrabold text-white leading-[1.1] tracking-tighter mb-4 uppercase"
