@@ -1076,6 +1076,29 @@
                         <!-- Injected dynamically via JavaScript -->
                     </div>
 
+                    <div id="promocode-container"
+                        class="p-3 rounded-2xl bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/10 mt-2">
+                        <div>
+                            <div class="flex justify-between items-center mb-1.5">
+                                <span class="text-[10px] font-bold dark:text-white/60 uppercase tracking-wide">Promo
+                                    Code</span>
+                                <button onclick="viewOffers()"
+                                    class="text-[10px] text-blue-500 font-bold hover:underline">View
+                                    Offers</button>
+                            </div>
+                            <div class="flex gap-2 items-center">
+                                <div class="relative flex-1">
+                                    <input type="text" id="promo-input" placeholder="Enter code" value="MP"
+                                        class="w-full bg-black/5 dark:bg-neutral-800/50 border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 text-[12px] font-bold text-black dark:text-white placeholder-neutral-400 focus:outline-none focus:border-blue-500 transition-colors" />
+                                </div>
+                                <button onclick="applyPromoCode()"
+                                    class="bg-blue-600 hover:bg-blue-700 text-white text-[11px] font-bold px-4 py-2 rounded-xl transition-colors min-w-[70px] h-full">
+                                    Apply
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Total and Action Button Footer Area -->
                     <div class="pt-4 border-t border-black/5 dark:border-white/5">
                         <div class="flex justify-between items-center mb-4">
@@ -1175,7 +1198,14 @@
                             </div>
                         </div>
                         <div id="shipping-list" class="hidden mt-3 pt-3 border-t border-black/5 dark:border-white/10 max-h-24 overflow-y-auto custom-scrollbar">
-                            <p class="text-[9px] dark:text-white/40 uppercase mb-2">Other Saved Addresses:</p>
+                           <div class="flex justify-between items-center mb-2">
+                                <p class="text-[9px] dark:text-white/40 uppercase tracking-wider">Other Saved Addresses:</p>
+                                
+                                <a href="/addresses/new" class="text-[9px] text-blue-500 hover:text-blue-600 dark:hover:text-blue-400 font-bold uppercase tracking-wider flex items-center gap-1 transition-colors">
+                                   <i class="bi bi-plus"></i>
+                                    Add New
+                                </a>
+                            </div>
                             <div class="space-y-1.5">${unpickedHTML}</div>
                         </div>`;
                     }
@@ -2518,201 +2548,267 @@
         </div>
         <div id="catalog-view" class="hidden opacity-0 scale-95 transition-all duration-500 ease-out overflow-hidden">
             <hr class="my-4 border-black/5 dark:border-white/5">
-            <div id="search-container"
-                class="transition-all duration-300 ease-in-out max-h-0 opacity-0 mb-0 overflow-hidden">
-                <div class="relative mb-6">
-                    <input type="text" placeholder="Search in category..."
-                        class="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white text-sm focus:outline-none focus:border-blue-500/50 transition-colors">
-                    <div class="absolute right-3 top-2.5 text-white/40" onclick="closeSearch()">
-                        <kbd class="text-[10px] border border-white/20 px-1.5 py-0.5 rounded-md">ESC</kbd>
-                    </div>
+            <div class="relative mb-6">
+                <input type="text" id="directory-search" placeholder="Search categories (e.g., Jeans, Tops)..."
+                    class="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 pl-11 text-white text-sm focus:outline-none focus:border-blue-500/50 transition-colors">
+                <div class="absolute left-4 top-3.5 text-white/30">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
                 </div>
             </div>
 
-            <div class="space-y-4">
-                <div class="group flex items-center gap-3">
-                    <div class="relative flex-1">
-                        <select
-                            class="w-full appearance-none bg-white/5 border border-white/10 rounded-2xl py-4 px-5 text-white font-bold text-sm cursor-pointer hover:bg-white/10 transition-all focus:outline-none">
-                            <option disabled selected>Select Gender</option>
-                            <option>Men</option>
-                            <option>Women</option>
-                            <option>Kids</option>
-                        </select>
-                        <div class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none opacity-40">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M19 9l-7 7-7-7" />
-                            </svg>
-                        </div>
-                    </div>
-                    <button
-                        class="w-12 h-12 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-white/60 hover:bg-blue-500 hover:text-white hover:border-blue-400 transition-all active:scale-90">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                        </svg>
-                    </button>
-                </div>
-
-                <div class="group flex items-center gap-3">
-                    <div class="relative flex-1">
-                        <select
-                            class="w-full appearance-none bg-white/5 border border-white/10 rounded-2xl py-4 px-5 text-white font-bold text-sm cursor-pointer hover:bg-white/10 transition-all focus:outline-none">
-                            <option disabled selected>Select Category</option>
-                            <option>Tops</option>
-                            <option>Bottoms</option>
-                            <option>Footwear</option>
-                        </select>
-                        <div class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none opacity-40">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M19 9l-7 7-7-7" />
-                            </svg>
-                        </div>
-                    </div>
-                    <button
-                        class="w-12 h-12 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-white/60 hover:bg-blue-500 hover:text-white hover:border-blue-400 transition-all active:scale-90">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                        </svg>
-                    </button>
-                </div>
-
-                <div class="group flex items-center gap-3">
-                    <div class="relative flex-1">
-                        <select
-                            class="w-full appearance-none bg-white/5 border border-white/10 rounded-2xl py-4 px-5 text-white font-bold text-sm cursor-pointer hover:bg-white/10 transition-all focus:outline-none">
-                            <option disabled selected>Refine Search</option>
-                            <option>T-Shirts</option>
-                            <option>Sneakers</option>
-                            <option>Hoodies</option>
-                        </select>
-                        <div class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none opacity-40">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M19 9l-7 7-7-7" />
-                            </svg>
-                        </div>
-                    </div>
-                    <button
-                        class="w-12 h-12 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-white/60 hover:bg-blue-500 hover:text-white hover:border-blue-400 transition-all active:scale-90">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                        </svg>
-                    </button>
+            <div class="grid grid-cols-3 gap-2 bg-black/20 p-2 rounded-2xl border border-white/5 h-64 overflow-hidden">
+                <div id="col-gender" class="space-y-1 overflow-y-auto pr-1 custom-scrollbar"></div>
+                <div id="col-category"
+                    class="space-y-1 overflow-y-auto pr-1 custom-scrollbar border-l border-white/5 pl-1 hidden"></div>
+                <div id="col-sub"
+                    class="space-y-1 overflow-y-auto pr-1 custom-scrollbar border-l border-white/5 pl-1 hidden">
                 </div>
             </div>
 
-            <div class="mt-6 px-2">
-                <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-white/30">
-                    Path: <span class="text-blue-500">Men</span> / <span class="text-blue-500">Bottoms</span> / <span
-                        class="animate-pulse">Waiting...</span>
+
+            <div class="mt-6 px-2 flex justify-between items-center">
+                <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-white/80">
+                    Path: <span id="path-display">Select Options...</span>
                 </p>
+                <span id="items-counter"
+                    class="text-[10px] font-bold uppercase tracking-wider text-white/50 bg-white/5 px-2.5 py-1 rounded-md border border-white/5 opacity-0 transition-opacity duration-300">
+                    0 items found
+                </span>
             </div>
-
-            <button
-                class="w-full mt-8 py-4 bg-white text-black rounded-2xl font-black uppercase text-xs tracking-widest hover:bg-blue-500 hover:text-white transition-all shadow-xl active:scale-[0.98]">
+            <button id="explore-btn" disabled
+                class="w-full mt-6 py-4 bg-white/10 text-white/40 rounded-2xl font-black uppercase text-xs tracking-widest transition-all cursor-not-allowed">
                 Explore Selection
             </button>
-            <script>
-                document.addEventListener('DOMContentLoaded', () => {
-                    const searchContainer = document.getElementById('search-container');
-                    const searchInput = searchContainer.querySelector('input');
-                    const searchButtons = document.querySelectorAll('.group button');
-                    const selects = document.querySelectorAll('select');
-                    const pathSpans = document.querySelectorAll('.text-blue-500');
-                    const statusText = document.querySelector('.animate-pulse');
-
-                    let activeSelectIndex = null;
-
-                    // 1. Toggle Search Bar Logic
-                    searchButtons.forEach((btn, index) => {
-                        btn.addEventListener('click', () => {
-                            const isHidden = searchContainer.classList.contains('max-h-0');
-
-                            if (isHidden || activeSelectIndex !== index) {
-                                // Show search bar
-                                searchContainer.classList.remove('max-h-0', 'opacity-0', 'mb-0');
-                                searchContainer.classList.add('max-h-20', 'opacity-100', 'mb-6');
-
-                                // Focus and set placeholder
-                                const labels = ['Genders', 'Categories', 'Refinement'];
-                                searchInput.placeholder = `Search in ${labels[index]}...`;
-                                searchInput.value = ''; // Clear previous search
-                                searchInput.focus();
-                                activeSelectIndex = index;
-
-                                // Reset filter visibility on all selects
-                                resetFilters();
-                            } else {
-                                closeSearch();
-                            }
-                        });
-                    });
-
-                    // 2. Filter Logic (Hides non-matching options)
-                    searchInput.addEventListener('input', (e) => {
-                        if (activeSelectIndex === null) return;
-
-                        const term = e.target.value.toLowerCase();
-                        const options = selects[activeSelectIndex].options;
-
-                        for (let i = 0; i < options.length; i++) {
-                            const text = options[i].text.toLowerCase();
-                            // If it's the "Select..." placeholder, keep it visible
-                            if (i === 0) continue;
-
-                            options[i].style.display = text.includes(term) ? 'block' : 'none';
-                        }
-                    });
-
-                    // 3. Update Breadcrumb Path
-                    selects.forEach((select, index) => {
-                        select.addEventListener('change', (e) => {
-                            if (pathSpans[index]) {
-                                pathSpans[index].textContent = e.target.value;
-                            }
-
-                            // If the 3rd select is touched, update status
-                            if (index === 2) {
-                                statusText.classList.remove('animate-pulse');
-                                statusText.textContent = "Ready";
-                                statusText.classList.add('text-green-500');
-                            }
-
-                            closeSearch(); // Close search after selection is made
-                        });
-                    });
-
-                    // Close functions
-                    function closeSearch() {
-                        searchContainer.classList.add('max-h-0', 'opacity-0', 'mb-0');
-                        searchContainer.classList.remove('max-h-20', 'opacity-100', 'mb-6');
-                        activeSelectIndex = null;
-                    }
-
-                    function resetFilters() {
-                        selects.forEach(select => {
-                            Array.from(select.options).forEach(opt => opt.style.display = 'block');
-                        });
-                    }
-
-                    // Close on ESC key
-                    document.addEventListener('keydown', (e) => {
-                        if (e.key === 'Escape') closeSearch();
-                    });
-                });
-            </script>
         </div>
+
+        <style>
+            /* Clean custom scrollbar for dark UI */
+            .custom-scrollbar::-webkit-scrollbar {
+                width: 4px;
+            }
+
+            .custom-scrollbar::-webkit-scrollbar-track {
+                background: transparent;
+            }
+
+            .custom-scrollbar::-webkit-scrollbar-thumb {
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 10px;
+            }
+
+            .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+                background: rgba(255, 255, 255, 0.2);
+            }
+        </style>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                // 1. Dynamic Data Structure
+                const storeData = {
+                    "Men": {
+                        "Tops": ["T-Shirts", "Hoodies", "Shirts", "Jackets"],
+                        "Bottoms": ["Jeans", "Cargo Pants", "Shorts", "Joggers"],
+                        "Footwear": ["Sneakers", "Boots", "Running Shoes"]
+                    },
+                    "Women": {
+                        "Tops": ["Blouses", "Crop Tops", "Hoodies", "Knits"],
+                        "Bottoms": ["Jeans", "Skirts", "Leggings", "Dresses"],
+                        "Footwear": ["Heels", "Sneakers", "Sandals"]
+                    },
+                    "Kids": {
+                        "Tops": ["Graphic Tees", "Sweaters"],
+                        "Bottoms": ["Shorts", "Tracksuits"],
+                        "Footwear": ["Velcro Sneakers", "Slippers"]
+                    }
+                };
+
+                // Current selection state
+                let selection = { gender: null, category: null, sub: null };
+
+                // DOM Elements
+                const colGender = document.getElementById('col-gender');
+                const colCategory = document.getElementById('col-category');
+                const colSub = document.getElementById('col-sub');
+                const pathDisplay = document.getElementById('path-display');
+                const exploreBtn = document.getElementById('explore-btn');
+                const searchInput = document.getElementById('directory-search');
+
+                // Reusable function to create UI list buttons
+                function createItemButton(label, isActive = false) {
+                    const btn = document.createElement('button');
+                    btn.className = `w-full text-left px-3 py-2.5 rounded-xl text-xs font-bold transition-all truncate flex justify-between items-center ${isActive
+                        ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/20'
+                        : 'text-white/70 hover:bg-white/5 hover:text-white'
+                        }`;
+                    btn.innerHTML = `<span>${label}</span>`;
+                    return btn;
+                }
+
+                // 2. Render Functions
+                function renderGenders(filterTerm = '') {
+                    colGender.innerHTML = '';
+                    Object.keys(storeData).forEach(gender => {
+                        if (filterTerm && !gender.toLowerCase().includes(filterTerm)) return;
+
+                        const btn = createItemButton(gender, selection.gender === gender);
+                        btn.addEventListener('click', () => selectGender(gender));
+                        colGender.appendChild(btn);
+                    });
+                }
+
+                function renderCategories() {
+                    if (!selection.gender) {
+                        colCategory.classList.add('hidden');
+                        return;
+                    }
+                    colCategory.classList.remove('hidden');
+                    colCategory.innerHTML = '';
+
+                    Object.keys(storeData[selection.gender]).forEach(cat => {
+                        const btn = createItemButton(cat, selection.category === cat);
+                        btn.addEventListener('click', () => selectCategory(cat));
+                        colCategory.appendChild(btn);
+                    });
+                }
+
+                function renderSubs() {
+                    if (!selection.category) {
+                        colSub.classList.add('hidden');
+                        return;
+                    }
+                    colSub.classList.remove('hidden');
+                    colSub.innerHTML = '';
+
+                    storeData[selection.gender][selection.category].forEach(sub => {
+                        const btn = createItemButton(sub, selection.sub === sub);
+                        btn.addEventListener('click', () => selectSub(sub));
+                        colSub.appendChild(btn);
+                    });
+                }
+
+                // 3. Selection Handlers
+                function selectGender(gender) {
+                    selection.gender = gender;
+                    selection.category = null;
+                    selection.sub = null;
+                    renderGenders();
+                    renderCategories();
+                    renderSubs();
+                    updateUI();
+                }
+
+                type = function selectCategory(cat) {
+                    selection.category = cat;
+                    selection.sub = null;
+                    renderCategories();
+                    renderSubs();
+                    updateUI();
+                }
+
+                function selectSub(sub) {
+                    selection.sub = sub;
+                    renderSubs();
+                    updateUI();
+                }
+
+                // Mock Database for item counts based on sub-category selection
+                const mockItemCounts = {
+                    "T-Shirts": 23, "Hoodies": 14, "Shirts": 19, "Jackets": 8,
+                    "Jeans": 31, "Cargo Pants": 12, "Shorts": 25, "Joggers": 16,
+                    "Sneakers": 42, "Boots": 7, "Running Shoes": 18,
+                    "Blouses": 22, "Crop Tops": 27, "Knits": 0,
+                    "Skirts": 15, "Leggings": 34, "Dresses": 29,
+                    "Heels": 13, "Sandals": 21,
+                    "Graphic Tees": 40, "Sweaters": 9,
+                    "Tracksuits": 5, "Velcro Sneakers": 14, "Slippers": 12
+                };
+
+                function updateUI() {
+                    const counterEl = document.getElementById('items-counter');
+
+                    if (selection.gender && selection.category && selection.sub) {
+                        // 1. Update Path Text
+                        pathDisplay.innerHTML = `<span class="">${selection.gender}</span> / <span class="">${selection.category}</span> / <span class="">${selection.sub}</span>`;
+
+                        // 2. Fetch and Reveal Count
+                        const count = mockItemCounts[selection.sub] || 0;
+                        counterEl.textContent = `${count} items found`;
+                        counterEl.classList.remove('opacity-0');
+                        counterEl.classList.add('opacity-100', 'text-green-400', 'border-green-500/20', 'bg-green-500/5');
+
+                        // 3. Activate the Link Button and append dynamic URL query parameters
+                        exploreBtn.removeAttribute('aria-disabled');
+                        exploreBtn.href = `/catalog?gender=${selection.gender.toLowerCase()}&category=${selection.category.toLowerCase()}&sub=${selection.sub.toLowerCase()}`;
+                        exploreBtn.className = "block text-center w-full mt-6 py-4 bg-white text-black rounded-2xl font-black uppercase text-xs tracking-widest hover:bg-blue-600 hover:text-white transition-all shadow-xl active:scale-[0.98] cursor-pointer pointer-events-auto";
+
+                    } else {
+                        // Partial selection or reset state
+                        let pathArr = [];
+                        if (selection.gender) pathArr.push(selection.gender);
+                        if (selection.category) pathArr.push(selection.category);
+                        pathDisplay.textContent = pathArr.length ? pathArr.join(' / ') + ' / ...' : 'Select Options...';
+
+                        // Reset Counter UI
+                        counterEl.classList.remove('opacity-100', 'text-green-400', 'border-green-500/20', 'bg-green-500/5');
+                        counterEl.classList.add('opacity-0');
+                        counterEl.textContent = "0 items found";
+
+                        // Disable Link Button
+                        exploreBtn.setAttribute('aria-disabled', 'true');
+                        exploreBtn.href = "#";
+                        exploreBtn.className = "block text-center w-full mt-6 py-4 bg-white/10 text-white/40 rounded-2xl font-black uppercase text-xs tracking-widest transition-all cursor-not-allowed pointer-events-none";
+                    }
+                }
+                // 4. Global Fuzzy Search Logic
+                searchInput.addEventListener('input', (e) => {
+                    const term = e.target.value.toLowerCase().trim();
+
+                    if (!term) {
+                        // Reset to defaults
+                        renderGenders();
+                        renderCategories();
+                        renderSubs();
+                        return;
+                    }
+
+                    // Deep Search matching sub branches
+                    let matchedGender = null;
+                    let matchedCat = null;
+                    let matchedSub = null;
+
+                    for (const gender in storeData) {
+                        for (const cat in storeData[gender]) {
+                            const subMatch = storeData[gender][cat].find(s => s.toLowerCase().includes(term));
+                            if (subMatch) {
+                                matchedGender = gender;
+                                matchedCat = cat;
+                                matchedSub = subMatch;
+                                break;
+                            }
+                        }
+                        if (matchedGender) break;
+                    }
+
+                    // If sub item matches, auto-expand the column tree to showcase it dynamically!
+                    if (matchedGender) {
+                        selection.gender = matchedGender;
+                        selection.category = matchedCat;
+                        selection.sub = matchedSub;
+                        renderGenders();
+                        renderCategories();
+                        renderSubs();
+                        updateUI();
+                    }
+                });
+
+                // Initial load
+                renderGenders();
+            });
+        </script>
 
         <div id="help-view" class="hidden opacity-0 scale-95 transition-all duration-500 ease-out overflow-hidden">
             <hr class="my-4 border-black/5 dark:border-white/5">
@@ -2961,7 +3057,7 @@
 
     <!-- circle btn -->
     <div id="radial-wrapper"
-        class="fixed top-[5.3rem] left-1/2 -translate-x-1/2 z-40 pointer-events-none opacity-0 -translate-y-2 scale-95 transition-all duration-300 ease-out flex items-center justify-nter gap-4 px-6 py-3 rounded-b-[30px] glass max-w-[70%] sm:max-w-[400px] justify-start overflow-auto w-max">
+        class="fixed top-[15px] left-1/2 -translate-x-[61%] scale-100 z-[50] pointer-events-auto opacity-0 transition-all duration-300 ease-out flex items-center gap-4 px-6 py-3 rounded-[30px] glass max-w-[65%] sm:max-w-[380px] justify-start overflow-auto w-max border-none">
         <div class="flex items-center justify-center gap-4 relative">
             <a href="#" class="nav-bubble" onclick="openSearch(event)" onmouseenter="showHint('Search')"
                 onmouseleave="hideHint()">
@@ -3078,6 +3174,8 @@
             }
         }
 
+
+
         function closeMenu() {
             const wrapper = document.getElementById('radial-wrapper');
             const homeIcon = document.getElementById('home-icon');
@@ -3189,7 +3287,7 @@
 
 
                         <div id="data-step-0"
-                            class="hero-content-blueprint flex flex-col items-center justify-center min-h-[80vh] gap-8 px-4 py-12 text-center select-none dynamic-visible">
+                            class="hero-content-blueprint flex flex-col items-center justify-end min-h-[80vh] gap-8 px-4 py-12 text-center select-none dynamic-visible">
 
                             <!-- Premium Brand Presentation Header -->
                             <div class="flex flex-col items-center gap-4">
@@ -3203,6 +3301,10 @@
                                         class="relative z-10 h-8 md:h-11 w-auto object-contain invert brightness-200 tracking-[0.3em] transition-transform duration-700 group-hover:scale-[1.02]">
                                 </div>
 
+                                <div
+                                    class="h-[1px] w-24 bg-gradient-to-r from-transparent via-white/20 to-transparent mx-auto">
+                                </div>
+
                                 <!-- Store Statement / Biography -->
                                 <p
                                     class="text-white/70 text-xs md:text-sm max-w-lg mx-auto font-light leading-relaxed tracking-[0.15em] uppercase px-4 mt-2">
@@ -3210,57 +3312,6 @@
                                         everything</span>, complexity is
                                     nothing.
                                 </p>
-                            </div>
-
-                            <!-- Minimalist Separator Line -->
-                            <div
-                                class="h-[1px] w-24 bg-gradient-to-r from-transparent via-white/20 to-transparent mx-auto">
-                            </div>
-
-                            <!-- Store Metadata Details Grid -->
-                            <div
-                                class="grid grid-cols-1 md:grid-cols-3 gap-y-4 gap-x-8 max-w-3xl w-full mx-auto px-6 py-5 rounded-[2rem] bg-black/30 border border-white/5 backdrop-blur-xl">
-
-                                <!-- Curator Info Column -->
-                                <div
-                                    class="flex flex-col items-center md:items-start text-center md:text-left gap-1 md:border-r md:border-white/5 md:pr-4">
-                                    <span class="text-[9px] uppercase tracking-[0.2em] font-bold text-white/40">Creative
-                                        Director</span>
-                                    <span class="text-xs uppercase tracking-wider text-slate-200 font-medium">Alexander
-                                        Vauthier</span>
-                                </div>
-
-                                <!-- Physical Flagship Address Column -->
-                                <div
-                                    class="flex flex-col items-center md:items-start text-center md:text-left gap-1 md:border-r md:border-white/5 md:px-4">
-                                    <span class="text-[9px] uppercase tracking-[0.2em] font-bold text-white/40">Flagship
-                                        Atelier</span>
-                                    <span
-                                        class="text-xs uppercase tracking-wider text-slate-200 font-medium truncate max-w-full">22
-                                        Rue du
-                                        Faubourg Saint-Honoré, Paris</span>
-                                </div>
-
-                                <!-- Direct Contact Connection Column -->
-                                <div
-                                    class="flex flex-col items-center md:items-start text-center md:text-left gap-1 md:pl-4">
-                                    <span
-                                        class="text-[9px] uppercase tracking-[0.2em] font-bold text-white/40">Concierge
-                                        Desk</span>
-                                    <a href="mailto:concierge@store.com"
-                                        class="text-xs tracking-wider text-blue-400 hover:text-blue-300 transition-colors duration-300 font-medium">ateliers@lanvin.com</a>
-                                </div>
-
-                            </div>
-
-                            <!-- Primary Navigation Interaction Area -->
-                            <div class="mt-2 transition-all duration-500">
-                                <button onclick="smoothScrollToProducts()"
-                                    class="group relative flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-10 py-4 text-[10px] font-bold tracking-[0.25em] text-white uppercase backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-white/30 hover:bg-white/10 hover:shadow-[0_0_40px_rgba(255,255,255,0.04)] active:scale-95">
-                                    Explore Collection
-                                    <i
-                                        class="bi bi-chevron-down text-xs transition-transform duration-300 group-hover:translate-y-0.5"></i>
-                                </button>
                             </div>
 
                         </div>
@@ -3603,14 +3654,14 @@
 
                 .hero-bg-layer.active {
                     opacity: 1;
-                    transform: scale(1);
+                    transform: scale(1.2);
                     z-index: 1;
                 }
 
                 .step-bg-overlay {
                     position: absolute;
                     inset: 0;
-                    background: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.1) 0%, #050505f5 95%);
+                    background: radial-gradient(circle at 50% 50%, rgb(0 0 0 / 30%));
                     z-index: 2;
                 }
 
@@ -3645,6 +3696,7 @@
                 }
 
                 .node-label {
+                    text-shadow: 0 1px 1px rgb(0 0 0 / 100%);
                     font-size: 10px;
                     font-weight: 700;
                     tracking: 0.15em;
@@ -4320,6 +4372,7 @@
 
             // Deactivate Radial & Show Overlay
             overlay.classList.add('active', 'opacity-100', 'pointer-events-auto');
+            radial.classList.add('z-40');
 
 
             targetView.classList.remove('hidden');
@@ -4357,6 +4410,7 @@
 
             // Handle Overlay and Radial Menu State
             overlay.classList.add('active', 'opacity-100', 'pointer-events-auto');
+            radial.classList.add('z-40');
 
             details.classList.remove('hidden');
             const isMobile = window.innerWidth < 768;
@@ -4425,6 +4479,7 @@
 
             // Clear overlay state
             overlay.classList.remove('active', 'opacity-100', 'pointer-events-auto');
+            radial.classList.remove('z-40');
 
             setTimeout(() => {
                 views.forEach(id => {
