@@ -3324,19 +3324,833 @@
     <main class="flex flex-col items-center">
 
 
+        <style>
+            /* ----- RESET & BASE ----- */
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                min-height: 100vh;
+                background: #050505;
+                font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+                color: #fff;
+                overflow-x: hidden;
+            }
+
+            /* ----- HERO WRAPPER ----- */
+            #hero-main-container {
+                background: #050505;
+                position: relative;
+                width: 100%;
+                overflow: hidden;
+                transition: height 0.7s ease-in-out;
+                will-change: height;
+            }
+
+            #hero-display-target {
+                position: relative;
+                width: 100%;
+                height: 100vh;
+                overflow: hidden;
+                user-select: none;
+            }
+
+            /* ----- BACKGROUND LAYERS ----- */
+            .hero-bg-layer {
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                background-size: cover;
+                background-position: center;
+                opacity: 0;
+                transform: scale(1.05);
+                filter: brightness(0.25) saturate(1.1);
+                transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1),
+                    transform 1.6s cubic-bezier(0.25, 1, 0.5, 1),
+                    filter 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+                z-index: 0;
+            }
+
+            .hero-bg-layer.active {
+                opacity: 1;
+                transform: scale(1.2);
+                z-index: 1;
+            }
+
+            .step-bg-overlay {
+                position: absolute;
+                inset: 0;
+                background: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.40) 0%, rgba(0, 0, 0, 0.70) 100%);
+                z-index: 2;
+            }
+
+            /* ----- CONTENT VAULT ----- */
+            #hero-content-vault {
+                position: relative;
+                z-index: 10;
+                width: 100%;
+                max-width: 1400px;
+                margin: 0 auto;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+
+            /* ----- BLUEPRINT (each step) ----- */
+            .hero-content-blueprint {
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 50%;
+                transform: translateY(-50%);
+                margin: 0 auto;
+                opacity: 0;
+                filter: blur(15px);
+                pointer-events: none;
+                transition: opacity 0.7s cubic-bezier(0.25, 1, 0.5, 1),
+                    filter 0.7s cubic-bezier(0.25, 1, 0.5, 1),
+                    transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+                padding: 0 1.5rem;
+                width: 100%;
+                max-width: 1100px;
+            }
+
+            .hero-content-blueprint.dynamic-visible {
+                position: relative;
+                top: auto;
+                transform: translateY(0);
+                opacity: 1;
+                filter: blur(0px);
+                pointer-events: auto;
+            }
+
+            /* ----- STEP 0 — PROFESSIONAL INTRO / ABOUT ----- */
+            #data-step-0 .intro-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 1.5rem;
+                padding: 2rem 1rem;
+                max-width: 820px;
+                margin: 0 auto;
+                width: 100%;
+            }
+
+            /* ---- verification badge ---- */
+            .verified-badge {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                background: rgba(16, 185, 129, 0.12);
+                backdrop-filter: blur(8px);
+                -webkit-backdrop-filter: blur(8px);
+                border: 1px solid rgba(16, 185, 129, 0.25);
+                padding: 0.4rem 1rem 0.4rem 0.7rem;
+                border-radius: 9999px;
+                font-size: 0.7rem;
+                font-weight: 600;
+                letter-spacing: 0.04em;
+                color: #6ee7b7;
+                text-transform: uppercase;
+                transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+                box-shadow: 0 0 24px -6px rgba(16, 185, 129, 0.15);
+                cursor: default;
+                user-select: none;
+            }
+
+            .verified-badge .badge-icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 18px;
+                height: 18px;
+                border-radius: 50%;
+                background: linear-gradient(135deg, #10b981, #059669);
+                color: #fff;
+                font-size: 0.55rem;
+                flex-shrink: 0;
+            }
+
+            .verified-badge .badge-text {
+                white-space: nowrap;
+            }
+
+            .verified-badge .badge-check {
+                font-size: 0.65rem;
+            }
+
+            /* unverified state (optional) */
+            .verified-badge.unverified {
+                background: rgba(239, 68, 68, 0.10);
+                border-color: rgba(239, 68, 68, 0.20);
+                color: #fca5a5;
+                box-shadow: 0 0 24px -6px rgba(239, 68, 68, 0.10);
+            }
+
+            .verified-badge.unverified .badge-icon {
+                background: linear-gradient(135deg, #ef4444, #dc2626);
+            }
+
+            /* ---- brand headline ---- */
+            .intro-headline {
+                font-size: clamp(2.4rem, 6vw, 4.2rem);
+                font-weight: 800;
+                line-height: 1.05;
+                letter-spacing: -0.03em;
+                text-align: center;
+                background: linear-gradient(135deg, #ffffff 30%, rgba(255, 255, 255, 0.5) 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                text-shadow: none;
+                margin-top: 0.25rem;
+            }
+
+            .intro-headline .accent {
+                background: linear-gradient(135deg, #60a5fa, #a78bfa);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+
+            /* ---- tagline ---- */
+            .intro-tagline {
+                font-size: clamp(0.85rem, 1.4vw, 1.1rem);
+                font-weight: 300;
+                color: rgba(255, 255, 255, 0.55);
+                text-align: center;
+                max-width: 600px;
+                line-height: 1.7;
+                letter-spacing: 0.02em;
+            }
+
+            .intro-tagline strong {
+                color: rgba(255, 255, 255, 0.85);
+                font-weight: 500;
+            }
+
+            /* ---- divider ---- */
+            .intro-divider {
+                width: 60px;
+                height: 2px;
+                background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+                border-radius: 4px;
+                margin: 0.25rem 0;
+            }
+
+            /* ---- stats row ---- */
+            .intro-stats {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 2rem 3rem;
+                margin-top: 0.5rem;
+                padding: 1rem 0;
+            }
+
+            .stat-item {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 0.15rem;
+            }
+
+            .stat-item .stat-number {
+                font-size: 1.4rem;
+                font-weight: 700;
+                color: #fff;
+                letter-spacing: -0.02em;
+                background: linear-gradient(135deg, #f1f5f9, #94a3b8);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+
+            .stat-item .stat-label {
+                font-size: 0.6rem;
+                font-weight: 500;
+                text-transform: uppercase;
+                letter-spacing: 0.12em;
+                color: rgba(255, 255, 255, 0.30);
+            }
+
+            /* ---- cta row ---- */
+            .intro-cta-row {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                justify-content: center;
+                gap: 0.8rem 1.2rem;
+                margin-top: 0.5rem;
+            }
+
+            .intro-cta-row .btn-primary {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                padding: 0.6rem 1.8rem;
+                border-radius: 9999px;
+                background: linear-gradient(135deg, #3b82f6, #6366f1);
+                border: none;
+                color: #fff;
+                font-size: 0.7rem;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 0.06em;
+                cursor: pointer;
+                transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+                box-shadow: 0 4px 24px -6px rgba(59, 130, 246, 0.30);
+                text-decoration: none;
+            }
+
+            .intro-cta-row .btn-primary:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 32px -6px rgba(59, 130, 246, 0.45);
+                background: linear-gradient(135deg, #2563eb, #4f46e5);
+            }
+
+            .intro-cta-row .btn-primary:active {
+                transform: scale(0.96);
+            }
+
+            .intro-cta-row .btn-secondary {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                padding: 0.6rem 1.6rem;
+                border-radius: 9999px;
+                background: rgba(255, 255, 255, 0.04);
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                color: rgba(255, 255, 255, 0.70);
+                font-size: 0.7rem;
+                font-weight: 500;
+                text-transform: uppercase;
+                letter-spacing: 0.06em;
+                cursor: pointer;
+                transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+                text-decoration: none;
+                backdrop-filter: blur(4px);
+                -webkit-backdrop-filter: blur(4px);
+            }
+
+            .intro-cta-row .btn-secondary:hover {
+                background: rgba(255, 255, 255, 0.08);
+                border-color: rgba(255, 255, 255, 0.20);
+                color: #fff;
+                transform: translateY(-2px);
+            }
+
+            /* ----- STEP 1 — (MEN COLLECTION) with top-picked toggle ----- */
+            #data-step-1 {
+                position: relative;
+                width: 100%;
+                max-width: 900px;
+                padding: 12px 16px 20px;
+                border-radius: 1.5rem;
+                border: 1px solid transparent;
+                transition: background 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+                    backdrop-filter 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+                    box-shadow 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+                    border-color 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+                will-change: background, backdrop-filter, box-shadow, border-color;
+                display: flex;
+                flex-direction: column;
+                margin: 0 auto;
+            }
+
+            #data-step-1.has-background {
+                background: rgba(255, 255, 255, 0.04);
+                backdrop-filter: blur(10px) saturate(1.1);
+                -webkit-backdrop-filter: blur(10px) saturate(1.1);
+                box-shadow: 0 16px 56px -12px rgba(0, 0, 0, 0.7),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.07);
+                border-color: rgba(255, 255, 255, 0.08);
+            }
+
+            #data-step-1.has-background::before {
+                content: '';
+                position: absolute;
+                inset: -1px;
+                border-radius: inherit;
+                background: radial-gradient(circle at 30% 10%, rgba(255, 255, 255, 0.06) 0%, transparent 65%);
+                pointer-events: none;
+                opacity: 0;
+                transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1);
+                z-index: 0;
+            }
+
+            #data-step-1.has-background::before {
+                opacity: 1;
+            }
+
+            #data-step-1>* {
+                position: relative;
+                z-index: 1;
+            }
+
+            /* ----- TOP PICKED CONTAINER (collapsible) ----- */
+            #top-picked-container {
+                overflow: hidden;
+                max-height: 0;
+                opacity: 0;
+                transform: translateY(-8px) scale(0.98);
+                transform-origin: top center;
+                transition: max-height 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+                    opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.04s,
+                    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.04s,
+                    margin 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+                margin-top: 0;
+                padding: 0 2px;
+                will-change: max-height, opacity, transform;
+                border-radius: 0.75rem;
+            }
+
+            #top-picked-container.open {
+                max-height: 320px;
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                margin-top: 0.75rem;
+            }
+
+            /* ----- HORIZONTAL SCROLL ----- */
+            .top-picked-scroll {
+                width: 100%;
+                overflow: visible;
+            }
+
+            .no-scrollbar::-webkit-scrollbar {
+                display: none;
+            }
+
+            .no-scrollbar {
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+
+            /* ----- PRODUCT CARD (for top-picked) ----- */
+            .product-card {
+                width: 150px;
+                height: 180px;
+                flex-shrink: 0;
+                scroll-snap-align: center;
+                border-radius: 1rem;
+                background: #000;
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                box-shadow: 0 8px 32px -8px rgba(0, 0, 0, 0.6);
+                transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+                    box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+                    border-color 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+                will-change: transform;
+                overflow: hidden;
+                position: relative;
+            }
+
+            .product-card:hover {
+                transform: translateY(-4px) scale(1.02);
+                box-shadow: 0 16px 48px -8px rgba(0, 0, 0, 0.7);
+                border-color: rgba(255, 255, 255, 0.2);
+            }
+
+            .product-card .bg-cover {
+                transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                    filter 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+                will-change: transform, filter;
+            }
+
+            .product-card:hover .bg-cover {
+                transform: scale(1.08);
+                filter: blur(2px);
+            }
+
+            /* ----- FILTER BUTTONS ----- */
+            .filter-btn {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                border-radius: 9999px;
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                background: rgba(255, 255, 255, 0.04);
+                padding: 0.5rem 1rem;
+                font-size: 0.7rem;
+                font-weight: 500;
+                letter-spacing: 0.05em;
+                text-transform: uppercase;
+                color: #e2e8f0;
+                backdrop-filter: blur(4px);
+                -webkit-backdrop-filter: blur(4px);
+                transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+                    background 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+                    border-color 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+                    box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+                cursor: pointer;
+                will-change: transform;
+            }
+
+            .filter-btn:hover {
+                transform: translateY(-2px);
+                background: rgba(255, 255, 255, 0.12);
+                border-color: rgba(255, 255, 255, 0.3);
+                box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.5);
+            }
+
+            .filter-btn .dot {
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.3);
+                transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+                will-change: background, box-shadow;
+            }
+
+            .filter-btn:hover .dot {
+                background: #ffffff;
+                box-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
+            }
+
+            /* ----- TOGGLE BUTTON ----- */
+            #toggleTopPickedBtn {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                border-radius: 9999px;
+                border: 1px solid rgba(96, 165, 250, 0.25);
+                background: rgba(37, 99, 235, 0.15);
+                padding: 0.5rem 1.1rem;
+                font-size: 0.7rem;
+                font-weight: 500;
+                letter-spacing: 0.05em;
+                text-transform: uppercase;
+                color: #bfdbfe;
+                backdrop-filter: blur(4px);
+                -webkit-backdrop-filter: blur(4px);
+                transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+                    background 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+                    border-color 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+                    box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+                    color 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+                cursor: pointer;
+                will-change: transform;
+                user-select: none;
+            }
+
+            #toggleTopPickedBtn:hover {
+                transform: translateY(-2px);
+                background: rgba(37, 99, 235, 0.25);
+                border-color: rgba(96, 165, 250, 0.5);
+                box-shadow: 0 8px 28px -6px rgba(37, 99, 235, 0.2);
+                color: #eff6ff;
+            }
+
+            #toggleTopPickedBtn:active {
+                transform: scale(0.96) translateY(0);
+                transition-duration: 0.1s;
+            }
+
+            #toggleTopPickedBtn i {
+                font-size: 0.7rem;
+                color: #93c5fd;
+                transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+                will-change: transform;
+            }
+
+            #toggleTopPickedBtn:hover i {
+                transform: rotate(20deg) scale(1.1);
+            }
+
+            #toggleTopPickedBtn.active {
+                border-color: rgba(96, 165, 250, 0.5);
+                background: rgba(37, 99, 235, 0.25);
+                color: #eff6ff;
+            }
+
+            /* ----- NAV NODES ----- */
+            .hero-nav-node {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                cursor: pointer;
+                opacity: 0.4;
+                transform: scale(0.95);
+                transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            }
+
+            .hero-nav-node:hover,
+            .hero-nav-node.active {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            .node-dot {
+                width: 5px;
+                height: 5px;
+                border-radius: 50%;
+                background-color: #fff;
+                transition: transform 0.3s ease;
+            }
+
+            .hero-nav-node:hover .node-dot,
+            .hero-nav-node.active .node-dot {
+                transform: scale(1.5);
+            }
+
+            .node-label {
+                text-shadow: 0 1px 1px rgba(0, 0, 0, 1);
+                font-size: 10px;
+                letter-spacing: 0.15em;
+                color: #fff;
+            }
+
+            /* ----- SPLIT TEXT ANIMATION (shared) ----- */
+            .hero-split-text {
+                text-shadow: 0 5px 1px rgba(0, 0, 0, 1);
+                letter-spacing: -0.02em;
+                text-align: center;
+            }
+
+            .hero-split-text span {
+                display: inline-block;
+                animation: textRevealEffect 0.5s cubic-bezier(0.25, 1, 0.5, 1) both;
+            }
+
+            @keyframes textRevealEffect {
+                0% {
+                    opacity: 0;
+                    transform: translateY(25px) rotateX(-45deg);
+                    filter: blur(4px);
+                }
+
+                100% {
+                    opacity: 1;
+                    transform: translateY(0) rotateX(0deg);
+                    filter: blur(0);
+                }
+            }
+
+            /* ----- RESPONSIVE ----- */
+
+
+            /* ----- REDUCED MOTION ----- */
+            @media (prefers-reduced-motion: reduce) {
+
+                *,
+                *::before,
+                *::after {
+                    animation-duration: 0.01ms !important;
+                    animation-iteration-count: 1 !important;
+                    transition-duration: 0.01ms !important;
+                }
+
+                #top-picked-container {
+                    transition: none !important;
+                }
+
+                #data-step-1 {
+                    transition: none !important;
+                }
+
+                #top-picked-container.open {
+                    max-height: 320px;
+                    opacity: 1;
+                    transform: none;
+                    margin-top: 0.75rem;
+                }
+
+                #top-picked-container:not(.open) {
+                    max-height: 0;
+                    opacity: 0;
+                    transform: none;
+                    margin-top: 0;
+                }
+
+                .hero-content-blueprint {
+                    transition: none !important;
+                }
+            }
+
+            /* ----- UTILITIES ----- */
+            .flex {
+                display: flex;
+            }
+
+            .flex-wrap {
+                flex-wrap: wrap;
+            }
+
+            .items-center {
+                align-items: center;
+            }
+
+            .justify-center {
+                justify-content: center;
+            }
+
+            .gap-3 {
+                gap: 0.75rem;
+            }
+
+            .gap-5 {
+                gap: 1.25rem;
+            }
+
+            .gap-6 {
+                gap: 1.5rem;
+            }
+
+            .mt-2 {
+                margin-top: 0.5rem;
+            }
+
+            .mt-4 {
+                margin-top: 1rem;
+            }
+
+            .px-4 {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            .py-1 {
+                padding-top: 0.25rem;
+                padding-bottom: 0.25rem;
+            }
+
+            .py-5 {
+                padding-top: 1.25rem;
+                padding-bottom: 1.25rem;
+            }
+
+            .w-full {
+                width: 100%;
+            }
+
+            .text-center {
+                text-align: center;
+            }
+
+            .uppercase {
+                text-transform: uppercase;
+            }
+
+            .tracking-wide {
+                letter-spacing: 0.05em;
+            }
+
+            .text-xs {
+                font-size: 0.75rem;
+            }
+
+            .text-white {
+                color: #fff;
+            }
+
+            .text-slate-100 {
+                color: #f1f5f9;
+            }
+
+            .text-blue-200 {
+                color: #bfdbfe;
+            }
+
+            .font-medium {
+                font-weight: 500;
+            }
+
+            .font-extrabold {
+                font-weight: 800;
+            }
+
+            .leading-\[1\.1\] {
+                line-height: 1.1;
+            }
+
+            .tracking-tighter {
+                letter-spacing: -0.05em;
+            }
+
+            .overflow-x-auto {
+                overflow-x: auto;
+            }
+
+            .snap-x {
+                scroll-snap-type: x mandatory;
+            }
+
+            .snap-mandatory {
+                scroll-snap-type: x mandatory;
+            }
+
+            .snap-center {
+                scroll-snap-align: center;
+            }
+
+            .shrink-0 {
+                flex-shrink: 0;
+            }
+
+            .flex-nowrap {
+                flex-wrap: nowrap;
+            }
+
+            .justify-start {
+                justify-content: flex-start;
+            }
+
+            .border-t {
+                border-top-width: 1px;
+                border-top-style: solid;
+            }
+
+            .border-b {
+                border-bottom-width: 1px;
+                border-bottom-style: solid;
+            }
+
+            .border-white\/10 {
+                border-color: rgba(255, 255, 255, 0.10);
+            }
+
+            .backdrop-blur-sm {
+                backdrop-filter: blur(4px);
+                -webkit-backdrop-filter: blur(4px);
+            }
+
+            .bg-black\/10 {
+                background-color: rgba(0, 0, 0, 0.10);
+            }
+
+            .bg-\[--\#050505\] {
+                background-color: #050505;
+            }
+
+            .relative {
+                position: relative;
+            }
+
+            .overflow-hidden {
+                overflow: hidden;
+            }
+        </style>
         <div id="hero-main-container"
             class="bg-[#050505] relative w-full overflow-hidden transition-[height] duration-700 ease-in-out will-change-[height]">
+
             <section id="hero-display-target" class="relative w-full h-dvh overflow-hidden select-none">
 
+                <!-- ----- BACKGROUND LAYERS ----- -->
                 <div class="absolute inset-0 z-0">
                     <div id="bg-step-0" class="hero-bg-layer active"
-                        style="background-image: url('https://plus.unsplash.com/premium_photo-1766341848265-2d4910d4c2ba?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
+                        style="background-image: url('https://plus.unsplash.com/premium_photo-1766341848265-2d4910d4c2ba?q=80&w=774&auto=format&fit=crop');">
                     </div>
                     <div id="bg-step-1" class="hero-bg-layer"
-                        style="background-image: url('https://plus.unsplash.com/premium_photo-1780948463371-140ae396299c?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
+                        style="background-image: url('https://plus.unsplash.com/premium_photo-1780948463371-140ae396299c?q=80&w=870&auto=format&fit=crop');">
                     </div>
                     <div id="bg-step-2" class="hero-bg-layer"
-                        style="background-image: url('https://plus.unsplash.com/premium_photo-1726843669720-46319c0e2326?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
+                        style="background-image: url('https://plus.unsplash.com/premium_photo-1726843669720-46319c0e2326?q=80&w=774&auto=format&fit=crop');">
                     </div>
                     <div id="bg-step-3" class="hero-bg-layer"
                         style="background-image: url('https://t4.ftcdn.net/jpg/06/06/08/59/360_F_606085957_m7lE4bgggPgS8q3IzKcT6bTTIlx5Dy6U.jpg');">
@@ -3344,54 +4158,92 @@
                     <div class="step-bg-overlay"></div>
                 </div>
 
-                <!-- <div
-                    class="absolute top-6 left-6 md:top-10 md:left-12 z-40 hidden sm:flex flex-col gap-1 text-[9px]  tracking-[0.2em] text-white/40 uppercase">
-                    <div>SYS_REF // B_026</div>
-                    <div class="flex items-center gap-1.5 text-white/60">
-                        <span class="w-1 h-1 rounded-full bg-emerald-500 animate-pulse"></span> ENGINE ACTIVE
-                    </div>
-                </div> -->
-
-                <div
+                <!-- ----- CONTENT VAULT ----- -->
+                <div id="hero-content-vault"
                     class="relative z-30 w-full max-w-[1400px] mx-auto px-0 md:px-0 h-full flex flex-col justify-between">
+
+                    <!-- spacer -->
                     <div></div>
 
-                    <div id="hero-content-vault"
-                        class="w-full text-center mt-auto mb-4 px-4 z-40 max-h-[85vh] overflow-y-auto no-scrollbar">
+                    <!-- ====== ALL STEPS ====== -->
+                    <div class="w-full text-center mt-auto mb-4 px-4 z-40 max-h-[85vh] overflow-y-auto no-scrollbar">
 
+                        <!-- ============================================================ -->
+                        <!-- STEP 0 — PROFESSIONAL INTRO / ABOUT US (VERIFIED BADGE)       -->
+                        <!-- ============================================================ -->
+                        <div id="data-step-0" class="hero-content-blueprint dynamic-visible">
 
+                            <div class="intro-container">
 
-                        <div id="data-step-0"
-                            class="hero-content-blueprint flex flex-col items-center justify-end min-h-[80vh] gap-8 px-4 py-12 text-center select-none dynamic-visible">
-
-                            <!-- Premium Brand Presentation Header -->
-                            <div class="flex flex-col items-center gap-4">
-                                <!-- Logo Display Block -->
-                                <div class="relative group flex items-center justify-center px-8 py-5  ">
-                                    <div
-                                        class="absolute -inset-1 rounded-3xl bg-gradient-to-r from-white/0 via-white/5 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 blul">
-                                    </div>
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/d/d1/Lanvin_logo_2023.svg"
-                                        alt="Brand Logo"
-                                        class="relative z-10 h-8 md:h-11 w-auto object-contain invert brightness-200 tracking-[0.3em] transition-transform duration-700 group-hover:scale-[1.02]">
+                                <!-- ---- Verification Badge ---- -->
+                                <div class="verified-badge" id="verifiedBadge">
+                                    <span class="badge-icon">
+                                        <i class="bi bi-check-lg badge-check"></i>
+                                    </span>
+                                    <span class="badge-text">Verified Store</span>
+                                    <span style="opacity:0.3;margin-left:0.15rem;">·</span>
+                                    <span
+                                        style="font-weight:300;opacity:0.5;font-size:0.6rem;letter-spacing:0.08em;">EST.
+                                        2024</span>
                                 </div>
 
-                                <div
-                                    class="h-[1px] w-24 bg-gradient-to-r from-transparent via-white/20 to-transparent mx-auto">
-                                </div>
+                                <!-- ---- Brand Headline ---- -->
+                                <h1 class="intro-headline">
+                                    Master the<br /><span class="accent">Essentials</span>
+                                </h1>
 
-                                <!-- Store Statement / Biography -->
-                                <p
-                                    class="text-white/70 text-xs md:text-sm max-w-lg mx-auto font-light leading-relaxed tracking-[0.15em] uppercase px-4 mt-2">
-                                    Master the essentials. <span class="text-white font-medium">Simplicity is
-                                        everything</span>, complexity is
-                                    nothing.
+                                <!-- ---- Divider ---- -->
+                                <div class="intro-divider"></div>
+
+                                <!-- ---- Tagline ---- -->
+                                <p class="intro-tagline">
+                                    <strong>LANVIN</strong> — where <strong>simplicity</strong> meets sophistication.
+                                    Curated collections for the modern individual who values timeless design,
+                                    impeccable quality, and understated elegance.
                                 </p>
+
+                                <!-- ---- Stats ---- -->
+                                <div class="intro-stats">
+                                    <div class="stat-item">
+                                        <span class="stat-number">12+</span>
+                                        <span class="stat-label">Collections</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="stat-number">4.9★</span>
+                                        <span class="stat-label">Client Rating</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="stat-number">28K</span>
+                                        <span class="stat-label">Followers</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="stat-number">100%</span>
+                                        <span class="stat-label">Authentic</span>
+                                    </div>
+                                </div>
+
+                                <!-- ---- CTA Row ---- -->
+                                <div class="intro-cta-row">
+                                    <button class="btn-primary" onclick="switchHeroStep(1)">
+                                        <i class="bi bi-arrow-right"></i> Explore Mens
+                                    </button>
+                                    <button class="btn-secondary" onclick="switchHeroStep(2)">
+                                        <i class="bi bi-grid"></i> Womens
+                                    </button>
+                                    <button class="btn-secondary" onclick="switchHeroStep(3)">
+                                        <i class="bi bi-compass"></i> Future
+                                    </button>
+                                </div>
+
                             </div>
 
                         </div>
 
+                        <!-- ============================================================ -->
+                        <!-- STEP 1 — MEN COLLECTION (with top-picked toggle)              -->
+                        <!-- ============================================================ -->
                         <div id="data-step-1" class="hero-content-blueprint w-full">
+
                             <div>
                                 <h1 class="hero-split-text text-[clamp(2rem,5vw,4.5rem)] font-extrabold text-white leading-[1.1] tracking-tighter mt-4 uppercase [text-shadow:0_5px_1px_rgba(0,0,0,1)]"
                                     data-split-done="true">
@@ -3404,35 +4256,37 @@
                                     <span
                                         style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 75ms 1 normal both running textRevealEffect;">S</span>
                                     <span
-                                        style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 175ms 1 normal both running textRevealEffect;">C</span>
+                                        style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 100ms 1 normal both running textRevealEffect;">C</span>
                                     <span
-                                        style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 200ms 1 normal both running textRevealEffect;">O</span>
+                                        style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 125ms 1 normal both running textRevealEffect;">O</span>
                                     <span
-                                        style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 225ms 1 normal both running textRevealEffect;">L</span>
+                                        style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 150ms 1 normal both running textRevealEffect;">L</span>
                                     <span
-                                        style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 250ms 1 normal both running textRevealEffect;">L</span>
+                                        style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 175ms 1 normal both running textRevealEffect;">L</span>
                                     <span
-                                        style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 275ms 1 normal both running textRevealEffect;">E</span>
+                                        style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 200ms 1 normal both running textRevealEffect;">E</span>
                                     <span
-                                        style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 300ms 1 normal both running textRevealEffect;">C</span>
+                                        style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 225ms 1 normal both running textRevealEffect;">C</span>
                                     <span
-                                        style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 325ms 1 normal both running textRevealEffect;">T</span>
+                                        style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 250ms 1 normal both running textRevealEffect;">T</span>
                                     <span
-                                        style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 350ms 1 normal both running textRevealEffect;">I</span>
+                                        style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 275ms 1 normal both running textRevealEffect;">I</span>
                                     <span
-                                        style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 375ms 1 normal both running textRevealEffect;">O</span>
+                                        style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 300ms 1 normal both running textRevealEffect;">O</span>
                                     <span
-                                        style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 400ms 1 normal both running textRevealEffect;">N</span>
+                                        style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 325ms 1 normal both running textRevealEffect;">N</span>
                                 </h1>
                             </div>
 
+                            <!-- TOP PICKED CONTAINER -->
                             <div id="top-picked-container">
                                 <div class="top-picked-scroll" id="topPickedScroll">
                                     <div
-                                        class="w-full flex flex-nowrap justify-start gap-5 mt-2 overflow-x-auto pb-4 snap-x snap-mandatory no-scrollbar px-4">
+                                        class="w-full flex flex-nowrap justify-start gap-5 mt-2 overflow-x-auto snap-x snap-mandatory no-scrollbar p-[10px]">
 
-                                        <div
-                                            class="product-card glass rounded-[1rem] group cursor-pointer overflow-hidden transition-all duration-500 relative w-[150px] h-[180px] bg-black border border-white/10 shadow-2xl flex flex-col shrink-0 snap-center">
+                                        <!-- product cards (repeated for demo) -->
+                                        <div class="product-card glass rounded-[1rem] group cursor-pointer overflow-hidden transition-all duration-500 relative w-[150px] h-[180px] bg-black border border-white/10 shadow-2xl flex flex-col shrink-0 snap-center"
+                                            style="border:none;">
                                             <div class="absolute inset-0 w-full h-full overflow-hidden">
                                                 <div class="absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out group-hover:scale-110 group-hover:blur-sm"
                                                     style="background-image: url('https://assets.adidas.com/images/w_1880,f_auto,q_auto/ee95c727a4e640b98db895de64884e50_9366/IL7235_HM1.jpg');">
@@ -3441,62 +4295,43 @@
                                                     class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20 z-10">
                                                 </div>
                                             </div>
-
-
-
-
                                         </div>
 
-
-
-
+                                        <!-- View All -->
                                         <div onclick="smoothScrollToProducts()"
-                                            class="product-card glass rounded-[1rem] group cursor-pointer transition-all duration-500 relative w-[150px] h-[180px] bg-white/[0.03] hover:bg-white/[0.07] border border-dashed border-white/20 hover:border-white/40 shadow-2xl flex flex-col items-center justify-center p-6 shrink-0 snap-center">
+                                            class="product-card glass rounded-[1rem] group cursor-pointer transition-all duration-500 relative w-[150px] h-[180px] bg-white/[0.03] hover:bg-white/[0.07] border border-dashed border-white/20 hover:border-white/40 shadow-2xl flex flex-col items-center justify-center p-6 shrink-0 snap-center"
+                                            style="border:none;">
                                             <div
                                                 class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center mb-3 group-hover:scale-110 group-hover:bg-blue-600/20 transition-all duration-500">
                                                 <i
-                                                    class="bi bi-arrow-right-short text-2xl text-white/70 group-hover:text-blue-400 transition-colors"></i>
+                                                    class="bi bi-arrow-down-short text-2xl text-white/70 group-hover:text-blue-400 transition-colors"></i>
                                             </div>
                                             <span
-                                                class="text-xs font-bold text-white tracking-wider uppercase group-hover:text-white transition-colors">View
+                                                class="text-xs text-white tracking-wider uppercase group-hover:text-white transition-colors">View
                                                 All Items</span>
-                                            <span class="text-[10px] text-white/40 mt-1 font-light text-center">Explore
-                                                the
-                                                complete seasonal
-                                                layout</span>
                                         </div>
 
                                     </div>
                                 </div>
                             </div>
 
+                            <!-- Filter Buttons -->
                             <div class="flex flex-wrap items-center justify-center mt-4 gap-3 px-4">
-                                <button onclick="triggerFastView('mens-jackets')"
-                                    class="group flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium tracking-wide text-slate-100 uppercase backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-white/40 hover:bg-white/15 hover:shadow-lg">
-                                    <span
-                                        class="h-1.5 w-1.5 rounded-full bg-white/40 transition-all duration-300 group-hover:bg-white group-hover:shadow-[0_0_8px_#ffffff]"></span>
-                                    Men's Jackets
+                                <button onclick="triggerFastView('mens-jackets')" class="filter-btn">
+                                    <span class="dot"></span> Men's Jackets
                                 </button>
-                                <button onclick="triggerFastView('womens-tshirts')"
-                                    class="group flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium tracking-wide text-slate-100 uppercase backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-white/40 hover:bg-white/15 hover:shadow-lg">
-                                    <span
-                                        class="h-1.5 w-1.5 rounded-full bg-white/40 transition-all duration-300 group-hover:bg-white group-hover:shadow-[0_0_8px_#ffffff]"></span>
-                                    Men's T-Shirts
+                                <button onclick="triggerFastView('womens-tshirts')" class="filter-btn">
+                                    <span class="dot"></span> Men's T-Shirts
                                 </button>
-                                <button onclick="triggerFastView('accessories')"
-                                    class="group flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium tracking-wide text-slate-100 uppercase backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-white/40 hover:bg-white/15 hover:shadow-lg">
-                                    <span
-                                        class="h-1.5 w-1.5 rounded-full bg-white/40 transition-all duration-300 group-hover:bg-white group-hover:shadow-[0_0_8px_#ffffff]"></span>
-                                    Men's Accessories
+                                <button onclick="triggerFastView('accessories')" class="filter-btn">
+                                    <span class="dot"></span> Men's Accessories
                                 </button>
-                                <button onclick="triggerFastView('footwear')"
-                                    class="group flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium tracking-wide text-slate-100 uppercase backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-white/40 hover:bg-white/15 hover:shadow-lg">
-                                    <span
-                                        class="h-1.5 w-1.5 rounded-full bg-white/40 transition-all duration-300 group-hover:bg-white group-hover:shadow-[0_0_8px_#ffffff]"></span>
-                                    Men's Footwear
+                                <button onclick="triggerFastView('footwear')" class="filter-btn">
+                                    <span class="dot"></span> Men's Footwear
                                 </button>
-
                             </div>
+
+                            <!-- Toggle Button -->
                             <div class="flex flex-wrap items-center justify-center mt-4 gap-3 px-4">
                                 <button id="toggleTopPickedBtn" onclick="toggleTopPicked()"
                                     class="group flex items-center gap-2 rounded-full border border-blue-400/30 bg-blue-600/20 px-4 py-2 text-xs font-medium tracking-wide text-blue-200 uppercase backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-blue-400/60 hover:bg-blue-600/30">
@@ -3504,38 +4339,64 @@
                                     <span id="topPickedBtnLabel">Show Top Picked</span>
                                 </button>
                             </div>
+
                         </div>
 
-
-
+                        <!-- ============================================================ -->
+                        <!-- STEP 2 — WOMENS                                              -->
+                        <!-- ============================================================ -->
                         <div id="data-step-2" class="hero-content-blueprint">
                             <h1 class="hero-split-text text-[clamp(2rem,5vw,4.5rem)] font-extrabold text-white leading-[1.1] tracking-tighter mb-4 uppercase"
-                                data-split-done="true"><span style="animation-delay: 0ms">U</span><span
-                                    style="animation-delay: 25ms">N</span><span
-                                    style="animation-delay: 50ms">C</span><span
-                                    style="animation-delay: 75ms">O</span><span
-                                    style="animation-delay: 100ms">M</span><span
-                                    style="animation-delay: 125ms">P</span><span
-                                    style="animation-delay: 150ms">R</span><span
-                                    style="animation-delay: 175ms">O</span><span
-                                    style="animation-delay: 200ms">M</span><span
-                                    style="animation-delay: 225ms">I</span><span
-                                    style="animation-delay: 250ms">S</span><span
-                                    style="animation-delay: 275ms">I</span><span
-                                    style="animation-delay: 300ms">N</span><span style="animation-delay: 325ms">G</span>
-                                <span style="animation-delay: 375ms">E</span><span
-                                    style="animation-delay: 400ms">L</span><span
-                                    style="animation-delay: 425ms">E</span><span
-                                    style="animation-delay: 450ms">G</span><span
-                                    style="animation-delay: 475ms">A</span><span
-                                    style="animation-delay: 500ms">N</span><span
-                                    style="animation-delay: 525ms">C</span><span style="animation-delay: 550ms">E</span>
+                                data-split-done="true">
+                                <span
+                                    style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 0ms 1 normal both running textRevealEffect;">U</span>
+                                <span
+                                    style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 25ms 1 normal both running textRevealEffect;">N</span>
+                                <span
+                                    style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 50ms 1 normal both running textRevealEffect;">C</span>
+                                <span
+                                    style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 75ms 1 normal both running textRevealEffect;">O</span>
+                                <span
+                                    style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 100ms 1 normal both running textRevealEffect;">M</span>
+                                <span
+                                    style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 125ms 1 normal both running textRevealEffect;">P</span>
+                                <span
+                                    style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 150ms 1 normal both running textRevealEffect;">R</span>
+                                <span
+                                    style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 175ms 1 normal both running textRevealEffect;">O</span>
+                                <span
+                                    style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 200ms 1 normal both running textRevealEffect;">M</span>
+                                <span
+                                    style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 225ms 1 normal both running textRevealEffect;">I</span>
+                                <span
+                                    style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 250ms 1 normal both running textRevealEffect;">S</span>
+                                <span
+                                    style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 275ms 1 normal both running textRevealEffect;">I</span>
+                                <span
+                                    style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 300ms 1 normal both running textRevealEffect;">N</span>
+                                <span
+                                    style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 325ms 1 normal both running textRevealEffect;">G</span>
+                                <span
+                                    style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 350ms 1 normal both running textRevealEffect;">E</span>
+                                <span
+                                    style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 375ms 1 normal both running textRevealEffect;">L</span>
+                                <span
+                                    style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 400ms 1 normal both running textRevealEffect;">E</span>
+                                <span
+                                    style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 425ms 1 normal both running textRevealEffect;">G</span>
+                                <span
+                                    style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 450ms 1 normal both running textRevealEffect;">A</span>
+                                <span
+                                    style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 475ms 1 normal both running textRevealEffect;">N</span>
+                                <span
+                                    style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 500ms 1 normal both running textRevealEffect;">C</span>
+                                <span
+                                    style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 525ms 1 normal both running textRevealEffect;">E</span>
                             </h1>
                             <div
                                 class="w-full flex flex-nowrap md:flex-wrap justify-start md:justify-center gap-5 mt-2 overflow-x-auto md:overflow-x-visible pb-4 md:pb-0 snap-x snap-mandatory no-scrollbar px-4">
-
                                 <div
-                                    class="product-card glass rounded-[1rem] group cursor-pointer overflow-hidden transition-all duration-500 relative w-[190px] h-[220px] bg-black border border-white/10 shadow-2xl flex flex-col shrink-0 snap-center">
+                                    class="product-card rounded-[1rem] group cursor-pointer overflow-hidden transition-all duration-500 relative w-[190px] h-[220px] bg-black border border-white/10 shadow-2xl flex flex-col shrink-0 snap-center">
                                     <div class="absolute inset-0 w-full h-full overflow-hidden">
                                         <div class="absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out group-hover:scale-110 group-hover:blur-sm"
                                             style="background-image: url('https://assets.adidas.com/images/w_1880,f_auto,q_auto/87ff53e45ef14648acc17e4f5c7971ed_9366/JZ0699_21_model.jpg');">
@@ -3544,15 +4405,6 @@
                                             class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20 z-10">
                                         </div>
                                     </div>
-
-                                    <div class="absolute top-4 right-4 glass w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 active:scale-90 group/heart cursor-pointer z-50"
-                                        onclick="event.stopPropagation(); showAlert('favorite', 'Item added to your favorites list.')">
-                                        <i
-                                            class="bi bi-heart text-xs absolute transition-all duration-300 group-hover/heart:opacity-0 text-white"></i>
-                                        <i
-                                            class="bi bi-heart-fill text-xs text-red-500 absolute scale-0 opacity-0 transition-all duration-300 group-hover/heart:scale-100 group-hover/heart:opacity-100"></i>
-                                    </div>
-
                                     <div
                                         class="absolute bottom-3 left-3 right-3 glass border border-white/10 rounded-[1.25rem] p-3 z-30 overflow-hidden bg-black/40 backdrop-blur-xl transition-all duration-500 min-h-[96px] flex flex-col justify-center">
                                         <div
@@ -3562,7 +4414,7 @@
                                                     class="font-bold text-xs text-white truncate leading-tight tracking-wide">
                                                     adidas by Stella McCartney Graphic Tee</h4>
                                                 <p
-                                                    class="text-[8px] opacity-50 tracking-[0.15em] uppercase text-white  mt-0.5">
+                                                    class="text-[8px] opacity-50 tracking-[0.15em] uppercase text-white mt-0.5">
                                                     ADIDAS</p>
                                             </div>
                                             <div class="flex items-center justify-between mt-0.5">
@@ -3574,31 +4426,26 @@
                                                         1,290</span>
                                                 </div>
                                                 <span
-                                                    class="text-[8px] text-emerald-400 font-bold flex items-center gap-0.5 tracking-wider ">
-                                                    <i class="bi bi-truck"></i> FREE
-                                                </span>
+                                                    class="text-[8px] text-emerald-400 font-bold flex items-center gap-0.5 tracking-wider"><i
+                                                        class="bi bi-truck"></i> FREE</span>
                                             </div>
                                         </div>
-
                                         <div
                                             class="absolute inset-x-3 bottom-3 top-3 opacity-0 translate-y-4 pointer-events-none transition-all duration-500 ease-in-out group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto flex flex-col justify-center gap-1.5">
                                             <button
-                                                class="w-full py-2 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition active:scale-95 flex items-center justify-center gap-1.5 text-[9px] uppercase tracking-wider"
-                                                onclick="event.stopPropagation(); handleAddToCart('Adidas Originals Italia')">
-                                                <i class="bi bi-bag-plus-fill"></i> Add to Bag
-                                            </button>
+                                                class="w-full py-2 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition active:scale-95 flex items-center justify-center gap-1.5 text-[9px] uppercase tracking-wider"><i
+                                                    class="bi bi-bag-plus-fill"></i> Add to Bag</button>
                                             <div class="grid grid-cols-2 gap-1.5">
                                                 <button
                                                     class="py-1.5 bg-white text-black rounded-lg font-bold hover:bg-gray-200 transition active:scale-95 text-[9px] uppercase tracking-wide">Buy</button>
-                                                <button onclick="event.stopPropagation(); openQuickLook('PROD_001')"
+                                                <button
                                                     class="py-1.5 bg-white/10 border border-white/10 text-white rounded-lg font-bold hover:bg-white/20 transition text-[9px] uppercase tracking-wide">Look</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
                                 <div
-                                    class="product-card glass rounded-[1rem] group cursor-pointer overflow-hidden transition-all duration-500 relative w-[190px] h-[220px] bg-black border border-white/10 shadow-2xl flex flex-col shrink-0 snap-center">
+                                    class="product-card rounded-[1rem] group cursor-pointer overflow-hidden transition-all duration-500 relative w-[190px] h-[220px] bg-black border border-white/10 shadow-2xl flex flex-col shrink-0 snap-center">
                                     <div class="absolute inset-0 w-full h-full overflow-hidden">
                                         <div class="absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out group-hover:scale-110 group-hover:blur-sm"
                                             style="background-image: url('https://assets.adidas.com/images/w_1880,f_auto,q_auto/ca728feb359a47d1875f1c4eb2cbcc4d_9366/JZ0705_HM1.jpg');">
@@ -3614,8 +4461,6 @@
                                             <div>
                                                 <h4
                                                     class="font-bold text-xs text-white truncate leading-tight tracking-wide">
-                                                    Women
-                                                    Women's Clothing
                                                     adidas by Stella McCartney Printed Trackpants</h4>
                                                 <p
                                                     class="text-[8px] opacity-50 tracking-[0.15em] uppercase text-white mt-0.5">
@@ -3629,10 +4474,8 @@
                                         <div
                                             class="absolute inset-x-3 bottom-3 top-3 opacity-0 translate-y-4 pointer-events-none transition-all duration-500 ease-in-out group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto flex flex-col justify-center gap-1.5">
                                             <button
-                                                class="w-full py-2 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition flex items-center justify-center gap-1.5 text-[9px] uppercase"
-                                                onclick="event.stopPropagation();">
-                                                <i class="bi bi-bag-plus-fill"></i> Add to Bag
-                                            </button>
+                                                class="w-full py-2 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition flex items-center justify-center gap-1.5 text-[9px] uppercase"><i
+                                                    class="bi bi-bag-plus-fill"></i> Add to Bag</button>
                                             <div class="grid grid-cols-2 gap-1.5">
                                                 <button
                                                     class="py-1.5 bg-white text-black rounded-lg font-bold text-[9px] uppercase">Buy</button>
@@ -3642,10 +4485,8 @@
                                         </div>
                                     </div>
                                 </div>
-
-
                                 <div onclick="smoothScrollToProducts()"
-                                    class="product-card glass rounded-[1rem] group cursor-pointer transition-all duration-500 relative w-[190px] h-[220px] bg-white/[0.03] hover:bg-white/[0.07] border border-dashed border-white/20 hover:border-white/40 shadow-2xl flex flex-col items-center justify-center p-6 shrink-0 snap-center">
+                                    class="product-card rounded-[1rem] group cursor-pointer transition-all duration-500 relative w-[190px] h-[220px] bg-white/[0.03] hover:bg-white/[0.07] border border-dashed border-white/20 hover:border-white/40 shadow-2xl flex flex-col items-center justify-center p-6 shrink-0 snap-center">
                                     <div
                                         class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center mb-3 group-hover:scale-110 group-hover:bg-blue-600/20 transition-all duration-500">
                                         <i
@@ -3655,184 +4496,48 @@
                                         class="text-xs font-bold text-white tracking-wider uppercase group-hover:text-white transition-colors">View
                                         All Items</span>
                                     <span class="text-[10px] text-white/40 mt-1 font-light text-center">Explore the
-                                        complete seasonal
-                                        layout</span>
+                                        complete
+                                        seasonal layout</span>
                                 </div>
-
                             </div>
-                            <!-- <p class="text-white/60 text-sm md:text-base max-w-xl mx-auto font-light leading-relaxed">
-                                Grace meets function your daily routine.
-                            </p> -->
                         </div>
 
+                        <!-- ============================================================ -->
+                        <!-- STEP 3 — FUTURE                                              -->
+                        <!-- ============================================================ -->
                         <div id="data-step-3" class="hero-content-blueprint">
                             <h1 class="hero-split-text text-[clamp(2rem,5vw,4.5rem)] font-extrabold text-white leading-[1.1] tracking-tighter mb-4 uppercase"
-                                data-split-done="true"><span style="animation-delay: 0ms">F</span><span
-                                    style="animation-delay: 25ms">U</span><span
-                                    style="animation-delay: 50ms">T</span><span
-                                    style="animation-delay: 75ms">U</span><span
-                                    style="animation-delay: 100ms">R</span><span style="animation-delay: 125ms">E</span>
-                                <span style="animation-delay: 175ms">S</span><span
-                                    style="animation-delay: 200ms">I</span><span
-                                    style="animation-delay: 225ms">L</span><span
-                                    style="animation-delay: 250ms">H</span><span
-                                    style="animation-delay: 275ms">O</span><span
-                                    style="animation-delay: 300ms">U</span><span
-                                    style="animation-delay: 325ms">E</span><span
-                                    style="animation-delay: 350ms">T</span><span
-                                    style="animation-delay: 375ms">T</span><span style="animation-delay: 400ms">E</span>
+                                data-split-done="true">
+                                <span style="animation-delay: 0ms">F</span>
+                                <span style="animation-delay: 25ms">U</span>
+                                <span style="animation-delay: 50ms">T</span>
+                                <span style="animation-delay: 75ms">U</span>
+                                <span style="animation-delay: 100ms">R</span>
+                                <span style="animation-delay: 125ms">E</span>
+                                <span style="animation-delay: 175ms">S</span>
+                                <span style="animation-delay: 200ms">I</span>
+                                <span style="animation-delay: 225ms">L</span>
+                                <span style="animation-delay: 250ms">H</span>
+                                <span style="animation-delay: 275ms">O</span>
+                                <span style="animation-delay: 300ms">U</span>
+                                <span style="animation-delay: 325ms">E</span>
+                                <span style="animation-delay: 350ms">T</span>
+                                <span style="animation-delay: 375ms">T</span>
+                                <span style="animation-delay: 400ms">E</span>
                             </h1>
-                            <p class="text-white/60 text-sm md:text-base max-w-xl mx-auto font-light">
-                                Adaptive essentials — temperature-regulating, seamless fusion of form and function.
-                            </p>
+                            <p class="text-white/60 text-sm md:text-base max-w-xl mx-auto font-light">Adaptive
+                                essentials —
+                                temperature-regulating, seamless fusion of form and function.</p>
                         </div>
+
                     </div>
+                    <!-- /steps wrapper -->
 
-                    <script>
-                        /**
-                         * Executes an eased, high-performance scroll interpolation downward to 
-                         * the target products section mimicking a dynamic cubic-bezier path.
-                         */
-                        function smoothScrollToProducts() {
-                            const target = document.getElementById('products');
-                            if (!target) return;
 
-                            const targetPosition = target.getBoundingClientRect().top + window.scrollY;
-                            const startPosition = window.scrollY;
-                            const distance = targetPosition - startPosition;
-                            const duration = 1100; // Animation speed window (ms)
-                            let startTimestamp = null;
-
-                            // Cubic-bezier approximation curve utility function: easeInOutCubic
-                            function easeInOutCubic(t, b, c, d) {
-                                t /= d / 2;
-                                if (t < 1) return c / 2 * t * t * t + b;
-                                t -= 2;
-                                return c / 2 * (t * t * t + 2) + b;
-                            }
-
-                            function stepAnimation(currentTimestamp) {
-                                if (!startTimestamp) startTimestamp = currentTimestamp;
-                                const elapsed = currentTimestamp - startTimestamp;
-
-                                // Progress window assignment execution
-                                const scrollStep = easeInOutCubic(Math.min(elapsed, duration), startPosition, distance, duration);
-                                window.scrollTo(0, scrollStep);
-
-                                if (elapsed < duration) {
-                                    window.requestAnimationFrame(stepAnimation);
-                                }
-                            }
-
-                            window.requestAnimationFrame(stepAnimation);
-                        }
-
-                        // ============================================================
-                        // SIMPLE TOGGLE: Show/Hide Top Picked + Background effect
-                        // ============================================================
-
-                        // Use a flag to track state (closed by default)
-                        let topPickedVisible = false;
-
-                        function toggleTopPicked() {
-                            const container = document.getElementById('top-picked-container');
-                            const step = document.getElementById('data-step-1');
-                            const btnLabel = document.getElementById('topPickedBtnLabel');
-
-                            if (!container || !step || !btnLabel) return;
-
-                            // Toggle state
-                            topPickedVisible = !topPickedVisible;
-
-                            if (topPickedVisible) {
-                                // --- SHOW ---
-                                container.classList.add('open');          // slides down the row
-                                step.classList.add('has-background');     // adds background to step
-                                btnLabel.textContent = 'Hide Top Picked';
-                            } else {
-                                // --- HIDE ---
-                                container.classList.remove('open');       // slides up
-                                step.classList.remove('has-background');  // removes background
-                                btnLabel.textContent = 'Show Top Picked';
-                            }
-                        }
-                    </script>
-                    <style>
-                        /* ============================================
-   TOP PICKED CONTAINER — smooth & elegant
-   ============================================ */
-                        #top-picked-container {
-                            overflow: hidden;
-                            max-height: 0;
-                            opacity: 0;
-                            transform: scaleY(0.96) translateY(-6px);
-                            transform-origin: top center;
-                            transition: max-height 0.9s cubic-bezier(0.22, 1, 0.36, 1),
-                                opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.05s,
-                                transform 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.05s,
-                                margin 0.7s cubic-bezier(0.22, 1, 0.36, 1);
-                            margin-top: 0;
-                            padding: 0 2px;
-                            /* keeps inner spacing consistent */
-                        }
-
-                        #top-picked-container.open {
-                            max-height: 600px;
-                            /* generous height – auto would be ideal but we use a large value */
-                            opacity: 1;
-                            transform: scaleY(1) translateY(0);
-                            margin-top: 0.75rem;
-                            padding: 0.5rem 2px;
-                            /* adds a tiny breathing space */
-                        }
-
-                        /* ============================================
-   STEP BACKGROUND — glass‑morphism with glow
-   ============================================ */
-                        #data-step-1 {
-                            transition: background 0.9s cubic-bezier(0.22, 1, 0.36, 1),
-                                box-shadow 0.9s cubic-bezier(0.22, 1, 0.36, 1),
-                                backdrop-filter 0.9s cubic-bezier(0.22, 1, 0.36, 1),
-                                border-color 0.9s cubic-bezier(0.22, 1, 0.36, 1);
-                            border-radius: 1.5rem;
-                            border: 1px solid transparent;
-                        }
-
-                        #data-step-1.has-background {
-                            background: rgba(255, 255, 255, 0.035);
-                            backdrop-filter: blur(8px) saturate(1.1);
-                            box-shadow: 0 12px 48px -8px rgba(0, 0, 0, 0.5),
-                                inset 0 1px 0 rgba(255, 255, 255, 0.06);
-                            border-color: rgba(255, 255, 255, 0.06);
-                            padding: 15px;
-                        }
-
-                        /* optional: subtle inner glow when open (using a pseudo‑element) */
-                        #data-step-1.has-background::before {
-                            content: '';
-                            position: absolute;
-                            inset: 0;
-                            border-radius: inherit;
-                            background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.03) 0%, transparent 70%);
-                            pointer-events: none;
-                            opacity: 0;
-                            transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1);
-                        }
-
-                        #data-step-1.has-background::before {
-                            opacity: 1;
-                        }
-
-                        /* (make sure #data-step-1 has position: relative for pseudo) */
-                        #data-step-1 {
-                            position: relative;
-                        }
-                    </style>
-
-                    <div class="w-full flex flex-col gap-6 ">
+                    <!-- ====== NAVIGATION ====== -->
+                    <div class="w-full flex flex-col gap-6">
                         <div
                             class="w-full items-center border-t border-b border-white/10 backdrop-blur-sm bg-black/10 py-5 px-4 md:px-8 gap-6 md:gap-4">
-
                             <div class="flex justify-center items-center gap-6 overflow-x-auto no-scrollbar py-1">
                                 <div class="hero-nav-node active" onclick="switchHeroStep(0)">
                                     <span class="node-dot"></span>
@@ -3851,214 +4556,218 @@
                                     <span class="node-label">FUTURE</span>
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
 
                 </div>
+                <!-- /hero-content-vault -->
+
             </section>
-
-            <style>
-                .hero-bg-layer {
-                    position: absolute;
-                    inset: 0;
-                    width: 100%;
-                    height: 100%;
-                    background-size: cover;
-                    background-position: center;
-                    opacity: 0;
-                    transform: scale(1.05);
-                    filter: brightness(0.25) saturate(1.1);
-                    transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1),
-                        transform 1.6s cubic-bezier(0.25, 1, 0.5, 1),
-                        filter 1.2s cubic-bezier(0.25, 1, 0.5, 1);
-                    z-index: 0;
-                }
-
-                .hero-bg-layer.active {
-                    opacity: 1;
-                    transform: scale(1.2);
-                    z-index: 1;
-                }
-
-                .step-bg-overlay {
-                    position: absolute;
-                    inset: 0;
-                    background: radial-gradient(circle at 50% 50%, rgb(0 0 0 / 30%));
-                    z-index: 2;
-                }
-
-                /* Nav Node Interactions */
-                .hero-nav-node {
-                    display: flex;
-                    align-items: center;
-                    gap: 8px;
-                    cursor: pointer;
-                    opacity: 0.4;
-                    transform: scale(0.95);
-                    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-                }
-
-                .hero-nav-node:hover,
-                .hero-nav-node.active {
-                    opacity: 1;
-                    transform: scale(1);
-                }
-
-                .node-dot {
-                    width: 5px;
-                    height: 5px;
-                    border-radius: 50%;
-                    background-color: #fff;
-                    transition: transform 0.3s ease;
-                }
-
-                .hero-nav-node:hover .node-dot,
-                .hero-nav-node.active .node-dot {
-                    transform: scale(1.5);
-                }
-
-                .node-label {
-                    text-shadow: 0 1px 1px rgb(0 0 0 / 100%);
-                    font-size: 10px;
-                    font-weight: 700;
-                    tracking: 0.15em;
-                    color: #fff;
-                }
-
-                /* Micro-Content Blueprint Layout */
-                .hero-content-blueprint {
-                    position: absolute;
-                    left: 0;
-                    right: 0;
-                    top: 50%;
-                    transform: translateY(-50%);
-                    margin: 0 auto;
-                    opacity: 0;
-                    filter: blur(15px);
-                    pointer-events: none;
-                    transition: opacity 0.6s ease, filter 0.6s ease;
-                }
-
-                .hero-content-blueprint.dynamic-visible {
-                    position: relative;
-                    top: 0;
-                    transform: none;
-                    opacity: 1;
-                    filter: blur(0px);
-                    pointer-events: auto;
-                }
-
-                /* Unique Character Animation Effects */
-                .hero-split-text {
-                    perspective: 400px;
-                }
-
-                .hero-split-text span {
-                    display: inline-block;
-                    animation: textRevealEffect 0.5s cubic-bezier(0.25, 1, 0.5, 1) both;
-                }
-
-                @keyframes textRevealEffect {
-                    0% {
-                        opacity: 0;
-                        transform: translateY(25px) rotateX(-45deg);
-                        filter: blur(4px);
-                    }
-
-                    100% {
-                        opacity: 1;
-                        transform: translateY(0) rotateX(0deg);
-                        filter: blur(0);
-                    }
-                }
-
-                .premium-badge {
-                    backdrop-filter: blur(14px);
-                    letter-spacing: 0.22em;
-                }
-
-                .top-pick-card {
-                    background: rgba(8, 8, 12, 0.4);
-                    backdrop-filter: blur(14px);
-                    border: 0.5px solid rgba(255, 255, 255, 0.08);
-                }
-            </style>
-
-            <script>
-                function adjustHeroHeight() {
-                    const heroTarget = document.getElementById('hero-display-target');
-                    if (heroTarget) {
-                        heroTarget.style.height = `${window.innerHeight}px`;
-                    }
-                }
-
-                // Run on load and whenever the screen matches a new size dimension
-                document.addEventListener("DOMContentLoaded", () => {
-                    adjustHeroHeight();
-                    window.addEventListener('resize', adjustHeroHeight);
-                });
-
-                function switchHeroStep(stepIndex) {
-                    // 1. Update Navigation Nodes Elements
-                    const nodes = document.querySelectorAll('.hero-nav-node');
-                    nodes.forEach((node, idx) => {
-                        if (idx === stepIndex) node.classList.add('active');
-                        else node.classList.remove('active');
-                    });
-
-                    // 2. Cross-Fade Background Images Smoothly
-                    const bgLayers = document.querySelectorAll('.hero-bg-layer');
-                    bgLayers.forEach((layer, idx) => {
-                        if (idx === stepIndex) layer.classList.add('active');
-                        else layer.classList.remove('active');
-                    });
-
-                    // 3. Complete Text Switching and Run Typography Animation
-                    const blueprints = document.querySelectorAll('.hero-content-blueprint');
-                    blueprints.forEach((blueprint, idx) => {
-                        if (idx === stepIndex) {
-                            blueprint.classList.add('dynamic-visible');
-
-                            // Trigger the Custom Unique Split-Character Reveal Animation
-                            const header = blueprint.querySelector('.hero-split-text');
-                            if (header && !header.dataset.splitDone) {
-                                const rawText = header.innerText;
-                                header.innerHTML = rawText.split('').map((char, i) => {
-                                    if (char === ' ') return ' ';
-                                    return `<span style="animation-delay: ${i * 25}ms">${char}</span>`;
-                                }).join('');
-                                header.dataset.splitDone = "true";
-                            } else if (header) {
-                                // Re-trigger animation on already split headers
-                                const spans = header.querySelectorAll('span');
-                                spans.forEach((span, i) => {
-                                    span.style.animation = 'none';
-                                    span.offsetHeight; // Trigger reflow to restart animation sequence
-                                    span.style.animation = `textRevealEffect 0.5s cubic-bezier(0.25, 1, 0.5, 1) both ${i * 25}ms`;
-                                });
-                            }
-                        } else {
-                            blueprint.classList.remove('dynamic-visible');
-                        }
-                    });
-                }
-
-                // Initialize First Entry Word Splits on Document Mounting Load
-                document.addEventListener("DOMContentLoaded", () => {
-                    const initialHeader = document.querySelector('.hero-content-blueprint.dynamic-visible .hero-split-text');
-                    if (initialHeader) {
-                        const text = initialHeader.innerText;
-                        initialHeader.innerHTML = text.split('').map((char, i) => {
-                            if (char === ' ') return ' ';
-                            return `<span style="animation-delay: ${i * 30}ms">${char}</span>`;
-                        }).join('');
-                        initialHeader.dataset.splitDone = "true";
-                    }
-                });
-            </script>
         </div>
+
+
+        <!-- ============================================================ -->
+        <!-- JAVASCRIPT                                                    -->
+        <!-- ============================================================ -->
+        <script>
+            /**
+             * ============================================================
+             *  HERO HEIGHT — dynamic full viewport
+             * ============================================================
+             */
+            function adjustHeroHeight() {
+                const heroTarget = document.getElementById('hero-display-target');
+                if (heroTarget) {
+                    heroTarget.style.height = window.innerHeight + 'px';
+                }
+            }
+            document.addEventListener("DOMContentLoaded", () => {
+                adjustHeroHeight();
+                window.addEventListener('resize', adjustHeroHeight);
+            });
+
+            /**
+             * ============================================================
+             *  STEP SWITCHER — cross‑fade backgrounds + content
+             * ============================================================
+             */
+            function switchHeroStep(stepIndex) {
+                // 1. Navigation nodes
+                const nodes = document.querySelectorAll('.hero-nav-node');
+                nodes.forEach((node, idx) => {
+                    node.classList.toggle('active', idx === stepIndex);
+                });
+
+                // 2. Background layers
+                const bgLayers = document.querySelectorAll('.hero-bg-layer');
+                bgLayers.forEach((layer, idx) => {
+                    layer.classList.toggle('active', idx === stepIndex);
+                });
+
+                // 3. Content blueprints
+                const blueprints = document.querySelectorAll('.hero-content-blueprint');
+                blueprints.forEach((blueprint, idx) => {
+                    if (idx === stepIndex) {
+                        blueprint.classList.add('dynamic-visible');
+                        // Trigger split‑text animation if present
+                        const header = blueprint.querySelector('.hero-split-text');
+                        if (header && !header.dataset.splitDone) {
+                            const raw = header.innerText;
+                            header.innerHTML = raw.split('').map((ch, i) =>
+                                ch === ' ' ? ' ' :
+                                    `<span style="animation-delay: ${i * 25}ms">${ch}</span>`
+                            ).join('');
+                            header.dataset.splitDone = "true";
+                        } else if (header) {
+                            // re‑trigger
+                            const spans = header.querySelectorAll('span');
+                            spans.forEach((span, i) => {
+                                span.style.animation = 'none';
+                                span.offsetHeight;
+                                span.style.animation =
+                                    `textRevealEffect 0.5s cubic-bezier(0.25,1,0.5,1) both ${i * 25}ms`;
+                            });
+                        }
+                    } else {
+                        blueprint.classList.remove('dynamic-visible');
+                    }
+                });
+
+                // 4. Close top‑picked if we leave step 1
+                if (stepIndex !== 1) {
+                    const container = document.getElementById('top-picked-container');
+                    const step = document.getElementById('data-step-1');
+                    const btn = document.getElementById('toggleTopPickedBtn');
+                    const label = document.getElementById('topPickedBtnLabel');
+                    if (container && container.classList.contains('open')) {
+                        container.classList.remove('open');
+                        step.classList.remove('has-background');
+                        btn.classList.remove('active');
+                        label.textContent = 'Show Top Picked';
+                        // reset internal flag (will be set by toggle function)
+                        if (window._topPickedOpen) window._topPickedOpen = false;
+                    }
+                }
+            }
+
+            /**
+             * ============================================================
+             *  TOP PICKED TOGGLE — buttery smooth
+             * ============================================================
+             */
+            (function () {
+                let isOpen = false;
+                let isAnimating = false;
+                const container = document.getElementById('top-picked-container');
+                const step = document.getElementById('data-step-1');
+                const btn = document.getElementById('toggleTopPickedBtn');
+                const label = document.getElementById('topPickedBtnLabel');
+
+                if (!container || !step || !btn || !label) return;
+
+                window.toggleTopPicked = function () {
+                    if (isAnimating) return;
+                    isAnimating = true;
+                    isOpen = !isOpen;
+                    window._topPickedOpen = isOpen;
+
+                    container.classList.toggle('open', isOpen);
+                    step.classList.toggle('has-background', isOpen);
+                    btn.classList.toggle('active', isOpen);
+                    label.textContent = isOpen ? 'Hide Top Picked' : 'Show Top Picked';
+
+                    setTimeout(() => { isAnimating = false; }, 800);
+                };
+
+                // Escape key closes
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && isOpen) window.toggleTopPicked();
+                });
+
+                // Expose state for switchHeroStep
+                window._topPickedOpen = false;
+
+                console.log('[TopPicked] ready');
+            })();
+
+            /**
+             * ============================================================
+             *  HELPERS (demo)
+             * ============================================================
+             */
+            window.smoothScrollToProducts = function () {
+                const el = document.getElementById('topPickedScroll');
+                if (el) el.scrollTo({ left: 0, behavior: 'smooth' });
+            };
+
+            window.triggerFastView = function (category) {
+                console.log('[FastView]', category);
+                // you could open a modal, filter, etc.
+            };
+
+            /**
+             * ============================================================
+             *  VERIFICATION BADGE — toggle for demo (click to switch)
+             * ============================================================
+             */
+            document.addEventListener('DOMContentLoaded', function () {
+                const badge = document.getElementById('verifiedBadge');
+                if (badge) {
+                    let isVerified = true;
+                    badge.style.cursor = 'pointer';
+                    badge.addEventListener('click', function (e) {
+                        e.stopPropagation();
+                        isVerified = !isVerified;
+                        if (isVerified) {
+                            badge.classList.remove('unverified');
+                            badge.innerHTML = `
+                                <span class="badge-icon"><i class="bi bi-check-lg badge-check"></i></span>
+                                <span class="badge-text">Verified Store</span>
+                                <span style="opacity:0.3;margin-left:0.15rem;">·</span>
+                                <span style="font-weight:300;opacity:0.5;font-size:0.6rem;letter-spacing:0.08em;">EST. 2024</span>
+                            `;
+                        } else {
+                            badge.classList.add('unverified');
+                            badge.innerHTML = `
+                                <span class="badge-icon"><i class="bi bi-x-lg" style="font-size:0.45rem;"></i></span>
+                                <span class="badge-text">Unverified</span>
+                                <span style="opacity:0.2;margin-left:0.15rem;">·</span>
+                                <span style="font-weight:300;opacity:0.35;font-size:0.6rem;letter-spacing:0.08em;">pending review</span>
+                            `;
+                        }
+                        // small haptic feedback
+                        badge.style.transform = 'scale(0.96)';
+                        setTimeout(() => { badge.style.transform = ''; }, 200);
+                    });
+                    // tooltip
+                    badge.title = 'Click to toggle verification status (demo)';
+                }
+            });
+
+            /**
+             * ============================================================
+             *  INIT — set step 0 active on load
+             * ============================================================
+             */
+            document.addEventListener('DOMContentLoaded', function () {
+                // ensure step 0 is visible
+                const step0 = document.getElementById('data-step-0');
+                if (step0) step0.classList.add('dynamic-visible');
+
+                // split initial text if any
+                const initialHeader = document.querySelector('.hero-content-blueprint.dynamic-visible .hero-split-text');
+                if (initialHeader && !initialHeader.dataset.splitDone) {
+                    const raw = initialHeader.innerText;
+                    initialHeader.innerHTML = raw.split('').map((ch, i) =>
+                        ch === ' ' ? ' ' :
+                            `<span style="animation-delay: ${i * 30}ms">${ch}</span>`
+                    ).join('');
+                    initialHeader.dataset.splitDone = "true";
+                }
+            });
+        </script>
+
+
 
         <section id="products" class="max-w-7xl w-full py-20 px-6 mx-auto overflow-hidden">
             <!-- Category Navigation (Unchanged) -->
