@@ -198,7 +198,7 @@
 
     <!-- navbar  -->
     <nav id="main-nav"
-        class="fixed top-3 z-50 glass left-1/2 -translate-x-1/2 w-[90%] max-w-[30rem] rounded-[2rem] px-6 py-4 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.3,1)] overflow-hidden transform -translate-y-24 opacity-0 pointer-events-none">
+        class="fixed top-[-3px] z-50 glass left-1/2 -translate-x-1/2 -translate-y-24 opacity-0 pointer-events-none w-[90%] max-w-[30rem] rounded-b-[30px] transition-all duration-700 ease-[cubic-bezier(0.25,1,0.3,1)] overflow-y-auto transform py-4 px-6 max-h-[calc(-4rem+100vh)]">
         <div class="max-w-7xl mx-auto flex justify-between items-center transition-all duration-500" id="nav-header">
             <div id="storename" class="flex items-center gap-2 font-bold text-[14px] tracking-tighter text-white">
                 Store Name ...
@@ -225,7 +225,7 @@
 
             </div>
             <div id="radial-wrapper"
-                class="fixed left-1/4 -translate-x-[150%] scale-100 z-[50] pointer-events-auto opacity-0 transition-all duration-300 ease-out flex items-center gap-4 px-6 py-3 rounded-[30px] glass justify-start overflow-auto w-max border-none"
+                class="fixed left-1/4 -translate-x-[150%] scale-100 z-[50] pointer-events-auto opacity-0 transition-all duration-300 ease-out flex items-center gap-4 px-6 py-3 w-full border-r border-r-[#9E9E9E] gls justify-start overflow-auto mr-[5px] z-40 h-[stretch]"
                 style="width: -webkit-fill-available;">
                 <div class="flex items-center justify-center gap-4 relative">
                     <a href="#" class="nav-bubble" onclick="openSearch(event)" onmouseenter="showHint('Search')"
@@ -3869,6 +3869,7 @@
 
             /* ----- NAV NODES ----- */
             .hero-nav-node {
+                padding: 3px;
                 display: flex;
                 align-items: center;
                 gap: 8px;
@@ -3899,7 +3900,7 @@
 
             .node-label {
                 text-shadow: 0 1px 1px rgba(0, 0, 0, 1);
-                font-size: clamp(8px, 0.7vw, 10px);
+                font-size: clamp(10px, 0.7vw, 10px);
                 letter-spacing: 0.15em;
                 color: #fff;
                 white-space: nowrap;
@@ -4019,18 +4020,11 @@
                     padding: 0.3rem 0.7rem;
                 }
 
-                .node-label {
-                    font-size: clamp(6px, 1.4vw, 8px);
-                }
-
                 .hero-split-text {
                     font-size: clamp(1.4rem, 6vw, 2.2rem) !important;
                 }
 
-                .product-card {
-                    width: 120px !important;
-                    height: 150px !important;
-                }
+
 
                 .top-picked-container.open {
                     max-height: 260px;
@@ -4095,9 +4089,6 @@
                     padding: 0.2rem 0.5rem;
                 }
 
-                .node-label {
-                    font-size: clamp(5px, 1.2vw, 6px);
-                }
 
                 #nav-wrapper .nav-inner .nav-scroll {
                     gap: 0.4rem;
@@ -4245,15 +4236,14 @@
 
                                 <!-- ---- CTA Row ---- -->
                                 <div class="intro-cta-row">
+
                                     <button class="btn-primary" onclick="switchHeroStep(1)">
-                                        <i class="bi bi-arrow-right"></i> Explore Mens
+                                        <i class="bi bi-arrow-left"></i> exit store
                                     </button>
-                                    <button class="btn-secondary" onclick="switchHeroStep(2)">
-                                        <i class="bi bi-grid"></i> Womens
+                                    <button class="btn-primary" onclick="switchHeroStep(1)">
+                                        <i class="bi bi-arrow-right"></i> Next store
                                     </button>
-                                    <button class="btn-secondary" onclick="switchHeroStep(3)">
-                                        <i class="bi bi-compass"></i> Future
-                                    </button>
+
                                 </div>
 
                             </div>
@@ -4560,7 +4550,7 @@
                             <div class="nav-scroll">
                                 <div class="hero-nav-node active" onclick="switchHeroStep(0)">
                                     <span class="node-dot"></span>
-                                    <span class="node-label">ABOUT US</span>
+                                    <span class="node-label">ABOUT STORE</span>
                                 </div>
                                 <div class="hero-nav-node" onclick="switchHeroStep(1)">
                                     <span class="node-dot bg-blue-400"></span>
