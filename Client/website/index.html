@@ -41,19 +41,21 @@
 
         .light-theme .hero-bg-layer {
             filter: brightness(1) saturate(1);
-            /* Completely removes brightness and saturation filters */
         }
 
         body {
             background-color: var(--bg-color);
             color: var(--text-main);
             transition: background-color 0.4s ease, color 0.4s ease;
+            margin: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
         }
 
         * {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            /* Tightening the letters adds the "elegant" look */
             scrollbar-width: none;
+            box-sizing: border-box;
         }
 
         .glass {
@@ -104,9 +106,6 @@
             transition: opacity 0.5s ease-in-out;
         }
 
-
-
-        /* Add the new view IDs to the transition base */
         #search-view,
         #cart-view,
         #product-details,
@@ -117,11 +116,9 @@
             max-height: 0;
             overflow: hidden;
             opacity: 0;
-            /* Added scale(0.95) so the 'is-open' scale(1) looks smooth */
             transform: scale(0.95);
         }
 
-        /* Add the new view IDs to the open state */
         #search-view.is-open,
         #cart-view.is-open,
         #product-details.is-open,
@@ -129,7 +126,6 @@
         #help-view.is-open,
         #catalog-view.is-open {
             max-height: 1000px;
-            /* Increased slightly to ensure Catalog/Help aren't cut off */
             opacity: 1;
             transform: scale(1);
         }
@@ -152,37 +148,461 @@
             display: flex;
             width: max-content;
             flex-wrap: nowrap;
-            /* Use will-change for better performance/no lag */
             will-change: transform;
             animation: marquee 40s linear infinite;
         }
 
-        /* Optional: slowing it down on hover makes it feel more "premium" */
         .animate-marquee:hover {
             animation-play-state: paused;
         }
 
-        /* Hide main content initially */
         main,
         nav {
             opacity: 0;
             transition: opacity 0.8s ease-out, transform 0.8s ease-out;
         }
 
-        /* Class to trigger the smooth entrance */
         .content-loaded main,
         .content-loaded nav {
             opacity: 1;
-
         }
 
-        /* Smooth fade for the loader itself */
         #loader.fade-out {
             opacity: 0;
             pointer-events: none;
         }
+
+        /* ---- WELCOME MAT ---- */
+        #welcome-mat {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 45vh;
+            min-height: 380px;
+            background: linear-gradient(165deg, #0a0a0a 0%, #141414 50%, #1a1a1a 100%);
+            border-radius: 50px 50px 0px 0px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 -20px 60px rgba(0, 0, 0, 0.9);
+            transform: translateY(100%);
+            transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem 2rem 2rem;
+            pointer-events: none;
+            overflow-y: auto;
+        }
+
+        #welcome-mat.active {
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .mat-card {
+            max-width: 600px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        /* Header */
+        .mat-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            width: 100%;
+            max-width: 420px;
+        }
+
+        .mat-logo {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        .mat-store-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .mat-store-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #ffffff 0%, #b0b0b0 80%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+
+        .mat-store-meta {
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+            margin-top: 0.1rem;
+        }
+
+        .badge {
+            font-size: 0.55rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            padding: 0.15rem 0.6rem;
+            border-radius: 12px;
+            text-transform: uppercase;
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.04);
+            color: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .badge.verified {
+            background: rgba(34, 197, 94, 0.08);
+            color: #4ade80;
+            border-color: rgba(34, 197, 94, 0.1);
+        }
+
+        .badge.year {
+            background: rgba(255, 255, 255, 0.03);
+            color: rgba(255, 255, 255, 0.4);
+            border-color: rgba(255, 255, 255, 0.04);
+        }
+
+
+
+        /* Stats */
+        .mat-stats {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            width: 100%;
+            max-width: 380px;
+            padding: 0.3rem 0;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.05rem;
+        }
+
+        .stat-value {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #ffffff;
+            letter-spacing: 0.02em;
+            line-height: 1.2;
+        }
+
+        .stat-label {
+            font-size: 0.55rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            color: rgba(255, 255, 255, 0.3);
+            text-transform: uppercase;
+        }
+
+        /* Bio */
+        .mat-bio-wrapper {
+            width: 100%;
+            max-width: 480px;
+            position: relative;
+        }
+
+        .mat-bio {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.6;
+            max-height: 2.6em;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            text-align: center;
+            padding: 0 0.5rem;
+        }
+
+        .mat-bio.expanded {
+            max-height: 300px;
+        }
+
+        .mat-bio.truncated::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 30px;
+            background: linear-gradient(transparent, #141414);
+            pointer-events: none;
+        }
+
+        .bio-toggle-btn {
+            background: transparent;
+            color: rgba(96, 165, 250, 0.7);
+            border: none;
+            padding: 0.15rem 0.5rem;
+            font-size: 0.65rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: none;
+            margin: 0.1rem auto 0;
+            letter-spacing: 0.02em;
+        }
+
+        .bio-toggle-btn:hover {
+            color: #60a5fa;
+        }
+
+        /* Actions */
+        .mat-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            width: 100%;
+            max-width: 420px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 0.1rem;
+        }
+
+        .fit-badge {
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.03);
+            padding: 0.3rem 0.9rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            white-space: nowrap;
+        }
+
+        .mat-btn {
+            background: #ffffff;
+            color: #0a0a0a;
+            padding: 0.45rem 1.8rem;
+            border-radius: 24px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            letter-spacing: 0.02em;
+            transition: all 0.25s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            white-space: nowrap;
+        }
+
+        .mat-btn:hover {
+            background: #f0f0f0;
+            transform: scale(1.02);
+            box-shadow: 0 6px 20px rgba(255, 255, 255, 0.05);
+        }
+
+        .mat-btn:active {
+            transform: scale(0.97);
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            #welcome-mat {
+                height: 50vh;
+                min-height: 340px;
+                padding: 1.2rem 1.2rem 1.5rem;
+                border-radius: 24px 24px 0px 0px;
+            }
+
+            .mat-card {
+                gap: 0.5rem;
+            }
+
+            .mat-header {
+                gap: 0.6rem;
+            }
+
+            .mat-logo {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+                border-radius: 12px;
+            }
+
+            .mat-store-name {
+                font-size: 1.2rem;
+            }
+
+            .mat-store-meta {
+                gap: 0.3rem;
+            }
+
+            .badge {
+                font-size: 0.5rem;
+                padding: 0.1rem 0.5rem;
+            }
+
+
+
+            .mat-stats {
+                gap: 1.5rem;
+            }
+
+            .stat-value {
+                font-size: 1rem;
+            }
+
+            .stat-label {
+                font-size: 0.5rem;
+            }
+
+            .mat-bio {
+                font-size: 0.75rem;
+
+            }
+
+            .mat-actions {
+                gap: 0.5rem;
+            }
+
+            .fit-badge {
+                font-size: 0.6rem;
+                padding: 0.2rem 0.7rem;
+            }
+
+            .mat-btn {
+                font-size: 0.75rem;
+                padding: 0.4rem 1.4rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #welcome-mat {
+                height: 55vh;
+                min-height: 300px;
+                padding: 1rem 0.8rem 1.2rem;
+                border-radius: 20px 20px 0px 0px;
+            }
+
+            .mat-card {
+                gap: 0.4rem;
+            }
+
+            .mat-header {
+                gap: 0.5rem;
+            }
+
+            .mat-logo {
+                width: 36px;
+                height: 36px;
+                font-size: 1rem;
+                border-radius: 10px;
+            }
+
+            .mat-store-name {
+                font-size: 1rem;
+            }
+
+            .badge {
+                font-size: 0.45rem;
+                padding: 0.1rem 0.4rem;
+            }
+
+            .mat-stats {
+                gap: 1rem;
+            }
+
+            .stat-value {
+                font-size: 0.9rem;
+            }
+
+            .stat-label {
+                font-size: 0.45rem;
+            }
+
+            .mat-bio {
+                font-size: 0.7rem;
+                max-height: 2.2em;
+                line-height: 1.5;
+            }
+
+            .bio-toggle-btn {
+                font-size: 0.6rem;
+            }
+
+            .mat-actions {
+                flex-direction: column;
+                gap: 0.4rem;
+                width: 100%;
+            }
+
+            .fit-badge {
+                font-size: 0.55rem;
+                padding: 0.2rem 0.6rem;
+            }
+
+            .mat-btn {
+                font-size: 0.7rem;
+                padding: 0.35rem 1.2rem;
+                width: auto;
+                min-width: 140px;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 360px) {
+            #welcome-mat {
+                height: 60vh;
+                min-height: 280px;
+                padding: 0.8rem 0.6rem 1rem;
+            }
+
+            .mat-store-name {
+                font-size: 0.9rem;
+            }
+
+            .mat-logo {
+                width: 32px;
+                height: 32px;
+                font-size: 0.9rem;
+            }
+
+            .stat-value {
+                font-size: 0.8rem;
+            }
+
+            .mat-bio {
+                font-size: 0.65rem;
+                max-height: 2em;
+            }
+
+            .mat-btn {
+                font-size: 0.65rem;
+                padding: 0.3rem 1rem;
+                min-width: 120px;
+            }
+        }
     </style>
 </head>
+
+<!-- matager loader -->
 <div id="loader"
     class="fixed inset-0 z-[1000] flex flex-col items-center justify-center bg-[#030303] transition-opacity duration-700">
     <div class="relative">
@@ -190,6 +610,145 @@
         <img src="./assets/favico.png" class="absolute inset-0 m-auto w-8 h-8 rounded-lg" alt="Loading...">
     </div>
 </div>
+<!-- matager loader -->
+
+<!-- matager after loader end -->
+<div id="welcome-mat">
+    <div class="mat-card">
+        <!-- Store header with logo and name -->
+        <div class="mat-header">
+            <div class="mat-logo">⚡</div>
+            <div class="mat-store-info">
+                <div class="mat-store-name">LANVIN</div>
+                <div class="mat-store-meta">
+                    <span class="badge verified">✓ VERIFIED STORE</span>
+                    <span class="badge year">EST. 2024</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="mat-stats">
+            <div class="stat-item">
+                <span class="stat-value">12+</span>
+                <span class="stat-label">COLLECTIONS</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value">4.9</span>
+                <span class="stat-label">CLIENT RATING</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value">405</span>
+                <span class="stat-label">FOLLOWERS</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value">24</span>
+                <span class="stat-label">PRODUCTS</span>
+            </div>
+        </div>
+
+        <!-- Bio with expand -->
+        <div class="mat-bio-wrapper">
+            <div class="mat-bio" id="matBio">
+                where simplicity meets sophistication. Curated collections for the modern individual who values timeless
+                design, impeccable quality and understated elegance. Each piece is carefully selected to bring you the
+                finest in contemporary fashion.
+            </div>
+            <button class="bio-toggle-btn" id="bioToggleBtn">Read More</button>
+        </div>
+
+        <!-- Bottom row: fit badge + CTA -->
+        <div class="mat-actions">
+            <div class="fit-badge">🎯 8 items fit you</div>
+            <a href="#" class="mat-btn" id="welcomeCta">+ Let's take a look</a>
+        </div>
+    </div>
+</div>
+<script>
+    (function () {
+        const loader = document.getElementById('loader');
+        const body = document.body;
+        const welcomeMat = document.getElementById('welcome-mat');
+        const ctaBtn = document.getElementById('welcomeCta');
+        const bioElement = document.getElementById('matBio');
+        const toggleBtn = document.getElementById('bioToggleBtn');
+        let isExpanded = false;
+
+        welcomeMat.classList.remove('active');
+
+        function checkBioOverflow() {
+            // const originalMaxHeight = bioElement.style.maxHeight;
+            // bioElement.style.maxHeight = 'none';
+            const scrollHeight = bioElement.scrollHeight;
+            // bioElement.style.maxHeight = originalMaxHeight || '2.6em';
+
+            const maxHeight = parseFloat(getComputedStyle(bioElement).maxHeight) || 41.6;
+            if (scrollHeight > maxHeight + 3) {
+                toggleBtn.style.display = 'inline-block';
+                bioElement.classList.add('truncated');
+            } else {
+                toggleBtn.style.display = 'none';
+                bioElement.classList.remove('truncated');
+            }
+        }
+
+        function toggleBio() {
+            isExpanded = !isExpanded;
+
+            if (isExpanded) {
+                bioElement.classList.add('expanded');
+                bioElement.classList.remove('truncated');
+                toggleBtn.textContent = 'Show Less';
+            } else {
+                bioElement.classList.remove('expanded');
+                toggleBtn.textContent = 'Read More';
+                setTimeout(() => {
+                    const maxHeight = parseFloat(getComputedStyle(bioElement).maxHeight) || 41.6;
+                    const scrollHeight = bioElement.scrollHeight;
+                    if (scrollHeight > maxHeight + 3) {
+                        bioElement.classList.add('truncated');
+                    }
+                }, 100);
+            }
+        }
+
+        // Loader Flow
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                loader.classList.add('fade-out');
+                body.classList.add('content-loaded');
+
+                setTimeout(() => {
+                    welcomeMat.classList.add('active');
+                    setTimeout(checkBioOverflow, 300);
+                }, 200);
+
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 800);
+
+            }, 3000);
+        });
+
+        toggleBtn.addEventListener('click', toggleBio);
+
+        let resizeTimer;
+        window.addEventListener('resize', function () {
+            clearTimeout(resizeTimer);
+            if (!isExpanded) {
+                resizeTimer = setTimeout(checkBioOverflow, 250);
+            }
+        });
+
+        ctaBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            welcomeMat.classList.remove('active');
+            console.log('Welcome mat closed – continue exploring.');
+        });
+    })();
+</script>
+<!-- matager after loader end -->
+
 
 <body class="antialiased">
 
@@ -2440,7 +2999,7 @@
                             // 3. Construct premium glassmorphic layout card node raw HTML string 
                             const alertHTML = `
         <div id="${uniqueAlertId}" 
-             class="glass w-full w-[90%] max-w-[30rem] rounded-[2rem] pointer-events-auto border border-white/10 shadow-2xl overflow-hidden transition-all duration-500 ease-in-out opacity-0 -translate-y-4 scale-95 transform">
+             class="glass w-full w-[90%] max-w-[30rem] rounded-b-[30px] pointer-events-auto border border-white/10 shadow-2xl overflow-hidden transition-all duration-500 ease-in-out opacity-0 -translate-y-4 scale-95 transform">
             <div class="px-5 py-3.5 flex items-center gap-4 bg-black/20 backdrop-blur-xl">
                 <div class="w-9 h-9 rounded-full flex items-center justify-center shrink-0 ${config.color}">
                     <i class="bi ${config.icon} text-sm"></i>
@@ -3317,7 +3876,7 @@
 
 
     <div id="dynamic-alert-target-zone"
-        class="fixed top-4 left-1/2 -translate-x-1/2 w-[80%] max-w-[26rem] z-50 pointer-events-none flex flex-col gap-3">
+        class="fixed top-0 left-1/2 -translate-x-1/2 w-[80%] max-w-[26rem] z-50 pointer-events-none flex flex-col gap-3">
     </div>
 
 
@@ -3771,19 +4330,20 @@
                 gap: 0.5rem;
                 border-radius: 9999px;
                 border: 1px solid rgba(255, 255, 255, 0.08);
-                background: rgba(255, 255, 255, 0.04);
                 padding: 0.5rem 1rem;
                 font-size: clamp(0.55rem, 0.65vw, 0.7rem);
                 font-weight: 500;
                 letter-spacing: 0.05em;
                 text-transform: uppercase;
-                color: #e2e8f0;
+                background-color: var(--bg-color);
+                color: var(--text-main);
                 backdrop-filter: blur(4px);
                 -webkit-backdrop-filter: blur(4px);
                 transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
                     background 0.35s cubic-bezier(0.22, 1, 0.36, 1),
                     border-color 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-                    box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+                    box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+                    background-color 0.4s ease, color 0.4s ease;
                 cursor: pointer;
                 will-change: transform;
                 white-space: nowrap;
@@ -3800,7 +4360,7 @@
                 width: 6px;
                 height: 6px;
                 border-radius: 50%;
-                background: rgba(255, 255, 255, 0.3);
+                background: var(--text-main);
                 transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
                 will-change: background, box-shadow;
             }
@@ -3942,7 +4502,7 @@
                 /* no scroll */
                 flex: 1 1 auto;
                 display: flex;
-                align-items: center;
+                align-items: flex-end;
                 justify-content: center;
                 max-height: 85vh;
             }
@@ -4060,10 +4620,10 @@
                     font-size: clamp(0.55rem, 2.2vw, 0.7rem);
                 }
 
-                .product-card {
+                /* .product-card {
                     width: 100px !important;
                     height: 130px !important;
-                }
+                } */
 
                 .top-picked-container.open {
                     max-height: 220px;
@@ -4152,10 +4712,7 @@
 
                 <!-- ----- BACKGROUND LAYERS ----- -->
                 <div class="absolute inset-0 z-0">
-                    <div id="bg-step-0" class="hero-bg-layer active"
-                        style="background-image: url('https://plus.unsplash.com/premium_photo-1766341848265-2d4910d4c2ba?q=80&w=774&auto=format&fit=crop');">
-                    </div>
-                    <div id="bg-step-1" class="hero-bg-layer"
+                    <div id="bg-step-1" class="hero-bg-layer active"
                         style="background-image: url('https://plus.unsplash.com/premium_photo-1780948463371-140ae396299c?q=80&w=870&auto=format&fit=crop');">
                     </div>
                     <div id="bg-step-2" class="hero-bg-layer"
@@ -4179,84 +4736,12 @@
                         class="w-full text-center px-4 z-40 overflow-hidden flex items-center justify-center">
 
                         <!-- ============================================================ -->
-                        <!-- STEP 0 — PROFESSIONAL INTRO / ABOUT US (VERIFIED BADGE)       -->
-                        <!-- ============================================================ -->
-                        <div id="data-step-0" class="hero-content-blueprint dynamic-visible">
-
-                            <div class="intro-container">
-
-                                <!-- ---- Verification Badge ---- -->
-                                <div class="verified-badge" id="verifiedBadge"
-                                    title="Click to toggle verification status (demo)" style="cursor: pointer;">
-                                    <span class="badge-icon">
-                                        <i class="bi bi-check-lg badge-check"></i>
-                                    </span>
-                                    <span class="badge-text">Verified Store</span>
-                                    <span style="opacity:0.3;margin-left:0.15rem;">·</span>
-                                    <span
-                                        style="font-weight:300;opacity:0.5;font-size:0.6rem;letter-spacing:0.08em;">EST.
-                                        2024</span>
-                                </div>
-
-                                <!-- ---- Brand Headline ---- -->
-                                <div class="intro-headline">
-                                    <span class="line1">Master the</span>
-                                    <span class="line2">Essentials</span>
-                                </div>
-
-                                <!-- ---- Divider ---- -->
-                                <div class="intro-divider"></div>
-
-                                <!-- ---- Tagline ---- -->
-                                <p class="intro-tagline">
-                                    <strong>LANVIN</strong> — where <strong>simplicity</strong> meets sophistication.
-                                    Curated collections for the modern individual who values timeless design,
-                                    impeccable quality, and understated elegance.
-                                </p>
-
-                                <!-- ---- Stats Row ---- -->
-                                <div class="intro-stats">
-                                    <div class="stat-item">
-                                        <span class="stat-number">12+</span>
-                                        <span class="stat-label">Collections</span>
-                                    </div>
-                                    <div class="stat-item">
-                                        <span class="stat-number">4.9★</span>
-                                        <span class="stat-label">Client Rating</span>
-                                    </div>
-                                    <div class="stat-item">
-                                        <span class="stat-number">28K</span>
-                                        <span class="stat-label">Followers</span>
-                                    </div>
-                                    <div class="stat-item">
-                                        <span class="stat-number">100%</span>
-                                        <span class="stat-label">Authentic</span>
-                                    </div>
-                                </div>
-
-                                <!-- ---- CTA Row ---- -->
-                                <div class="intro-cta-row">
-
-                                    <button class="btn-primary" onclick="switchHeroStep(1)">
-                                        <i class="bi bi-arrow-left"></i> exit store
-                                    </button>
-                                    <button class="btn-primary" onclick="switchHeroStep(1)">
-                                        <i class="bi bi-arrow-right"></i> Next store
-                                    </button>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        <!-- ============================================================ -->
                         <!-- STEP 1 — MEN COLLECTION (dynamic top-picked)                  -->
                         <!-- ============================================================ -->
-                        <div id="data-step-1" class="hero-content-blueprint w-full collection-step">
+                        <div id="data-step-0" class="hero-content-blueprint w-full collection-step dynamic-visible">
 
                             <div>
-                                <h1 class="hero-split-text text-[clamp(1.6rem,5vw,4.5rem)] font-extrabold text-white leading-[1.1] tracking-tighter mt-4 uppercase [text-shadow:0_5px_1px_rgba(0,0,0,1)]"
+                                <!-- <h1 class="hero-split-text text-[clamp(1.6rem,5vw,4.5rem)] font-extrabold text-white leading-[1.1] tracking-tighter mt-4 uppercase [text-shadow:0_5px_1px_rgba(0,0,0,1)]"
                                     data-split-done="true">
                                     <span
                                         style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 0ms 1 normal both running textRevealEffect;">M</span>
@@ -4286,7 +4771,7 @@
                                         style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 300ms 1 normal both running textRevealEffect;">O</span>
                                     <span
                                         style="animation: 0.5s cubic-bezier(0.25, 1, 0.5, 1) 325ms 1 normal both running textRevealEffect;">N</span>
-                                </h1>
+                                </h1> -->
                             </div>
 
                             <!-- TOP PICKED CONTAINER (Men) -->
@@ -4382,7 +4867,7 @@
                         <!-- ============================================================ -->
                         <!-- STEP 2 — WOMEN COLLECTION (dynamic top-picked)               -->
                         <!-- ============================================================ -->
-                        <div id="data-step-2" class="hero-content-blueprint w-full collection-step">
+                        <div id="data-step-1" class="hero-content-blueprint w-full collection-step">
 
                             <div>
                                 <h1 class="hero-split-text text-[clamp(1.6rem,5vw,4.5rem)] font-extrabold text-white leading-[1.1] tracking-tighter mt-4 uppercase [text-shadow:0_5px_1px_rgba(0,0,0,1)]"
@@ -4515,7 +5000,7 @@
                         <!-- ============================================================ -->
                         <!-- STEP 3 — FUTURE                                               -->
                         <!-- ============================================================ -->
-                        <div id="data-step-3" class="hero-content-blueprint">
+                        <div id="data-step-2" class="hero-content-blueprint">
                             <h1 class="hero-split-text text-[clamp(1.6rem,5vw,4.5rem)] font-extrabold text-white leading-[1.1] tracking-tighter mb-4 uppercase"
                                 data-split-done="true">
                                 <span style="animation-delay: 0ms">F</span>
@@ -4549,18 +5034,14 @@
                         <div class="nav-inner">
                             <div class="nav-scroll">
                                 <div class="hero-nav-node active" onclick="switchHeroStep(0)">
-                                    <span class="node-dot"></span>
-                                    <span class="node-label">ABOUT STORE</span>
-                                </div>
-                                <div class="hero-nav-node" onclick="switchHeroStep(1)">
                                     <span class="node-dot bg-blue-400"></span>
                                     <span class="node-label">MENS</span>
                                 </div>
-                                <div class="hero-nav-node" onclick="switchHeroStep(2)">
+                                <div class="hero-nav-node" onclick="switchHeroStep(1)">
                                     <span class="node-dot bg-amber-400"></span>
                                     <span class="node-label">WOMENS</span>
                                 </div>
-                                <div class="hero-nav-node" onclick="switchHeroStep(3)">
+                                <div class="hero-nav-node" onclick="switchHeroStep(2)">
                                     <span class="node-dot bg-purple-400"></span>
                                     <span class="node-label">FUTURE</span>
                                 </div>
@@ -4610,6 +5091,7 @@
                 // 2. Background layers
                 const bgLayers = document.querySelectorAll('.hero-bg-layer');
                 bgLayers.forEach((layer, idx) => {
+                    // Map: step 0 -> bg 0, step 1 -> bg 1, step 2 -> bg 2
                     layer.classList.toggle('active', idx === stepIndex);
                 });
 
@@ -4642,14 +5124,11 @@
                 });
 
                 // 4. Close any open top‑picked containers when leaving a step
-                // We close all top-picked containers when switching steps
                 const allContainers = document.querySelectorAll('.top-picked-container');
                 allContainers.forEach(container => {
                     if (container.classList.contains('open')) {
                         const step = parseInt(container.dataset.step);
-                        // Only close if we're not switching to the same step
-                        if (step !== stepIndex) {
-                            // Use the toggle function to close it properly
+                        if (step !== stepIndex + 1) {
                             toggleTopPicked(step);
                         }
                     }
@@ -4659,12 +5138,6 @@
             /**
              * ============================================================
              *  DYNAMIC TOP PICKED TOGGLE — works for any step
-             *  Usage: toggleTopPicked(stepIndex)
-             *  Future steps just need: 
-             *    - container id="top-picked-container-{n}" data-step="{n}"
-             *    - button id="toggleTopPickedBtn-{n}" data-step="{n}" onclick="toggleTopPicked({n})"
-             *    - label id="topPickedBtnLabel-{n}"
-             *    - step element id="data-step-{n}" with class "collection-step"
              * ============================================================
              */
             const _topPickedState = {};
@@ -4673,19 +5146,17 @@
                 const container = document.getElementById(`top-picked-container-${stepIndex}`);
                 const btn = document.getElementById(`toggleTopPickedBtn-${stepIndex}`);
                 const label = document.getElementById(`topPickedBtnLabel-${stepIndex}`);
-                const step = document.getElementById(`data-step-${stepIndex}`);
+                const step = document.getElementById(`data-step-${stepIndex - 1}`);
 
                 if (!container || !btn || !label || !step) {
                     console.warn(`[TopPicked] Missing elements for step ${stepIndex}`);
                     return;
                 }
 
-                // Initialize state if not set
                 if (_topPickedState[stepIndex] === undefined) {
                     _topPickedState[stepIndex] = false;
                 }
 
-                // Toggle
                 _topPickedState[stepIndex] = !_topPickedState[stepIndex];
                 const isOpen = _topPickedState[stepIndex];
 
@@ -4694,7 +5165,6 @@
                 btn.classList.toggle('active', isOpen);
                 label.textContent = isOpen ? 'Hide Top Picked' : 'Show Top Picked';
 
-                // Dispatch event for any external listeners
                 const event = new CustomEvent('topPickedToggle', {
                     detail: { step: stepIndex, isOpen }
                 });
@@ -4703,7 +5173,7 @@
 
             /**
              * ============================================================
-             *  CLOSE TOP PICKED ON ESCAPE (for all steps)
+             *  CLOSE TOP PICKED ON ESCAPE
              * ============================================================
              */
             document.addEventListener('keydown', (e) => {
@@ -4729,57 +5199,19 @@
 
             window.triggerFastView = function (category) {
                 console.log('[FastView]', category);
-                // you could open a modal, filter, etc.
             };
 
             /**
              * ============================================================
-             *  VERIFICATION BADGE — toggle for demo (click to switch)
+             *  INIT — set step 0 (MENS) active on load
              * ============================================================
              */
             document.addEventListener('DOMContentLoaded', function () {
-                const badge = document.getElementById('verifiedBadge');
-                if (badge) {
-                    let isVerified = true;
-                    badge.style.cursor = 'pointer';
-                    badge.addEventListener('click', function (e) {
-                        e.stopPropagation();
-                        isVerified = !isVerified;
-                        if (isVerified) {
-                            badge.classList.remove('unverified');
-                            badge.innerHTML = `
-                                    <span class="badge-icon"><i class="bi bi-check-lg badge-check"></i></span>
-                                    <span class="badge-text">Verified Store</span>
-                                    <span style="opacity:0.3;margin-left:0.15rem;">·</span>
-                                    <span style="font-weight:300;opacity:0.5;font-size:0.6rem;letter-spacing:0.08em;">EST. 2024</span>
-                                `;
-                        } else {
-                            badge.classList.add('unverified');
-                            badge.innerHTML = `
-                                    <span class="badge-icon"><i class="bi bi-x-lg" style="font-size:0.45rem;"></i></span>
-                                    <span class="badge-text">Unverified</span>
-                                    <span style="opacity:0.2;margin-left:0.15rem;">·</span>
-                                    <span style="font-weight:300;opacity:0.35;font-size:0.6rem;letter-spacing:0.08em;">pending review</span>
-                                `;
-                        }
-                        badge.style.transform = 'scale(0.96)';
-                        setTimeout(() => { badge.style.transform = ''; }, 200);
-                    });
-                    badge.title = 'Click to toggle verification status (demo)';
-                }
-            });
-
-            /**
-             * ============================================================
-             *  INIT — set step 0 active on load
-             * ============================================================
-             */
-            document.addEventListener('DOMContentLoaded', function () {
-                // ensure step 0 is visible
+                // Ensure step 0 (MENS) is visible
                 const step0 = document.getElementById('data-step-0');
                 if (step0) step0.classList.add('dynamic-visible');
 
-                // split initial text if any
+                // Split initial text
                 const initialHeader = document.querySelector('.hero-content-blueprint.dynamic-visible .hero-split-text');
                 if (initialHeader && !initialHeader.dataset.splitDone) {
                     const raw = initialHeader.innerText;
@@ -4794,8 +5226,16 @@
                 _topPickedState[1] = false;
                 _topPickedState[2] = false;
 
-                console.log('[Hero] Initialized — Top Picked dynamic system ready for future steps.');
-                console.log('[Hero] To add a new step with Top Picked, copy step 1 structure and use step index 3, 4, ...');
+                // Ensure first nav node is active
+                const firstNav = document.querySelector('.hero-nav-node');
+                if (firstNav) firstNav.classList.add('active');
+
+                // Ensure first background is active
+                const firstBg = document.querySelector('.hero-bg-layer');
+                if (firstBg) firstBg.classList.add('active');
+
+                console.log('[Hero] Initialized — Starting from MENS collection (step 0)');
+                console.log('[Hero] Steps: 0=MENS, 1=WOMENS, 2=FUTURE');
             });
         </script>
 
@@ -5373,26 +5813,6 @@
         });
     </script>
 
-    <script>
-        window.addEventListener('DOMContentLoaded', () => {
-            const loader = document.getElementById('loader');
-            const body = document.body;
-
-            // Wait exactly 3 seconds
-            setTimeout(() => {
-                // Start fading the loader
-                loader.classList.add('fade-out');
-
-                // Trigger the content entrance animation
-                body.classList.add('content-loaded');
-
-                // Remove loader from DOM after fade completes to save resources
-                setTimeout(() => {
-                    loader.style.display = 'none';
-                }, 700);
-            }, 3000);
-        });
-    </script>
 </body>
 
 
