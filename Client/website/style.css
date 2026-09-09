@@ -63,7 +63,7 @@ body::before {
     position: fixed;
     inset: 0;
     z-index: -1;
-    background-image: url(./img/13-f.avif);
+    background-image: url(./img/1-f.jpg);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -95,7 +95,6 @@ body.dark-mode::after {
     transition: all 0.3s ease;
 }
 
-
 .card {
     background: var(--glass-bg) !important;
     border: 1px solid var(--glass-border) !important;
@@ -106,13 +105,9 @@ body.dark-mode::after {
 }
 
 .mcbtn {
-    /* ... other styles ... */
     background-image: var(--cbtnc, linear-gradient(to right, #3b82f6, #10b981));
-    /* fallback */
-    /* other properties */
 }
 
-/* Define gradient variables */
 .mcbtn-red {
     --cbtnc: linear-gradient(to right, #ef4444, #f43f5e);
 }
@@ -129,7 +124,6 @@ body.dark-mode::after {
     --cbtnc: linear-gradient(to right, #22c55e, #10b981);
 }
 
-/* Scrollbar hiding */
 .scrollbar-hide::-webkit-scrollbar,
 .scrollbar-none::-webkit-scrollbar {
     display: none;
@@ -292,17 +286,6 @@ body.dark-mode::after {
    NAVIGATION
    ============================================================ */
 
-#main-nav {
-    top: -30px !important;
-}
-
-.revealed {
-    top: 0 !important;
-    pointer-events: auto;
-    opacity: 1;
-    transform: translate(-50%, 0) scale(1);
-}
-
 main,
 nav {
     opacity: 0;
@@ -312,10 +295,6 @@ nav {
 .content-loaded main,
 .content-loaded nav {
     opacity: 1;
-}
-
-.content-loaded #main-nav {
-    top: 0 !important;
 }
 
 #loader.fade-out {
@@ -360,16 +339,6 @@ body.no-scroll {
    ============================================================ */
 
 .text-content-wrapper {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-    will-change: transform, opacity;
-}
-
-.text-content-wrapper {
-    padding-inline: 15px;
     transition: opacity 0.5s ease, transform 0.5s ease;
     opacity: 0;
     transform: translateY(12px);
@@ -417,6 +386,8 @@ body.no-scroll {
     flex-wrap: wrap;
     gap: 0.5rem;
     padding: 10px;
+    padding-bottom: 0.75rem;
+    /* added from inline */
     overflow-x: auto;
     overflow-y: visible;
     -webkit-overflow-scrolling: touch;
@@ -497,6 +468,14 @@ body.no-scroll {
 .scroll-grid-x>.product-card {
     flex: 0 0 auto;
     scroll-snap-align: start;
+    width: 180px;
+    /* added from inline */
+    height: 225px;
+    /* added from inline */
+    border-radius: 1rem;
+    /* added from inline */
+    overflow: hidden;
+    /* added from inline */
     opacity: 0;
     transform: translateY(12px);
     transition: opacity 0.5s ease, transform 0.5s ease,
@@ -563,6 +542,33 @@ body.no-scroll {
     transition-delay: 0.44s;
 }
 
+/* added from inline */
+.scroll-grid-x>.product-card>.aspect-\[4\/5\] {
+    width: 100% !important;
+    height: 100% !important;
+    aspect-ratio: 4/5;
+}
+
+/* Grid toggle buttons */
+.grid-toggle-btn {
+    border: 1px solid transparent;
+    opacity: 0.5;
+}
+
+.grid-toggle-btn.active {
+    border: 1px solid #64748b;
+    background: rgba(100, 116, 139, 0.15);
+}
+
+.grid-toggle-btn:not(.active) {
+    border: 1px solid transparent;
+    opacity: 0.5;
+}
+
+.grid-toggle-btn:hover {
+    opacity: 1;
+}
+
 /* ============================================================
    CATEGORY BUTTONS
    ============================================================ */
@@ -601,53 +607,31 @@ body.no-scroll {
 /* ============================================================
    FLOATING NAV
    ============================================================ */
-/* =========================================================
-   MATAGER — PREMIUM FLOATING NAV
-   ========================================================= */
 
 :root {
     --nav-size: 52px;
     --nav-item-size: 42px;
-
     --glass-bg-hover: rgba(255, 255, 255, 0.075);
-
     --glass-border: rgba(255, 255, 255, 0.105);
     --glass-highlight: rgba(255, 255, 255, 0.13);
-
     --nav-text: rgba(255, 255, 255, 0.82);
     --nav-text-muted: rgba(255, 255, 255, 0.48);
-
     --nav-ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-
-/* =========================================================
-   CONTAINER
-   ========================================================= */
-
 .floating-nav {
     position: fixed;
-    top: 28px;
-    right: 30px;
-
+    top: 20px;
+    right: 20px;
     z-index: 9999;
-
     width: var(--nav-size);
     height: var(--nav-size);
-
     display: flex;
     align-items: center;
     justify-content: flex-end;
-
     pointer-events: none;
-
     isolation: isolate;
 }
-
-
-/* =========================================================
-   MAIN GLASS DOCK
-   ========================================================= */
 
 .floating-nav-panel {
     position: absolute;
@@ -682,33 +666,20 @@ body.no-scroll {
         visibility 0s linear .62s;
 }
 
-
-/* subtle glass shine */
-
 .floating-nav-panel::before {
     content: "";
     position: absolute;
-
     inset: 0;
-
     border-radius: inherit;
-
     pointer-events: none;
-
     background:
         linear-gradient(115deg,
             rgba(255, 255, 255, .055),
             transparent 35%,
             transparent 70%,
             rgba(255, 255, 255, .025));
-
     opacity: .8;
 }
-
-
-/* =========================================================
-   OPEN PANEL
-   ========================================================= */
 
 .floating-nav.is-open .floating-nav-panel {
     width: fit-content;
@@ -716,10 +687,6 @@ body.no-scroll {
     visibility: visible;
     transform: scale(1);
     pointer-events: auto;
-    /* box-shadow:
-        0 24px 70px rgba(0, 0, 0, .34),
-        0 8px 25px rgba(0, 0, 0, .20),
-        inset 0 1px 0 rgba(255, 255, 255, .12); */
     transition:
         width .68s var(--nav-ease),
         opacity .25s ease,
@@ -727,11 +694,6 @@ body.no-scroll {
         box-shadow .5s ease,
         visibility 0s linear 0s;
 }
-
-
-/* =========================================================
-   NAV ITEMS WRAPPER
-   ========================================================= */
 
 .nav-bubbles {
     width: fit-content;
@@ -744,11 +706,6 @@ body.no-scroll {
     gap: 5px;
     padding: 0 60px 0 7px;
 }
-
-
-/* =========================================================
-   NAV ITEM
-   ========================================================= */
 
 .nav-bubble-enhanced {
     position: relative;
@@ -775,31 +732,16 @@ body.no-scroll {
         color .25s ease;
 }
 
-
-/* =========================================================
-   ICON
-   ========================================================= */
-
 .nav-bubble-enhanced i {
     position: relative;
-
     z-index: 2;
-
     font-size: 14px;
-
     line-height: 1;
-
     color: rgba(255, 255, 255, .72);
-
     transition:
         color .25s ease,
         transform .35s var(--nav-ease);
 }
-
-
-/* =========================================================
-   HOVER
-   ========================================================= */
 
 .nav-bubble-enhanced:hover {
     color: #fff;
@@ -807,45 +749,25 @@ body.no-scroll {
     border-color: rgba(255, 255, 255, .09);
 }
 
-
 .nav-bubble-enhanced:hover i {
     color: #fff;
-
     transform: scale(1.04);
 }
-
-
-/* =========================================================
-   ACTIVE / FOCUS
-   ========================================================= */
 
 .nav-bubble-enhanced:active {
     transform: scale(.96);
 }
 
-
 .nav-bubble-enhanced:focus-visible {
     outline: none;
-
     border-color: rgba(255, 255, 255, .25);
-
-    box-shadow:
-        0 0 0 3px rgba(255, 255, 255, .06);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, .06);
 }
-
-
-/* =========================================================
-   OPEN ANIMATION
-   ========================================================= */
 
 .floating-nav.is-open .nav-bubble-enhanced {
     opacity: 1;
-    transform:
-        translateX(0) scale(1);
+    transform: translateX(0) scale(1);
 }
-
-
-/* stagger */
 
 .floating-nav.is-open .nav-bubble-enhanced:nth-child(1) {
     transition-delay: .055s;
@@ -871,20 +793,10 @@ body.no-scroll {
     transition-delay: .205s;
 }
 
-
-/* =========================================================
-   CLOSE ANIMATION
-   ========================================================= */
-
 .floating-nav:not(.is-open) .nav-bubble-enhanced {
     opacity: 0;
-
-    transform:
-        translateX(10px) scale(.92);
+    transform: translateX(10px) scale(.92);
 }
-
-
-/* reverse order */
 
 .floating-nav:not(.is-open) .nav-bubble-enhanced:nth-child(6) {
     transition-delay: 0s;
@@ -910,77 +822,45 @@ body.no-scroll {
     transition-delay: .125s;
 }
 
-
-/* =========================================================
-   BADGES
-   ========================================================= */
-
 .nav-bubble-enhanced .badge-dot {
     position: absolute;
-
     top: 7px;
     right: 7px;
-
     width: 6px;
     height: 6px;
-
     border-radius: 50%;
-
     background: #ff4d57;
-
-    box-shadow:
-        0 0 0 2px rgba(8, 8, 10, .7),
-        0 0 10px rgba(255, 70, 80, .28);
-
+    box-shadow: 0 0 0 2px rgba(8, 8, 10, .7), 0 0 10px rgba(255, 70, 80, .28);
     z-index: 4;
 }
 
-
-/* =========================================================
-   MAIN TOGGLE
-   ========================================================= */
-
 .nav-toggle {
     position: absolute;
-
     top: 0;
     right: 0;
-
     z-index: 10;
-
     width: var(--nav-size);
     height: var(--nav-size);
-
     padding: 0;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     border: 1px solid var(--glass-border);
-
     border-radius: 50%;
-
     color: rgba(255, 255, 255, .8);
-
     background:
         linear-gradient(180deg,
             rgba(255, 255, 255, .07),
             rgba(255, 255, 255, .025)),
         rgba(8, 8, 10, .5);
-
     backdrop-filter: blur(32px) saturate(135%);
     -webkit-backdrop-filter: blur(32px) saturate(135%);
-
     box-shadow:
         0 16px 45px rgba(0, 0, 0, .28),
         0 4px 14px rgba(0, 0, 0, .18),
         inset 0 1px 0 rgba(255, 255, 255, .12);
-
     cursor: pointer;
-
     pointer-events: auto;
-
     transition:
         transform .45s var(--nav-ease),
         background .3s ease,
@@ -988,189 +868,102 @@ body.no-scroll {
         box-shadow .4s ease;
 }
 
-
 .nav-toggle:hover {
     background:
         linear-gradient(180deg,
             rgba(255, 255, 255, .10),
             rgba(255, 255, 255, .035)),
         rgba(8, 8, 10, .55);
-
     border-color: rgba(255, 255, 255, .16);
-
     box-shadow:
         0 18px 50px rgba(0, 0, 0, .32),
         0 5px 16px rgba(0, 0, 0, .2),
         inset 0 1px 0 rgba(255, 255, 255, .14);
 }
 
-
 .nav-toggle:active {
     transform: scale(.94);
 }
 
-
-/* =========================================================
-   TOGGLE ICON
-   ========================================================= */
-
 .nav-toggle-icon {
     width: 100%;
     height: 100%;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
-    transition:
-        transform .58s var(--nav-ease);
+    transition: transform .58s var(--nav-ease);
 }
-
 
 .nav-toggle-icon i {
     font-size: 15px;
-
     color: rgba(255, 255, 255, .78);
-
-    transition:
-        transform .58s var(--nav-ease),
-        color .3s ease;
+    transition: transform .58s var(--nav-ease), color .3s ease;
 }
-
-
-/* open */
 
 .floating-nav.is-open .nav-toggle {
     background: rgba(255, 255, 255, .075);
-
     border-color: rgba(255, 255, 255, .13);
 }
-
 
 .floating-nav.is-open .nav-toggle-icon {
     transform: rotate(90deg);
 }
 
-
 .floating-nav.is-open .nav-toggle-icon i {
     color: #fff;
 }
 
-
-/* =========================================================
-   BACKDROP
-   ========================================================= */
-
 .nav-backdrop {
     position: fixed;
-
     inset: 0;
-
     z-index: 9998;
-
     background: rgba(0, 0, 0, .08);
-
     backdrop-filter: blur(2px);
     -webkit-backdrop-filter: blur(2px);
-
     opacity: 0;
-
     visibility: hidden;
-
     pointer-events: none;
-
-    transition:
-        opacity .5s var(--nav-ease),
-        visibility 0s linear .5s;
+    transition: opacity .5s var(--nav-ease), visibility 0s linear .5s;
 }
-
 
 .nav-backdrop.is-visible {
     opacity: 1;
-
     visibility: visible;
-
     pointer-events: auto;
-
-    transition:
-        opacity .5s var(--nav-ease),
-        visibility 0s linear 0s;
+    transition: opacity .5s var(--nav-ease), visibility 0s linear 0s;
 }
-
-
-/* =========================================================
-   TOOLTIP
-   ========================================================= */
 
 .tooltip {
     position: absolute;
-
     right: calc(100% + 10px);
-
     top: 50%;
-
-    transform:
-        translateY(-50%) translateX(4px);
-
+    transform: translateY(-50%) translateX(4px);
     padding: 6px 9px;
-
     border-radius: 8px;
-
     white-space: nowrap;
-
     font-size: 11px;
     font-weight: 500;
-
     letter-spacing: .01em;
-
     color: rgba(255, 255, 255, .86);
-
     background: rgba(10, 10, 12, .82);
-
     border: 1px solid rgba(255, 255, 255, .08);
-
     backdrop-filter: blur(20px);
-
-    box-shadow:
-        0 8px 25px rgba(0, 0, 0, .2);
-
+    box-shadow: 0 8px 25px rgba(0, 0, 0, .2);
     opacity: 0;
-
     pointer-events: none;
-
-    transition:
-        opacity .2s ease,
-        transform .25s var(--nav-ease);
+    transition: opacity .2s ease, transform .25s var(--nav-ease);
 }
-
-
-/* show tooltip only on hover */
 
 .nav-bubble-enhanced:hover .tooltip {
     display: block;
-
     opacity: 1;
-
-    transform:
-        translateY(-50%) translateX(0);
+    transform: translateY(-50%) translateX(0);
 }
 
-
-/* =========================================================
-   MOBILE
-   ========================================================= */
-
 @media (max-width: 600px) {
-
-    .floating-nav {
-        top: 16px;
-        right: 16px;
-    }
-
     .nav-bubble-enhanced {
         width: 40px;
         height: 40px;
-
         flex-basis: 40px;
     }
 
@@ -1183,11 +976,6 @@ body.no-scroll {
         display: none !important;
     }
 }
-
-
-/* =========================================================
-   REDUCED MOTION
-   ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
 
@@ -1232,7 +1020,6 @@ body.no-scroll {
     padding: 0.25rem 0;
 }
 
-
 .fit-items-close {
     position: absolute;
     top: 0.75rem;
@@ -1257,180 +1044,6 @@ body.no-scroll {
     border-color: rgba(239, 68, 68, 0.3);
     color: rgba(239, 68, 68, 0.8);
     transform: rotate(90deg);
-}
-
-/* ============================================================
-   STORE CARDS (Related Stores)
-   ============================================================ */
-
-.store-flex {
-    display: flex;
-    gap: 0.75rem;
-    overflow-x: auto;
-    overflow-y: visible;
-    padding: 0.4rem 0.2rem 0.8rem;
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
-    flex-wrap: nowrap;
-    align-items: stretch;
-}
-
-.store-flex::-webkit-scrollbar {
-    height: 4px;
-}
-
-.store-flex::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.02);
-    border-radius: 20px;
-}
-
-.store-flex::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.08);
-    border-radius: 20px;
-}
-
-.store-card {
-    flex: 0 0 160px;
-    min-width: 160px;
-    background: rgba(255, 255, 255, 0.02);
-    border-radius: 24px;
-    border: 1.5px solid rgba(255, 255, 255, 0.03);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    position: relative;
-    overflow: visible;
-}
-
-.store-card:hover {
-    background: rgba(255, 255, 255, 0.06);
-    border-color: #3b82f6;
-    transform: translateY(-2px);
-}
-
-.store-card:hover .store-icon,
-.store-card:hover .flex-thumbs-items {
-    filter: blur(3px);
-    transition: filter 0.3s ease;
-}
-
-.store-icon {
-    width: 100%;
-    height: 160px;
-    border-radius: 20px 20px 0 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #1f1f1f;
-    transition: filter 0.3s ease;
-    position: relative;
-    overflow: hidden;
-}
-
-.store-icon .store-img-logo .logo-placeholder {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 30% 30%, #3a3a3a, #1a1a1a);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.flex-thumbs-items {
-    display: flex;
-    width: 100%;
-    gap: 1px;
-    border-top: 1px solid rgba(255, 255, 255, 0.04);
-    border-radius: 0 0 20px 20px;
-    overflow: hidden;
-    background: rgba(0, 0, 0, 0.15);
-    transition: filter 0.3s ease;
-}
-
-.item-thumb {
-    flex: 1;
-    height: 70px;
-    min-width: 0;
-    background: rgba(255, 255, 255, 0.02);
-    border-right: 1px solid rgba(255, 255, 255, 0.03);
-    background-size: cover;
-    background-position: center;
-}
-
-.item-thumb:last-child {
-    border-right: none;
-}
-
-.store-detail.overlay {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(8px);
-    border-radius: 24px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-    z-index: 10;
-    gap: 0.4rem;
-}
-
-.store-card:hover .store-detail.overlay {
-    opacity: 1;
-    pointer-events: auto;
-}
-
-.store-detail.overlay .s-name {
-    font-weight: 700;
-    font-size: 0.75rem;
-    color: #fff;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    text-align: center;
-}
-
-.store-detail.overlay .s-meta {
-    display: flex;
-    gap: 0.3rem;
-    font-size: 0.45rem;
-    color: rgba(255, 255, 255, 0.4);
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-}
-
-.store-detail.overlay .s-meta span {
-    background: rgba(255, 255, 255, 0.06);
-    padding: 0.08rem 0.5rem;
-    border-radius: 40px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.quick-look-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.65rem;
-    font-weight: 700;
-    padding: 0.5rem 1rem;
-    border-radius: 40px;
-    text-decoration: none;
-    white-space: nowrap;
-    border: none;
-    background: #2563eb;
-    color: white;
-    cursor: pointer;
-}
-
-.quick-look-btn:hover {
-    background: #1d4ed8;
 }
 
 /* ============================================================
@@ -1536,11 +1149,6 @@ body.no-scroll {
         font-size: 0.6rem;
     }
 
-    .floating-nav {
-        top: 18px;
-        right: 18px;
-    }
-
     .nav-bubble-enhanced {
         width: 44px;
         height: 44px;
@@ -1551,40 +1159,12 @@ body.no-scroll {
         font-size: 13px;
     }
 
-    .store-card {
-        flex: 0 0 140px;
-        min-width: 140px;
-    }
-
-    .store-icon {
-        height: 130px;
-    }
-
-    .item-thumb {
-        height: 60px;
-    }
-
     .intro-headline {
         font-size: clamp(1.6rem, 7vw, 2.4rem);
     }
 
     .intro-tagline {
         font-size: clamp(0.65rem, 2.5vw, 0.85rem);
-    }
-}
-
-@media (max-width: 480px) {
-    .store-card {
-        flex: 0 0 120px;
-        min-width: 120px;
-    }
-
-    .store-icon {
-        height: 110px;
-    }
-
-    .item-thumb {
-        height: 50px;
     }
 }
 
@@ -1640,7 +1220,6 @@ body.no-scroll {
     transform: scale(0.97);
 }
 
-/* Status badge colors */
 .status-dot {
     width: 6px;
     height: 6px;
@@ -1649,14 +1228,9 @@ body.no-scroll {
     flex-shrink: 0;
 }
 
-
 /* =========================================================
    REUSABLE FILTER SYSTEM - COMPLETE STYLES
    ========================================================= */
-
-/* =====================================================
-   FILTER CONTAINER
-   ===================================================== */
 
 .filters-container {
     display: flex;
@@ -1664,10 +1238,6 @@ body.no-scroll {
     gap: 8px;
     flex-wrap: wrap;
 }
-
-/* =====================================================
-   FILTER
-   ===================================================== */
 
 .filter {
     --filter-bg: rgba(255, 255, 255, 0.045);
@@ -1678,14 +1248,9 @@ body.no-scroll {
     --filter-text: #cbd5e1;
     --filter-text-hover: #ffffff;
     --filter-bg-dropdown: rgba(28, 28, 27, 0.96);
-
     position: relative;
     flex-shrink: 0;
 }
-
-/* =====================================================
-   FILTER BUTTON
-   ===================================================== */
 
 .filter-trigger {
     appearance: none;
@@ -1738,10 +1303,6 @@ body.no-scroll {
     font-weight: 700;
 }
 
-/* =====================================================
-   OPEN STATE
-   ===================================================== */
-
 .filter.is-open .filter-trigger {
     background: var(--filter-hover);
     border-color: var(--filter-accent);
@@ -1751,10 +1312,6 @@ body.no-scroll {
 .filter.is-open .filter-trigger i {
     transform: rotate(180deg);
 }
-
-/* =====================================================
-   DROPDOWN
-   ===================================================== */
 
 .filter-dropdown {
     position: absolute;
@@ -1780,10 +1337,6 @@ body.no-scroll {
     transition: opacity 0.2s ease, transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), max-height 0.3s ease, visibility 0.2s ease, border-color 0.2s ease;
 }
 
-/* =====================================================
-   OPEN DROPDOWN
-   ===================================================== */
-
 .filter.is-open .filter-dropdown {
     max-height: 420px;
     padding: 6px;
@@ -1793,10 +1346,6 @@ body.no-scroll {
     transform: translateY(0) scale(1);
     border-color: rgba(255, 255, 255, 0.09);
 }
-
-/* =====================================================
-   DROPDOWN HEADER
-   ===================================================== */
 
 .filter-dropdown-header {
     padding: 6px 10px 4px;
@@ -1814,10 +1363,6 @@ body.no-scroll {
     font-weight: 700;
     color: rgba(255, 255, 255, 0.4);
 }
-
-/* =====================================================
-   OPTIONS
-   ===================================================== */
 
 .filter-options {
     display: flex;
@@ -1843,10 +1388,6 @@ body.no-scroll {
     background: rgba(255, 255, 255, 0.18);
     border-radius: 999px;
 }
-
-/* =====================================================
-   OPTION
-   ===================================================== */
 
 .filter-option {
     width: 100%;
@@ -1876,10 +1417,6 @@ body.no-scroll {
     transform: scale(0.98);
 }
 
-/* =====================================================
-   SELECTED OPTION
-   ===================================================== */
-
 .filter-option.is-selected {
     background: var(--filter-active);
     border-color: var(--filter-accent);
@@ -1904,10 +1441,6 @@ body.no-scroll {
     opacity: 1;
 }
 
-/* =====================================================
-   COLOR SWATCH
-   ===================================================== */
-
 .color-swatch {
     width: 18px;
     height: 18px;
@@ -1925,10 +1458,6 @@ body.no-scroll {
 .color-swatch[style*="--swatch:#ffffff"] {
     border-color: rgba(0, 0, 0, 0.15);
 }
-
-/* =====================================================
-   SIZE OPTIONS
-   ===================================================== */
 
 .size-options {
     display: grid;
@@ -1949,10 +1478,6 @@ body.no-scroll {
     display: none;
 }
 
-/* =====================================================
-   PRODUCT FILTER (Color + Size)
-   ===================================================== */
-
 .product-filter .filter-trigger {
     min-width: 80px;
     padding: 0 12px;
@@ -1962,17 +1487,6 @@ body.no-scroll {
 
 .product-filter .filter-dropdown {
     min-width: 180px;
-}
-
-/* =====================================================
-   STATUS DOT
-   ===================================================== */
-
-.status-dot {
-    width: 6px;
-    height: 6px;
-    flex: 0 0 6px;
-    border-radius: 50%;
 }
 
 .status-dot.pending {
@@ -1995,10 +1509,6 @@ body.no-scroll {
     background: #ef4444;
 }
 
-/* =====================================================
-   DARK MODE
-   ===================================================== */
-
 .dark .filter-dropdown {
     background: rgba(20, 20, 20, 0.97);
 }
@@ -2010,10 +1520,6 @@ body.no-scroll {
 .dark .filter-trigger:hover {
     color: #f1f5f9;
 }
-
-/* =====================================================
-   MOBILE
-   ===================================================== */
 
 @media (max-width: 640px) {
     .filters-container {
@@ -2050,14 +1556,270 @@ body.no-scroll {
     }
 }
 
-/* =====================================================
-   REDUCED MOTION
-   ===================================================== */
-
 @media (prefers-reduced-motion: reduce) {
 
     .filter,
     .filter * {
+        transition: none !important;
+    }
+}
+
+/* =========================================================
+   PROMO CODE FILTER STYLES (from inline)
+   ========================================================= */
+
+.promo-code-dropdown {
+    width: 280px !important;
+    max-width: 90vw !important;
+}
+
+.promo-code-options {
+    padding: 4px 0 !important;
+    gap: 6px !important;
+}
+
+.promo-input-wrapper {
+    display: flex;
+    gap: 6px;
+    padding: 4px 8px;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: border-color 0.2s ease;
+}
+
+.promo-input-wrapper:focus-within {
+    border-color: rgba(59, 130, 246, 0.3);
+}
+
+.promo-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #e2e8f0;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 8px 4px;
+    min-width: 0;
+    letter-spacing: 0.3px;
+}
+
+.promo-input::placeholder {
+    color: rgba(255, 255, 255, 0.25);
+    font-weight: 400;
+}
+
+.promo-input:focus {
+    color: #fff;
+}
+
+.promo-apply-btn {
+    flex-shrink: 0;
+    padding: 6px 16px;
+    border-radius: 8px;
+    border: none;
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.promo-apply-btn:hover {
+    transform: scale(1.04);
+    box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3);
+}
+
+.promo-apply-btn:active {
+    transform: scale(0.96);
+}
+
+.promo-suggestions {
+    padding: 6px 8px 2px;
+}
+
+.promo-suggestions-label {
+    font-size: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: rgba(255, 255, 255, 0.3);
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.promo-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.promo-tag {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.04);
+    color: #cbd5e1;
+    font-size: 9px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.promo-tag:hover {
+    background: rgba(59, 130, 246, 0.15);
+    border-color: rgba(59, 130, 246, 0.25);
+    color: #fff;
+    transform: scale(1.02);
+}
+
+.promo-tag:active {
+    transform: scale(0.96);
+}
+
+.promo-tag-code {
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.promo-tag-discount {
+    font-size: 7px;
+    opacity: 0.6;
+    font-weight: 500;
+}
+
+.applied-promo-display {
+    padding: 4px 8px 8px;
+}
+
+.applied-promo-display.hidden {
+    display: none;
+}
+
+.applied-promo-content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    border-radius: 10px;
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.applied-promo-code {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #34d399;
+    letter-spacing: 0.5px;
+}
+
+.applied-promo-discount {
+    font-size: 9px;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 500;
+}
+
+.applied-promo-content .remove-promo-btn {
+    margin-left: auto;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    font-size: 10px;
+}
+
+.applied-promo-content .remove-promo-btn:hover {
+    background: rgba(239, 68, 68, 0.2);
+    color: #f87171;
+}
+
+.promo-status {
+    font-size: 8px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.25);
+    transition: all 0.3s ease;
+}
+
+.promo-status.active {
+    color: #34d399;
+}
+
+.promo-status.error {
+    color: #f87171;
+}
+
+.filter[data-filter="promo-code"] .filter-trigger {
+    min-width: 110px;
+}
+
+.filter[data-filter="promo-code"] .filter-value {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.filter[data-filter="promo-code"] .filter-label {
+    font-weight: 500;
+    opacity: 0.6;
+}
+
+.filter[data-filter="promo-code"] .filter-selected {
+    font-weight: 700;
+}
+
+.dark .promo-code-dropdown {
+    background: rgba(20, 20, 20, 0.97);
+}
+
+.dark .promo-input-wrapper {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.dark .promo-tag {
+    border-color: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+@media (max-width: 640px) {
+    .promo-code-dropdown {
+        width: 100% !important;
+        left: 0 !important;
+        right: 0 !important;
+    }
+
+    .promo-input-wrapper {
+        flex-wrap: nowrap;
+    }
+
+    .promo-tags {
+        gap: 4px;
+    }
+
+    .promo-tag {
+        font-size: 8px;
+        padding: 3px 8px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .promo-apply-btn,
+    .promo-tag,
+    .applied-promo-content .remove-promo-btn {
         transition: none !important;
     }
 }

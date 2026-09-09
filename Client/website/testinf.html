@@ -1,0 +1,2431 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matager | Customer Storefront</title>
+    <link rel="icon" type="image/png" href="./favicon/favico.png">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="./style.css">
+
+    <!-- Tailwind CSS (CDN) – the only source needed -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <!-- Google Fonts (Inter) -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,200;14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap"
+        rel="stylesheet">
+
+    <!-- GSAP & ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <!-- Your custom JavaScript -->
+    <script src="./slop.js"></script>
+
+    <!-- 
+      If you need custom CSS (not Tailwind), add it here.
+      Otherwise, this section is empty.
+    -->
+</head>
+
+
+
+
+<!-- matager after loader end -->
+
+
+<body class="antialiased content-loaded dark-mode" style="--bg-brightness: 0.4; background-color: rgb(10, 10, 10);">
+
+
+
+
+    <!-- ===== FLOATING NAV ===== -->
+    <div class="floating-nav fixed bottom-6 right-6 z-[9999] flex flex-col items-end gap-3" id="floatingNav">
+
+        <!-- ---- TOGGLE BUTTON with progress ring ---- -->
+        <button id="navToggle"
+            class="nav-toggle relative w-14 h-14 rounded-full border-none bg-white/10 backdrop-blur-2xl shadow-xl flex items-center justify-center text-white text-2xl transition-transform hover:scale-105 active:scale-95"
+            aria-label="Open navigation" aria-expanded="false">
+            <svg class="progress-ring absolute -top-1 -left-1 w-[60px] h-[60px] -rotate-90 pointer-events-none"
+                viewBox="0 0 64 64">
+                <circle class="progress-ring-track stroke-white/10 stroke-[3.5] fill-none" cx="32" cy="32" r="26" />
+                <circle class="progress-ring-fill stroke-blue-500 stroke-[3.5] fill-none stroke-linecap-round"
+                    id="progressRingFill" cx="32" cy="32" r="26" stroke-dasharray="163.36" stroke-dashoffset="163.36" />
+            </svg>
+            <span class="nav-toggle-icon relative z-10 transition-transform duration-300">
+                <i class="bi bi-grid-3x3-gap-fill"></i>
+            </span>
+        </button>
+
+        <!-- ---- PANEL ---- -->
+        <div id="floatingNavPanel"
+            class="floating-nav-panel absolute bottom-[calc(100%+0.75rem)] right-0 bg-black/70 backdrop-blur-2xl rounded-3xl p-2 border border-white/10 shadow-2xl transition-all duration-300 origin-bottom-right scale-90 opacity-0 pointer-events-none invisible min-w-[220px]">
+            <div class="nav-bubbles flex flex-wrap justify-end gap-1.5">
+                <a href="#"
+                    class="nav-bubble-enhanced flex flex-col items-center justify-center w-11 h-11 rounded-2xl bg-white/5 border border-white/5 text-white/60 hover:bg-white/10 hover:text-white transition-all text-lg relative"
+                    data-label="Search" onclick="openSearch(event)">
+                    <i class="bi bi-search"></i>
+                    <span
+                        class="tooltip absolute top-full left-1/2 -translate-x-1/2 mt-1 bg-black/80 backdrop-blur-sm px-2 py-0.5 rounded text-[9px] font-medium text-white/70 whitespace-nowrap opacity-0 hover:opacity-100 transition-opacity pointer-events-none">Search</span>
+                </a>
+                <a href="#" class="nav-bubble-enhanced ..." onclick="openCart(event)"><i class="bi bi-bag"></i><span
+                        class="badge-dot absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full border border-black/60 hidden"></span></a>
+                <a href="#" class="nav-bubble-enhanced ..." onclick="openNotifications(event)"><i
+                        class="bi bi-bell-fill"></i><span
+                        class="badge-dot absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full border border-black/60 hidden"></span></a>
+                <a href="#" class="nav-bubble-enhanced ..." onclick="openOrders(event)"><i
+                        class="bi bi-box-fill"></i></a>
+                <a href="#" class="nav-bubble-enhanced ..." onclick="openProfile(event)"><i
+                        class="bi bi-person-fill"></i></a>
+                <a href="#" class="nav-bubble-enhanced ..." onclick="openHome(event)"><i class="bi bi-sliders2"></i></a>
+                <a href="#" class="nav-bubble-enhanced ..." onclick="closeAllViews()"><i class="bi bi-x-lg"></i></a>
+            </div>
+        </div>
+
+        <!-- ---- BACKDROP ---- -->
+        <div id="navBackdrop"
+            class="nav-backdrop fixed inset-0 -z-10 bg-black/30 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300">
+        </div>
+
+        <!-- ---- MAIN NAV (flyout) ---- -->
+        <nav id="main-nav"
+            class="fixed z-[9998] top-[75px] right-6 w-[90%] max-w-[30rem] max-h-[calc(100vh-4rem)] overflow-y-auto px-6 py-4 rounded-[1.5rem_0.5rem_1.5rem_1.5rem] glass-nav text-white/80 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.3,1)] hidden">
+            <!-- ============================================================ -->
+            <!-- PRODUCT DETAILS VIEW -->
+            <div id="product-details" class="nav-view">
+                <div class="flex flex-col gap-4">
+                    <!-- image -->
+                    <div class="relative aspect-square rounded-2xl overflow-hidden bg-white/5">
+                        <div id="ql-image-container"
+                            class="flex overflow-x-auto snap-x snap-mandatory h-full w-full scrollbar-none">
+                            <img src="https://assets.adidas.com/images/w_1880,f_auto,q_auto/a4ff4a779ee34deca8cc9a6f1f411440_9366/KC6611_HM1.jpg"
+                                class="ql-slide snap-center w-full h-full object-cover flex-shrink-0" />
+                            <img src="https://assets.adidas.com/images/w_1880,f_auto,q_auto/1f0135cfef624e779735b6390f38c98b_9366/KC6611_HM5.jpg"
+                                class="ql-slide snap-center w-full h-full object-cover flex-shrink-0" />
+                        </div>
+                        <div
+                            class="absolute bottom-2 right-2 bg-black/60 backdrop-blur px-2 py-0.5 rounded-full text-[10px] text-white/80">
+                            1/2</div>
+                    </div>
+                    <!-- title -->
+                    <h3 id="ql-title" class="text-xl font-light tracking-tight">Adidas classic t-shirt</h3>
+                    <!-- tabs -->
+                    <div
+                        class="flex gap-4 overflow-x-auto scrollbar-none text-[10px] font-bold uppercase tracking-wider">
+                        <button onclick="switchPDTab('overview')" class="pb-1 border-b-2 border-blue-500 text-blue-400"
+                            id="tab-overview">Overview</button>
+                        <button onclick="switchPDTab('details')"
+                            class="pb-1 border-b-2 border-transparent text-white/50" id="tab-details">Specs</button>
+                        <button onclick="switchPDTab('shipping')"
+                            class="pb-1 border-b-2 border-transparent text-white/50" id="tab-shipping">Delivery</button>
+                        <button onclick="switchPDTab('reviews')"
+                            class="pb-1 border-b-2 border-transparent text-white/50" id="tab-reviews">Reviews</button>
+                    </div>
+                    <!-- panels -->
+                    <div id="pane-overview" class="pd-pane space-y-3">
+                        <div class="flex items-end gap-2">
+                            <span id="ql-price" class="text-2xl font-bold">EGP 1,290</span>
+                            <span id="ql-old-price" class="text-sm line-through opacity-40">EGP 0.00</span>
+                            <span id="ql-discount" class="text-[10px] bg-white/10 px-2 py-0.5 rounded-full">-0%</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-xs">
+                            <span class="text-emerald-400 font-bold">Free Delivery</span>
+                            <span class="w-px h-4 bg-white/10"></span>
+                            <span><i class="bi bi-check-circle-fill text-emerald-400 mr-1"></i>In Stock</span>
+                            <span class="w-px h-4 bg-white/10"></span>
+                            <span>★ 4.8 (2.3k)</span>
+                        </div>
+                        <!-- Color & Size filters (simplified) -->
+                        <div class="flex gap-2">
+                            <div class="filter relative">
+                                <button
+                                    class="filter-trigger flex items-center gap-1 bg-white/5 border border-white/10 rounded-xl px-3 py-1.5 text-xs"
+                                    aria-expanded="false">
+                                    <span>Color: <span id="selectedColorText">Blue</span></span>
+                                    <i class="bi bi-chevron-down text-[10px]"></i>
+                                </button>
+                                <div
+                                    class="filter-dropdown absolute top-full left-0 mt-1 bg-black/90 backdrop-blur-xl rounded-xl p-1 min-w-[130px] shadow-xl opacity-0 pointer-events-none transition-all">
+                                    <div class="filter-options space-y-0.5">
+                                        <button
+                                            class="filter-option flex items-center justify-between w-full px-2 py-1.5 text-xs hover:bg-white/10 rounded-lg"
+                                            data-value="Black"><span class="flex items-center gap-2"><span
+                                                    class="color-swatch w-3 h-3 rounded-full border border-white/20"
+                                                    style="background:#111"></span>Black</span><i
+                                                class="bi bi-check2 opacity-0"></i></button>
+                                        <button
+                                            class="filter-option flex items-center justify-between w-full px-2 py-1.5 text-xs hover:bg-white/10 rounded-lg is-selected"
+                                            data-value="Blue"><span class="flex items-center gap-2"><span
+                                                    class="color-swatch w-3 h-3 rounded-full border border-white/20"
+                                                    style="background:#3b82f6"></span>Blue</span><i
+                                                class="bi bi-check2"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="filter relative">
+                                <button
+                                    class="filter-trigger flex items-center gap-1 bg-white/5 border border-white/10 rounded-xl px-3 py-1.5 text-xs"
+                                    aria-expanded="false">
+                                    <span>Size: <span id="selectedSizeText">XXL</span></span>
+                                    <i class="bi bi-chevron-down text-[10px]"></i>
+                                </button>
+                                <div
+                                    class="filter-dropdown absolute top-full left-0 mt-1 bg-black/90 backdrop-blur-xl rounded-xl p-1 min-w-[100px] shadow-xl opacity-0 pointer-events-none transition-all">
+                                    <div class="filter-options space-y-0.5">
+                                        <button
+                                            class="filter-option flex items-center justify-between w-full px-2 py-1.5 text-xs hover:bg-white/10 rounded-lg"
+                                            data-value="M">M<i class="bi bi-check2 opacity-0"></i></button>
+                                        <button
+                                            class="filter-option flex items-center justify-between w-full px-2 py-1.5 text-xs hover:bg-white/10 rounded-lg is-selected"
+                                            data-value="XXL">XXL<i class="bi bi-check2"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Ask owner & actions -->
+                        <button
+                            class="ask-owner-btn w-full flex items-center gap-3 bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm hover:bg-white/10 transition"
+                            onclick="askOwnerOnWhatsApp()">
+                            <i class="bi bi-whatsapp text-emerald-400 text-xl"></i>
+                            <span class="flex-1 text-left"><strong>Ask about this item</strong><small
+                                    class="block text-[10px] text-white/40">Chat on WhatsApp</small></span>
+                            <i class="bi bi-arrow-up-right text-white/30"></i>
+                        </button>
+                        <div class="flex gap-2">
+                            <button
+                                class="quick-buy-btn flex-1 bg-gradient-to-r from-blue-500 to-emerald-500 text-white font-bold text-xs uppercase tracking-wider rounded-xl py-3 hover:shadow-lg hover:shadow-blue-500/30 transition-all active:scale-95 flex items-center justify-center gap-2"
+                                onclick="handleProductQuickBuy()">
+                                <i class="bi bi-lightning-fill"></i> Quick Buy
+                            </button>
+                            <button
+                                class="favorite-btn w-12 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-white/10 transition"
+                                onclick="showAlert('favorite','Added to favs')"><i
+                                    class="bi bi-heart text-white/60"></i></button>
+                            <button
+                                class="add-to-bag-btn flex-1 bg-gradient-to-r from-blue-500 to-emerald-500 text-white font-bold text-xs uppercase tracking-wider rounded-xl py-3 hover:shadow-lg hover:shadow-blue-500/30 transition-all active:scale-95 flex items-center justify-center gap-2"
+                                onclick="handleProductAddToBag()">
+                                <i class="bi bi-bag-plus"></i> Add to Bag
+                            </button>
+                        </div>
+                    </div>
+                    <div id="pane-details" class="pd-pane hidden space-y-2">
+                        <p class="text-sm opacity-70">Premium athletic slim-fit. 100% organic cotton.</p>
+                    </div>
+                    <div id="pane-shipping" class="pd-pane hidden space-y-2">
+                        <p class="text-sm opacity-70">Free Express • Arrives Jul 15-18</p>
+                    </div>
+                    <div id="pane-reviews" class="pd-pane hidden space-y-2">
+                        <button onclick="toggleReviewForm()"
+                            class="px-4 py-2 bg-blue-600 rounded-full text-xs font-bold">Write a review</button>
+                        <div id="review-form-panel" class="expandable">
+                            <textarea rows="2" placeholder="Your experience..."
+                                class="w-full bg-white/5 border border-white/10 rounded-xl p-2 text-sm"></textarea>
+                            <button onclick="submitUserReview()"
+                                class="mt-2 px-4 py-2 bg-blue-600 rounded-full text-xs font-bold">Post</button>
+                        </div>
+                        <div id="reviews-feed-container" class="space-y-2 max-h-40 overflow-y-auto">
+                            <div class="review-card p-3 rounded-xl bg-white/5 border border-white/5">
+                                <div class="flex justify-between"><span class="font-bold">Ahmed
+                                        M.</span><span>★★★★★</span>
+                                </div>
+                                <p class="text-sm opacity-70">"Excellent fabric quality."</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============================================================ -->
+            <!-- SEARCH VIEW -->
+            <div id="search-view" class="nav-view">
+                <div class="space-y-3">
+                    <div class="flex gap-2">
+                        <button onclick="switchSearchMode('products')" id="mode-products"
+                            class="px-4 py-2 rounded-xl bg-blue-600 text-xs font-bold">Products</button>
+                        <button onclick="switchSearchMode('categories')" id="mode-categories"
+                            class="px-4 py-2 rounded-xl bg-white/5 text-xs font-bold">Categories</button>
+                    </div>
+                    <div id="product-search-mode">
+                        <input type="text" id="search-input" oninput="handleSearch(this.value)"
+                            placeholder="Search products..."
+                            class="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-sm" />
+                        <div id="search-suggestions" class="mt-3 space-y-3">
+                            <p class="text-xs uppercase tracking-wider opacity-40">Popular Brands</p>
+                            <div class="flex gap-2"><span
+                                    class="px-3 py-1 rounded-full bg-white/5 text-xs">Adidas</span><span
+                                    class="px-3 py-1 rounded-full bg-white/5 text-xs">Nike</span></div>
+                        </div>
+                        <div id="search-results" class="hidden mt-3 space-y-2">
+                            <p class="text-xs opacity-40">Results</p>
+                            <div id="results-grid" class="grid grid-cols-2 gap-2"></div>
+                        </div>
+                    </div>
+                    <div id="category-search-mode" class="hidden">
+                        <input type="text" id="directory-search" placeholder="Search categories..."
+                            class="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-sm" />
+                        <div class="grid grid-cols-3 gap-1 mt-3 bg-black/20 rounded-2xl p-2 max-h-48 overflow-hidden">
+                            <div id="col-gender" class="space-y-1 overflow-y-auto"></div>
+                            <div id="col-category" class="space-y-1 overflow-y-auto border-l border-white/5 pl-1"></div>
+                            <div id="col-sub" class="space-y-1 overflow-y-auto border-l border-white/5 pl-1"></div>
+                        </div>
+                        <button id="explore-btn" class="mt-3 px-4 py-2 bg-white/5 rounded-xl text-xs"
+                            disabled>Explore</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============================================================ -->
+            <!-- NOTIFICATIONS VIEW -->
+            <div id="notfications-view" class="nav-view">
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-bold uppercase tracking-wider opacity-40">Notifications</span>
+                        <span id="notification-badge-counter" class="text-xs px-2 py-0.5 rounded-lg bg-white/5">0
+                            Unread</span>
+                    </div>
+                    <div id="notification-scroll-container"
+                        class="max-h-52 overflow-y-auto space-y-2 pr-1 custom-scrollbar">
+                        <div class="py-8 text-center text-xs opacity-30"><i class="bi bi-bell-slash"></i> No
+                            notifications
+                        </div>
+                    </div>
+                    <div class="flex justify-between pt-2 border-t border-white/5">
+                        <button onclick="clearAllNotifications()" class="text-red-400/60 text-xs font-bold">Clear
+                            All</button>
+                        <button onclick="markAllNotificationsAsRead()" class="text-blue-400 text-xs font-bold">Mark all
+                            read</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============================================================ -->
+            <!-- ORDERS VIEW -->
+            <div id="orders-view" class="nav-view">
+                <div class="space-y-3">
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <div class="filters-container flex items-center gap-1 bg-white/5 rounded-xl p-1">
+                            <div class="filter relative">
+                                <button
+                                    class="filter-trigger flex items-center gap-1 bg-white/5 border border-white/10 rounded-xl px-3 py-1.5 text-xs"><span
+                                        class="filter-value">All</span> <i class="bi bi-chevron-down"></i></button>
+                                <div
+                                    class="filter-dropdown absolute top-full left-0 mt-1 bg-black/90 backdrop-blur-xl rounded-xl p-1 min-w-[120px] shadow-xl opacity-0 pointer-events-none transition-all">
+                                    <div class="filter-options space-y-0.5">
+                                        <button
+                                            class="filter-option w-full text-left px-3 py-1.5 text-xs hover:bg-white/10 rounded-lg is-selected"
+                                            data-value="All">All</button>
+                                        <button
+                                            class="filter-option w-full text-left px-3 py-1.5 text-xs hover:bg-white/10 rounded-lg"
+                                            data-value="Pending"><span
+                                                class="status-dot inline-block w-2 h-2 rounded-full bg-yellow-400 mr-2"></span>Pending</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="orders-list" class="space-y-3 max-h-64 overflow-y-auto pr-1 custom-scrollbar">
+                        <div onclick="toggleOrderCardExpansion(8822)"
+                            class="p-3 rounded-xl bg-white/5 border border-white/5 cursor-pointer transition-all">
+                            <div class="flex justify-between"><span
+                                    class="text-xs font-bold text-amber-400">Pending</span><span
+                                    class="text-xs opacity-40">#ORD-8822</span></div>
+                            <p class="font-bold">Nike Air Max + 1 item</p>
+                            <div class="flex justify-between text-sm"><span class="opacity-50">Jul 04, 2026</span><span
+                                    class="font-bold">EGP 5,200</span></div>
+                            <div id="order-details-8822" class="expandable">
+                                <div class="pt-3 mt-3 border-t border-white/5 text-sm opacity-70">Tracking info…</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============================================================ -->
+            <!-- CART VIEW -->
+            <div id="cart-view" class="nav-view">
+                <div class="space-y-3">
+                    <div id="cart-step-1">
+                        <div class="flex justify-between"><span
+                                class="text-xs font-bold uppercase tracking-wider opacity-40">Your Cart</span><span
+                                id="cart-badge-counter"
+                                class="text-xs px-2 py-0.5 rounded-lg bg-blue-500/10 text-blue-400">0 Items</span></div>
+                        <div id="cart-items" class="space-y-2 max-h-40 overflow-y-auto pr-1 custom-scrollbar"></div>
+                        <!-- Delivery method -->
+                        <div class="space-y-2 mt-3">
+                            <p class="text-[10px] font-bold uppercase tracking-wide opacity-40">Delivery Method</p>
+                            <div class="grid grid-cols-2 gap-2">
+                                <label
+                                    class="relative p-3 rounded-xl border border-blue-500 bg-blue-500/5 cursor-pointer transition-all"
+                                    id="label-home">
+                                    <input type="radio" name="delivery" class="hidden" id="radio-home"
+                                        onchange="toggleDelivery('home')" checked />
+                                    <p class="text-[11px] font-bold">Home Delivery</p>
+                                    <p class="text-[9px] opacity-60">2-3 Days</p>
+                                </label>
+                                <label
+                                    class="relative p-3 rounded-xl border border-white/10 cursor-pointer transition-all"
+                                    id="label-store">
+                                    <input type="radio" name="delivery" class="hidden" id="radio-store"
+                                        onchange="toggleDelivery('store')" />
+                                    <p class="text-[11px] font-bold">Store Pickup</p>
+                                    <p class="text-[9px] opacity-60">Main Branch</p>
+                                </label>
+                            </div>
+                        </div>
+                        <!-- Delivery info (expandable) -->
+                        <div id="delivery-info-container"
+                            class="p-3 rounded-2xl border border-white/10 mt-2 bg-white/5 transition-all">
+                            <div class="flex justify-between items-center"><span
+                                    class="text-[10px] font-bold uppercase opacity-40">Shipping to</span><span
+                                    class="text-[10px] text-blue-400 font-bold">Standard • EGP 50</span></div>
+                            <p class="text-[11px] font-bold">10th of Ramadan City, Al-Sharqia</p>
+                            <button onclick="toggleSubList('shipping-list')"
+                                class="text-[10px] text-blue-400 font-medium hover:underline mt-0.5">Change
+                                address</button>
+                            <div id="shipping-list" class="expandable">
+                                <div class="pt-3 mt-3 border-t border-white/10 space-y-1">
+                                    <button onclick="selectHomeAddress('addr-2')"
+                                        class="w-full text-left text-[11px] hover:text-blue-400 transition">El-Nasr St,
+                                        Nasr
+                                        City</button>
+                                    <button onclick="selectHomeAddress('addr-3')"
+                                        class="w-full text-left text-[11px] hover:text-blue-400 transition">Smouha,
+                                        Alexandria</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Promo -->
+                        <div class="p-3 rounded-2xl border border-white/10 mt-2 bg-white/5">
+                            <div class="flex gap-2 mb-2"><input type="text" id="promoCodeInput" placeholder="Promo code"
+                                    class="flex-1 bg-white/5 border border-white/10 rounded-xl px-3 py-1.5 text-xs" /><button
+                                    onclick="applyPromoCodeFilter()"
+                                    class="px-4 py-1.5 bg-blue-600 rounded-xl text-xs font-bold">Apply</button></div>
+                            <div id="appliedPromoDisplay" class="hidden"><span
+                                    class="text-emerald-400 text-xs font-bold">SAVE10 applied</span></div>
+                        </div>
+                        <!-- Total -->
+                        <div class="pt-4 border-t border-white/5 flex justify-between items-center"><span
+                                class="text-xs font-bold uppercase opacity-40">Total</span><span
+                                id="checkout-total-price" class="text-sm font-bold">EGP 1,340</span></div>
+                        <button onclick="showCheckoutStep(2)"
+                            class="w-full mt-3 py-2.5 bg-blue-600 rounded-xl font-bold text-sm">Checkout</button>
+                    </div>
+                    <div id="cart-step-2" class="hidden space-y-3">
+                        <button onclick="showCheckoutStep(1)" class="text-sm text-blue-400">← Back</button>
+                        <textarea placeholder="Order note…"
+                            class="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-sm"></textarea>
+                        <button id="confirm-order-btn" onclick="submitOrder()"
+                            class="w-full py-2.5 bg-blue-600 rounded-xl font-bold text-sm">Confirm Order</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============================================================ -->
+            <!-- PROFILE VIEW -->
+            <div id="profile-view" class="nav-view">
+                <div class="space-y-3">
+                    <div class="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/5">
+                        <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-xl">👤
+                        </div>
+                        <div>
+                            <p class="font-bold">Guest User</p>
+                            <p class="text-xs opacity-40">Sign in for full access</p>
+                        </div>
+                    </div>
+                    <button onclick="alert('Sign in flow')"
+                        class="w-full py-2.5 bg-blue-600 rounded-xl font-bold text-sm">Sign In</button>
+                    <button onclick="alert('Change password')"
+                        class="w-full py-2.5 bg-white/5 border border-white/10 rounded-xl font-bold text-sm">Change
+                        Password</button>
+                </div>
+            </div>
+
+            <!-- ============================================================ -->
+            <!-- HOME / HELP VIEW -->
+            <div id="home-view" class="nav-view">
+                <div class="space-y-3">
+                    <p class="text-xs font-bold uppercase tracking-wider opacity-40">How can we help?</p>
+                    <button class="w-full p-3 rounded-xl bg-white/5 border border-white/5 flex items-center gap-3"><i
+                            class="bi bi-chat-dots text-blue-400"></i><span class="font-bold">Live Chat</span></button>
+                    <button class="w-full p-3 rounded-xl bg-white/5 border border-white/5 flex items-center gap-3"><i
+                            class="bi bi-exclamation-triangle text-red-400"></i><span class="font-bold">Report
+                            Issue</span></button>
+                </div>
+            </div>
+
+            <!-- ============================================================ -->
+            <!-- EXPLORE VIEW -->
+            <div id="explore-view" class="nav-view">
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center"><span id="explore-path"
+                            class="text-xs font-bold text-blue-400">Men / Tops</span><span id="item-count"
+                            class="text-xs opacity-40">24 Items</span></div>
+                    <div id="explore-grid"
+                        class="grid grid-cols-2 gap-3 max-h-64 overflow-y-auto pr-1 custom-scrollbar">
+                    </div>
+                </div>
+            </div>
+
+        </nav>
+    </div>
+
+    <!-- ===== ALERT TARGET ===== -->
+    <div id="dynamic-alert-target-zone"
+        class="fixed top-3 left-1/2 -translate-x-1/2 w-[90%] max-w-[30rem] z-[99999] pointer-events-none flex flex-col items-center gap-2">
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SINGLE UNIFIED SCRIPT (nav.js) -->
+    <script>
+        // ======================== NAV.JS ========================
+
+        // ── NAV TOGGLE / PANEL ──
+        (function () {
+            const floatingNav = document.getElementById('floatingNav');
+            const navToggle = document.getElementById('navToggle');
+            const panel = document.getElementById('floatingNavPanel');
+            const backdrop = document.getElementById('navBackdrop');
+            let isOpen = false;
+
+            function openNav() {
+                if (isOpen) return;
+                isOpen = true;
+                floatingNav.classList.add('is-open');
+                backdrop.classList.add('is-visible');
+                navToggle.setAttribute('aria-expanded', 'true');
+                panel.setAttribute('aria-hidden', 'false');
+                // transform panel
+                panel.style.transform = 'scale(1) translateY(0)';
+                panel.style.opacity = '1';
+                panel.style.pointerEvents = 'auto';
+                panel.style.visibility = 'visible';
+            }
+            function closeNav() {
+                if (!isOpen) return;
+                isOpen = false;
+                floatingNav.classList.remove('is-open');
+                backdrop.classList.remove('is-visible');
+                navToggle.setAttribute('aria-expanded', 'false');
+                panel.setAttribute('aria-hidden', 'true');
+                panel.style.transform = 'scale(0.92) translateY(12px)';
+                panel.style.opacity = '0';
+                panel.style.pointerEvents = 'none';
+                panel.style.visibility = 'hidden';
+            }
+            navToggle.addEventListener('click', function (e) {
+                e.preventDefault();
+                isOpen ? closeNav() : openNav();
+            });
+            backdrop.addEventListener('click', closeNav);
+            document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && isOpen) closeNav(); });
+            // Close when clicking a nav bubble
+            document.querySelectorAll('.nav-bubble-enhanced').forEach(el => {
+                el.addEventListener('click', function () { setTimeout(closeNav, 150); });
+            });
+            // Expose
+            window.openFloatingNav = openNav;
+            window.closeFloatingNav = closeNav;
+        })();
+
+        // ── PROGRESS RING (scroll + loader) ──
+        const ring = document.getElementById('progressRingFill');
+        const circumference = 2 * Math.PI * 26; // r=26 => 163.36
+        ring.style.strokeDasharray = circumference;
+
+        function updateProgress(scroll) {
+            const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = maxScroll > 0 ? scroll / maxScroll : 0;
+            const offset = circumference * (1 - Math.min(progress, 1));
+            ring.style.strokeDashoffset = offset;
+        }
+        window.addEventListener('scroll', function () {
+            updateProgress(window.scrollY);
+        });
+        updateProgress(window.scrollY);
+
+        // Loading state (spinner) – used by showAlert
+        function setLoadingState(isLoading) {
+            const btn = document.getElementById('navToggle');
+            if (isLoading) btn.classList.add('is-loading');
+            else btn.classList.remove('is-loading');
+        }
+
+        // ── VIEW MANAGEMENT ──
+        function openNavView(viewId, targetWidth) {
+            const nav = document.getElementById('main-nav');
+            const views = document.querySelectorAll('.nav-view');
+            views.forEach(v => v.classList.remove('is-open', 'hidden'));
+            const target = document.getElementById(viewId);
+            if (!target) return;
+            // hide all other views
+            views.forEach(v => { if (v !== target) { v.classList.add('hidden'); v.classList.remove('is-open'); } });
+            target.classList.remove('hidden');
+            // show nav
+            nav.classList.remove('hidden');
+            // trigger open
+            requestAnimationFrame(() => {
+                target.classList.add('is-open');
+            });
+            // set width
+            const isMobile = window.innerWidth < 768;
+            nav.style.maxWidth = isMobile ? 'calc(100vw - 2rem)' : (targetWidth || '30rem');
+        }
+
+        function closeAllViews() {
+            const nav = document.getElementById('main-nav');
+            const views = document.querySelectorAll('.nav-view');
+            views.forEach(v => { v.classList.remove('is-open'); v.classList.add('hidden'); });
+            nav.classList.add('hidden');
+            // reset any expandables
+            document.querySelectorAll('.expandable.open').forEach(el => el.classList.remove('open'));
+        }
+
+        // ── PRODUCT DETAILS ──
+        function switchPDTab(tabId) {
+            const panes = document.querySelectorAll('.pd-pane');
+            panes.forEach(p => { p.classList.add('hidden'); });
+            const target = document.getElementById('pane-' + tabId);
+            if (target) target.classList.remove('hidden');
+            // tab styling
+            document.querySelectorAll('[id^="tab-"]').forEach(btn => {
+                btn.classList.remove('border-blue-500', 'text-blue-400');
+                btn.classList.add('border-transparent', 'text-white/50');
+            });
+            const active = document.getElementById('tab-' + tabId);
+            if (active) { active.classList.remove('border-transparent', 'text-white/50'); active.classList.add('border-blue-500', 'text-blue-400'); }
+        }
+        function toggleReviewForm() {
+            const panel = document.getElementById('review-form-panel');
+            panel.classList.toggle('open');
+        }
+        function submitUserReview() { showAlert('success', 'Review posted!'); }
+
+        // ── SEARCH ──
+        function switchSearchMode(mode) {
+            const product = document.getElementById('product-search-mode');
+            const category = document.getElementById('category-search-mode');
+            const pBtn = document.getElementById('mode-products');
+            const cBtn = document.getElementById('mode-categories');
+            if (mode === 'products') {
+                product.style.display = 'block';
+                category.style.display = 'none';
+                pBtn.classList.add('bg-blue-600');
+                cBtn.classList.remove('bg-blue-600');
+            } else {
+                product.style.display = 'none';
+                category.style.display = 'block';
+                cBtn.classList.add('bg-blue-600');
+                pBtn.classList.remove('bg-blue-600');
+            }
+        }
+        function handleSearch(query) {
+            const suggestions = document.getElementById('search-suggestions');
+            const results = document.getElementById('search-results');
+            const grid = document.getElementById('results-grid');
+            if (query.trim().length > 0) {
+                suggestions.style.display = 'none';
+                results.classList.remove('hidden');
+                grid.innerHTML = '<div class="animate-pulse bg-white/5 rounded-2xl p-3 h-40"></div><div class="animate-pulse bg-white/5 rounded-2xl p-3 h-40"></div>';
+            } else {
+                suggestions.style.display = 'block';
+                results.classList.add('hidden');
+            }
+        }
+
+        // ── NOTIFICATIONS ──
+        let notifications = [];
+        function renderNotificationViewTray() {
+            const container = document.getElementById('notification-scroll-container');
+            if (!container) return;
+            if (notifications.length === 0) {
+                container.innerHTML = `<div class="py-8 text-center text-xs opacity-30"><i class="bi bi-bell-slash"></i> No notifications</div>`;
+                document.getElementById('notification-badge-counter').textContent = '0 Unread';
+                return;
+            }
+            container.innerHTML = notifications.map(n => `
+            <div class="p-3 rounded-xl bg-white/5 border border-white/5 cursor-pointer transition-all" onclick="toggleNotificationCardExpansion(${n.id})">
+              <div class="flex items-start gap-2"><i class="bi bi-bell-fill text-blue-400"></i><div><p class="text-xs font-bold">${n.heading}</p><p class="text-[10px] opacity-60">${n.text}</p></div></div>
+              <div id="noti-details-${n.id}" class="expandable"><div class="pt-2 mt-2 border-t border-white/5 text-xs opacity-70">${n.details || ''}</div></div>
+            </div>
+          `).join('');
+            const unread = notifications.filter(n => !n.isRead).length;
+            document.getElementById('notification-badge-counter').textContent = unread + ' Unread';
+        }
+        function toggleNotificationCardExpansion(id) {
+            const el = document.getElementById('noti-details-' + id);
+            if (el) el.classList.toggle('open');
+        }
+        function markAllNotificationsAsRead() {
+            notifications.forEach(n => n.isRead = true);
+            renderNotificationViewTray();
+        }
+        function clearAllNotifications() {
+            notifications = [];
+            renderNotificationViewTray();
+        }
+
+        // ── ORDERS ──
+        function toggleOrderCardExpansion(orderId) {
+            const el = document.getElementById('order-details-' + orderId);
+            if (el) el.classList.toggle('open');
+        }
+
+        // ── CART ──
+        function showCheckoutStep(step) {
+            const s1 = document.getElementById('cart-step-1');
+            const s2 = document.getElementById('cart-step-2');
+            if (step === 2) { s1.classList.add('hidden'); s2.classList.remove('hidden'); }
+            else { s2.classList.add('hidden'); s1.classList.remove('hidden'); }
+        }
+        function submitOrder() {
+            const btn = document.getElementById('confirm-order-btn');
+            btn.textContent = 'Processing...';
+            btn.disabled = true;
+            setTimeout(() => {
+                showAlert('success', 'Order placed!');
+                showCheckoutStep(1);
+                btn.textContent = 'Confirm Order';
+                btn.disabled = false;
+                closeAllViews();
+            }, 1500);
+        }
+        function toggleDelivery(type) {
+            const homeLabel = document.getElementById('label-home');
+            const storeLabel = document.getElementById('label-store');
+            const container = document.getElementById('delivery-info-container');
+            if (type === 'home') {
+                document.getElementById('radio-home').checked = true;
+                homeLabel.className = 'relative p-3 rounded-xl border border-blue-500 bg-blue-500/5 cursor-pointer transition-all';
+                storeLabel.className = 'relative p-3 rounded-xl border border-white/10 cursor-pointer transition-all';
+                container.innerHTML = `<div class="flex justify-between"><span class="text-[10px] font-bold uppercase opacity-40">Shipping to</span><span class="text-[10px] text-blue-400 font-bold">Standard • EGP 50</span></div>
+              <p class="text-[11px] font-bold">10th of Ramadan City, Al-Sharqia</p>
+              <button onclick="toggleSubList('shipping-list')" class="text-[10px] text-blue-400 font-medium hover:underline mt-0.5">Change address</button>
+              <div id="shipping-list" class="expandable"><div class="pt-3 mt-3 border-t border-white/10 space-y-1"><button onclick="selectHomeAddress('addr-2')" class="w-full text-left text-[11px] hover:text-blue-400 transition">El-Nasr St, Nasr City</button></div></div>`;
+            } else {
+                document.getElementById('radio-store').checked = true;
+                storeLabel.className = 'relative p-3 rounded-xl border border-blue-500 bg-blue-500/5 cursor-pointer transition-all';
+                homeLabel.className = 'relative p-3 rounded-xl border border-white/10 cursor-pointer transition-all';
+                container.innerHTML = `<div class="flex justify-between"><span class="text-[10px] font-bold uppercase opacity-40">Pickup</span><span class="text-[10px] text-emerald-400 font-bold">Free</span></div>
+              <p class="text-[11px] font-bold">Main Branch, Cairo</p>
+              <button onclick="toggleSubList('pickup-list')" class="text-[10px] text-blue-400 font-medium hover:underline mt-0.5">Change location</button>
+              <div id="pickup-list" class="expandable"><div class="pt-3 mt-3 border-t border-white/10 space-y-1"><button onclick="selectStoreBranch('branch-2')" class="w-full text-left text-[11px] hover:text-blue-400 transition">Alexandria</button></div></div>`;
+            }
+            updateTotalPrice();
+        }
+        function toggleSubList(id) {
+            const el = document.getElementById(id);
+            if (el) el.classList.toggle('open');
+        }
+        function selectHomeAddress(id) { /* dummy */ }
+        function selectStoreBranch(id) { /* dummy */ }
+        function updateTotalPrice() {
+            // dummy
+        }
+        // ── PROMO ──
+        function applyPromoCodeFilter() {
+            const input = document.getElementById('promoCodeInput');
+            const code = input.value.trim().toUpperCase();
+            if (code) {
+                document.getElementById('appliedPromoDisplay').classList.remove('hidden');
+                showAlert('success', 'Promo applied!');
+            }
+        }
+
+        // ── ALERT SYSTEM ──
+        function showAlert(type, message) {
+            const configs = {
+                cart: { icon: 'bi-bag-check-fill', color: 'bg-emerald-500/20 text-emerald-400', heading: 'Cart' },
+                favorite: { icon: 'bi-heart-fill', color: 'bg-pink-500/20 text-pink-400', heading: 'Wishlist' },
+                success: { icon: 'bi-check-circle-fill', color: 'bg-emerald-500/20 text-emerald-400', heading: 'Success' },
+                auth: { icon: 'bi-shield-lock-fill', color: 'bg-blue-500/20 text-blue-400', heading: 'Info' }
+            };
+            const cfg = configs[type] || configs.auth;
+            // add to notifications
+            notifications.unshift({ id: Date.now(), heading: cfg.heading, text: message, isRead: false, details: '' });
+            renderNotificationViewTray();
+
+            // show toast
+            const target = document.getElementById('dynamic-alert-target-zone');
+            if (!target) return;
+            const id = 'alert-' + Date.now();
+            const html = `<div id="${id}" class="glass-panel rounded-3xl px-5 py-3.5 flex items-center gap-4 backdrop-blur-xl border border-white/10 shadow-2xl transition-all duration-500 transform opacity-0 -translate-y-4 scale-95 pointer-events-auto">
+            <div class="w-9 h-9 rounded-full flex items-center justify-center ${cfg.color}"><i class="bi ${cfg.icon} text-sm"></i></div>
+            <div class="flex-1"><p class="text-[10px] font-bold text-white uppercase tracking-wider">${cfg.heading}</p><p class="text-[11px] text-white/70">${message}</p></div>
+          </div>`;
+            target.insertAdjacentHTML('beforeend', html);
+            const el = document.getElementById(id);
+            requestAnimationFrame(() => {
+                el.classList.remove('opacity-0', '-translate-y-4', 'scale-95');
+                el.classList.add('opacity-100', 'translate-y-0', 'scale-100');
+            });
+            setTimeout(() => {
+                el.classList.remove('opacity-100', 'translate-y-0', 'scale-100');
+                el.classList.add('opacity-0', '-translate-y-2', 'scale-95');
+                setTimeout(() => el.remove(), 500);
+            }, 3500);
+            // loading ring
+            setLoadingState(true);
+            setTimeout(() => setLoadingState(false), 800);
+        }
+
+        // ── EXPOSE VIEW OPENERS ──
+        window.openSearch = (e) => { e?.preventDefault(); openNavView('search-view', '30rem'); };
+        window.openCart = (e) => { e?.preventDefault(); openNavView('cart-view', '30rem'); };
+        window.openNotifications = (e) => { e?.preventDefault(); openNavView('notfications-view', '30rem'); };
+        window.openOrders = (e) => { e?.preventDefault(); openNavView('orders-view', '30rem'); };
+        window.openProfile = (e) => { e?.preventDefault(); openNavView('profile-view', '30rem'); };
+        window.openHome = (e) => { e?.preventDefault(); openNavView('home-view', '30rem'); };
+        window.openExplore = () => { openNavView('explore-view', '45rem'); };
+        window.closeAllViews = closeAllViews;
+        window.handleProductQuickBuy = () => showAlert('success', 'Quick Buy initiated');
+        window.handleProductAddToBag = () => showAlert('cart', 'Added to bag');
+        window.askOwnerOnWhatsApp = () => showAlert('auth', 'Chat on WhatsApp');
+
+        // ── INIT ──
+        document.addEventListener('DOMContentLoaded', function () {
+            // Render notifications
+            renderNotificationViewTray();
+            // Start with product details visible? We'll keep everything closed.
+            // But the nav itself is hidden; user clicks toggle to open.
+            // We'll add a small hint.
+            console.log('Nav ready');
+            // Ensure the nav is fully hidden initially.
+            document.getElementById('main-nav').classList.add('hidden');
+        });
+    </script>
+    <style>
+        /* =========================================================
+                           PRODUCT GRID / CATEGORY TRANSITIONS
+                           The grid now uses the SAME motion language as the
+                           heading text: fade + 12px vertical movement.
+                           ========================================================= */
+
+        /* ── Custom overrides / glass effects ── */
+        .glass-nav {
+            background: linear-gradient(rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.024)),
+                rgba(8, 8, 10, 0.5);
+            backdrop-filter: blur(32px) saturate(135%);
+            -webkit-backdrop-filter: blur(32px) saturate(135%);
+            box-shadow: 0 16px 45px rgba(0, 0, 0, 0.28), 0 4px 14px rgba(0, 0, 0, 0.18),
+                0 1px 0 rgba(255, 255, 255, 0.06) inset;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        /* scrollbar */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 3px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+        }
+
+        .scrollbar-none::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scrollbar-none {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* progress ring */
+        .progress-ring-fill {
+            transition: stroke-dashoffset 0.15s ease-out;
+        }
+
+        .nav-toggle.is-loading .progress-ring-fill {
+            animation: spin-ring 0.9s linear infinite;
+            stroke: #60a5fa;
+            transition: none;
+        }
+
+        @keyframes spin-ring {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* expand transition */
+        .expandable {
+            transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.3s ease,
+                transform 0.3s ease;
+            overflow: hidden;
+            max-height: 0;
+            opacity: 0;
+            transform: scale(0.96);
+        }
+
+        .expandable.open {
+            max-height: 300px;
+            /* enough for content */
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* view base */
+        .nav-view {
+            transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+                max-height 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 0;
+            transform: scale(0.96);
+            max-height: 0;
+            overflow: hidden;
+            padding: 0 0.5rem;
+        }
+
+        .nav-view.is-open {
+            opacity: 1;
+            transform: scale(1);
+            max-height: 80vh;
+            padding: 0 0.5rem 0.5rem;
+        }
+
+        .nav-view.hidden {
+            display: none;
+        }
+    </style>
+
+
+    <main class="flex flex-col items-center" style="
+    scale: 0.9;
+">
+
+        <div class="filter" data-filter="Gender">
+
+            <button type="button" class="filter-trigger" aria-expanded="false">
+
+                <span class="filter-value">
+                    Choose a Gender
+                </span>
+
+                <i class="bi bi-chevron-down"></i>
+
+            </button>
+
+
+            <div class="filter-dropdown">
+
+                <div class="filter-options">
+
+
+                    <button type="button" class="filter-option is-selected" data-value="all">
+                        Mens
+                    </button>
+
+
+                    <button type="button" class="filter-option" data-value="today">
+                        Woman
+                    </button>
+
+
+                    <button type="button" class="filter-option" data-value="week">
+                        Kids
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <section class="store-header-area w-full max-w-7xl mx-auto px-6 pt-8 pb-4 lines transition-all duration-500">
+
+            <!-- Main Store Card -->
+            <div
+                class="glass relative overflow-hidden rounded-3xl shadow-2xl backdrop-blur-xl transition-all duration-500">
+
+
+
+                <!-- Content -->
+                <div class="relative z-10 p-6 md:p-8">
+
+                    <!-- Top Row: Store Identity + Actions -->
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+
+                        <!-- Left: Store Info -->
+                        <div class="flex items-start gap-2 flex-shrink-0 flex-col flex-wrap">
+
+                            <!-- Logo / Avatar -->
+                            <div class="relative flex-shrink-0" style="
+    ">
+                                <div class="w-16 h-16 md:w-20 md:h-20 rounded-2xl p-[2px] shadow-lg ">
+                                    <div class="w-full h-full rounded-2xl bg-blac/90 dar:bg-black/90 flex items-center justify-center overflow-hidden"
+                                        style="background-image: url('https://static.vecteezy.com/system/resources/previews/012/464/679/original/minimal-peacock-logo-vector.jpg'); background-size: cover; background-position: center; background-blend-mode: overlay;">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Name & Description -->
+                            <div class="flex-1 min-w-0">
+                                <div class="flex items-center gap-3 flex-wrap">
+                                    <h1
+                                        class="text-xl font-bold tracking-tighter leading-[0.85] text-white dark:text-white">
+                                        Peacock Store</h1>
+                                    <!-- Verified Badge -->
+                                    <span
+                                        class="inline-flex items-center gap-1 px-2 py-0.5 bg-blue-500/20 dark:bg-blue-400/20 border border-blue-500/30 dark:border-blue-400/30 rounded-full">
+                                        <svg class="w-3 h-3 text-blue-400 dark:text-blue-300" fill="currentColor"
+                                            viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd"
+                                                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                                clip-rule="evenodd"></path>
+                                        </svg>
+                                        <span
+                                            class="text-[8px] md:text-[9px] font-bold uppercase tracking-wider text-blue-400 dark:text-blue-300">Verified</span>
+                                    </span>
+                                    <!-- Subscription Badge -->
+                                    <span
+                                        class="inline-flex items-center gap-1 px-2 py-0.5 bg-emerald-500/20 dark:bg-emerald-400/20 border border-emerald-500/30 dark:border-emerald-400/30 rounded-full">
+                                        <svg class="w-3 h-3 text-emerald-400 dark:text-emerald-300" fill="currentColor"
+                                            viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd"
+                                                d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 0h8v2H6V4zm0 4h8v2H6V8zm0 4h5v2H6v-2z"
+                                                clip-rule="evenodd"></path>
+                                        </svg>
+                                        <span
+                                            class="text-[8px] md:text-[9px] font-bold uppercase tracking-wider text-emerald-400 dark:text-emerald-300">Pro
+                                            Seller</span>
+                                    </span>
+                                </div>
+
+                                <p class="text-slate-300 dark:text-slate-300 text-xs mt-2 font-light">
+                                    Premium products curated for the modern lifestyle
+                                </p>
+
+                                <!-- Stats -->
+                                <div class="flex items-center gap-4 mt-2 flex-wrap">
+                                    <div class="flex items-center gap-1.5 text-slate-300 dark:text-slate-300">
+                                        <svg class="w-3.5 h-3.5 text-slate-400 dark:text-slate-400" fill="currentColor"
+                                            viewBox="0 0 20 20">
+                                            <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path>
+                                            <path fill-rule="evenodd"
+                                                d="M4 5a2 2 0 012-2h8a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm2 0h8v2H6V5zm0 4h8v2H6V9zm0 4h5v2H6v-2z"
+                                                clip-rule="evenodd"></path>
+                                        </svg>
+                                        <span class="text-xs font-medium">1,284 products</span>
+                                    </div>
+                                    <div class="w-px h-4 bg-white/10 dark:bg-white/10"></div>
+                                    <div class="flex items-center gap-1.5 text-slate-300 dark:text-slate-300">
+                                        <svg class="w-3.5 h-3.5 text-slate-400 dark:text-slate-400" fill="currentColor"
+                                            viewBox="0 0 20 20">
+                                            <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path>
+                                            <path fill-rule="evenodd"
+                                                d="M4 5a2 2 0 012-2h8a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm2 0h8v2H6V5zm0 4h8v2H6V9zm0 4h5v2H6v-2z"
+                                                clip-rule="evenodd"></path>
+                                        </svg>
+                                        <span class="text-xs font-medium">284 Followers</span>
+                                    </div>
+                                    <div class="w-px h-4 bg-white/10 dark:bg-white/10"></div>
+                                    <div class="flex items-center gap-1.5 text-slate-300 dark:text-slate-300">
+                                        <svg class="w-3.5 h-3.5 text-yellow-400 dark:text-yellow-300"
+                                            fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd"
+                                                d="M10 2a4 4 0 00-4 4v6a4 4 0 008 0V6a4 4 0 00-4-4zm-2 8v-2a2 2 0 114 0v2a2 2 0 11-4 0z"
+                                                clip-rule="evenodd"></path>
+                                        </svg>
+                                        <span class="text-xs font-medium">4.9 ★ (2.3k)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right: Actions -->
+                        <div class="flex items-center gap-2 flex-shrink-0 flex-wrap justify-end">
+
+                            <!-- Social Links -->
+                            <div class="flex items-center gap-1.5 mr-2 hidden">
+                                <a href="#"
+                                    class="w-9 h-9 rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 flex items-center justify-center text-slate-400 hover:text-white dark:text-white/40 dark:hover:text-white/80 hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 hover:scale-105 hover:border-white/30 dark:hover:border-white/30 shadow-[0_4px_20px_rgba(0,0,0,0.3),0_8px_40px_rgba(0,0,0,0.15),0_2px_10px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,0.15),inset_0_-1px_0_rgba(255,255,255,0.05)]">
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                        <path
+                                            d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.99h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z">
+                                        </path>
+                                    </svg>
+                                </a>
+                                <a href="#"
+                                    class="w-9 h-9 rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 flex items-center justify-center text-slate-400 hover:text-white dark:text-white/40 dark:hover:text-white/80 hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 hover:scale-105 hover:border-white/30 dark:hover:border-white/30 shadow-[0_4px_20px_rgba(0,0,0,0.3),0_8px_40px_rgba(0,0,0,0.15),0_2px_10px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,0.15),inset_0_-1px_0_rgba(255,255,255,0.05)]">
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                        <path
+                                            d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.937 4.937 0 004.604 3.417 9.868 9.868 0 01-6.102 2.104c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.054 0 13.999-7.496 13.999-13.986 0-.209 0-.42-.015-.63a9.936 9.936 0 002.46-2.548l-.047-.02z">
+                                        </path>
+                                    </svg>
+                                </a>
+                                <a href="#"
+                                    class="w-9 h-9 rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 flex items-center justify-center text-slate-400 hover:text-white dark:text-white/40 dark:hover:text-white/80 hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 hover:scale-105 hover:border-white/30 dark:hover:border-white/30 shadow-[0_4px_20px_rgba(0,0,0,0.3),0_8px_40px_rgba(0,0,0,0.15),0_2px_10px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,0.15),inset_0_-1px_0_rgba(255,255,255,0.05)]">
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                        <path
+                                            d="M12 0C5.373 0 0 5.373 0 12c0 5.302 3.438 9.8 8.205 11.387.6.113.82-.26.82-.578 0-.286-.011-1.04-.016-2.04-3.338.726-4.042-1.416-4.042-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.468-2.381 1.235-3.221-.123-.3-.535-1.523.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.241 2.876.118 3.176.77.84 1.233 1.911 1.233 3.221 0 4.609-2.804 5.624-5.476 5.921.43.372.823 1.102.823 2.222 0 1.606-.015 2.896-.015 3.293 0 .322.216.698.83.578C20.565 21.795 24 17.298 24 12c0-6.627-5.373-12-12-12z">
+                                        </path>
+                                    </svg>
+                                </a>
+                            </div>
+
+                            <!-- Divider -->
+
+                            <!-- Presentation Mode Toggle -->
+
+                            <button onclick="togglePresentationMode()"
+                                class="relative py-[8px] px-[10px] text-xs rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 flex items-center justify-center text-slate-400 hover:text-white dark:text-white/40 dark:hover:text-white/80 hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 hover:scale-105 hover:border-white/30 dark:hover:border-white/30 relative group">
+                                Cart Mode On
+                                <div
+                                    class="absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1.5 bg-black/90 dark:bg-black/90 text-white text-[10px] font-medium rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap pointer-events-none shadow-lg">
+                                    Switch To Gallery Mode
+                                </div>
+                            </button>
+
+                            <div class="w-px h-8 bg-white/10 dark:bg-white/10"></div>
+                            <!-- Copy Store Link -->
+                            <button onclick="copyStoreLink()"
+                                class="w-9 h-9 rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 flex items-center justify-center text-slate-400 hover:text-white dark:text-white/40 dark:hover:text-white/80 hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 hover:scale-105 hover:border-white/30 dark:hover:border-white/30 relative group">
+                                <i class="bi bi-link w-4 h-4"></i>
+                                <div
+                                    class="absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1.5 bg-black/90 dark:bg-black/90 text-white text-[10px] font-medium rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap pointer-events-none shadow-lg">
+                                    Copy Store Link
+                                </div>
+                            </button>
+                            <button onclick="FollowStore()"
+                                class="w-9 h-9 rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 flex items-center justify-center text-slate-400 hover:text-white dark:text-white/40 dark:hover:text-white/80 hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 hover:scale-105 hover:border-white/30 dark:hover:border-white/30 relative group">
+                                <i class="bi bi-node-plus-fill w-4 h-4"></i>
+                                <div
+                                    class="absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1.5 bg-black/90 dark:bg-black/90 text-white text-[10px] font-medium rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap pointer-events-none shadow-lg">
+                                    Follow Store
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Bottom Row: Quick Actions -->
+
+                    <div
+                        class="flex flex-wrap items-center gap-3 mt-5 pt-5 border-t border-white/5 dark:border-white/5">
+                        <button onclick="toggleFitItems()"
+                            class="px-4 py-2 rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 flex items-center gap-2 hover:scale-105 group relative">
+
+                            <span class=" mr-1 w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse"></span><span>8
+                                items fit you</span>
+                            <i id="fit-chevron"
+                                class="bi bi-chevron-down text-[0.6rem] transition-transform duration-300 group-hover:translate-y-0.5"
+                                style="transform: rotate(0deg);"></i>
+                        </button>
+
+                        <button
+                            class="px-4 py-2 rounded-xl bg-gradient-to-r from-blue-500 to-emerald-500 text-white text-xs font-bold uppercase tracking-wider hover:shadow-lg hover:shadow-blue-500/30 transition-all duration-300 flex items-center gap-2 hover:scale-105 active:scale-95 ml-auto">
+                            Next Store
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                                </path>
+                            </svg>
+                        </button>
+                    </div>
+
+
+                </div>
+                <a href="#"
+                    class="nav-bubble w-9 h-9 rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 flex items-center justify-center text-slate-400 hover:text-white dark:text-white/40 dark:hover:text-white/80 hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 hover:scale-105 hover:border-white/30 dark:hover:border-white/30 absolute z-[100] top-2.5 right-2.5"
+                    id="themeToggle" onclick="toggleTheme(event)">
+                    <i id="theme-icon" class="bi bi-lightbulb text-base"></i>
+                </a>
+            </div>
+
+            <script>
+                function toggleTheme(event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+
+                    const body = document.body;
+                    const themeIcon = document.getElementById('theme-icon');
+
+                    // Toggle dark mode class
+                    body.classList.toggle('dark-mode');
+
+                    // Check if dark mode is active
+                    if (body.classList.contains('dark-mode')) {
+                        // Dark mode - reduce brightness of the background image
+                        body.style.setProperty('--bg-brightness', '0.4');
+                        body.style.backgroundColor = '#0a0a0a';
+                        themeIcon.className = 'bi bi-sun text-base';
+                        themeIcon.style.color = '#FFD700';
+
+                        // Save preference
+                        localStorage.setItem('theme', 'dark');
+                    } else {
+                        // Light mode - restore brightness
+                        body.style.setProperty('--bg-brightness', '1');
+                        body.style.backgroundColor = '';
+                        themeIcon.className = 'bi bi-lightbulb text-base';
+                        themeIcon.style.color = '';
+
+                        // Save preference
+                        localStorage.setItem('theme', 'light');
+                    }
+                }
+
+                // Load saved theme
+                function loadTheme() {
+                    const savedTheme = localStorage.getItem('theme');
+                    if (savedTheme === 'dark') {
+                        const body = document.body;
+                        const themeIcon = document.getElementById('theme-icon');
+
+                        body.classList.add('dark-mode');
+                        body.style.setProperty('--bg-brightness', '0.4');
+                        body.style.backgroundColor = '#0a0a0a';
+                        themeIcon.className = 'bi bi-sun text-base';
+                        themeIcon.style.color = '#FFD700';
+                    }
+                }
+
+                document.addEventListener('DOMContentLoaded', loadTheme);
+                // Auth functions (demo)
+                function signIn() {
+                    alert('🔐 Redirecting to sign in page...\n(Full access: complete orders, follow stores, save products, etc.)');
+                    if (confirm('Simulate login as James Delaney?')) {
+                        location.reload();
+                    }
+                }
+
+                function signOut() {
+                    if (confirm('Sign out from your account?')) {
+                        alert('👋 Signed out successfully!');
+                    }
+                }
+
+                function copyStoreLink() {
+                    navigator.clipboard?.writeText('https://matager.store/matager-store').then(() => {
+                        alert('✅ Store link copied!');
+                    }).catch(() => alert('📋 Copy: https://matager.store/matager-store'));
+                }
+
+                function togglePresentationMode() {
+                    alert('🎬 Presentation mode toggled (demo)');
+                }
+
+                // Add this to your existing script section
+
+                /**
+                 * Toggle the Fit Items expandable section
+                 */
+                function toggleFitItems() {
+                    const container = document.getElementById('fitItemsContainer');
+                    const chevron = document.getElementById('fit-chevron');
+
+                    if (!container) return;
+
+                    const isOpen = container.classList.contains('is-open');
+
+                    if (isOpen) {
+                        container.classList.remove('is-open');
+                        if (chevron) chevron.style.transform = 'rotate(0deg)';
+                    } else {
+                        container.classList.add('is-open');
+                        if (chevron) chevron.style.transform = 'rotate(180deg)';
+                    }
+                }
+
+                /**
+                 * Close the Fit Items section
+                 */
+
+
+                /**
+                 * Open Fit Items section (useful for other triggers)
+                 */
+                function openFitItems() {
+                    const container = document.getElementById('fitItemsContainer');
+                    const chevron = document.getElementById('fit-chevron');
+
+                    if (container) {
+                        container.classList.add('is-open');
+                        if (chevron) chevron.style.transform = 'rotate(180deg)';
+                    }
+                }
+            </script>
+
+            <!-- ADD THIS AFTER THE STORE HEADER CARD (inside the store-header-area section) -->
+
+            <!-- ===== FIT ITEMS EXPANDABLE ===== -->
+            <div id="fitItemsContainer" class="glass fit-items-container backdrop-blur-xl">
+
+
+                <div class="mx-5 space-y-5">
+
+                    <!-- ROW 1: left "fit me" + right "edit my fit" link -->
+                    <div class="flex items-center justify-between flex-wrap gap-2">
+                        <span class="title">🎯 Items That Fit Me</span><button
+                            onclick="alert('edit fit panel would open')"
+                            class="group flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-xl text-[11px] font-black uppercase transition-all active:scale-95 shadow-md shadow-black/5 dark:shadow-none bg-gradient-to-r from-blue-500 to-emerald-500 text-white">
+                            Edit my fit
+                            <i class="bi bi-chevron-right transition-transform group-hover:translate-x-1"></i>
+                        </button>
+
+                    </div>
+
+                    <!-- ROW 2: scrollable categories badges (horizontal) -->
+                    <div class="overflow-x-auto pb-2 snap-x scrollbar-none -mx-1 px-1">
+                        <div class="flex gap-2.5 w-max">
+                            <!-- active badge example: 'All' stays active -->
+                            <span
+                                class="px-4 py-2 rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 flex items-center gap-2 hover:scale-105">
+                                All
+                            </span>
+                            <span
+                                class="px-4 py-2 rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 flex items-center gap-2 hover:scale-105"
+                                onclick="filterGrid('tshirt')">T‑shirts
+                            </span>
+                            <span
+                                class="px-4 py-2 rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 flex items-center gap-2 hover:scale-105"
+                                onclick="filterGrid('hoodie')">Hoodies
+                            </span>
+                            <span
+                                class="px-4 py-2 rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 flex items-center gap-2 hover:scale-105"
+                                onclick="filterGrid('pants')">
+                                Pants
+                            </span>
+                            <span
+                                class="px-4 py-2 rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 flex items-center gap-2 hover:scale-105"
+                                onclick="filterGrid('shoes')">Shoes
+                            </span>
+                            <span
+                                class="px-4 py-2 rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 flex items-center gap-2 hover:scale-105"
+                                onclick="filterGrid('accessory')">
+                                Accessories
+                            </span>
+                            <span
+                                class="px-4 py-2 rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 flex items-center gap-2 hover:scale-105"
+                                onclick="filterGrid('adidas')">
+                                Adidas
+                            </span>
+                            <span
+                                class="px-4 py-2 rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 flex items-center gap-2 hover:scale-105"
+                                onclick="filterGrid('nike')">
+                                Nike
+                            </span>
+                            <span
+                                class="px-4 py-2 rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 flex items-center gap-2 hover:scale-105"
+                                onclick="filterGrid('newbalance')">
+                                New Balance
+                            </span>
+                        </div>
+
+
+
+                    </div>
+
+                    <!-- ROW 3: 2‑row scrollable grid of items (founded items) -->
+                    <div class="mt-1">
+                        <!-- grid container: 2 rows, auto columns, scrollable vertically if many items, but we limit to 2 rows visible + scroll -->
+                        <div id="item-grid"
+                            class="flex gap-3 overflow-x-auto pb-1 pt-5 border-t border-white/5 dark:border-white/5 scrollbar-none snap-x">
+
+                            <div class="product-card glass rounded-[1rem] group cursor-pointer overflow-hidden transition-all duration-500 relative bg-black/70"
+                                onclick="event.stopPropagation(); openQuickLook('PROD_001')"
+                                style="width: 200px; height: 250px;">
+                                <div class="aspect-[4/5] overflow-hidden relative w-full h-full">
+                                    <div class="absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out group-hover:scale-105 group-hover:blur-sm"
+                                        style="background-image:url('https://assets.adidas.com/images/w_1880,f_auto,q_auto/a4ff4a779ee34deca8cc9a6f1f411440_9366/KC6611_HM1.jpg');">
+                                    </div>
+                                    <div
+                                        class="absolute top-4 left-4 bg-red-950/80 backdrop-blur-md border border-red-500/30 text-red-400 text-[8px] uppercase font-black tracking-wider px-2 py-1 rounded-md z-40 shadow-md">
+                                        50% off</div>
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-6 translate-y-12 opacity-0 transition-all duration-500 ease-in-out group-hover:translate-y-0 group-hover:opacity-100 z-40">
+                                        <div
+                                            class="transform translate-y-4 transition-transform duration-700 delay-150 group-hover:translate-y-0">
+                                            <h4 class="font-bold text-lg text-white leading-tight">Adidas classic
+                                                t-shirt
+                                            </h4>
+                                            <p
+                                                class="text-[10px] mb-3 opacity-60 tracking-[0.2em] uppercase text-white">
+                                                ADIDAS
+                                            </p>
+                                            <div class="flex items-center justify-between">
+                                                <span class="text-[10px] font-bold text-white tracking-wide">EGP
+                                                    4,500</span>
+                                                <span
+                                                    class="text-[10px] text-emerald-400 font-bold flex items-center gap-1">Free
+                                                    Delivery</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- small hint: click badge to filter -->
+                    </div>
+
+                    <div
+                        class="text-[9px] text-zinc-400 dark:text-zinc-500 mt-2 flex justify-between items-center gap-2">
+                        <span>32 item found</span>
+
+                        <div>
+                            <span>click badge to filter</span>
+                            <button onclick="resetGrid()"
+                                class="text-[9px] font-medium text-blue-600 dark:text-blue-400 hover:underline">reset</button>
+                        </div>
+                    </div>
+
+                    <!-- hidden template / original edit panel not used, but we keep the button style as reference -->
+                </div>
+            </div>
+
+        </section>
+
+        <section id="products"
+            class="w-full max-w-7xl mx-auto px-6 pt-8 pb-4 overflow-hidden lines transition-all duration-500">
+
+            <div
+                class="glass w-full max-w-7xl mx-auto relative z-10 p-6 overflow-hidden rounded-3xl backdrop-blur-xl transition-all duration-500">
+
+                <!-- Category Navigation -->
+                <div class="flex flex-wrap gap-4 mb-8">
+                    <button onclick="filterProducts('featured', this)"
+                        class="category-btn px-4 py-2 rounded-xl bg-white/5 dark:bg-white/5 border dark:border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 flex items-center gap-2 hover:scale-105 active border-slate-500">Featured</button>
+                    <button onclick="filterProducts('best-seller', this)"
+                        class="category-btn px-4 py-2 rounded-xl bg-white/5 dark:bg-white/5 border dark:border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 flex items-center gap-2 hover:scale-105 border-white/10">Best
+                        Seller</button>
+                    <button onclick="filterProducts('limited-items', this)"
+                        class="category-btn px-4 py-2 rounded-xl bg-white/5 dark:bg-white/5 border dark:border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 flex items-center gap-2 hover:scale-105 border-white/10">Limited
+                        Items</button>
+                    <button onclick="filterProducts('sale-items', this)"
+                        class="category-btn px-4 py-2 rounded-xl bg-white/5 dark:bg-white/5 border dark:border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 flex items-center gap-2 hover:scale-105 border-white/10">Sale
+                        Items</button>
+                    <button onclick="filterProducts('Collections-items', this)"
+                        class="category-btn px-4 py-2 rounded-xl bg-white/5 dark:bg-white/5 border dark:border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 flex items-center gap-2 hover:scale-105 border-white/10">Collections</button>
+                </div>
+
+                <!-- Header -->
+                <div class="w-full max-w-7xl flex flex-col md:flex-row justify-between items-center mb-8 gap-8">
+                    <div class="relative min-h-[100px] px-1 flex-1 w-full">
+
+                        <!-- Featured -->
+                        <div id="text-featured" class="text-content-wrapper active-text">
+                            <h2 class="text-5xl md:text-7xl font-bold tracking-tighter leading-[0.85] mb-4">Featured.
+                            </h2>
+                            <p class="text-slate-500 text-base md:text-lg max-w-l font-light">Carefully
+                                selected pieces
+                                designed to elevate your daily environment.</p>
+                        </div>
+
+                        <!-- Best Sellers -->
+                        <div id="text-best-seller" class="text-content-wrapper hidden-text">
+                            <h2 class="text-5xl md:text-7xl font-bold tracking-tighter leading-[0.85] mb-4">Best
+                                Sellers.
+                            </h2>
+                            <p class="text-slate-500 text-base md:text-lg max-w-l font-light">The items our
+                                community
+                                loves most, tested and proven by time.</p>
+                        </div>
+
+                        <!-- Sale Items -->
+                        <div id="text-sale-items" class="text-content-wrapper hidden-text">
+                            <h2 class="text-5xl md:text-7xl font-bold tracking-tighter leading-[0.85] mb-4">On Sale.
+                            </h2>
+                            <p class="text-slate-500 text-base md:text-lg max-w-l font-light">High-end
+                                essentials
+                                currently available at limited-time pricing.</p>
+                        </div>
+
+                        <!-- Sale Items -->
+                        <div id="text-limited-items" class="text-content-wrapper hidden-text">
+                            <h2 class="text-5xl md:text-7xl font-bold tracking-tighter leading-[0.85] mb-4">Limited
+                                Picks.
+                            </h2>
+                            <p class="text-slate-500 text-base md:text-lg max-w-l font-light">Exclusive
+                                drops,
+                                limited
+                                quantities</p>
+                        </div>
+
+                        <!-- Collections Items -->
+                        <div id="text-Collections-items" class="text-content-wrapper hidden-text">
+                            <h2 class="text-5xl md:text-7xl font-bold tracking-tighter leading-[0.85] mb-4">Collections.
+                            </h2>
+                            <p class="text-slate-500 text-base md:text-lg max-w-l font-light">High-end
+                                essentials
+                                Collections available Now.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grid Controls -->
+                <div class="flex items-center gap-3 pb-4" style="display:flex; flex-direction:row-reverse;">
+                    <span class="text-[10px] font-bold opacity-40 text-black dark:text-white mr-2" id="item-count">24
+                        Items</span>
+                    <div class="flex bg-black/5 dark:bg-white/5 p-1 rounded-xl gap-1">
+                        <!-- 1 Row: Bigger cards -->
+                        <button onclick="setExploreGrid(1)"
+                            class="grid-toggle-btn w-7 h-7 flex items-center justify-center rounded-lg hover:bg-white dark:hover:bg-white/10 transition-all text-sm text-black dark:text-white"
+                            data-rows="1">
+                            <i class="bi bi-square-fill"></i>
+                        </button>
+                        <!-- 2 Rows: Medium cards (DEFAULT) -->
+                        <button onclick="setExploreGrid(2)"
+                            class="grid-toggle-btn w-7 h-7 flex items-center justify-center rounded-lg hover:bg-white dark:hover:bg-white/10 transition-all text-sm text-black dark:text-white border active border-slate-500/60"
+                            data-rows="2">
+                            <i class="bi bi-grid-fill"></i>
+                        </button>
+                        <!-- 3 Rows: Smaller cards -->
+                        <button onclick="setExploreGrid(3)"
+                            class="grid-toggle-btn w-7 h-7 flex items-center justify-center rounded-lg hover:bg-white dark:hover:bg-white/10 transition-all text-sm text-black dark:text-white"
+                            data-rows="3">
+                            <i class="bi bi-grid-3x3-gap-fill"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- ====== ROW-CONTROLLED GRID ====== -->
+                <div class="relative w-full product-grid-stage" style="height: 608px;">
+
+                    <!-- ★ Featured Grid (visible by default) -->
+                    <div id="grid-featured" class="scroll-grid-x visible-grid" data-rows="2" style="height: 608px;">
+
+                        <!-- product card 1 -->
+                        <div class="product-card glass rounded-[1rem] group cursor-pointer overflow-hidden transition-all duration-500 relative bg-black/70"
+                            onclick="event.stopPropagation(); openQuickLook('PROD_001')"
+                            style="width: 200px; height: 250px;">
+                            <div class="aspect-[4/5] overflow-hidden relative w-full h-full">
+                                <div class="absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out group-hover:scale-105 group-hover:blur-sm"
+                                    style="background-image:url('https://assets.adidas.com/images/w_1880,f_auto,q_auto/a4ff4a779ee34deca8cc9a6f1f411440_9366/KC6611_HM1.jpg');">
+                                </div>
+                                <div
+                                    class="absolute top-4 left-4 bg-red-950/80 backdrop-blur-md border border-red-500/30 text-red-400 text-[8px] uppercase font-black tracking-wider px-2 py-1 rounded-md z-40 shadow-md">
+                                    50% off</div>
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-6 translate-y-12 opacity-0 transition-all duration-500 ease-in-out group-hover:translate-y-0 group-hover:opacity-100 z-40">
+                                    <div
+                                        class="transform translate-y-4 transition-transform duration-700 delay-150 group-hover:translate-y-0">
+                                        <h4 class="font-bold text-lg text-white leading-tight">Adidas classic t-shirt
+                                        </h4>
+                                        <p class="text-[10px] mb-3 opacity-60 tracking-[0.2em] uppercase text-white">
+                                            ADIDAS
+                                        </p>
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-[10px] font-bold text-white tracking-wide">EGP
+                                                4,500</span>
+                                            <span
+                                                class="text-[10px] text-emerald-400 font-bold flex items-center gap-1">Free
+                                                Delivery</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div> <!-- end grid-featured -->
+
+                    <!-- Best Seller Grid (empty placeholder) -->
+                    <div id="grid-best-seller" class="scroll-grid-x hidden-grid" data-rows="2" style="height: 608px;">
+                    </div>
+
+                    <!-- Limited items Items Grid (empty placeholder) -->
+                    <div id="grid-sale-items" class="scroll-grid-x hidden-grid" data-rows="2" style="height: 608px;">
+                    </div>
+
+                    <!-- Sale Items Grid (empty placeholder) -->
+                    <div id="grid-limited-items" class="scroll-grid-x hidden-grid" data-rows="2" style="height: 608px;">
+                    </div>
+
+                    <!-- Collections Grid (empty placeholder) -->
+                    <div id="grid-Collections-items" class="scroll-grid-x hidden-grid" data-rows="2"
+                        style="height: 608px;">
+                    </div>
+
+
+                </div>
+
+                <!-- ====== STYLES ====== -->
+                <style>
+                    /* =========================================================
+                           PRODUCT GRID / CATEGORY TRANSITIONS
+                           The grid now uses the SAME motion language as the
+                           heading text: fade + 12px vertical movement.
+                           ========================================================= */
+
+                    .product-grid-stage {
+                        position: relative;
+                        transition: height 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                    }
+
+                    .scroll-grid-x {
+                        position: absolute;
+                        inset: 0;
+
+                        display: flex;
+                        flex-direction: column;
+                        flex-wrap: wrap;
+                        gap: 0.5rem;
+                        padding: 10px;
+                        padding-bottom: 0.75rem;
+
+                        overflow-x: auto;
+                        overflow-y: visible;
+
+                        -webkit-overflow-scrolling: touch;
+                        scroll-snap-type: x mandatory;
+                        scroll-behavior: smooth;
+                        align-content: flex-start;
+
+                        /* Same transition as .text-content-wrapper */
+                        opacity: 0;
+                        transform: translateY(12px);
+                        visibility: hidden;
+                        pointer-events: none;
+
+                        transition:
+                            opacity 0.5s ease,
+                            transform 0.5s ease,
+                            visibility 0s linear 0.5s;
+                    }
+
+                    .scroll-grid-x.visible-grid {
+                        opacity: 1;
+                        transform: translateY(0);
+                        visibility: visible;
+                        pointer-events: auto;
+
+                        transition:
+                            opacity 0.5s ease,
+                            transform 0.5s ease,
+                            visibility 0s linear 0s;
+                    }
+
+                    /* Old grid gets the same upward exit movement as the text */
+                    .scroll-grid-x.grid-exit {
+                        opacity: 0;
+                        transform: translateY(-12px);
+                        visibility: visible;
+                        pointer-events: none;
+
+                        transition:
+                            opacity 0.5s ease,
+                            transform 0.5s ease,
+                            visibility 0s linear 0s;
+                    }
+
+                    /* ---------------------------------------------------------
+                           Product cards
+                           --------------------------------------------------------- */
+
+                    .scroll-grid-x>.product-card {
+                        flex: 0 0 auto;
+                        scroll-snap-align: start;
+
+                        width: 180px;
+                        height: 225px;
+
+                        border-radius: 1rem;
+                        overflow: hidden;
+
+                        /*
+                             * Cards use the exact same visual language as the
+                             * category text: opacity + translateY(12px).
+                             */
+                        opacity: 0;
+                        transform: translateY(12px);
+
+                        transition:
+                            opacity 0.5s ease,
+                            transform 0.5s ease,
+                            width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                            height 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                    }
+
+                    /* Cards enter when their category becomes active */
+                    .scroll-grid-x.visible-grid>.product-card {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+
+                    /* Cards leave with the same upward exit as the heading */
+                    .scroll-grid-x.grid-exit>.product-card {
+                        opacity: 0;
+                        transform: translateY(-12px);
+                    }
+
+                    /* Small stagger so the cards don't appear all at once */
+                    .scroll-grid-x.visible-grid>.product-card:nth-child(1) {
+                        transition-delay: 0.00s;
+                    }
+
+                    .scroll-grid-x.visible-grid>.product-card:nth-child(2) {
+                        transition-delay: 0.04s;
+                    }
+
+                    .scroll-grid-x.visible-grid>.product-card:nth-child(3) {
+                        transition-delay: 0.08s;
+                    }
+
+                    .scroll-grid-x.visible-grid>.product-card:nth-child(4) {
+                        transition-delay: 0.12s;
+                    }
+
+                    .scroll-grid-x.visible-grid>.product-card:nth-child(5) {
+                        transition-delay: 0.16s;
+                    }
+
+                    .scroll-grid-x.visible-grid>.product-card:nth-child(6) {
+                        transition-delay: 0.20s;
+                    }
+
+                    .scroll-grid-x.visible-grid>.product-card:nth-child(7) {
+                        transition-delay: 0.24s;
+                    }
+
+                    .scroll-grid-x.visible-grid>.product-card:nth-child(8) {
+                        transition-delay: 0.28s;
+                    }
+
+                    .scroll-grid-x.visible-grid>.product-card:nth-child(9) {
+                        transition-delay: 0.32s;
+                    }
+
+                    .scroll-grid-x.visible-grid>.product-card:nth-child(10) {
+                        transition-delay: 0.36s;
+                    }
+
+                    .scroll-grid-x.visible-grid>.product-card:nth-child(11) {
+                        transition-delay: 0.40s;
+                    }
+
+                    .scroll-grid-x.visible-grid>.product-card:nth-child(12) {
+                        transition-delay: 0.44s;
+                    }
+
+                    /* Exit immediately instead of waiting for the old
+                           staggered enter delays */
+                    .scroll-grid-x.grid-exit>.product-card {
+                        transition-delay: 0s !important;
+                    }
+
+                    /* Card inner wrapper fills the card */
+                    .scroll-grid-x>.product-card>.aspect-\[4\/5\] {
+                        width: 100% !important;
+                        height: 100% !important;
+                        aspect-ratio: 4/5;
+                    }
+
+                    /* Custom scrollbar */
+                    .scroll-grid-x::-webkit-scrollbar {
+                        height: 4px;
+                    }
+
+                    .scroll-grid-x::-webkit-scrollbar-track {
+                        background: rgba(255, 255, 255, 0.05);
+                        border-radius: 20px;
+                    }
+
+                    .scroll-grid-x::-webkit-scrollbar-thumb {
+                        background: rgba(255, 255, 255, 0.25);
+                        border-radius: 20px;
+                    }
+
+                    /* Keep the old class names for compatibility */
+                    .hidden-grid {
+                        opacity: 0;
+                        transform: translateY(12px);
+                        visibility: hidden;
+                        pointer-events: none;
+                    }
+
+                    .visible-grid {
+                        opacity: 1;
+                        transform: translateY(0);
+                        visibility: visible;
+                        pointer-events: auto;
+                    }
+
+                    /* ---------------------------------------------------------
+                           Heading/text transitions — preserved and slightly
+                           synchronized with the product cards.
+                           --------------------------------------------------------- */
+
+                    .text-content-wrapper {
+                        transition:
+                            opacity 0.5s ease,
+                            transform 0.5s ease;
+
+                        opacity: 0;
+                        transform: translateY(12px);
+
+                        pointer-events: none;
+
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                    }
+
+                    .text-content-wrapper.active-text {
+                        opacity: 1;
+                        transform: translateY(0);
+                        pointer-events: auto;
+                        position: relative;
+                    }
+
+                    .text-content-wrapper.hidden-text {
+                        opacity: 0;
+                        transform: translateY(12px);
+                        pointer-events: none;
+                        position: absolute;
+                    }
+
+                    .text-content-wrapper.exit-text {
+                        opacity: 0;
+                        transform: translateY(-12px);
+                        pointer-events: none;
+                    }
+
+                    /* Category button active state */
+                    .category-btn.active {
+                        border-color: #64748b !important;
+                    }
+
+                    .category-btn:not(.active) {
+                        border-color: rgba(255, 255, 255, 0.1);
+                    }
+
+                    /* Grid toggle button active */
+                    .grid-toggle-btn.active {
+                        border: 1px solid #64748b;
+                        background: rgba(100, 116, 139, 0.15);
+                    }
+
+                    .grid-toggle-btn:not(.active) {
+                        border: 1px solid transparent;
+                        opacity: 0.5;
+                    }
+
+                    .grid-toggle-btn:hover {
+                        opacity: 1;
+                    }
+
+                    /* Scroll bar animation */
+                    @keyframes scroll-bar {
+                        0% {
+                            transform: translateX(-100%);
+                        }
+
+                        100% {
+                            transform: translateX(300%);
+                        }
+                    }
+
+                    .animate-scroll-bar {
+                        animation: scroll-bar 2.4s ease-in-out infinite;
+                    }
+
+                    /* Reduced motion */
+                    @media (prefers-reduced-motion: reduce) {
+
+                        .scroll-grid-x,
+                        .scroll-grid-x>.product-card,
+                        .product-grid-stage,
+                        .text-content-wrapper {
+                            transition-duration: 0.01ms !important;
+                            transition-delay: 0ms !important;
+                        }
+                    }
+                </style>
+
+                <!-- ====== JAVASCRIPT ====== -->
+                <script>
+                    // =========================================================
+                    // PRODUCT / CATEGORY SYSTEM
+                    // =========================================================
+
+                    const ROW_CONFIG = {
+                        1: { w: 224, h: 280, containerH: 310 },
+                        2: { w: 200, h: 250, containerH: 540 },
+                        3: { w: 176, h: 220, containerH: 700 }
+                    };
+
+                    let currentRows = 2;
+                    let currentCategory = 'best-seller';
+
+                    /*
+                     * Used to cancel an old category transition when the
+                     * user clicks another category quickly.
+                     */
+                    let categoryTransitionTimer = null;
+
+
+                    // =========================================================
+                    // APPLY GRID SIZE
+                    // =========================================================
+
+                    function applyRowConfig(gridEl, rows) {
+                        if (!gridEl) return;
+
+                        const cfg = ROW_CONFIG[rows];
+                        if (!cfg) return;
+
+                        gridEl.style.height = cfg.containerH + 'px';
+
+                        const cards = gridEl.querySelectorAll('.product-card');
+
+                        cards.forEach(card => {
+                            card.style.width = cfg.w + 'px';
+                            card.style.height = cfg.h + 'px';
+                        });
+
+                        gridEl.dataset.rows = rows;
+
+                        /*
+                         * The grids are layered now, so their parent needs
+                         * the same height as the active grid.
+                         */
+                        const stage = gridEl.closest('.product-grid-stage');
+
+                        if (stage && gridEl.classList.contains('visible-grid')) {
+                            stage.style.height = cfg.containerH + 'px';
+                        }
+                    }
+
+
+                    // =========================================================
+                    // UPDATE ALL GRIDS
+                    // =========================================================
+
+                    function updateAllGrids(rows) {
+                        currentRows = rows;
+
+                        const allGrids =
+                            document.querySelectorAll('.scroll-grid-x');
+
+                        allGrids.forEach(grid => {
+                            applyRowConfig(grid, rows);
+                        });
+
+                        /*
+                         * Make sure the stage follows the active grid.
+                         */
+                        const activeGrid =
+                            document.querySelector('.scroll-grid-x.visible-grid');
+
+                        if (activeGrid) {
+                            const cfg = ROW_CONFIG[rows];
+
+                            if (cfg) {
+                                const stage =
+                                    activeGrid.closest('.product-grid-stage');
+
+                                if (stage) {
+                                    stage.style.height = cfg.containerH + 'px';
+                                }
+                            }
+                        }
+                    }
+
+
+                    // =========================================================
+                    // GRID ROW SWITCH
+                    // =========================================================
+
+                    function setExploreGrid(rows) {
+
+                        const r = Math.min(3, Math.max(1, rows));
+
+                        if (r === currentRows) return;
+
+
+                        // Update button states
+                        document.querySelectorAll('.grid-toggle-btn').forEach(btn => {
+
+                            btn.classList.remove(
+                                'active',
+                                'border-slate-500/60'
+                            );
+
+                            const btnRows =
+                                parseInt(btn.dataset.rows, 10);
+
+                            if (btnRows === r) {
+                                btn.classList.add(
+                                    'active',
+                                    'border-slate-500/60'
+                                );
+                            }
+                        });
+
+
+                        updateAllGrids(r);
+                    }
+
+
+                    // =========================================================
+                    // CATEGORY TRANSITION
+                    // =========================================================
+
+                    function filterProducts(targetId, btn) {
+
+                        if (!targetId) return;
+
+
+                        // Prevent broken transitions from very fast clicks
+                        if (categoryTransitionTimer) {
+                            clearTimeout(categoryTransitionTimer);
+                            categoryTransitionTimer = null;
+                        }
+
+
+                        // -----------------------------------------------------
+                        // Category buttons
+                        // -----------------------------------------------------
+
+                        document
+                            .querySelectorAll('.category-btn')
+                            .forEach(b => {
+
+                                b.classList.remove(
+                                    'active',
+                                    'border-slate-500'
+                                );
+
+                                b.classList.add('border-white/10');
+                            });
+
+
+                        if (btn) {
+                            btn.classList.add(
+                                'active',
+                                'border-slate-500'
+                            );
+
+                            btn.classList.remove('border-white/10');
+                        }
+
+
+                        const previousCategory = currentCategory;
+
+                        if (previousCategory === targetId) return;
+
+                        currentCategory = targetId;
+
+
+                        // -----------------------------------------------------
+                        // TEXT TRANSITION
+                        // Same 0.5s / 12px movement as before
+                        // -----------------------------------------------------
+
+                        const allTextWrappers =
+                            document.querySelectorAll(
+                                '.text-content-wrapper'
+                            );
+
+                        const targetText =
+                            document.getElementById(
+                                `text-${targetId}`
+                            );
+
+
+                        allTextWrappers.forEach(wrap => {
+
+                            if (wrap.classList.contains('active-text')) {
+
+                                wrap.classList.remove('active-text');
+
+                                wrap.classList.remove('hidden-text');
+
+                                wrap.classList.add('exit-text');
+
+                                setTimeout(() => {
+
+                                    if (
+                                        !wrap.classList.contains('active-text')
+                                    ) {
+                                        wrap.classList.remove('exit-text');
+                                        wrap.classList.add('hidden-text');
+                                    }
+
+                                }, 500);
+                            }
+                        });
+
+
+                        if (targetText) {
+
+                            targetText.classList.remove(
+                                'hidden-text',
+                                'exit-text'
+                            );
+
+                            /*
+                             * Force the browser to register the hidden
+                             * state before activating the new state.
+                             * This guarantees the animation runs every time.
+                             */
+                            void targetText.offsetWidth;
+
+                            targetText.classList.add('active-text');
+                        }
+
+
+                        // -----------------------------------------------------
+                        // PRODUCT GRID TRANSITION
+                        // -----------------------------------------------------
+
+                        const allGrids =
+                            document.querySelectorAll('.scroll-grid-x');
+
+                        const currentGrid =
+                            document.querySelector(
+                                '.scroll-grid-x.visible-grid'
+                            );
+
+                        const targetGrid =
+                            document.getElementById(
+                                `grid-${targetId}`
+                            );
+
+
+                        if (!targetGrid) return;
+
+
+                        // If clicking the already active grid, don't animate
+                        if (currentGrid === targetGrid) return;
+
+
+                        // -----------------------------------------------------
+                        // EXIT CURRENT CARDS
+                        // -----------------------------------------------------
+
+                        if (currentGrid) {
+
+                            currentGrid.classList.remove(
+                                'visible-grid'
+                            );
+
+                            /*
+                             * Do NOT hide it immediately.
+                             * Keep it visible for the 0.5s exit animation.
+                             */
+                            currentGrid.classList.add('grid-exit');
+                        }
+
+
+                        // -----------------------------------------------------
+                        // PREPARE NEW GRID
+                        // -----------------------------------------------------
+
+                        allGrids.forEach(grid => {
+
+                            if (grid !== currentGrid && grid !== targetGrid) {
+
+                                grid.classList.remove(
+                                    'visible-grid',
+                                    'grid-exit'
+                                );
+
+                                grid.classList.add('hidden-grid');
+                            }
+                        });
+
+
+                        targetGrid.classList.remove(
+                            'hidden-grid',
+                            'grid-exit'
+                        );
+
+
+                        /*
+                         * Force initial transform/opacity state before
+                         * activating the grid. This is what makes the
+                         * category switch visibly animate every time.
+                         */
+                        targetGrid.classList.remove('visible-grid');
+
+                        void targetGrid.offsetWidth;
+
+                        applyRowConfig(targetGrid, currentRows);
+
+                        targetGrid.classList.add('visible-grid');
+
+
+                        // -----------------------------------------------------
+                        // Clean up old grid AFTER animation
+                        // -----------------------------------------------------
+
+                        if (currentGrid) {
+
+                            categoryTransitionTimer = setTimeout(() => {
+
+                                currentGrid.classList.remove(
+                                    'grid-exit'
+                                );
+
+                                currentGrid.classList.add(
+                                    'hidden-grid'
+                                );
+
+                                categoryTransitionTimer = null;
+
+                            }, 520);
+                        }
+                    }
+
+
+                    // =========================================================
+                    // INITIALIZATION
+                    // =========================================================
+
+                    document.addEventListener(
+                        'DOMContentLoaded',
+                        function () {
+
+                            const defaultRows = 2;
+
+                            currentRows = defaultRows;
+
+
+                            // Default grid buttons
+                            document
+                                .querySelectorAll('.grid-toggle-btn')
+                                .forEach(btn => {
+
+                                    const r =
+                                        parseInt(
+                                            btn.dataset.rows,
+                                            10
+                                        );
+
+                                    if (r === defaultRows) {
+
+                                        btn.classList.add(
+                                            'active',
+                                            'border-slate-500/60'
+                                        );
+
+                                    } else {
+
+                                        btn.classList.remove(
+                                            'active',
+                                            'border-slate-500/60'
+                                        );
+                                    }
+                                });
+
+
+                            // Apply card dimensions to every grid
+                            document
+                                .querySelectorAll('.scroll-grid-x')
+                                .forEach(grid => {
+
+                                    applyRowConfig(
+                                        grid,
+                                        defaultRows
+                                    );
+                                });
+
+
+                            // Make sure the currently visible grid is ready
+                            const activeGrid =
+                                document.querySelector(
+                                    '.scroll-grid-x.visible-grid'
+                                );
+
+                            if (activeGrid) {
+
+                                const cfg =
+                                    ROW_CONFIG[defaultRows];
+
+                                const stage =
+                                    activeGrid.closest(
+                                        '.product-grid-stage'
+                                    );
+
+                                if (stage && cfg) {
+                                    stage.style.height =
+                                        cfg.containerH + 'px';
+                                }
+                            }
+                        }
+                    );
+
+
+                    // =========================================================
+                    // EXISTING PROJECT FUNCTIONS
+                    // =========================================================
+
+                    function openExplore() {
+                        console.log('Explore All clicked');
+                    }
+
+
+
+                </script>
+
+            </div>
+
+            <!-- ====== SOCIAL & CONTACT AREA ====== -->
+            <!-- Place this at the end of your product section, 
+                 just before the closing </div> of the main glass container -->
+
+            <div class="flex flex-wrap items-center justify-between gap-4 pt-6 mt-6 border-t border-white/10">
+
+                <!-- Left side: Follow us label + social icons -->
+                <div class="flex items-center gap-3 flex-wrap">
+                    <span class="text-xs font-medium uppercase tracking-wider text-slate-400/70">Follow us</span>
+
+                    <!-- Facebook -->
+                    <a href="#"
+                        class="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 hover:border-white/30 hover:scale-105 transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.15)]">
+                        <i class="bi bi-facebook text-sm"></i>
+                    </a>
+
+                    <!-- Instagram -->
+                    <a href="#"
+                        class="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 hover:border-white/30 hover:scale-105 transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.15)]">
+                        <i class="bi bi-instagram text-sm"></i>
+                    </a>
+
+                    <!-- TikTok -->
+                    <a href="#"
+                        class="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 hover:border-white/30 hover:scale-105 transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.15)]">
+                        <i class="bi bi-tiktok text-sm"></i>
+                    </a>
+                </div>
+
+                <!-- Right side: Call us button -->
+                <a href="tel:+1234567890"
+                    class="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-slate-300 hover:text-white hover:bg-white/10 hover:border-white/30 hover:scale-105 transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.15)]">
+                    <i class="bi bi-telephone-fill text-sm"></i>
+                    <span class="text-xs font-medium">Call Us</span>
+                    <span class="text-[10px] font-light text-slate-400/70">+1 (555) 000-0000</span>
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ============================================================
+     FOOTER
+     ============================================================ -->
+    <footer class="glass relative z-10 mt-8 backdrop-blur-xl">
+        <div class="px-6 py-8 md:px-8 md:py-10">
+
+            <!-- === TOP ROW: Brand + Actions === -->
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+
+                <!-- Left: Platform Identity -->
+                <div class="flex items-center gap-4">
+                    <!-- Logo mark -->
+                    <div
+                        class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-emerald-500 flex items-center justify-center shadow-lg shadow-blue-500/20 flex-shrink-0 overflow-hidden">
+
+                        <i class="bi bi-globe2"></i>
+                    </div>
+
+                    <div>
+                        <h3 class="text-sm font-bold tracking-tight text-white dark:text-white">
+                            Matager Platform
+                        </h3>
+                        <p class="text-[11px] text-slate-400 dark:text-slate-400 font-light">
+                            support@matager.com
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Right: Action Buttons -->
+                <div class="flex items-center gap-2 flex-wrap">
+
+                    <!-- Help Link -->
+                    <a href="#"
+                        class="px-4 py-2 rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 flex items-center gap-2 hover:scale-105">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                            </path>
+                        </svg>
+                        Help Center
+                    </a>
+
+                    <!-- Contact (with dropdown-like feel) -->
+                    <a href="#"
+                        class="px-4 py-2 rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 flex items-center gap-2 hover:scale-105">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                            </path>
+                        </svg>
+                        Contact
+                    </a>
+
+                    <!-- Divider -->
+                    <div class="w-px h-6 bg-white/10 dark:bg-white/10 hidden sm:block"></div>
+
+                    <!-- ★ Get a Store / Be a Seller (Primary CTA) -->
+                    <a href="#"
+                        class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-blue-500 to-emerald-500 text-white text-[11px] font-bold uppercase tracking-wider hover:shadow-lg hover:shadow-blue-500/30 transition-all duration-300 flex items-center gap-2 hover:scale-105 active:scale-95 whitespace-nowrap">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                        </svg>
+                        Get a Store
+                    </a>
+
+                </div>
+            </div>
+
+            <!-- === BOTTOM ROW: Copyright + Social + Legal === -->
+            <div
+                class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mt-6 pt-5 border-t border-white/5 dark:border-white/5">
+
+                <!-- Copyright -->
+                <p class="text-[11px] text-slate-500 dark:text-slate-500 font-light">
+                    © 2026 <span class="text-slate-400 dark:text-slate-400 font-medium">Matager</span>.
+                    All rights reserved.
+                </p>
+
+                <!-- Social Links + Legal -->
+                <div class="flex items-center gap-4 flex-wrap">
+
+                    <!-- Legal links -->
+                    <div class="flex items-center gap-3 text-[10px] text-slate-500 dark:text-slate-500">
+                        <a href="#" class="hover:text-slate-300 dark:hover:text-slate-300 transition-colors">Privacy</a>
+                        <span class="text-white/10 dark:text-white/10">|</span>
+                        <a href="#" class="hover:text-slate-300 dark:hover:text-slate-300 transition-colors">Terms</a>
+                        <span class="text-white/10 dark:text-white/10">|</span>
+                        <a href="#" class="hover:text-slate-300 dark:hover:text-slate-300 transition-colors">Cookies</a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <div id="nav-overlay" onclick="toggleMenu()"
+        class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 opacity-0 pointer-events-none transition-all duration-500">
+    </div>
+
+
+
+
+
+
+
+
+</body>
+
+</html>
