@@ -1,0 +1,412 @@
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matager — Commerce, without the noise.</title>
+    <link rel="icon" type="image/png" href="./favicon/favico.png">
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="./assets/style/bgroot.css">
+    <link rel="stylesheet" href="./assets/style/identity.css">
+    <link rel="stylesheet" href="./assets/style/customerview-premium.css">
+
+    <!-- Tailwind + Icons + Fonts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&amp;display=swap"
+        rel="stylesheet">
+
+    <!-- App scripts (dictionary added) -->
+    <!-- App scripts (dictionary added) -->
+    <script src="./assets/functions/consolelog.js"></script>
+    <script src="./assets/functions/filterationbtns.js"></script>
+    <script src="./assets/functions/notfic.js"></script>
+    <script src="./assets/functions/nav.js"></script>
+    <script src="./assets/functions/sounds.js"></script>
+    <script src="./assets/functions/doc.js"></script>
+    <script src="./assets/functions/dictionary.js"></script>
+    <script src="./assets/functions/performance-optimizer.js"></script>
+    <script src="./assets/functions/catalog-logic.js" defer=""></script> <!-- NEW -->
+
+
+</head>
+
+<body class="antialiased content-loaded">
+
+    <!-- ═══════════════════════════════════════════════════════════
+       NAV-ANCHORED ALERT PILL
+       ═══════════════════════════════════════════════════════════ -->
+    <div id="nav-alert-pill" class="nav-alert-pill" role="status" aria-live="polite" aria-atomic="true">
+        <div class="nav-alert-icon-slot" data-state="idle"></div>
+        <div class="nav-alert-text-slot">
+            <p class="nav-alert-title"></p>
+            <p class="nav-alert-message"></p>
+        </div>
+        <button type="button" class="nav-alert-dismiss" aria-label="Dismiss notification">
+            <i class="bi bi-x-lg"></i>
+        </button>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+       NOTIFICATIONS · ALERTS
+       ═══════════════════════════════════════════════════════════ -->
+    <script>
+        (function () {
+            'use strict';
+
+            const alertConfiguration = {
+                cart: { heading: 'Added to Cart', icon: 'bi-bag-check-fill', color: 'bg-emerald-500/20 text-emerald-400' },
+                auth: { heading: 'Security', icon: 'bi-shield-lock-fill', color: 'bg-blue-500/20 text-blue-400' },
+                success: { heading: 'Success', icon: 'bi-check-circle-fill', color: 'bg-emerald-500/20 text-emerald-400' },
+                logout: { heading: 'Session', icon: 'bi-door-open-fill', color: 'bg-orange-500/20 text-orange-400' },
+                favorite: { heading: 'Wishlist', icon: 'bi-heart-fill', color: 'bg-pink-500/20 text-pink-400' },
+                shipping: { heading: 'Delivery', icon: 'bi-truck', color: 'bg-indigo-500/20 text-indigo-400' },
+                reminder: { heading: 'Restock Alert', icon: 'bi-bell-fill', color: 'bg-amber-500/20 text-amber-400' }
+            };
+            const stateMap = {
+                cart: 'success', auth: 'info', success: 'success',
+                logout: 'warning', favorite: 'info', shipping: 'info', reminder: 'warning'
+            };
+
+            let systemNotificationsList = [];
+
+            function renderNotificationViewTray() {
+                const list = document.getElementById('notification-scroll-container');
+                if (!list) return;
+                if (systemNotificationsList.length === 0) {
+                    list.innerHTML = `<div class="py-8 text-center text-xs text-black/30 dark:text-white/30 flex flex-col items-center gap-2"><i class="bi bi-bell-slash text-lg"></i><span>No notifications available</span></div>`;
+                    updateCountBadgePill();
+                    return;
+                }
+                list.innerHTML = systemNotificationsList.map(item => {
+                    const ui = alertConfiguration[item.type] || alertConfiguration.auth;
+                    const dot = item.isRead ? '' : '<span class="w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0"></span>';
+                    return `
+            <div id="noti-card-${item.id}" onclick="event.stopPropagation(); toggleNotificationCardExpansion(${item.id})"
+                 class="group transition-all duration-300 cursor-pointer p-3 rounded-xl mb-2 card">
+              <div class="flex items-start justify-between gap-3">
+                <div class="flex gap-3 items-center">
+                  <div class="w-8 h-8 rounded-full flex items-center justify-center text-sm shrink-0 ${ui.color}">
+                    <i class="bi ${ui.icon}"></i>
+                  </div>
+                  <div>
+                    <div class="flex items-center gap-2">
+                      <p class="text-[11px] font-bold leading-tight txt2">${ui.heading}</p>${dot}
+                    </div>
+                    <p class="text-[9px] mt-0.5 txt2">${item.time}</p>
+                  </div>
+                </div>
+                <i id="chevron-icon-${item.id}"
+                   class="bi bi-chevron-down text-[10px] text-black/30 dark:text-white/30 group-hover:text-black/60 dark:group-hover:text-white/60 transition-transform duration-300"></i>
+              </div>
+              <div id="noti-details-${item.id}" class="max-h-0 overflow-hidden transition-all duration-300">
+                <div class="pt-2 mt-2 border-t border-gray-200 dark:border-white/5">
+                  <p class="text-[11px] text-black/70 dark:text-white/70 leading-relaxed">${item.text}</p>
+                </div>
+              </div>
+            </div>`;
+                }).join('');
+                updateCountBadgePill();
+            }
+
+            function toggleNotificationCardExpansion(id) {
+                const d = document.getElementById(`noti-details-${id}`);
+                const c = document.getElementById(`chevron-icon-${id}`);
+                const r = systemNotificationsList.find(n => n.id === id);
+                if (!d) return;
+                if (d.style.maxHeight && d.style.maxHeight !== '0px') {
+                    d.style.maxHeight = '0px';
+                    if (c) c.style.transform = 'rotate(0deg)';
+                } else {
+                    d.style.maxHeight = d.scrollHeight + 'px';
+                    if (c) c.style.transform = 'rotate(180deg)';
+                    if (r && !r.isRead) { r.isRead = true; setTimeout(renderNotificationViewTray, 450); }
+                }
+            }
+
+            function updateCountBadgePill() {
+                const unread = systemNotificationsList.filter(n => !n.isRead).length;
+                const el = document.getElementById('notification-badge-counter');
+                if (!el) return;
+                el.textContent = `${unread} Unread`;
+                el.className = unread === 0
+                    ? 'text-[10px] font-bold text-black/30 dark:text-white/30 px-2.5 py-1 rounded-lg bg-black/5 dark:bg-white/5 transition-all'
+                    : 'text-[10px] font-bold text-blue-600 dark:text-blue-400 px-2.5 py-1 rounded-lg bg-blue-500/10 transition-all';
+            }
+
+            window.markAllNotificationsAsRead = () => { systemNotificationsList.forEach(n => n.isRead = true); renderNotificationViewTray(); };
+            window.clearAllNotifications = () => { systemNotificationsList = []; renderNotificationViewTray(); };
+            window.toggleNotificationCardExpansion = toggleNotificationCardExpansion;
+
+            /* Alert pill */
+            const pill = document.getElementById('nav-alert-pill');
+            const pillIcon = pill?.querySelector('.nav-alert-icon-slot');
+            const pillTitle = pill?.querySelector('.nav-alert-title');
+            const pillMessage = pill?.querySelector('.nav-alert-message');
+            const pillDismiss = pill?.querySelector('.nav-alert-dismiss');
+            let pillTimer = null;
+
+            pillDismiss?.addEventListener('click', () => pill?.classList.remove('is-visible'));
+
+            function firePill(state, title, message) {
+                if (!pill) return;
+                pillIcon.dataset.state = state;
+                const cfg = alertConfiguration[state] || alertConfiguration.auth;
+                pillIcon.innerHTML = `<i class="bi ${cfg.icon}"></i>`;
+                pillTitle.textContent = title;
+                pillMessage.textContent = message;
+                pill.classList.add('is-visible');
+                clearTimeout(pillTimer);
+                pillTimer = setTimeout(() => pill.classList.remove('is-visible'), 4200);
+            }
+
+            window.showAlert = function (type, message) {
+                systemNotificationsList.unshift({ id: Date.now(), type, time: 'Just Now', text: message, isRead: false });
+                renderNotificationViewTray();
+                firePill(stateMap[type] || 'info', alertConfiguration[type]?.heading || 'Notice', message);
+            };
+
+            document.addEventListener('DOMContentLoaded', renderNotificationViewTray);
+        })();
+    </script>
+
+    <!-- ═══════════════════════════════════════════════════════════
+       MAIN CONTENT
+       ═══════════════════════════════════════════════════════════ -->
+    <main class="matager-customer-shell flex flex-col items-center" style="
+    /* width: max-content; */
+">
+
+        <!-- ★ Top bar: Gender filter + Language button -->
+
+
+        <!-- ═══════════ STORE HEADER ═══════════ -->
+        <!-- ═══════════ STORE HERO (Cover + Profile) ═══════════ -->
+        <section class="" style="
+    width: -webkit-fill-available;
+">
+            <article class="store-hero">
+
+                <!-- Cover image -->
+                <div class="store-hero-cover">
+                    <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1600&amp;q=80&amp;auto=format&amp;fit=crop"
+                        alt="Peacock Store cover" loading="eager" decoding="async">
+                </div>
+
+                <!-- Body -->
+                <div class="store-hero-body">
+
+                    <!-- Profile image -->
+                    <div class="store-hero-profile">
+                        <img src="https://static.vecteezy.com/system/resources/previews/012/464/679/original/minimal-peacock-logo-vector.jpg"
+                            alt="Peacock Store logo" loading="eager" decoding="async">
+                    </div>
+
+                    <!-- Info -->
+                    <div class="store-hero-info">
+                        <div class="store-hero-name-row">
+                            <h1 class="store-hero-name" data-i18n="storeName">Peacock Store</h1>
+                            <span class="store-hero-verified"><i class="bi bi-patch-check-fill"></i></span>
+                        </div>
+                        <p class="store-hero-tagline" data-i18n="storeTagline">Premium products curated for the modern
+                            lifestyle</p>
+                        <!-- ═══════════ STORE HERO STATS (FIXED) ═══════════ -->
+                        <div class="store-hero-stats">
+                            <div class="store-hero-stat">
+                                <span class="stat-value">1,284</span>
+                                <span class="stat-label" data-i18n="storeProducts">1,284 products</span>
+                            </div>
+                            <div class="store-hero-stat">
+                                <span class="stat-value">284</span>
+                                <span class="stat-label" data-i18n="storeFollowers">284 Followers</span>
+                            </div>
+                            <div class="store-hero-stat">
+                                <span class="stat-value">4.9 ★</span>
+                                <span class="stat-label" data-i18n="storeRating">4.9 ★ (2.3k)</span>
+                            </div>
+                        </div>
+                        <div class="store-hero-badge-area">
+                            <span class="store-hero-badge" data-i18n="badgeStorecategory">Men</span>
+                            <span class="store-hero-badge" data-i18n="badgeStorecategory">Clothing</span>
+                        </div>
+
+
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="store-hero-actions">
+                        <button type="button" onclick="FollowStore()" class="store-hero-btn is-primary">
+                            <i class="bi bi-node-plus-fill"></i> Follow
+                        </button>
+                        <button type="button" onclick="copyStoreLink()" class="store-hero-btn">
+                            <i class="bi bi-link-45deg"></i> Share
+                        </button>
+                        <button type="button" onclick="togglePresentationMode()" class="store-hero-btn">
+                            <i class="bi bi-bag-check"></i> Cart Mode
+                        </button>
+                    </div>
+
+                </div>
+            </article>
+        </section>
+
+
+        <!-- ═══════════ PRODUCTS ═══════════ -->
+        <!-- ═══════════ PRODUCTS ═══════════ -->
+        <section id="products" class="">
+            <div class="">
+
+                <!-- ★ Switcher area (Inside the glass panel, above the product header) -->
+                <div class="flex items-center gap-3 pb-4" style="display:flex;justify-content: space-between;">
+                    <div class="flex gap-4 mb-2 mt-2 pt-2 overflow-scroll" id="category-switcher">
+                        <button data-category="featured"
+                            class="category-btn px-4 py-2 rounded-xl text-xs font-medium transition-all flex items-center gap-2 active"
+                            data-i18n="catFeatured">Featured</button>
+                        <button data-category="best-seller"
+                            class="category-btn px-4 py-2 rounded-xl text-xs font-medium transition-all flex items-center gap-2"
+                            data-i18n="catBestSeller">Best Seller</button>
+                        <button data-category="limited-items"
+                            class="category-btn px-4 py-2 rounded-xl text-xs font-medium transition-all flex items-center gap-2"
+                            data-i18n="catLimited">Limited Items</button>
+                        <button data-category="sale-items"
+                            class="category-btn px-4 py-2 rounded-xl text-xs font-medium transition-all flex items-center gap-2"
+                            data-i18n="catSale">Sale Items</button>
+                        <button data-category="Collections-items"
+                            class="category-btn px-4 py-2 rounded-xl text-xs font-medium transition-all flex items-center gap-2"
+                            data-i18n="catCollections">Collections</button>
+                    </div><span
+                        class="flex gap-4 mb-2 mt-2 pt-2 text-[10px] font-bold opacity-40 text-black dark:text-white mr-2"
+                        id="item-count">24
+                        Items</span>
+
+
+                </div>
+
+                <!-- Product Header Text -->
+                <div class="w-full max-w-7xl flex flex-col md:flex-row justify-between items-center mb-8 gap-8 hidden">
+                    <div class="relative min-h-[100px] px-1 flex-1 w-full">
+                        <div id="text-featured" class="text-content-wrapper active-text">
+                            <h2 class="text-5xl md:text-7xl font-bold tracking-tighter leading-[0.85] mb-4"
+                                data-i18n="headingFeatured">Featured.</h2>
+                            <p class="text-slate-500 text-base md:text-lg font-light" data-i18n="descFeatured">Carefully
+                                selected pieces designed to elevate your daily environment.</p>
+                        </div>
+                        <div id="text-best-seller" class="text-content-wrapper hidden-text">
+                            <h2 class="text-5xl md:text-7xl font-bold tracking-tighter leading-[0.85] mb-4"
+                                data-i18n="headingBestSellers">Best Sellers.</h2>
+                            <p class="text-slate-500 text-base md:text-lg font-light" data-i18n="descBestSellers">The
+                                items our community loves most.</p>
+                        </div>
+                        <div id="text-sale-items" class="text-content-wrapper hidden-text">
+                            <h2 class="text-5xl md:text-7xl font-bold tracking-tighter leading-[0.85] mb-4"
+                                data-i18n="headingOnSale">On Sale.</h2>
+                            <p class="text-slate-500 text-base md:text-lg font-light" data-i18n="descOnSale">
+                                Limited-time pricing on high-end essentials.</p>
+                        </div>
+                        <div id="text-limited-items" class="text-content-wrapper hidden-text">
+                            <h2 class="text-5xl md:text-7xl font-bold tracking-tighter leading-[0.85] mb-4"
+                                data-i18n="headingLimitedPicks">Limited Picks.</h2>
+                            <p class="text-slate-500 text-base md:text-lg font-light" data-i18n="descLimited">Exclusive
+                                drops, limited quantities.</p>
+                        </div>
+                        <div id="text-Collections-items" class="text-content-wrapper hidden-text">
+                            <h2 class="text-5xl md:text-7xl font-bold tracking-tighter leading-[0.85] mb-4"
+                                data-i18n="headingCollections">Collections.</h2>
+                            <p class="text-slate-500 text-base md:text-lg font-light" data-i18n="descCollections">
+                                Curated collections available now.</p>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!-- Product Grid Stage -->
+                <div class="relative w-full product-grid-stage" style="height: 540px;">
+                    <!-- Featured Grid -->
+                    <div id="grid-featured" class="scroll-grid-x visible-grid" data-rows="2" style="height: 540px;">
+                        <div class="product-card glass rounded-[1rem] group cursor-pointer overflow-hidden brdr8 transition-all duration-500 relative bg-black/70"
+                            onclick="event.stopPropagation(); openQuickLook('PROD_001')"
+                            style="width:200px;height:250px;">
+                            <div class="aspect-[4/5] overflow-hidden relative w-full h-full">
+                                <div class="absolute inset-0 bg-cover bg-center transition-all duration-700 group-hover:scale-105 group-hover:blur-sm"
+                                    style="background-image:url('https://assets.adidas.com/images/w_1880,f_auto,q_auto/a4ff4a779ee34deca8cc9a6f1f411440_9366/KC6611_HM1.jpg');">
+                                </div>
+                                <div
+                                    class="absolute top-4 left-4 bg-red-950/80 backdrop-blur-md border border-red-500/30 text-red-400 text-[8px] uppercase font-black tracking-wider px-2 py-1 rounded-md z-40">
+                                    50% off</div>
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-6 translate-y-12 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100 z-40">
+                                    <h4 class="font-medium text-[12px] text-white leading-tight">Adidas classic t-shirt
+                                    </h4>
+                                    <p class="text-[10px] mb-3 opacity-60 text-white">Adidas</p>
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-[10px] font-bold text-white">EGP 4,500</span>
+                                        <span class="text-[10px] text-emerald-400 font-bold">Free Delivery</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Best Seller Grid (Empty for demonstration) -->
+                    <div id="grid-best-seller" class="scroll-grid-x hidden-grid" data-rows="2" style="height: 540px;">
+                    </div>
+                    <!-- Sale Items Grid -->
+                    <div id="grid-sale-items" class="scroll-grid-x hidden-grid" data-rows="2" style="height: 540px;">
+                    </div>
+                    <!-- Limited Items Grid -->
+                    <div id="grid-limited-items" class="scroll-grid-x hidden-grid" data-rows="2" style="height: 540px;">
+                    </div>
+                    <!-- Collections Grid -->
+                    <div id="grid-Collections-items" class="scroll-grid-x hidden-grid" data-rows="2"
+                        style="height: 540px;">
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        <!-- ═══════════ FOOTER ═══════════ -->
+        <footer class="">
+            <div class="px-6 py-8 md:px-8 md:py-10">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                    <div class="flex items-center gap-4">
+                        <div
+                            class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-emerald-500 flex items-center justify-center shadow-lg shadow-blue-500/20 flex-shrink-0 overflow-hidden">
+                            <i class="bi bi-globe2"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-bold tracking-tight text-white">Matager Platform</h3>
+                            <p class="text-[11px] text-slate-400 font-light">support@matager.com</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <a href="#"
+                            class="px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 transition-all">Help
+                            Center</a>
+                        <a href="#"
+                            class="px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 transition-all">Contact</a>
+                        <div class="w-px h-6 bg-white/10 hidden sm:block"></div>
+                        <a href="#"
+                            class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-blue-500 to-emerald-500 text-white text-[11px] font-bold uppercase tracking-wider hover:shadow-lg hover:shadow-blue-500/30 transition-all flex items-center gap-2 whitespace-nowrap">Get
+                            a Store</a>
+                    </div>
+                </div>
+                <div
+                    class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mt-6 pt-5 border-t border-white/5">
+                    <p class="text-[11px] text-slate-500 font-light">© 2026 <span
+                            class="text-slate-400 font-medium">Matager</span>. All rights reserved.</p>
+                    <div class="flex items-center gap-3 text-[10px] text-slate-500">
+                        <a href="#" class="hover:text-slate-300 transition-colors">Privacy</a><span>|</span>
+                        <a href="#" class="hover:text-slate-300 transition-colors">Terms</a><span>|</span>
+                        <a href="#" class="hover:text-slate-300 transition-colors">Cookies</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+
+    </main>
+</body>
+
+</html>
