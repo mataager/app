@@ -533,27 +533,6 @@ body.sticky-cta-open{overflow:hidden}
 .gallery-title{margin:0;font-size:11px;font-weight:700;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .gallery-price{font-size:11px;font-weight:800;color:#fff;margin-top:2px}
 /* ── v2 additions ── */
-.sticky-cta-logo{
-  position:relative;
-  flex:0 0 44px;width:44px;height:44px;border-radius:50%;
-  border:1px solid rgba(255,255,255,.18);
-  background:
-    radial-gradient(circle at 30% 25%, rgba(255,255,255,.14), rgba(255,255,255,0) 55%),
-    linear-gradient(145deg,#232328,#131316 60%,#0d0d10);
-  padding:0;overflow:hidden;display:flex;align-items:center;justify-content:center;
-  cursor:pointer;
-
-  transition:opacity .25s,width .3s cubic-bezier(.16,1,.3,1),flex-basis .3s cubic-bezier(.16,1,.3,1),margin .3s cubic-bezier(.16,1,.3,1),transform .18s,box-shadow .25s,border-color .25s;
-}
-.sticky-cta-logo::before{
-  content:"";
-  position:absolute;inset:3px;border-radius:50%;
-  background:#17171a url("assets/raw/favicon.png") center/contain no-repeat;
-  background-size:78% 78%;
-}
-
-
-
 .pd-dots{display:flex;align-items:center;justify-content:center;gap:6px;padding:10px 0 2px;flex-wrap:wrap}
 .pd-dot{width:6px;height:6px;border-radius:999px;padding:0;border:none;cursor:pointer;background:rgba(255,255,255,.22);transition:width .28s cubic-bezier(.16,1,.3,1),background .22s,transform .16s}
 .pd-dot:hover{background:rgba(255,255,255,.45)}
@@ -577,7 +556,7 @@ body.sticky-cta-open{overflow:hidden}
 .gallery-chip:hover{background:rgba(59,130,246,.24);border-color:rgba(59,130,246,.5)}
 .gallery-chip i{font-size:10px;opacity:.85}
 .category-count{position:absolute;left:8px;bottom:8px;padding:3px 9px;border-radius:999px;background:rgba(0,0,0,.6);backdrop-filter:blur(8px);color:#fff;font-size:9px;font-weight:800;letter-spacing:.03em}
-@media (max-width:480px){.sticky-cta{bottom:calc(14px + env(safe-area-inset-bottom,0px));backdrop-filter:blur(12px) saturate(120%);-webkit-backdrop-filter:blur(12px) saturate(120%)}.sticky-view{padding:14px 13px 12px}.cta-tile{height:34px;padding:0 7px;font-size:9px}.cta-tile-ico{width:20px;height:20px}.cta-tile-ico i{font-size:10.5px}.view-title{font-size:12.5px}.cta-alert-zone{width:calc(100vw - 26px)}.order-grid{grid-template-columns:1fr}.gallery-grid{grid-template-columns:repeat(2,1fr);gap:6px}.pd-lightbox-frame{height:min(64vh,520px)}.sticky-cta-logo{flex:0 0 40px;width:40px;height:40px;font-size:13.5px}}
+@media (max-width:480px){.sticky-cta{bottom:calc(14px + env(safe-area-inset-bottom,0px));backdrop-filter:blur(12px) saturate(120%);-webkit-backdrop-filter:blur(12px) saturate(120%)}.sticky-view{padding:14px 13px 12px}.cta-tile{height:34px;padding:0 7px;font-size:9px}.cta-tile-ico{width:20px;height:20px}.cta-tile-ico i{font-size:10.5px}.view-title{font-size:12.5px}.cta-alert-zone{width:calc(100vw - 26px)}.order-grid{grid-template-columns:1fr}.gallery-grid{grid-template-columns:repeat(2,1fr);gap:6px}.pd-lightbox-frame{height:min(64vh,520px)}
 @media (max-width:380px){.sticky-cta{backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}.cta-tile{padding:0 5px}.cta-tile-label{display:none}.cta-tile{justify-content:center}}
 @media (prefers-reduced-motion:reduce){.sticky-cta,.sticky-cta-panel,.sticky-view,.sticky-cta-toggle,.sticky-cta-back,.cta-tile,.cta-tile-ico,.sticky-cta-overlay,.cta-alert-zone,.cta-toast,.address-card,.payment-option,.smooth-dropdown,.order-details,.order-chevron,.pd-review-form,.pd-review-text-wrap,.hub-ad-msg,.mv-dot,.pd-dot,.sticky-cta-logo,.pd-lightbox{transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}}
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.sticky-cta{background:#17171a}.cta-toast{background:rgba(12,12,15,.98)}.filter-dropdown{background:rgba(14,14,17,1)}.sticky-cta-overlay{background:rgba(0,0,0,.75)}.gallery-fav{background:rgba(0,0,0,.8)}.pd-lightbox{background:rgba(6,6,8,.98)}}
@@ -595,7 +574,6 @@ body.sticky-cta-open{overflow:hidden}
     <div class="sticky-cta-panel-inner" id="stickyCtaViews"></div>
   </div>
   <div class="sticky-cta-bar">
-    <button class="sticky-cta-logo" type="button" id="stickyLogoBtn" aria-label="Peacock Store">P</button>
     <button class="sticky-cta-back" type="button" id="stickyBackBtn" aria-label="Back">
       <i class="bi bi-chevron-left"></i>
     </button>
